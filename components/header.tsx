@@ -24,7 +24,7 @@ const Header = ({ home = false }: Props) => {
               : <p className={headerClasses}>{headerLink}</p>
           }
         </div>
-        <nav className="main-navigation flex gap-4 mt-4">
+        <nav className="main-navigation flex gap-4 mt-4 md:mt-0">
           <Link href="/">
             <a className="hover:underline">Início</a>
           </Link>
