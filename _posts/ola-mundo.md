@@ -1,5 +1,5 @@
 ---
-title: 'Olá mundo'
+title: 'Olá, mundo'
 excerpt: 'Um blog sobre computação e engenharia de software não poderia começar de outra forma. Desde que o primeiro...'
 slug: 'ola-mundo'
 coverImage: '/assets/blog/ola-mundo/cover.png'
