@@ -15,9 +15,9 @@ type ContactForm = {
 }
 
 const Contato = () => {
-  const [serverState, setServerState] = useState()
+  const [serverState, setServerState] = useState({ ok: false, msg: '' })
 
-  const handleServerResponse = (ok, msg) => {
+  const handleServerResponse = (ok: boolean, msg: string) => {
     setServerState({ ok, msg })
   }
 
@@ -90,13 +90,15 @@ const Contato = () => {
                           required
                         />
                         <button type="submit" disabled={isSubmitting} className="px-4 py-2 rounded-md mb-8 font-bold bg-red-600 text-white">
-                          Submit
+                          Enviar
                         </button>
+
                         {serverState && (
                           <p className={!serverState.ok ? 'errorMsg' : ''}>
                             {serverState.msg}
                           </p>
                         )}
+                        */
                       </Form>
                     )}
                   </Formik>
