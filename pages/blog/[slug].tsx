@@ -24,32 +24,38 @@ const Post = ({ post, morePosts, preview }: Props) => {
     return <ErrorPage statusCode={404} />
   }
   return (
-    <Layout preview={preview}>
-      <Container>
+    <>
+      <Layout>
         <Header />
-        {router.isFallback ? (
-          <PostTitle>Loading…</PostTitle>
-        ) : (
-          <>
-            <article className="mb-32">
-              <Head>
-                <title>
-                  {post.title} | Next.js Blog Example with {CMS_NAME}
-                </title>
-                <meta property="og:image" content={post.ogImage.url} />
-              </Head>
-              <PostHeader
-                title={post.title}
-                coverImage={post.coverImage}
-                date={post.date}
-                author={post.author}
-              />
-              <PostBody content={post.content} />
-            </article>
-          </>
-        )}
-      </Container>
-    </Layout>
+        <main>
+          <Container>
+            {router.isFallback
+              ? (
+                <PostTitle>Loading…</PostTitle>
+                )
+              : (
+                <>
+                  <article className="mb-32">
+                    <Head>
+                      <title>
+                        {post.title} | Next.js Blog Example with {CMS_NAME}
+                      </title>
+                      <meta property="og:image" content={post.ogImage.url} />
+                    </Head>
+                    <PostHeader
+                      title={post.title}
+                      coverImage={post.coverImage}
+                      date={post.date}
+                      author={post.author}
+                    />
+                    <PostBody content={post.content} />
+                  </article>
+                </>
+                )}
+          </Container>
+        </main>
+      </Layout>
+    </>
   )
 }
 
@@ -61,7 +67,7 @@ type Params = {
   }
 }
 
-export async function getStaticProps({ params }: Params) {
+export async function getStaticProps ({ params }: Params) {
   const post = getPostBySlug(params.slug, [
     'title',
     'date',
@@ -69,7 +75,7 @@ export async function getStaticProps({ params }: Params) {
     'author',
     'content',
     'ogImage',
-    'coverImage',
+    'coverImage'
   ])
   const content = await markdownToHtml(post.content || '')
 
@@ -77,23 +83,23 @@ export async function getStaticProps({ params }: Params) {
     props: {
       post: {
         ...post,
-        content,
-      },
-    },
+        content
+      }
+    }
   }
 }
 
-export async function getStaticPaths() {
+export async function getStaticPaths () {
   const posts = getAllPosts(['slug'])
 
   return {
     paths: posts.map((posts) => {
       return {
         params: {
-          slug: posts.slug,
-        },
+          slug: posts.slug
+        }
       }
     }),
-    fallback: false,
+    fallback: false
   }
 }

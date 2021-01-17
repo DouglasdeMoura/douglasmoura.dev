@@ -11,15 +11,18 @@
     "test:watch": "jest --watchAll"
   },
   "dependencies": {
+    "axios": "^0.21.1",
     "classnames": "2.2.6",
     "date-fns": "2.10.0",
+    "formik": "^2.2.6",
     "gray-matter": "4.0.2",
     "next": "latest",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
     "remark": "11.0.2",
     "remark-html": "10.0.0",
-    "typescript": "^4.0.3"
+    "typescript": "^4.0.3",
+    "yup": "^0.32.8"
   },
   "devDependencies": {
     "@types/classnames": "^2.2.10",
@@ -52,7 +55,6 @@
   },
   "license": "MIT",
   "lint-staged": {
-    "**/*.ts?(x)": "yarn typecheck",
     "**/*.(ts|js)?(x)": "yarn lint"
   },
   "husky": {

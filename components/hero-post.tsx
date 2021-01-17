@@ -19,17 +19,17 @@ const HeroPost = ({
   date,
   excerpt,
   author,
-  slug,
+  slug
 }: Props) => {
   return (
-    <section>
+    <article>
       <div className="mb-8 md:mb-16">
         <CoverImage title={title} src={coverImage} slug={slug} />
       </div>
       <div className="md:grid md:grid-cols-2 md:gap-x-16 lg:gap-x-8 mb-20 md:mb-28">
         <div>
           <h3 className="mb-4 text-4xl lg:text-6xl leading-tight">
-            <Link as={`/posts/${slug}`} href="/posts/[slug]">
+            <Link as={`/blog/${slug}`} href="/blog/[slug]">
               <a className="hover:underline">{title}</a>
             </Link>
           </h3>
@@ -42,7 +42,7 @@ const HeroPost = ({
           <Avatar name={author.name} picture={author.picture} />
         </div>
       </div>
-    </section>
+    </article>
   )
 }
 
