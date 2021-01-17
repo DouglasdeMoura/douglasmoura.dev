@@ -16,7 +16,7 @@ const Header = ({ home = false }: Props) => {
 
   return (
     <Container>
-      <header className="mb-10 pb-10 pt-8 flex gap-4 text-base items-center justify-between border-b border-accent-7">
+      <header className="mb-10 pb-10 pt-8 sm:flex gap-4 text-base items-center justify-between border-b border-accent-7">
         <div className="site-branding">
           {
             home
@@ -24,7 +24,7 @@ const Header = ({ home = false }: Props) => {
               : <p className={headerClasses}>{headerLink}</p>
           }
         </div>
-        <nav className="main-navigation flex gap-4">
+        <nav className="main-navigation flex gap-4 mt-4">
           <Link href="/">
             <a className="hover:underline">Início</a>
           </Link>
