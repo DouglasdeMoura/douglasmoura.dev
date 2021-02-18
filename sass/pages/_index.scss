@@ -1,0 +1,30 @@
+.front-page {
+  overflow: hidden;
+  // background: linear-gradient(217deg,rgba(88,233,231,.8),rgba(255,0,0,0) 70.71%),linear-gradient(127deg,rgba(182,200,247,.8),rgba(0,255,0,0) 70.71%),linear-gradient(336deg,rgba(71,78,96,.8),rgba(0,0,255,0) 70.71%);
+  height: 100vh;
+  @extend .centered;
+  flex-direction: column;
+
+  .inner-container {
+    padding: 1em;
+    margin: 1em;
+    border-radius: 12px;
+    text-align: center;
+    background: var(--color-true-gray-900);
+  }
+
+  .avatar img {
+    border-radius: 50%;
+    border: 3px solid var(--color-white);
+  }
+
+  .social {
+    @extend .centered;
+    margin: 0;
+    padding: 0;
+  }
+
+  h1 {
+    font-size: var(--size-4);
+  }
+}
