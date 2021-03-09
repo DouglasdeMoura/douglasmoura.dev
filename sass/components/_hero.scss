@@ -1,0 +1,28 @@
+.hero {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: var(--size-2);
+  display: flex;
+  gap: var(--size-2);
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.salute h1 {
+  font-size: var(--size-5);
+  font-weight: normal;
+  text-align: center;
+  transition: font-size .5s var(--transition);
+}
+
+@media(min-width: 65rem) {
+  .hero {
+    flex-direction: row;
+  }
+
+  .salute h1 {
+    font-size: var(--size-6);
+    text-align: left;
+  }
+}
