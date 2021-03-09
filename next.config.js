@@ -1,4 +1,9 @@
 module.exports = {
+  env: {
+    POSTS_DIRECTORY: '_posts',
+    SITE_NAME: 'Douglas Moura',
+    SITE_DESCRIPTION: 'Software Engineer'
+  },
   images: {
     domains: ['gravatar.com'],
   },
