@@ -12,10 +12,8 @@ class MyDocument extends Document {
       <Html>
         <Head />
         <body className="hfeed">
-          <div id="page" className="site">
-            <Main />
-            <NextScript />
-          </div>
+          <Main />
+          <NextScript />
         </body>
       </Html>
     )
