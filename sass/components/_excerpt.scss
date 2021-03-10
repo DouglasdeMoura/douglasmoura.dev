@@ -34,7 +34,7 @@
   .entry-excerpt {
     margin: var(--size-2) 0;
     color: var(--color-foreground);
-
+    font-size: 112.5%;
   }
 
   .read-more {
@@ -59,14 +59,31 @@
 
   .entry-title {
     line-height: 1.1;
-    font-size: var(--size-5);
+    font-size: var(--size-9);
 
-    & a {
+    a {
       color: var(--color-foreground-accent);
       transition: color 0.3s var(--transition);
+      position: relative;
 
-      &:hover {
-        color: var(--color-link);
+      &:after {
+        content: '';
+        display: block;
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        position: absolute;
+        top: 7px;
+        right: -7px;
+        transition: background .3s var(--transition);
+      }
+
+      &:hover:after {
+        background-color: var(--color-lime-400);
+      }
+
+      &:active:after {
+        background-color: var(--color-green-700);
       }
     }
   }
