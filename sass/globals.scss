@@ -388,12 +388,14 @@ body {
 @import "helpers/helpers";
 @import "helpers/prose";
 // Components
+@import "components/author";
 @import "components/avatar";
 @import "components/header";
 @import "components/hero";
 @import "components/excerpt";
 @import "components/footer";
 @import "components/featured-image";
+@import "components/share";
 
 @import "pages/index";
 @import "pages/[slug]";

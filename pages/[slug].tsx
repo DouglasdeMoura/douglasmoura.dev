@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import { InferGetStaticPropsType, GetStaticProps } from 'next';
 import DateTime from '../components/date-time';
 import Template from '../components/template';
@@ -6,6 +7,9 @@ import Posts from '../lib/Posts';
 import renderToString from 'next-mdx-remote/render-to-string';
 import hydrate from 'next-mdx-remote/hydrate';
 import FeaturedImage from '../components/featured-image';
+import ReadingTime from '../components/reading-time';
+import Author from '../components/author';
+import Share from '../components/share';
 
 const posts = new Posts(process.env.POSTS_DIRECTORY);
 
@@ -49,8 +53,15 @@ export default function Slug({ siteInfo: { title, description }, post }: InferGe
             </h1>
             <div className="entry-meta">
               <DateTime published={date} updated={modified} />
+              {' '} · {' '}
+              <ReadingTime content={source.renderedOutput} />
             </div>
           </header>
+          <div className="entry-share">
+            <Author />
+            <Share />
+          </div>
+
           {featuredImage &&
             <FeaturedImage
               src={featuredImage}

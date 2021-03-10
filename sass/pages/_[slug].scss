@@ -18,6 +18,14 @@
     color: var(--color-foreground);
   }
 
+  .entry-share {
+    display: flex;
+    gap: var(--size-2);
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--size-2);
+  }
+
   .featured-image {
     margin-bottom: var(--size-5);
   }

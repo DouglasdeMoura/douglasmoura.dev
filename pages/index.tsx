@@ -4,7 +4,7 @@ import { ArrowRight } from 'react-zondicons';
 import Excerpt from '../components/excerpt';
 import Hero from '../components/hero';
 import Template from '../components/template';
-import __ from '../i18n/locales';
+import __, { getLocale } from '../i18n/locales';
 import Posts from '../lib/Posts';
 
 export async function getStaticProps() {
@@ -36,15 +36,17 @@ export default function Index({ siteInfo: { title, description }, posts }: Infer
           <h1>Blog</h1>
         </header>
         <div className="featured-posts">
-          {posts.map(post => <Excerpt {...post} key={post.id} />)}
+          {posts.filter(post => post.locale === getLocale()).map(post => <Excerpt {...post} key={post.id} />)}
         </div>
-        <nav className="post-navigation">
-          <Link href="/blog">
-            <a className="button arrow next">
-              <span className="screen-reader-text">{__('See all posts')}</span> <ArrowRight size={16} />
-            </a>
-          </Link>
-        </nav>
+        {posts.length > 20 &&
+          <nav className="post-navigation">
+            <Link href="/blog">
+              <a className="button arrow next">
+                <span className="screen-reader-text">{__('See all posts')}</span> <ArrowRight size={16} />
+              </a>
+            </Link>
+          </nav>
+        }
       </main>
     </Template>
   )

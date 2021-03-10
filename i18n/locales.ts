@@ -1,5 +1,4 @@
 import { useRouter } from 'next/router';
-
 // Key should always be in English
 const localization = {
   'MMMM, LL y': {
@@ -47,7 +46,26 @@ const localization = {
   'Software Engineer': {
     'pt-BR': 'Engenheiro de Software',
   },
+  'by': {
+    'pt-BR': 'por',
+  },
+  'Copy link': {
+    'pt-BR': 'Copiar link',
+  },
+  'Share': {
+    'pt-BR': 'Compartilhar',
+  },
 };
+
+export function getLocale() {
+  const { locale } = useRouter();
+  return locale;
+}
+
+export function getDefaultLocale() {
+  const { defaultLocale } = useRouter();
+  return defaultLocale
+}
 
 export default function __(text: string) {
   const { locale } = useRouter();

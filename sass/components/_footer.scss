@@ -1,11 +1,12 @@
 .site-footer {
   position: relative;
+  margin-top: 100px;
 }
 
 .wave {
   width: 100%;
   position: absolute;
-  bottom: 0;
+  bottom: -20px;
   z-index: -2;
 
   svg {

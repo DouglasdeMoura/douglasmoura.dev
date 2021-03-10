@@ -7,11 +7,6 @@ import isHome from '../utils/isHome';
 export default function Header() {
   const { locale } = useRouter();
 
-  const localizedLink = (adress) => {
-    const prefix = locale === 'en' ? '/en' : '';
-    return `${prefix}${adress}`;
-  }
-
   const siteTitle = <Link href="/"><a rel="home">{process.env.SITE_NAME}</a></Link>;
 
   return (
@@ -32,23 +27,9 @@ export default function Header() {
             <div id="primary-menu" className="site-navigation">
               <ul role="list">
                 <li>
-                  <Link href={localizedLink('/')}>
+                  <Link href={'/'}>
                     <a>
                       {__('Home')}
-                    </a>
-                  </Link>
-                </li>
-                <li>
-                  <Link href={localizedLink('/')}>
-                    <a>
-                      {__('About')}
-                    </a>
-                  </Link>
-                </li>
-                <li>
-                  <Link href={localizedLink('/')}>
-                    <a>
-                      {__('Contact')}
                     </a>
                   </Link>
                 </li>
