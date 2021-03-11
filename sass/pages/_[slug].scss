@@ -1,6 +1,6 @@
 .single {
   margin: auto;
-  max-width: 63rem;
+  max-width: 70rem;
   padding: var(--size-2);
 
   .entry-header {
@@ -11,11 +11,13 @@
   .entry-title {
     font-size: var(--size-9);
     margin-bottom: var(--size-2);
+    text-align: center;
   }
 
   .entry-meta {
     font-size: var(--size-1);
     color: var(--color-foreground);
+    text-align: center;
   }
 
   .entry-share {
@@ -23,7 +25,7 @@
     gap: var(--size-2);
     justify-content: space-between;
     align-items: center;
-    margin-bottom: var(--size-2);
+    margin: var(--size-6) 0 var(--size-8);
   }
 
   .featured-image {
