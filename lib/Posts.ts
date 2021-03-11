@@ -89,6 +89,10 @@ export default class Posts {
   }
 
   get all(): Post[] {
-    return this.postsList.map(post => this.processPost(post));
+    return (
+      this.postsList
+        .map(post => this.processPost(post))
+        .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+    );
   }
 }
