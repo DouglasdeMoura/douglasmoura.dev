@@ -1,0 +1,25 @@
+.byline {
+  display: flex;
+  align-items: center;
+  gap: var(--size-0);
+
+  .avatar {
+    width: 28px;
+    height: 28px;
+
+    img {
+      width: 28px;
+      height: 28px;
+    }
+  }
+
+  a {
+    color: var(--color-foreground-accent);
+    transition: color 0.3s var(--transition);
+    text-decoration: none;
+
+    &:hover {
+      color: var(--color-link-hover);
+    }
+  }
+}

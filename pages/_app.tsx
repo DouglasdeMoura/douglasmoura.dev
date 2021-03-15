@@ -1,7 +1,6 @@
-import { AppProps } from 'next/app'
-import '../styles/index.css'
-import '../styles/dracula-prism.css'
+import 'modern-css-reset/dist/reset.min.css';
+import '../sass/globals.scss';
 
-export default function MyApp ({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />
+export default function MyApp({ Component, pageProps }) {
+  return <Component {...pageProps} />;
 }

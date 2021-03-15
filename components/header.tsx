@@ -1,47 +1,43 @@
-import Container from '../components/container'
-import Link from 'next/link'
-import Intro from './intro'
+import Head from 'next/head';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import __ from '../i18n/locales';
+import isHome from '../utils/isHome';
 
-type Props = {
-  home?: boolean
-}
+export default function Header() {
+  const { locale } = useRouter();
 
-const Header = ({ home = false }: Props) => {
-  const headerClasses = 'text-2xl font-bold tracking-tight md:tracking-tighter leading-tight'
-  const headerLink = (
-    <Link href="/">
-      <a className="hover:underline">Douglas Moura</a>
-    </Link>
-  )
+  const siteTitle = <Link href="/"><a rel="home">{process.env.SITE_NAME}</a></Link>;
 
   return (
-    <Container>
-      <header className="mb-10 pb-10 pt-8 sm:flex gap-4 text-base items-center justify-between border-b border-accent-7">
-        <div className="site-branding">
-          {
-            home
-              ? <h1 className={`${headerClasses} sr-only`}>{headerLink}</h1>
-              : <p className={headerClasses}>{headerLink}</p>
-          }
+    <>
+      <Head>
+        <link rel="preconnect" href="https://fonts.gstatic.com" />
+        <link href={`https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;700&display=swap`} rel="stylesheet" />
+      </Head>
+      <a className="skip-link screen-reader-text" href="#primary">
+        {__('Skip to content')}
+      </a>
+      <header id="masthead" className="site-header">
+        <div className="container">
+          <div className="site-branding">
+            {isHome() ? <h1 className="site-title">{siteTitle}</h1> : <p className="site-title">{siteTitle}</p>}
+          </div>
+          <nav id="site-navigation" className="main-navigation">
+            <div id="primary-menu" className="site-navigation">
+              <ul role="list">
+                <li>
+                  <Link href={'/'}>
+                    <a>
+                      {__('Home')}
+                    </a>
+                  </Link>
+                </li>
+              </ul>
+            </div>
+          </nav>
         </div>
-        <nav className="main-navigation flex gap-4 mt-4 md:mt-0">
-          <Link href="/">
-            <a className="hover:underline">Início</a>
-          </Link>
-          <Link href="/blog">
-            <a className="hover:underline">Blog</a>
-          </Link>
-          <Link href="/sobre">
-            <a className="hover:underline">Sobre</a>
-          </Link>
-          <Link href="/contato">
-            <a className="hover:underline">Contato</a>
-          </Link>
-        </nav>
       </header>
-      {home && <Intro />}
-    </Container>
-  )
+    </>
+  );
 }
-
-export default Header
