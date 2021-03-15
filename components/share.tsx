@@ -15,7 +15,7 @@ export default function Share() {
   const shareLink = (event) => {
     let url;
     const postUrl = window.location.href;
-    const title = document.getElementsByClassName('entry-title')[0].innerText;
+    const title = document.getElementsByClassName('entry-title')[0].innerHTML;
     const network = event.currentTarget.dataset.shareOn;
 
     switch (network) {
