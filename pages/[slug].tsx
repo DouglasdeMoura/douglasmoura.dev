@@ -53,7 +53,7 @@ export default function Slug({ siteInfo: { title, description }, post }: InferGe
   const { query } = useRouter();
   const { id, date, modified, source, slug, featuredImage } = post;
   const content = hydrate(source, { components });
-  const cardURL = `/uploads/${slug}/card.png`;
+  const cardURL = `https://douglasmoura.dev/uploads/${slug}/card.png`;
 
   if (!!query.card) {
     return <Card title={title} image={featuredImage} />
@@ -71,6 +71,8 @@ export default function Slug({ siteInfo: { title, description }, post }: InferGe
         <meta itemProp="image" content={cardURL} />
         <meta name="twitter:image" content={cardURL} />
         <meta property="og:image" content={cardURL} />
+        <meta property="og:image:width" content="1686px" />
+        <meta property="og:image:height" content="956px" />
       </Head>
       <main id="primary" className="site-main single">
         <article id={`post-${id}`} className="hentry post">
