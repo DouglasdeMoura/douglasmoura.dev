@@ -74,6 +74,7 @@ export default function Slug({ siteInfo: { title, description }, post }: InferGe
         <meta property="og:image:width" content="1686px" />
         <meta property="og:image:height" content="956px" />
         <meta name="description" content={excerpt} />
+        <link rel="canonical" href={`https://douglasmoura.dev/${slug}`} />
       </Head>
       <main id="primary" className="site-main single">
         <article id={`post-${id}`} className="hentry post">
