@@ -375,7 +375,7 @@ body {
   }
 }
 
-.arrow {
+a.arrow {
   background: var(--color-link);
   padding: 0.5em;
   border-radius: 50%;
@@ -387,6 +387,7 @@ body {
 
 @import "helpers/helpers";
 @import "helpers/prose";
+@import "helpers/dracula-prism";
 // Components
 @import "components/author";
 @import "components/avatar";

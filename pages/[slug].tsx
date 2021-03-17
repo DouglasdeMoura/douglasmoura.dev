@@ -1,11 +1,8 @@
-import { useEffect } from 'react';
 import Head from 'next/head';
 import { InferGetStaticPropsType, GetStaticProps } from 'next';
 import { useRouter } from 'next/router';
 import hydrate from 'next-mdx-remote/hydrate';
 import renderToString from 'next-mdx-remote/render-to-string';
-import Prism from 'prismjs';
-import 'prismjs/plugins/line-numbers/prism-line-numbers';
 import { State, Observe } from '../components/observable';
 import { ExemploPlanetas } from '../components/styled-components';
 import DateTime from '../components/date-time';
@@ -31,7 +28,15 @@ export function getStaticPaths() {
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const post = posts.all.filter(post => post.slug === params.slug)[0];
-  post.source = await renderToString(post.content);
+  post.source = await renderToString(
+    post.content,
+    {
+      components,
+      mdxOptions: {
+        remarkPlugins: [require('remark-prism')]
+      }
+    }
+  );
 
   return {
     props: {
@@ -49,12 +54,6 @@ export default function Slug({ siteInfo: { title, description }, post }: InferGe
   const { id, date, modified, source, slug, featuredImage } = post;
   const content = hydrate(source, { components });
   const cardURL = `/uploads/${slug}/card.png`;
-
-  useEffect(() => {
-    setTimeout(() => {
-      Prism.highlightAll();
-    }, 200);
-  }, []);
 
   if (!!query.card) {
     const cardProps = { title } as any;
