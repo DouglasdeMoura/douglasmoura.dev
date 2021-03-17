@@ -56,10 +56,7 @@ export default function Slug({ siteInfo: { title, description }, post }: InferGe
   const cardURL = `/uploads/${slug}/card.png`;
 
   if (!!query.card) {
-    const cardProps = { title } as any;
-    if (!!post.card) cardProps.image = post.card;
-
-    return <Card {...cardProps} />
+    return <Card title={title} image={featuredImage} />
   }
 
   return (
