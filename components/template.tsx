@@ -10,7 +10,7 @@ interface IIndexProps {
   isHome?: boolean;
 }
 
-export default function Template({ children, title, description, isHome = false }: IIndexProps) {
+export default function Template({ children, title, description }: IIndexProps) {
   return (
     <div id="page" className="site">
       <Head>

@@ -63,13 +63,13 @@ export default function Slug({ siteInfo: { title, description }, post }: InferGe
     <Template
       title={title}
       description={description}
-      isHome={true}
     >
       <Head>
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="image" content={cardURL} />
         <meta itemProp="image" content={cardURL} />
         <meta name="twitter:image" content={cardURL} />
+        <meta property="og:title" content={title} />
         <meta property="og:image" content={cardURL} />
         <meta property="og:image:width" content="1686px" />
         <meta property="og:image:height" content="956px" />
