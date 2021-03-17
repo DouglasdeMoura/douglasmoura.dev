@@ -65,14 +65,23 @@ export default function Slug({ siteInfo: { title, description }, post }: InferGe
       description={description}
     >
       <Head>
+        <meta property="og:type" content="article" />
+        <meta property="og:url" content={`https://douglasmoura.dev/${slug}`} />
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={excerpt} />
+        <meta property="og:site_name" content="Douglas Moura" />
+        <meta name="twitter:site" content="@douglasdemoura" />
+        <meta name="twitter:creator" content="@douglasdemoura" />
+        <meta name="twitter:title" content={title} />
+        <meta name="twitter:description" content={excerpt} />
         <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:widgets:new-embed-design" content="on" />
+        <meta name="twitter:image:src" content={cardURL} />
         <meta name="image" content={cardURL} />
         <meta itemProp="image" content={cardURL} />
-        <meta name="twitter:image" content={cardURL} />
-        <meta property="og:title" content={title} />
         <meta property="og:image" content={cardURL} />
         <meta property="og:image:width" content="1686px" />
-        <meta property="og:image:height" content="956px" />
+        <meta property="og:image:height" content="894px" />
         <meta name="description" content={excerpt} />
         <link rel="canonical" href={`https://douglasmoura.dev/${slug}`} />
       </Head>
