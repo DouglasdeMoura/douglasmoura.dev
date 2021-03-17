@@ -51,7 +51,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
 export default function Slug({ siteInfo: { title, description }, post }: InferGetStaticPropsType<typeof getStaticProps>) {
   const { query } = useRouter();
-  const { id, date, modified, source, slug, featuredImage } = post;
+  const { id, date, modified, source, slug, featuredImage, excerpt } = post;
   const content = hydrate(source, { components });
   const cardURL = `https://douglasmoura.dev/uploads/${slug}/card.png`;
 
@@ -73,6 +73,7 @@ export default function Slug({ siteInfo: { title, description }, post }: InferGe
         <meta property="og:image" content={cardURL} />
         <meta property="og:image:width" content="1686px" />
         <meta property="og:image:height" content="956px" />
+        <meta name="description" content={excerpt} />
       </Head>
       <main id="primary" className="site-main single">
         <article id={`post-${id}`} className="hentry post">
