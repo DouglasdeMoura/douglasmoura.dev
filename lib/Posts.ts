@@ -4,6 +4,7 @@ import { formatRFC3339 } from 'date-fns';
 import matter from 'gray-matter';
 import _ from 'lodash';
 import { v4 as uuidv4 } from 'uuid';
+import RSS from 'rss-generator';
 
 type Post = {
   id: string;
@@ -94,5 +95,27 @@ export default class Posts {
         .map(post => this.processPost(post))
         .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
     );
+  }
+
+  get feed() {
+    const feed = new RSS({
+      title: process.env.SITE_NAME,
+      description: process.env.SITE_NAME,
+      site_url: 'https://douglasmoura.dev/',
+      feed_url: 'https://douglasmoura.dev/feed.xml',
+    });
+
+    this.all.map(item => {
+      feed.item({
+        guid: item.id,
+        title: item.title,
+        author: 'Douglas Moura',
+        url: `https://douglasmoura.dev/${item.slug}`,
+        description: item.excerpt,
+        date: item.date,
+      });
+    });
+
+    return feed;
   }
 }

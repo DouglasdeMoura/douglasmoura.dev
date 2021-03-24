@@ -1,4 +1,5 @@
 import SocialLogo from 'social-logos';
+import { FaRss } from 'react-icons/fa';
 
 function Wave() {
   return (
@@ -46,6 +47,12 @@ export default function Footer() {
             <a href="https://www.linkedin.com/in/dougmoura/" target="_blank">
               <SocialLogo icon="linkedin" size={32} />
               <span className="screen-reader-text">/in/douglasdemoura</span>
+            </a>
+          </li>
+          <li>
+            <a href="/rss.xml" target="_blank">
+              <FaRss size={26} />
+              <span className="screen-reader-text">RSS</span>
             </a>
           </li>
         </ul>
