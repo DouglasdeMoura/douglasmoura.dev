@@ -4,8 +4,16 @@
         <description><![CDATA[Douglas Moura]]></description>
         <link>https://douglasmoura.dev/</link>
         <generator>RSS for Node</generator>
-        <lastBuildDate>Tue, 23 Mar 2021 21:17:24 -0300</lastBuildDate>
+        <lastBuildDate>Thu, 01 Jul 2021 19:04:06 -0300</lastBuildDate>
         <atom:link href="https://douglasmoura.dev/feed.xml" rel="self" type="application/rss+xml"/>
+        <item>
+            <title><![CDATA[Aprendendo a programar]]></title>
+            <description><![CDATA[Conheça os melhores conteúdos para começar a estudar programação por conta própria e formar uma base de conhecimento sólida para se tornar um programador(a) de sucesso!]]></description>
+            <link>https://douglasmoura.dev/aprendendo-a-programar</link>
+            <guid isPermaLink="false">dc3e1efe-0ff7-4f38-9b1f-c19303a8226a</guid>
+            <dc:creator><![CDATA[Douglas Moura]]></dc:creator>
+            <pubDate>Thu, 01 Jul 2021 19:00:07 -0300</pubDate>
+        </item>
         <item>
             <title><![CDATA[Como criar um indicador de carregamento perfeito para seus web apps]]></title>
             <description><![CDATA[Web apps são complexos e, mantê-los acessíveis para pessoas com necessidades especiais exige um bom conhecimento das suas espeficações. Mas não se preocupe, pois neste artigo, eu vou mostrar como criar o indicadores de carregamento acessíveis e bonitos para suas aplicações.]]></description>
