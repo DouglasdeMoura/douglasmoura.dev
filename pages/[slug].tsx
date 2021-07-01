@@ -15,13 +15,13 @@ import Author from '../components/author';
 import Share from '../components/share';
 import Card from '../components/card';
 import Comments from '../components/comments';
-import generateRSS from '../scripts/generateRSS';
+// import generateRSS from '../scripts/generateRSS';
 
 const posts = new Posts(process.env.POSTS_DIRECTORY);
 const components = { State, Observe, ExemploPlanetas };
 
 export function getStaticPaths() {
-  generateRSS(posts.feed);
+  // generateRSS(posts.feed);
 
   return {
     paths: posts.all.map(post => ({ params: { ...post } })),
