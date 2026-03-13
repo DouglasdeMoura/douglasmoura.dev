@@ -18,8 +18,9 @@
     "clean:vite": "rm -rf ./node_modules/.vite",
     "release": "rw-scripts ensure-deploy-env && npm run clean && npm run build && wrangler deploy",
     "generate": "rw-scripts ensure-env && wrangler types --include-runtime false",
-    "check": "npm run generate && npm run types",
-    "types": "tsc"
+    "check": "ultracite check",
+    "types": "tsc",
+    "fix": "ultracite fix"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.2.1",
@@ -35,7 +36,10 @@
     "@types/node": "~25.3.5",
     "@types/react": "19.2.14",
     "@types/react-dom": "19.2.3",
+    "oxfmt": "^0.40.0",
+    "oxlint": "^1.55.0",
     "typescript": "5.9.3",
+    "ultracite": "7.3.0",
     "vite": "7.3.1",
     "wrangler": "4.71.0"
   },
