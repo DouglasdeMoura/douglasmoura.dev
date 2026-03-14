@@ -8,6 +8,9 @@
   "author": "",
   "type": "module",
   "main": "index.js",
+  "imports": {
+    "#*": "./src/*"
+  },
   "scripts": {
     "build": "vite build",
     "dev": "vite dev",

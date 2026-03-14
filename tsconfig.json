@@ -21,7 +21,7 @@
       "./types/vite.d.ts"
     ],
     "paths": {
-      "@/*": ["./src/*"]
+      "#*": ["./src/*"]
     },
     /* Enable importing .json files */
     "resolveJsonModule": true,
