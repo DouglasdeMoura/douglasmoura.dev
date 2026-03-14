@@ -20,7 +20,8 @@
     "generate": "rw-scripts ensure-env && wrangler types --include-runtime false",
     "check": "ultracite check",
     "types": "tsc",
-    "fix": "ultracite fix"
+    "fix": "ultracite fix",
+    "prepare": "lefthook install"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.2.1",
