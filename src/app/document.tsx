@@ -13,7 +13,7 @@ export const Document: React.FC<{ children: React.ReactNode }> = ({
     </head>
     <body>
       {children}
-      <script>import("/src/client.tsx")</script>
+      <script>import(&quot;/src/client.tsx&quot;)</script>
     </body>
   </html>
 );
