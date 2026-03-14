@@ -5,13 +5,10 @@ import { Document } from "@/app/document";
 import { setCommonHeaders } from "@/app/headers";
 import { Home } from "@/app/pages/home";
 
-export type AppContext = {};
+// biome-ignore lint/complexity/noBannedTypes: scaffold placeholder
+export type AppContext = Record<string, never>;
 
 export default defineApp([
   setCommonHeaders(),
-  ({ ctx }) => {
-    // setup ctx here
-    ctx;
-  },
   render(Document, [route("/", Home)]),
 ]);
