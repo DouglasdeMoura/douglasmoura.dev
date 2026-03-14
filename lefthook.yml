@@ -1,9 +1,10 @@
 pre-commit:
   parallel: true
   jobs:
-    - name: ultracite check
+    - name: ultracite fix
       glob: "*.{js,ts,jsx,tsx,mjs,mts,cjs,cts}"
-      run: pnpm exec ultracite check {staged_files}
+      run: pnpm exec ultracite fix {staged_files}
+      stage_fixed: true
 
     - name: typecheck
       run: pnpm tsc --noEmit
