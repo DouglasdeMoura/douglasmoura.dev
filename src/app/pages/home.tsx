@@ -1,3 +1,1 @@
-import { Welcome } from "./welcome.js";
-
-export const Home = () => <Welcome />;
+export const Home = () => <h1>Hello, world!</h1>;
