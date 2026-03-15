@@ -6,6 +6,10 @@ export default defineCommand({
     name: "posts",
   },
   subCommands: {
+    create: async () => {
+      const m = await import("./create.js");
+      return m.default;
+    },
     import: async () => {
       const m = await import("./import.js");
       return m.default;
