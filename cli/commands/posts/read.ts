@@ -4,19 +4,13 @@ import { readFile } from "node:fs/promises";
 import { join, resolve as resolvePath } from "node:path";
 
 import { defineCommand } from "citty";
+import { bold, cyan, dim, green, magenta, yellow } from "colorette";
 import { consola } from "consola";
 // @ts-expect-error md4x lacks proper type exports
 import { renderToAnsi } from "md4x";
 
 import type { PostGroup } from "./shared.js";
 import { loadPosts, parseFrontmatter, stripFrontmatter } from "./shared.js";
-
-const dim = (text: string): string => `\u001B[2m${text}\u001B[0m`;
-const bold = (text: string): string => `\u001B[1m${text}\u001B[0m`;
-const cyan = (text: string): string => `\u001B[36m${text}\u001B[0m`;
-const green = (text: string): string => `\u001B[32m${text}\u001B[0m`;
-const yellow = (text: string): string => `\u001B[33m${text}\u001B[0m`;
-const magenta = (text: string): string => `\u001B[35m${text}\u001B[0m`;
 
 const localeLabel = (locale: string): string => {
   if (locale === "en-US") {
