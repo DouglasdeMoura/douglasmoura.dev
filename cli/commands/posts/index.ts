@@ -14,5 +14,9 @@ export default defineCommand({
       const m = await import("./list.js");
       return m.default;
     },
+    read: async () => {
+      const m = await import("./read.js");
+      return m.default;
+    },
   },
 });
