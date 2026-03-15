@@ -10,5 +10,9 @@ export default defineCommand({
       const m = await import("./import.js");
       return m.default;
     },
+    list: async () => {
+      const m = await import("./list.js");
+      return m.default;
+    },
   },
 });
