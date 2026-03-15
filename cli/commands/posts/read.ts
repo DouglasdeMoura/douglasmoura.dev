@@ -90,6 +90,46 @@ const resolveLocaleFile = (locale: string): string => {
   return `${locale.toLowerCase()}.md`;
 };
 
+const ESC = String.fromCodePoint(0x1B);
+const BEL = String.fromCodePoint(0x07);
+const ANSI_RE = new RegExp(
+  `${ESC}\\[[0-9;]*m|${ESC}\\]8;;[^${ESC}]*${ESC}\\\\|${ESC}\\]8;;[^${BEL}]*${BEL}`,
+  "g"
+);
+
+const stripAnsi = (str: string): string => str.replaceAll(ANSI_RE, "");
+
+const wrapAnsi = (text: string, width: number): string =>
+  text
+    .split("\n")
+    .flatMap((line) => {
+      if (stripAnsi(line).length <= width) {
+        return [line];
+      }
+
+      const words = line.split(/( +)/);
+      const wrapped: string[] = [];
+      let current = "";
+      let visible = 0;
+
+      for (const word of words) {
+        const wordLen = stripAnsi(word).length;
+        if (visible + wordLen > width && visible > 0) {
+          wrapped.push(current);
+          current = "";
+          visible = 0;
+        }
+        current += word;
+        visible += wordLen;
+      }
+
+      if (current) {
+        wrapped.push(current);
+      }
+      return wrapped;
+    })
+    .join("\n");
+
 const readPost = async (
   postsDir: string,
   group: PostGroup,
@@ -108,7 +148,7 @@ const readPost = async (
   const header = renderHeader(title, locale, date, tags);
   const rendered = renderToAnsi(body, { showUrls: true });
 
-  return `${header}\n${rendered}\n`;
+  return `${header}\n${wrapAnsi(rendered, 80)}\n`;
 };
 
 const selectPost = async (groups: PostGroup[]): Promise<PostGroup> => {
