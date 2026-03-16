@@ -162,6 +162,11 @@ const buildTranslationsBlock = (
 
 export default defineCommand({
   args: {
+    check: {
+      description:
+        "Check only — exit with code 1 if translations are out of sync",
+      type: "boolean",
+    },
     "remove-stale": {
       description: "Remove stale keys instead of just warning",
       type: "boolean",
@@ -200,21 +205,28 @@ export default defineCommand({
     }
 
     if (added.length > 0) {
-      consola.info(`Adding ${added.length} key(s):`);
+      consola.info(`Missing ${added.length} key(s):`);
       for (const entry of added) {
         consola.log(`  + ${entry}`);
       }
     }
 
     if (stale.length > 0) {
-      if (removeStale) {
-        consola.info(`Removing ${stale.length} stale key(s):`);
-      } else {
-        consola.warn(`Found ${stale.length} stale key(s):`);
-      }
+      consola.warn(`Stale ${stale.length} key(s):`);
       for (const entry of stale) {
         consola.log(`  - ${entry}`);
       }
+    }
+
+    if (args.check) {
+      consola.error(
+        "Translations are out of sync. Run `pnpm cli i18n extract` to fix."
+      );
+      process.exit(1);
+    }
+
+    if (removeStale) {
+      consola.info(`Removing ${stale.length} stale key(s)`);
     }
 
     const block = buildTranslationsBlock(merged);

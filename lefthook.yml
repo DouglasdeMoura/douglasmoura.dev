@@ -8,3 +8,6 @@ pre-commit:
 
     - name: typecheck
       run: pnpm tsc --noEmit
+
+    - name: i18n check
+      run: pnpm cli i18n extract --check
