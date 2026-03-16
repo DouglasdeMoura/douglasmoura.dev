@@ -104,6 +104,37 @@ export const getPostAlternates = (slug: string): PostAlternate[] =>
 
 export const getAllPosts = (): Post[] => [...postsBySlug.values()];
 
+const POSTS_PER_PAGE = 10;
+
+const sortedPosts = getAllPosts().toSorted(
+  (a, b) => new Date(b.created).getTime() - new Date(a.created).getTime()
+);
+
+export interface PaginatedPosts {
+  posts: Post[];
+  page: number;
+  totalPages: number;
+}
+
+export const getPaginatedPosts = (
+  page: number,
+  locale?: Post["locale"]
+): PaginatedPosts | undefined => {
+  const filtered = locale
+    ? sortedPosts.filter((p) => p.locale === locale)
+    : sortedPosts;
+  const totalPages = Math.max(1, Math.ceil(filtered.length / POSTS_PER_PAGE));
+  if (page < 1 || page > totalPages) {
+    return undefined;
+  }
+  const start = (page - 1) * POSTS_PER_PAGE;
+  return {
+    page,
+    posts: filtered.slice(start, start + POSTS_PER_PAGE),
+    totalPages,
+  };
+};
+
 export const serializePost = (post: Post): string => {
   const frontmatter = [
     "---",

@@ -5,7 +5,11 @@ import { Document } from "#app/document.js";
 import { setCommonHeaders } from "#app/headers.js";
 import { generateOgImage } from "#app/lib/og.js";
 import type { Post as PostData } from "#app/lib/posts.js";
-import { getPostBySlug, serializePost } from "#app/lib/posts.js";
+import {
+  getPaginatedPosts,
+  getPostBySlug,
+  serializePost,
+} from "#app/lib/posts.js";
 import { searchPosts } from "#app/lib/search.js";
 import { Home } from "#app/pages/home.js";
 import { Post } from "#app/pages/post.js";
@@ -20,6 +24,19 @@ const markdownResponse = (post: PostData): Response =>
   new Response(serializePost(post), {
     headers: { "Content-Type": "text/markdown; charset=utf-8" },
   });
+
+const resolveLocale = (request: Request): "en-US" | "pt-BR" => {
+  const cookie = request.headers.get("Cookie") ?? "";
+  const match = cookie.match(/locale=(en-US|pt-BR)/);
+  if (match) {
+    return match[1] as "en-US" | "pt-BR";
+  }
+  const accept = request.headers.get("Accept-Language") ?? "";
+  if (/pt/i.test(accept)) {
+    return "pt-BR";
+  }
+  return "en-US";
+};
 
 export default defineApp([
   setCommonHeaders(),
@@ -47,10 +64,14 @@ export default defineApp([
     const data = await searchPosts(q, locale, limit, offset);
     return Response.json(data);
   }),
-  route("/:locale/:slug", ({ params }) => {
-    if (params.locale !== "en-US" && params.locale !== "pt-BR") {
+  route("/en-US/:slug", ({ params }) => {
+    const post = getPostBySlug(params.slug);
+    if (!post) {
       return new Response("Not Found", { status: 404 });
     }
+    return Response.redirect(`${SITE_URL}/${post.slug}`, 301);
+  }),
+  route("/pt-BR/:slug", ({ params }) => {
     const post = getPostBySlug(params.slug);
     if (!post) {
       return new Response("Not Found", { status: 404 });
@@ -65,7 +86,28 @@ export default defineApp([
     return markdownResponse(post);
   }),
   render(Document, [
-    route("/", Home),
+    route("/", ({ request, ctx }) => {
+      const locale = resolveLocale(request);
+      (ctx as Record<string, unknown>).locale = locale;
+      const data = getPaginatedPosts(1, locale);
+      if (!data) {
+        return new Response("Not Found", { status: 404 });
+      }
+      return <Home data={data} siteUrl={SITE_URL} locale={locale} />;
+    }),
+    route("/page/:num", ({ params, request, ctx }) => {
+      const num = Number(params.num);
+      if (num === 1) {
+        return Response.redirect(`${SITE_URL}/`, 301);
+      }
+      const locale = resolveLocale(request);
+      (ctx as Record<string, unknown>).locale = locale;
+      const data = getPaginatedPosts(num, locale);
+      if (!data) {
+        return new Response("Not Found", { status: 404 });
+      }
+      return <Home data={data} siteUrl={SITE_URL} locale={locale} />;
+    }),
     route("/:slug", ({ params, request, ctx }) => {
       const post = getPostBySlug(params.slug);
       if (!post) {
