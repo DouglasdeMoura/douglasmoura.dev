@@ -6,6 +6,7 @@ import { setCommonHeaders } from "#app/headers.js";
 import { generateOgImage } from "#app/lib/og.js";
 import type { Post as PostData } from "#app/lib/posts.js";
 import { getPostBySlug, serializePost } from "#app/lib/posts.js";
+import { searchPosts } from "#app/lib/search.js";
 import { Home } from "#app/pages/home.js";
 import { Post } from "#app/pages/post.js";
 
@@ -32,6 +33,19 @@ export default defineApp([
       return new Response("Not Found", { status: 404 });
     }
     return generateOgImage(post, SITE_URL);
+  }),
+  route("/api/v1/search", async ({ request }) => {
+    const url = new URL(request.url);
+    const q = url.searchParams.get("q")?.trim() ?? "";
+    if (!q) {
+      return Response.json({ count: 0, results: [] });
+    }
+    const locale =
+      url.searchParams.get("locale") === "pt-BR" ? "pt-BR" : "en-US";
+    const limit = Math.min(Number(url.searchParams.get("limit")) || 10, 50);
+    const offset = Math.max(Number(url.searchParams.get("offset")) || 0, 0);
+    const data = await searchPosts(q, locale, limit, offset);
+    return Response.json(data);
   }),
   route("/:locale/:slug", ({ params }) => {
     if (params.locale !== "en-US" && params.locale !== "pt-BR") {
