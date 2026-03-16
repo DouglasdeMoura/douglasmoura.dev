@@ -1,4 +1,7 @@
+import pino from "pino";
 import { getRequestInfo } from "rwsdk/worker";
+
+const logger = pino({ name: "i18n" });
 
 type Locale = "en-US" | "pt-BR";
 
@@ -30,10 +33,13 @@ export const t = (text: TranslationKey | string): string => {
   if (locale === "en-US") {
     return text;
   }
-  return (
-    (translations as Record<string, Record<string, string>>)[locale]?.[text] ??
-    text
-  );
+  const translated = (translations as Record<string, Record<string, string>>)[
+    locale
+  ]?.[text];
+  if (!translated) {
+    logger.warn({ key: text, locale }, "Missing translation");
+  }
+  return translated ?? text;
 };
 
 /** Format a date string using the current request locale. */
