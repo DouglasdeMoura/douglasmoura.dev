@@ -8,8 +8,9 @@ import { getPostBySlug } from "#app/lib/posts.js";
 import { Home } from "#app/pages/home.js";
 import { Post } from "#app/pages/post.js";
 
-// biome-ignore lint/complexity/noBannedTypes: scaffold placeholder
-export type AppContext = Record<string, never>;
+export interface AppContext {
+  locale?: "en-US" | "pt-BR";
+}
 
 const SITE_URL = import.meta.env.VITE_SITE_URL ?? "https://douglasmoura.dev";
 
@@ -28,11 +29,12 @@ export default defineApp([
   }),
   render(Document, [
     route("/", Home),
-    route("/:slug", ({ params }) => {
+    route("/:slug", ({ params, ctx }) => {
       const post = getPostBySlug(params.slug);
       if (!post) {
         return new Response("Not Found", { status: 404 });
       }
+      (ctx as Record<string, unknown>).locale = post.locale;
       return <Post post={post} />;
     }),
   ]),

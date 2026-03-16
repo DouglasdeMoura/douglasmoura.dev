@@ -1,5 +1,5 @@
 import { PostSeo } from "#app/components/post-seo.js";
-import { formatDate, getDateLabel } from "#app/lib/format-date.js";
+import { formatDate, t } from "#app/lib/i18n.js";
 import { renderMarkdown } from "#app/lib/markdown.js";
 import type { Post as PostType } from "#app/lib/posts.js";
 
@@ -19,13 +19,11 @@ export const Post = async ({ post }: PostProps) => {
         <header>
           <h1>{post.title}</h1>
           <time dateTime={post.created} itemProp="datePublished">
-            {getDateLabel("published", post.locale)}{" "}
-            {formatDate(post.created, post.locale)}
+            {t("Published on")} {formatDate(post.created)}
           </time>
           {post.updated && post.updated !== post.created && (
             <time dateTime={post.updated} itemProp="dateModified">
-              {getDateLabel("updated", post.locale)}{" "}
-              {formatDate(post.updated, post.locale)}
+              {t("Last updated on")} {formatDate(post.updated)}
             </time>
           )}
           {post.tags.length > 0 && (
