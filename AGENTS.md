@@ -116,3 +116,60 @@ Oxlint + Oxfmt's linter will catch most issues automatically. Focus your attenti
 ---
 
 Most formatting and common issues are automatically fixed by Oxlint + Oxfmt. Run `pnpm exec ultracite fix` before committing to ensure compliance.
+
+---
+
+## Content Structure
+
+Blog posts live in `content/posts/` with this directory convention:
+
+```
+content/posts/
+├── YYYY-MM-DD_slug/
+│   ├── en.md          # English version
+│   ├── pt-br.md       # Portuguese version
+│   └── cover.{ext}    # Featured image
+```
+
+- Directories are prefixed with `YYYY-MM-DD_` (creation date) for chronological sorting
+- The slug portion uses the English slug when a translation exists
+- Translations of the same post share one directory
+- Frontmatter format:
+
+```yaml
+---
+title: Post Title
+slug: post-slug
+locale: en-US # or pt-BR
+created: YYYY-MM-DD HH:MM:SS.sssZ
+updated: YYYY-MM-DD HH:MM:SS.sssZ
+tags:
+  - tag1
+  - tag2
+cover: ./cover.jpg
+---
+```
+
+## CLI (`pnpm cli`)
+
+The project CLI is built with **citty** (command framework), **consola** (logging/prompts), and **tsx** (TypeScript runner). Source lives in `cli/`.
+
+### Commands
+
+| Command                      | Description                                          |
+| ---------------------------- | ---------------------------------------------------- |
+| `pnpm cli posts create`      | Create a new post (interactive prompts or flags)     |
+| `pnpm cli posts list`        | Paginated card view of posts with locale/tag filters |
+| `pnpm cli posts read [slug]` | Render a post in the terminal via md4x               |
+| `pnpm cli posts import`      | Import posts from a Pocketbase instance              |
+
+All commands support `--help` for usage details. Interactive prompts are shown when args are omitted in TTY mode; non-TTY falls back to defaults.
+
+### CLI Conventions
+
+- New subcommands go in `cli/commands/<domain>/` as individual `.ts` files
+- Register subcommands via lazy `async () => import(...)` in the parent `index.ts`
+- Use `colorette` for terminal colors (not manual ANSI escapes)
+- Use `@sindresorhus/slugify` for slug generation
+- Guard interactive prompts with `process.stdout.isTTY` checks
+- Keep command `run()` function complexity under 20 (extract helpers)
