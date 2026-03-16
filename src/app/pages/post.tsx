@@ -3,10 +3,9 @@ import type { Post } from "#app/lib/posts.js";
 
 export const PostPage = async ({ post }: { post: Post }) => {
   const html = await renderMarkdown(post.body);
-  const lang = post.locale === "pt-BR" ? "pt-BR" : "en";
 
   return (
-    <article lang={lang}>
+    <article lang={post.locale}>
       <header>
         <h1>{post.title}</h1>
         <time dateTime={post.created.slice(0, 10)}>

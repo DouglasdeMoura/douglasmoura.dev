@@ -7,7 +7,7 @@ const modules = import.meta.glob("/content/posts/**/*.md", {
 export interface Post {
   title: string;
   slug: string;
-  locale: string;
+  locale: "en-US" | "pt-BR";
   created: string;
   updated: string;
   tags: string[];
@@ -64,7 +64,7 @@ for (const raw of Object.values(modules)) {
   postsBySlug.set(slug, {
     body: stripFrontmatter(raw),
     created: (meta.created as string) || "",
-    locale: (meta.locale as string) || "",
+    locale: meta.locale === "pt-BR" ? "pt-BR" : "en-US",
     slug,
     tags: (meta.tags as string[]) || [],
     title: (meta.title as string) || slug,
