@@ -22,7 +22,11 @@ export const Post = async ({ post }: PostProps) => {
             {t("Published on")} {formatDate(post.created)}
           </time>
           {post.updated && post.updated !== post.created && (
-            <time dateTime={post.updated} itemProp="dateModified">
+            <time
+              dateTime={post.updated}
+              itemProp="dateModified"
+              className="sr-only"
+            >
               {t("Last updated on")} {formatDate(post.updated)}
             </time>
           )}
