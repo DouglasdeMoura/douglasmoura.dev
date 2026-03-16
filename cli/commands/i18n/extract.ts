@@ -91,10 +91,10 @@ const parseTranslationsFile = async (
     }
 
     if (currentLocale) {
-      const kvMatch = line.match(/^\s*"([^"]+)":\s*"([^"]*)",?/);
+      const kvMatch = line.match(/^\s*(?:"([^"]+)"|(\w+)):\s*"([^"]*)",?/);
       if (kvMatch) {
-        const [, kvKey, kvValue] = kvMatch;
-        locales[currentLocale][kvKey] = kvValue;
+        const [, quotedKey, unquotedKey, kvValue] = kvMatch;
+        locales[currentLocale][quotedKey ?? unquotedKey] = kvValue;
         continue;
       }
 
