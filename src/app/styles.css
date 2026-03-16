@@ -1,1 +1,59 @@
 @import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  /* Surface */
+  --color-surface-0: oklch(0.985 0.005 260);
+  --color-surface-1: oklch(0.96 0.008 260);
+  --color-surface-2: oklch(0.93 0.01 260);
+
+  /* Text */
+  --color-text: oklch(0.2 0.02 260);
+  --color-text-muted: oklch(0.45 0.02 260);
+
+  /* Accent */
+  --color-accent: oklch(0.55 0.18 260);
+  --color-accent-hover: oklch(0.48 0.2 260);
+
+  /* Border */
+  --color-border: oklch(0.88 0.01 260);
+}
+
+.dark {
+  --color-surface-0: oklch(0.16 0.02 260);
+  --color-surface-1: oklch(0.2 0.025 260);
+  --color-surface-2: oklch(0.25 0.03 260);
+
+  --color-text: oklch(0.92 0.01 260);
+  --color-text-muted: oklch(0.65 0.02 260);
+
+  --color-accent: oklch(0.72 0.15 260);
+  --color-accent-hover: oklch(0.78 0.17 260);
+
+  --color-border: oklch(0.32 0.03 260);
+}
+
+@theme inline {
+  --color-surface-0: var(--color-surface-0);
+  --color-surface-1: var(--color-surface-1);
+  --color-surface-2: var(--color-surface-2);
+  --color-text: var(--color-text);
+  --color-text-muted: var(--color-text-muted);
+  --color-accent: var(--color-accent);
+  --color-accent-hover: var(--color-accent-hover);
+  --color-border: var(--color-border);
+}
+
+body {
+  background-color: var(--color-surface-0);
+  color: var(--color-text);
+}
+
+a {
+  color: var(--color-accent);
+}
+
+a:hover {
+  color: var(--color-accent-hover);
+}

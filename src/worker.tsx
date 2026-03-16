@@ -14,8 +14,11 @@ import { searchPosts } from "#app/lib/search.js";
 import { Home } from "#app/pages/home.js";
 import { Post } from "#app/pages/post.js";
 
+export type Theme = "light" | "dark" | "system";
+
 export interface AppContext {
   locale?: "en-US" | "pt-BR";
+  theme?: Theme;
 }
 
 const SITE_URL = import.meta.env.VITE_SITE_URL ?? "https://douglasmoura.dev";
@@ -36,6 +39,12 @@ const resolveLocale = (request: Request): "en-US" | "pt-BR" => {
     return "pt-BR";
   }
   return "en-US";
+};
+
+const resolveTheme = (request: Request): Theme => {
+  const cookie = request.headers.get("Cookie") ?? "";
+  const match = cookie.match(/theme=(light|dark|system)/);
+  return (match?.[1] as Theme) ?? "system";
 };
 
 export default defineApp([
@@ -85,6 +94,9 @@ export default defineApp([
     }
     return markdownResponse(post);
   }),
+  ({ request, ctx }) => {
+    (ctx as Record<string, unknown>).theme = resolveTheme(request);
+  },
   render(Document, [
     route("/", ({ request, ctx }) => {
       const locale = resolveLocale(request);
@@ -93,7 +105,10 @@ export default defineApp([
       if (!data) {
         return new Response("Not Found", { status: 404 });
       }
-      return <Home data={data} siteUrl={SITE_URL} locale={locale} />;
+      const theme = resolveTheme(request);
+      return (
+        <Home data={data} siteUrl={SITE_URL} locale={locale} theme={theme} />
+      );
     }),
     route("/page/:num", ({ params, request, ctx }) => {
       const num = Number(params.num);
@@ -106,7 +121,10 @@ export default defineApp([
       if (!data) {
         return new Response("Not Found", { status: 404 });
       }
-      return <Home data={data} siteUrl={SITE_URL} locale={locale} />;
+      const theme = resolveTheme(request);
+      return (
+        <Home data={data} siteUrl={SITE_URL} locale={locale} theme={theme} />
+      );
     }),
     route("/:slug", ({ params, request, ctx }) => {
       const post = getPostBySlug(params.slug);
