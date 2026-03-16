@@ -15,7 +15,7 @@ export const setCommonHeaders =
     response.headers.set("X-Content-Type-Options", "nosniff");
 
     // Stops browsers from sending the referring webpage URL in HTTP headers
-    response.headers.set("Referrer-Policy", "no-referrer");
+    response.headers.set("Referrer-Policy", "strict-origin-when-cross-origin");
 
     // Explicitly disables access to specific browser features/APIs
     response.headers.set(

@@ -1,0 +1,58 @@
+import type { Post } from "#app/lib/posts.js";
+
+export const PostSeo = ({ post, siteUrl }: { post: Post; siteUrl: string }) => {
+  const canonicalUrl = `${siteUrl}/${post.slug}`;
+  const ogLocale = post.locale.replace("-", "_");
+  const absoluteImage = post.cover ? `${siteUrl}${post.cover}` : "";
+
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    author: { "@type": "Person", name: "Douglas Moura", url: siteUrl },
+    datePublished: post.created,
+    ...(post.updated && { dateModified: post.updated }),
+    description: post.description,
+    headline: post.title,
+    ...(absoluteImage && { image: absoluteImage }),
+    inLanguage: post.locale,
+    ...(post.tags.length > 0 && { keywords: post.tags.join(", ") }),
+    mainEntityOfPage: { "@id": canonicalUrl, "@type": "WebPage" },
+    publisher: { "@type": "Person", name: "Douglas Moura" },
+  };
+
+  return (
+    <>
+      <title>{`${post.title} | Douglas Moura`}</title>
+      <meta name="description" content={post.description} />
+      <link rel="canonical" href={canonicalUrl} />
+
+      <meta property="og:title" content={post.title} />
+      <meta property="og:description" content={post.description} />
+      <meta property="og:url" content={canonicalUrl} />
+      <meta property="og:type" content="article" />
+      <meta property="og:locale" content={ogLocale} />
+      <meta property="og:site_name" content="Douglas Moura" />
+      {absoluteImage && <meta property="og:image" content={absoluteImage} />}
+
+      <meta property="article:published_time" content={post.created} />
+      {post.updated && (
+        <meta property="article:modified_time" content={post.updated} />
+      )}
+      {post.tags.map((tag) => (
+        <meta property="article:tag" content={tag} key={tag} />
+      ))}
+
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:title" content={post.title} />
+      <meta name="twitter:description" content={post.description} />
+      <meta name="twitter:creator" content="@douglasdemoura" />
+      {absoluteImage && <meta name="twitter:image" content={absoluteImage} />}
+
+      <script
+        type="application/ld+json"
+        /* oxlint-disable-next-line eslint-plugin-react(no-danger) -- safe: serializing our own structured data */
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+    </>
+  );
+};
