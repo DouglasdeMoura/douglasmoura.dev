@@ -1,6 +1,14 @@
-import type { Post } from "#app/lib/posts.js";
+import type { Post, PostAlternate } from "#app/lib/posts.js";
 
-export const PostSeo = ({ post, siteUrl }: { post: Post; siteUrl: string }) => {
+export const PostSeo = ({
+  post,
+  siteUrl,
+  alternates,
+}: {
+  post: Post;
+  siteUrl: string;
+  alternates: PostAlternate[];
+}) => {
   const canonicalUrl = `${siteUrl}/${post.slug}`;
   const ogLocale = post.locale.replace("-", "_");
   const absoluteImage = post.cover ? `${siteUrl}${post.cover}` : "";
@@ -27,6 +35,18 @@ export const PostSeo = ({ post, siteUrl }: { post: Post; siteUrl: string }) => {
       <meta name="description" content={post.description} />
       <link rel="canonical" href={canonicalUrl} />
       <link rel="alternate" type="text/markdown" href={`${canonicalUrl}.md`} />
+      <link rel="alternate" hrefLang={post.locale} href={canonicalUrl} />
+      {alternates.map((alt) => (
+        <link
+          key={alt.locale}
+          rel="alternate"
+          hrefLang={alt.locale}
+          href={`${siteUrl}/${alt.slug}`}
+        />
+      ))}
+      {alternates.length > 0 && (
+        <link rel="alternate" hrefLang="x-default" href={canonicalUrl} />
+      )}
 
       <meta property="og:title" content={post.title} />
       <meta property="og:description" content={post.description} />

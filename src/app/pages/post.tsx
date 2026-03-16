@@ -1,6 +1,7 @@
 import { PostSeo } from "#app/components/post-seo.js";
 import { formatDate, t } from "#app/lib/i18n.js";
 import { renderMarkdown } from "#app/lib/markdown.js";
+import { getPostAlternates } from "#app/lib/posts.js";
 import type { Post as PostType } from "#app/lib/posts.js";
 
 const SITE_URL = import.meta.env.VITE_SITE_URL ?? "https://douglasmoura.dev";
@@ -14,7 +15,11 @@ export const Post = async ({ post }: PostProps) => {
 
   return (
     <>
-      <PostSeo post={post} siteUrl={SITE_URL} />
+      <PostSeo
+        post={post}
+        siteUrl={SITE_URL}
+        alternates={getPostAlternates(post.slug)}
+      />
       <article lang={post.locale}>
         <header>
           <h1>{post.title}</h1>

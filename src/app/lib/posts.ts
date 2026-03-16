@@ -47,7 +47,14 @@ const makeExcerpt = (text: string, maxLength = 155): string => {
   return `${truncated.slice(0, lastSpace > 0 ? lastSpace : maxLength)}…`;
 };
 
+export interface PostAlternate {
+  locale: Post["locale"];
+  slug: string;
+}
+
 const postsBySlug = new Map<string, Post>();
+const alternatesBySlug = new Map<string, PostAlternate[]>();
+const dirToSlugs = new Map<string, PostAlternate[]>();
 
 for (const [path, raw] of Object.entries(modules)) {
   const { data, content } = matter(raw);
@@ -58,22 +65,42 @@ for (const [path, raw] of Object.entries(modules)) {
 
   const dir = path.slice(0, path.lastIndexOf("/") + 1);
   const coverKey = Object.keys(coverImages).find((key) => key.startsWith(dir));
+  const locale: Post["locale"] = data.locale === "pt-BR" ? "pt-BR" : "en-US";
 
   postsBySlug.set(slug, {
     body: content,
     cover: coverKey ? coverImages[coverKey] : "",
     created: String(data.created ?? ""),
     description: makeExcerpt(stripMarkdown(content)),
-    locale: data.locale === "pt-BR" ? "pt-BR" : "en-US",
+    locale,
     slug,
     tags: (data.tags as string[]) || [],
     title: (data.title as string) || slug,
     updated: String(data.updated ?? ""),
   });
+
+  const group = dirToSlugs.get(dir) ?? [];
+  group.push({ locale, slug });
+  dirToSlugs.set(dir, group);
+}
+
+for (const group of dirToSlugs.values()) {
+  if (group.length < 2) {
+    continue;
+  }
+  for (const { slug } of group) {
+    alternatesBySlug.set(
+      slug,
+      group.filter((alt) => alt.slug !== slug)
+    );
+  }
 }
 
 export const getPostBySlug = (slug: string): Post | undefined =>
   postsBySlug.get(slug);
+
+export const getPostAlternates = (slug: string): PostAlternate[] =>
+  alternatesBySlug.get(slug) ?? [];
 
 export const getAllPosts = (): Post[] => [...postsBySlug.values()];
 
