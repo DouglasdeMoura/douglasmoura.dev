@@ -33,6 +33,16 @@ export default defineApp([
     }
     return generateOgImage(post, SITE_URL);
   }),
+  route("/:locale/:slug", ({ params }) => {
+    if (params.locale !== "en-US" && params.locale !== "pt-BR") {
+      return new Response("Not Found", { status: 404 });
+    }
+    const post = getPostBySlug(params.slug);
+    if (!post) {
+      return new Response("Not Found", { status: 404 });
+    }
+    return Response.redirect(`${SITE_URL}/${post.slug}`, 301);
+  }),
   route("/:slug.md", ({ params }) => {
     const post = getPostBySlug(params.slug);
     if (!post) {
