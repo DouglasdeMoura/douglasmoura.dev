@@ -4,7 +4,7 @@ export const PostSeo = ({ post, siteUrl }: { post: Post; siteUrl: string }) => {
   const canonicalUrl = `${siteUrl}/${post.slug}`;
   const ogLocale = post.locale.replace("-", "_");
   const absoluteImage = post.cover ? `${siteUrl}${post.cover}` : "";
-  const ogImageUrl = `${siteUrl}/og?slug=${encodeURIComponent(post.slug)}`;
+  const ogImageUrl = `${siteUrl}/api/v1/og?slug=${encodeURIComponent(post.slug)}`;
 
   const jsonLd = {
     "@context": "https://schema.org",

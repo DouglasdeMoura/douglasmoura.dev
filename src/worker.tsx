@@ -15,7 +15,7 @@ const SITE_URL = import.meta.env.VITE_SITE_URL ?? "https://douglasmoura.dev";
 
 export default defineApp([
   setCommonHeaders(),
-  route("/og", ({ request }) => {
+  route("/api/v1/og", ({ request }) => {
     const slug = new URL(request.url).searchParams.get("slug");
     if (!slug) {
       return new Response("Missing slug parameter", { status: 400 });
