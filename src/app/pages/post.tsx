@@ -1,10 +1,14 @@
 import { PostSeo } from "#app/components/post-seo.js";
 import { renderMarkdown } from "#app/lib/markdown.js";
-import type { Post } from "#app/lib/posts.js";
+import type { Post as PostType } from "#app/lib/posts.js";
 
 const SITE_URL = import.meta.env.VITE_SITE_URL ?? "https://douglasmoura.dev";
 
-export const PostPage = async ({ post }: { post: Post }) => {
+interface PostProps {
+  post: PostType;
+}
+
+export const Post = async ({ post }: PostProps) => {
   const html = await renderMarkdown(post.body);
 
   return (

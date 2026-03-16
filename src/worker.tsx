@@ -6,7 +6,7 @@ import { setCommonHeaders } from "#app/headers.js";
 import { generateOgImage } from "#app/lib/og.js";
 import { getPostBySlug } from "#app/lib/posts.js";
 import { Home } from "#app/pages/home.js";
-import { PostPage } from "#app/pages/post.js";
+import { Post } from "#app/pages/post.js";
 
 // biome-ignore lint/complexity/noBannedTypes: scaffold placeholder
 export type AppContext = Record<string, never>;
@@ -33,7 +33,7 @@ export default defineApp([
       if (!post) {
         return new Response("Not Found", { status: 404 });
       }
-      return <PostPage post={post} />;
+      return <Post post={post} />;
     }),
   ]),
 ]);
