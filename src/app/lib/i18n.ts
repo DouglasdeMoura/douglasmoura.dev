@@ -8,6 +8,9 @@ type Locale = "en-US" | "pt-BR";
 const translations = {
   "pt-BR": {
     "Last updated on": "Atualizado em",
+    Next: "Próximo",
+    Pagination: "Paginação",
+    Previous: "Anterior",
     "Published on": "Publicado em",
   },
 } as const satisfies Record<string, Record<string, string>>;

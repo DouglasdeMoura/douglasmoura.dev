@@ -1,5 +1,5 @@
 import { LocaleToggle } from "#app/components/locale-toggle.js";
-import { formatDate } from "#app/lib/i18n.js";
+import { formatDate, t } from "#app/lib/i18n.js";
 import type { PaginatedPosts } from "#app/lib/posts.js";
 
 interface PageItem {
@@ -94,10 +94,10 @@ export const Home = ({ data, siteUrl, locale }: HomeProps) => {
       </ul>
 
       {totalPages > 1 && (
-        <nav aria-label="Pagination">
+        <nav aria-label={t("Pagination")}>
           {page > 1 && (
             <a href={page === 2 ? "/" : `/page/${page - 1}`} rel="prev">
-              Previous
+              {t("Previous")}
             </a>
           )}
           {pageNumbers(page, totalPages).map((item) => {
@@ -131,7 +131,7 @@ export const Home = ({ data, siteUrl, locale }: HomeProps) => {
           })}
           {page < totalPages && (
             <a href={`/page/${page + 1}`} rel="next">
-              Next
+              {t("Next")}
             </a>
           )}
         </nav>
