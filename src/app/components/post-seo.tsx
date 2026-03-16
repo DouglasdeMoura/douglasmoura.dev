@@ -4,6 +4,7 @@ export const PostSeo = ({ post, siteUrl }: { post: Post; siteUrl: string }) => {
   const canonicalUrl = `${siteUrl}/${post.slug}`;
   const ogLocale = post.locale.replace("-", "_");
   const absoluteImage = post.cover ? `${siteUrl}${post.cover}` : "";
+  const ogImageUrl = `${siteUrl}/og?slug=${encodeURIComponent(post.slug)}`;
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -32,7 +33,9 @@ export const PostSeo = ({ post, siteUrl }: { post: Post; siteUrl: string }) => {
       <meta property="og:type" content="article" />
       <meta property="og:locale" content={ogLocale} />
       <meta property="og:site_name" content="Douglas Moura" />
-      {absoluteImage && <meta property="og:image" content={absoluteImage} />}
+      <meta property="og:image" content={ogImageUrl} />
+      <meta property="og:image:width" content="1686" />
+      <meta property="og:image:height" content="948" />
 
       <meta property="article:published_time" content={post.created} />
       {post.updated && (
@@ -46,7 +49,7 @@ export const PostSeo = ({ post, siteUrl }: { post: Post; siteUrl: string }) => {
       <meta name="twitter:title" content={post.title} />
       <meta name="twitter:description" content={post.description} />
       <meta name="twitter:creator" content="@douglasdemoura" />
-      {absoluteImage && <meta name="twitter:image" content={absoluteImage} />}
+      <meta name="twitter:image" content={ogImageUrl} />
 
       <script
         type="application/ld+json"
