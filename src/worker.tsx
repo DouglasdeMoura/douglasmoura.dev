@@ -4,7 +4,8 @@ import { defineApp } from "rwsdk/worker";
 import { Document } from "#app/document.js";
 import { setCommonHeaders } from "#app/headers.js";
 import { generateOgImage } from "#app/lib/og.js";
-import { getPostBySlug } from "#app/lib/posts.js";
+import type { Post as PostData } from "#app/lib/posts.js";
+import { getPostBySlug, serializePost } from "#app/lib/posts.js";
 import { Home } from "#app/pages/home.js";
 import { Post } from "#app/pages/post.js";
 
@@ -13,6 +14,11 @@ export interface AppContext {
 }
 
 const SITE_URL = import.meta.env.VITE_SITE_URL ?? "https://douglasmoura.dev";
+
+const markdownResponse = (post: PostData): Response =>
+  new Response(serializePost(post), {
+    headers: { "Content-Type": "text/markdown; charset=utf-8" },
+  });
 
 export default defineApp([
   setCommonHeaders(),
@@ -27,12 +33,23 @@ export default defineApp([
     }
     return generateOgImage(post, SITE_URL);
   }),
+  route("/:slug.md", ({ params }) => {
+    const post = getPostBySlug(params.slug);
+    if (!post) {
+      return new Response("Not Found", { status: 404 });
+    }
+    return markdownResponse(post);
+  }),
   render(Document, [
     route("/", Home),
-    route("/:slug", ({ params, ctx }) => {
+    route("/:slug", ({ params, request, ctx }) => {
       const post = getPostBySlug(params.slug);
       if (!post) {
         return new Response("Not Found", { status: 404 });
+      }
+      const accept = request.headers.get("Accept") ?? "";
+      if (accept.includes("text/markdown")) {
+        return markdownResponse(post);
       }
       (ctx as Record<string, unknown>).locale = post.locale;
       return <Post post={post} />;

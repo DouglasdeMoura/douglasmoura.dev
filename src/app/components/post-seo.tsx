@@ -26,6 +26,7 @@ export const PostSeo = ({ post, siteUrl }: { post: Post; siteUrl: string }) => {
       <title>{`${post.title} | Douglas Moura`}</title>
       <meta name="description" content={post.description} />
       <link rel="canonical" href={canonicalUrl} />
+      <link rel="alternate" type="text/markdown" href={`${canonicalUrl}.md`} />
 
       <meta property="og:title" content={post.title} />
       <meta property="og:description" content={post.description} />

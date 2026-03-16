@@ -76,3 +76,20 @@ export const getPostBySlug = (slug: string): Post | undefined =>
   postsBySlug.get(slug);
 
 export const getAllPosts = (): Post[] => [...postsBySlug.values()];
+
+export const serializePost = (post: Post): string => {
+  const frontmatter = [
+    "---",
+    `title: ${post.title}`,
+    `slug: ${post.slug}`,
+    `locale: ${post.locale}`,
+    `created: ${new Date(post.created).toISOString()}`,
+    `updated: ${new Date(post.updated).toISOString()}`,
+    ...(post.tags.length > 0
+      ? ["tags:", ...post.tags.map((tag) => `  - ${tag}`)]
+      : []),
+    "---",
+  ].join("\n");
+
+  return `${frontmatter}\n${post.body}`;
+};
