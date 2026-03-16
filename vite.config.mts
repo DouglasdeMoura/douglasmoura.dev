@@ -6,6 +6,14 @@ import { defineConfig } from "vite";
 export default defineConfig({
   environments: {
     ssr: {},
+    worker: {
+      optimizeDeps: {
+        exclude: ["md4x"],
+      },
+      resolve: {
+        conditions: ["unwasm"],
+      },
+    },
   },
   plugins: [
     cloudflare({
