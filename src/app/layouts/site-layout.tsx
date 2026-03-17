@@ -24,8 +24,27 @@ export const SiteLayout = ({
       </a>
       <Header theme={theme} locale={locale} alternates={alternates} />
       <main id="main-content">{children}</main>
-      <footer className="border-t border-border px-6 py-6 text-center text-sm text-text-muted max-w-prose mx-auto">
-        <p>&copy; {new Date().getFullYear()} Douglas Moura</p>
+      <footer className="border-t border-border px-6 py-8 max-w-prose mx-auto">
+        <nav className="flex items-center justify-center gap-6 text-sm text-text-muted mb-4">
+          <a
+            href="https://github.com/douglasdemoura"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            GitHub
+          </a>
+          <a
+            href="https://linkedin.com/in/douglasdemoura"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            LinkedIn
+          </a>
+          <a href="/feed.xml">RSS</a>
+        </nav>
+        <p className="text-center text-sm text-text-muted">
+          &copy; {new Date().getFullYear()} Douglas Moura
+        </p>
       </footer>
     </>
   );
