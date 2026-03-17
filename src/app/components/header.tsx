@@ -1,5 +1,6 @@
 import { MagnifyingGlassIcon } from "@phosphor-icons/react/dist/ssr";
 
+import { LocaleToggle } from "#app/components/locale-toggle.js";
 import { ThemeToggle } from "#app/components/theme-toggle.js";
 import { t } from "#app/lib/i18n.js";
 
@@ -8,9 +9,10 @@ const GRAVATAR_URL =
 
 interface HeaderProps {
   theme: "light" | "dark" | "system";
+  locale: "en-US" | "pt-BR";
 }
 
-export const Header = ({ theme }: HeaderProps) => (
+export const Header = ({ theme, locale }: HeaderProps) => (
   <header className="flex items-center justify-between px-6 py-4 max-w-prose mx-auto">
     <a href="/" aria-label="Home">
       <img
@@ -44,6 +46,7 @@ export const Header = ({ theme }: HeaderProps) => (
       >
         <MagnifyingGlassIcon size={18} weight="bold" />
       </a>
+      <LocaleToggle initialLocale={locale} label={t("Language")} />
       <ThemeToggle initialTheme={theme} label={t("Theme")} />
     </nav>
   </header>

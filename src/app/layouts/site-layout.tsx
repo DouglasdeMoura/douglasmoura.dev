@@ -10,10 +10,11 @@ export const SiteLayout = ({
 }) => {
   const appCtx = (requestInfo?.ctx ?? {}) as AppContext;
   const theme = appCtx.theme ?? "system";
+  const locale = appCtx.locale ?? "en-US";
 
   return (
     <>
-      <Header theme={theme} />
+      <Header theme={theme} locale={locale} />
       <main>{children}</main>
     </>
   );

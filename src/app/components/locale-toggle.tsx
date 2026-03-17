@@ -4,11 +4,12 @@ import { useCallback, useState } from "react";
 
 import { setLocale } from "#app/lib/locale-action.js";
 
-export const LocaleToggle = ({
-  initialLocale,
-}: {
+interface LocaleToggleProps {
   initialLocale: "en-US" | "pt-BR";
-}) => {
+  label: string;
+}
+
+export const LocaleToggle = ({ initialLocale, label }: LocaleToggleProps) => {
   const [locale, setLocaleState] = useState(initialLocale);
 
   const toggle = useCallback(async () => {
@@ -19,8 +20,13 @@ export const LocaleToggle = ({
   }, [locale]);
 
   return (
-    <button type="button" onClick={toggle} aria-label="Toggle language">
-      {locale === "en-US" ? "PT-BR" : "EN"}
+    <button
+      type="button"
+      onClick={toggle}
+      aria-label={`${label}: ${locale === "en-US" ? "English" : "Português"}`}
+      className="text-sm text-text-muted hover:text-text-strong"
+    >
+      {locale === "en-US" ? "PT" : "EN"}
     </button>
   );
 };

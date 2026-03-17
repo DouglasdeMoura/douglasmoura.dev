@@ -9,6 +9,7 @@ const translations = {
   "pt-BR": {
     About: "Sobre",
     Archive: "Arquivo",
+    Language: "Idioma",
     "Last updated on": "Atualizado em",
     Next: "Próximo",
     Pagination: "Paginação",

@@ -93,26 +93,29 @@ export default defineApp([
   }),
   ({ request, ctx }) => {
     (ctx as Record<string, unknown>).theme = resolveTheme(request);
+    (ctx as Record<string, unknown>).locale = resolveLocale(request);
   },
   render(
     Document,
     layout(SiteLayout, [
-      route("/", ({ request, ctx }) => {
-        const locale = resolveLocale(request);
-        (ctx as Record<string, unknown>).locale = locale;
+      route("/", ({ ctx }) => {
+        const locale = (ctx as Record<string, unknown>).locale as
+          | "en-US"
+          | "pt-BR";
         const data = getPaginatedPosts(1, locale);
         if (!data) {
           return new Response("Not Found", { status: 404 });
         }
         return <Home data={data} siteUrl={SITE_URL} />;
       }),
-      route("/page/:num", ({ params, request, ctx }) => {
+      route("/page/:num", ({ params, ctx }) => {
         const num = Number(params.num);
         if (num === 1) {
           return Response.redirect(`${SITE_URL}/`, 301);
         }
-        const locale = resolveLocale(request);
-        (ctx as Record<string, unknown>).locale = locale;
+        const locale = (ctx as Record<string, unknown>).locale as
+          | "en-US"
+          | "pt-BR";
         const data = getPaginatedPosts(num, locale);
         if (!data) {
           return new Response("Not Found", { status: 404 });
