@@ -1,4 +1,4 @@
-import { MagnifyingGlassIcon } from "@phosphor-icons/react/dist/ssr";
+import { MagnifyingGlass as MagnifyingGlassIcon } from "@phosphor-icons/react/dist/ssr/MagnifyingGlass";
 
 import { LocaleToggle } from "#app/components/locale-toggle.js";
 import { ThemeToggle } from "#app/components/theme-toggle.js";
