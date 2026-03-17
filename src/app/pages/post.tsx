@@ -20,7 +20,7 @@ export const Post = async ({ post }: PostProps) => {
         siteUrl={SITE_URL}
         alternates={getPostAlternates(post.slug)}
       />
-      <article lang={post.locale}>
+      <article lang={post.locale} className="prose dark:prose-invert mx-auto">
         <header>
           <h1>{post.title}</h1>
           <time dateTime={post.created} itemProp="datePublished">
