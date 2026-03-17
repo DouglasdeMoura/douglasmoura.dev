@@ -48,12 +48,12 @@ export const Header = ({ theme, locale, alternates }: HeaderProps) => (
       >
         <MagnifyingGlassIcon size={18} weight="bold" />
       </a>
+      <ThemeToggle initialTheme={theme} label={t("Theme")} />
       <LocaleToggle
         initialLocale={locale}
         label={t("Language")}
         alternates={alternates}
       />
-      <ThemeToggle initialTheme={theme} label={t("Theme")} />
     </nav>
   </header>
 );
