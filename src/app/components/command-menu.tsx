@@ -3,6 +3,8 @@
 import { Command } from "cmdk";
 import { useCallback, useEffect, useRef, useState } from "react";
 
+import type { NavItem } from "#app/components/search-trigger.js";
+
 interface SearchResult {
   slug: string;
   title: string;
@@ -17,6 +19,7 @@ interface CommandMenuProps {
   locale: "en-US" | "pt-BR";
   placeholder: string;
   emptyText: string;
+  navItems?: NavItem[];
 }
 
 export const CommandMenu = ({
@@ -25,6 +28,7 @@ export const CommandMenu = ({
   locale,
   placeholder,
   emptyText,
+  navItems = [],
 }: CommandMenuProps) => {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState<SearchResult[]>([]);
@@ -86,6 +90,14 @@ export const CommandMenu = ({
     (slug: string) => {
       onOpenChange(false);
       window.location.href = `/${slug}`;
+    },
+    [onOpenChange]
+  );
+
+  const handleNavigate = useCallback(
+    (href: string) => {
+      onOpenChange(false);
+      window.location.href = href;
     },
     [onOpenChange]
   );
@@ -167,6 +179,21 @@ export const CommandMenu = ({
           </div>
 
           <Command.List className="max-h-80 overflow-y-auto overflow-x-hidden p-1">
+            {!query.trim() && navItems.length > 0 && (
+              <Command.Group>
+                {navItems.map((item) => (
+                  <Command.Item
+                    key={item.href}
+                    value={item.href}
+                    onSelect={handleNavigate}
+                    className="flex cursor-default items-center rounded-lg px-3 py-2 text-sm text-text-muted outline-none select-none data-[selected=true]:bg-surface-1 data-[selected=true]:text-text-strong"
+                  >
+                    {item.label}
+                  </Command.Item>
+                ))}
+              </Command.Group>
+            )}
+
             {loading && (
               <Command.Loading>
                 <div className="py-6 text-center text-sm text-text-muted">
@@ -175,9 +202,11 @@ export const CommandMenu = ({
               </Command.Loading>
             )}
 
-            <Command.Empty className="py-6 text-center text-sm text-text-muted">
-              {emptyText}
-            </Command.Empty>
+            {query.trim() && (
+              <Command.Empty className="py-6 text-center text-sm text-text-muted">
+                {emptyText}
+              </Command.Empty>
+            )}
 
             {results.map((result) => (
               <Command.Item

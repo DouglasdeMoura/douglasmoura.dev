@@ -32,7 +32,7 @@ export const Header = ({
         width={48}
         height={48}
         decoding="async"
-        className="rounded-full ring-2 ring-accent"
+        className="rounded-full ring-[3px] ring-accent"
       />
       <span className="hidden sm:inline text-sm font-medium text-text-strong">
         Douglas Moura
@@ -41,27 +41,26 @@ export const Header = ({
     <nav className="flex items-center gap-4 sm:gap-6">
       <a
         href="/about"
-        className="inline-flex items-center justify-center min-h-11 text-sm text-text-muted hover:text-text-strong transition-colors duration-150"
+        className="hidden sm:inline-flex items-center justify-center min-h-11 text-sm text-text-muted hover:text-text-strong transition-colors duration-150"
       >
         {t("About")}
       </a>
       <a
         href="/talks"
-        className="inline-flex items-center justify-center min-h-11 text-sm text-text-muted hover:text-text-strong transition-colors duration-150"
+        className="hidden sm:inline-flex items-center justify-center min-h-11 text-sm text-text-muted hover:text-text-strong transition-colors duration-150"
       >
         {t("Talks")}
-      </a>
-      <a
-        href="/bookmarks"
-        className="inline-flex items-center justify-center min-h-11 text-sm text-text-muted hover:text-text-strong transition-colors duration-150"
-      >
-        {t("Bookmarks")}
       </a>
       <SearchTrigger
         locale={locale}
         label={t("Search")}
         placeholder={t("Search posts...")}
         emptyText={t("No results found.")}
+        navItems={[
+          { href: "/about", label: t("About") },
+          { href: "/talks", label: t("Talks") },
+          { href: "/bookmarks", label: t("Bookmarks") },
+        ]}
       />
       <ThemeToggle
         initialTheme={theme}

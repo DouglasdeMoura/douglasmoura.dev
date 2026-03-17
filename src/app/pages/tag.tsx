@@ -75,7 +75,7 @@ export const TagPage = ({ tag, data, siteUrl }: TagPageProps) => {
                     <a
                       key={tagName}
                       href={`/tag/${encodeURIComponent(tagName)}`}
-                      className="inline-block text-xs tracking-[0.04em] text-text-muted bg-surface-1 py-1 px-2.5 rounded-full no-underline hover:bg-surface-2 hover:text-text-strong transition-colors duration-150"
+                      className="inline-block lowercase text-xs tracking-[0.04em] text-text-muted bg-surface-1 py-1 px-2.5 rounded-full no-underline hover:bg-surface-2 hover:text-text-strong transition-colors duration-150"
                     >
                       {tagName}
                     </a>

@@ -68,11 +68,19 @@ export const Home = ({ data, siteUrl }: HomeProps) => {
         <link rel="next" href={`${siteUrl}/page/${page + 1}`} />
       )}
 
-      <section className="prose dark:prose-invert mx-auto py-8">
+      <section className="prose mx-auto py-8">
         <div className="not-prose divide-y divide-border">
           {posts.map((post, index) => (
             <article key={post.slug} className="py-6 px-4 first:pt-0">
-              <h2 className={`mt-0 ${index === 0 ? "text-2xl" : "text-xl"}`}>
+              {index === 0 && post.cover && (
+                <img
+                  src={post.cover}
+                  alt=""
+                  className="w-full rounded-lg mb-4 aspect-[2/1] object-cover"
+                  decoding="async"
+                />
+              )}
+              <h2 className={`mt-0 ${index === 0 ? "text-3xl" : "text-xl"}`}>
                 <a
                   href={`/${post.slug}`}
                   className="text-text-strong font-semibold -tracking-[0.01em] no-underline hover:text-accent transition-colors duration-150"
@@ -95,7 +103,7 @@ export const Home = ({ data, siteUrl }: HomeProps) => {
                     <a
                       key={tag}
                       href={`/tag/${encodeURIComponent(tag)}`}
-                      className="inline-block text-xs tracking-[0.04em] text-text-muted bg-surface-1 py-1 px-2.5 rounded-full no-underline hover:bg-surface-2 hover:text-text-strong transition-colors duration-150"
+                      className="inline-block lowercase text-xs tracking-[0.04em] text-text-muted bg-surface-1 py-1 px-2.5 rounded-full no-underline hover:bg-surface-2 hover:text-text-strong transition-colors duration-150"
                     >
                       {tag}
                     </a>

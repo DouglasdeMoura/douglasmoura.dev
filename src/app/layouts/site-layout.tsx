@@ -46,6 +46,7 @@ export const SiteLayout = ({
           >
             LinkedIn
           </a>
+          <a href="/bookmarks">{t("Bookmarks")}</a>
           <a href={`/${locale}/feed.xml`}>RSS</a>
         </nav>
         <p className="text-center text-sm text-text-muted">
