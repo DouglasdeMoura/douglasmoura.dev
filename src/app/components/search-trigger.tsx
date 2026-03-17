@@ -10,6 +10,7 @@ export interface NavItem {
   label: string;
   href: string;
   icon?: React.ReactNode;
+  shortcut?: string;
 }
 
 interface SearchTriggerProps {

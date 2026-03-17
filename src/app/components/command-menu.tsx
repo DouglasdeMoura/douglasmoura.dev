@@ -127,6 +127,27 @@ export const CommandMenu = ({
     setQuery("");
   }, []);
 
+  useEffect(() => {
+    if (!open) {
+      return;
+    }
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (query.trim()) {
+        return;
+      }
+      for (const item of navItems) {
+        if (item.shortcut && e.key === item.shortcut) {
+          e.preventDefault();
+          onOpenChange(false);
+          window.location.href = item.href;
+          return;
+        }
+      }
+    };
+    document.addEventListener("keydown", onKeyDown);
+    return () => document.removeEventListener("keydown", onKeyDown);
+  }, [open, query, navItems, onOpenChange]);
+
   if (!open) {
     return null;
   }
@@ -192,6 +213,11 @@ export const CommandMenu = ({
                         <span className="size-4 shrink-0">{item.icon}</span>
                       )}
                       {item.label}
+                      {item.shortcut && (
+                        <kbd className="ml-auto text-[10px]">
+                          {item.shortcut}
+                        </kbd>
+                      )}
                     </Command.Item>
                   ))}
                 </Command.Group>
