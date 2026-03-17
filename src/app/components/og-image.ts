@@ -31,8 +31,8 @@ export const buildOgHtml = (post: Post, hostname: string): string => {
       </div>
       <div style="display:flex;align-items:center;position:absolute;bottom:0;left:0;width:1566px">
         <img src="${GRAVATAR_URL}" width="75" height="75" style="border-radius:50%" />
-        <span style="margin-left:16px;font-size:37px;font-weight:500;color:#38d9a9;opacity:0.7">@douglasdemoura</span>
-        <span style="margin-left:auto;font-size:37px;font-weight:500;color:#38d9a9;opacity:0.7">${escapeHtml(hostname)}</span>
+        <span style="margin-left:16px;font-size:37px;font-weight:500;color:#4338ca;opacity:0.7">@douglasdemoura</span>
+        <span style="margin-left:auto;font-size:37px;font-weight:500;color:#4338ca;opacity:0.7">${escapeHtml(hostname)}</span>
       </div>
     </div>
   </div>
