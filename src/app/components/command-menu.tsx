@@ -2,6 +2,7 @@
 
 import { Command } from "cmdk";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 
 import type { NavItem } from "#app/components/search-trigger.js";
 
@@ -130,7 +131,7 @@ export const CommandMenu = ({
     return null;
   }
 
-  return (
+  return createPortal(
     <div className="fixed inset-0 z-50">
       <div
         className="cmdk-backdrop fixed inset-0 bg-black/50"
@@ -227,6 +228,7 @@ export const CommandMenu = ({
           </Command.List>
         </Command>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 };

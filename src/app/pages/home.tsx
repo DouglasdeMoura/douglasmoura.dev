@@ -75,7 +75,7 @@ export const Home = ({ data, siteUrl }: HomeProps) => {
               key={post.slug}
               className={
                 index === 0
-                  ? "rounded-xl border border-border bg-surface-0 p-5 shadow-sm dark:shadow-none mb-10"
+                  ? "pb-8 mb-4 border-b border-border"
                   : "py-5 border-b border-border last:border-b-0"
               }
             >
@@ -83,7 +83,7 @@ export const Home = ({ data, siteUrl }: HomeProps) => {
                 <img
                   src={post.cover}
                   alt=""
-                  className="w-full rounded-lg mb-5 aspect-[2/1] object-cover shadow-md"
+                  className="w-full rounded-lg mb-5 aspect-[2/1] object-cover"
                   decoding="async"
                 />
               )}
