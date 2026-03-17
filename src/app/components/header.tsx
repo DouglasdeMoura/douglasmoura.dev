@@ -1,4 +1,4 @@
-import { MagnifyingGlass } from "@phosphor-icons/react/dist/ssr";
+import { MagnifyingGlassIcon } from "@phosphor-icons/react/dist/ssr";
 
 import { ThemeToggle } from "#app/components/theme-toggle.js";
 import { t } from "#app/lib/i18n.js";
@@ -42,7 +42,7 @@ export const Header = ({ theme }: HeaderProps) => (
         aria-label={t("Search")}
         className="text-text-muted hover:text-text-strong"
       >
-        <MagnifyingGlass size={18} weight="bold" />
+        <MagnifyingGlassIcon size={18} weight="bold" />
       </a>
       <ThemeToggle initialTheme={theme} label={t("Theme")} />
     </nav>
