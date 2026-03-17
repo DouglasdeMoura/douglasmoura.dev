@@ -1,4 +1,5 @@
 import { Bookmarks as BookmarksIcon } from "@phosphor-icons/react/dist/ssr/Bookmarks";
+import { House as HomeIcon } from "@phosphor-icons/react/dist/ssr/House";
 import { Microphone as MicrophoneIcon } from "@phosphor-icons/react/dist/ssr/Microphone";
 import { User as UserIcon } from "@phosphor-icons/react/dist/ssr/User";
 
@@ -62,6 +63,12 @@ export const Header = ({
           placeholder={t("Search posts…")}
           emptyText={t("No results found")}
           navItems={[
+            {
+              href: "/",
+              icon: <HomeIcon size={16} />,
+              label: t("Home"),
+              shortcut: "0",
+            },
             {
               href: "/about",
               icon: <UserIcon size={16} />,

@@ -10,6 +10,7 @@ const translations = {
     About: "Sobre",
     "Back to home": "Voltar ao início",
     Bookmarks: "Favoritos",
+    Home: "Início",
     Language: "Idioma",
     "Last updated on": "Atualizado em",
     Next: "Próximo",
