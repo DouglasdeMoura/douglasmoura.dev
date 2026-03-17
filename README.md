@@ -49,6 +49,7 @@ This project uses [Claude Code](https://docs.anthropic.com/en/docs/claude-code) 
 
 - **[Impeccable](https://impeccable.style/)** — Frontend design skills (audit, critique, polish, animate, and more) for building distinctive interfaces
 - **[Vercel React Best Practices](https://vercel.com/blog/introducing-react-best-practices)** — Performance optimization rules for React and Next.js from Vercel Engineering
+- **[Emil Kowalski's Design Engineering](https://emilkowal.ski/)** — UI polish, component design, animation decisions, and the invisible details that make software feel great
 
 Skills are installed in `.agents/skills/` and configured via `.claude/skills/`.
 
