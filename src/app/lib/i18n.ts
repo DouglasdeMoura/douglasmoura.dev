@@ -16,6 +16,7 @@ const translations = {
     "Page not found": "Página não encontrada",
     Pagination: "Paginação",
     Posts: "Artigos",
+    "Posts tagged": "Artigos com a tag",
     Previous: "Anterior",
     "Published on": "Publicado em",
     Search: "Buscar",

@@ -11,6 +11,7 @@ import {
   getPaginatedPosts,
   getPostAlternates,
   getPostBySlug,
+  getPostsByTag,
   serializePost,
 } from "#app/lib/posts.js";
 import { searchPosts } from "#app/lib/search.js";
@@ -18,6 +19,7 @@ import type { Theme } from "#app/lib/types.js";
 import { Home } from "#app/pages/home.js";
 import { NotFound } from "#app/pages/not-found.js";
 import { Post } from "#app/pages/post.js";
+import { TagPage } from "#app/pages/tag.js";
 
 export type { AppContext, Theme } from "#app/lib/types.js";
 
@@ -140,6 +142,35 @@ export default defineApp([
           return <NotFound />;
         }
         return <Home data={data} siteUrl={SITE_URL} />;
+      }),
+      route("/tag/:tag", ({ params, ctx }) => {
+        const tag = decodeURIComponent(params.tag);
+        const locale = (ctx as Record<string, unknown>).locale as
+          | "en-US"
+          | "pt-BR";
+        const data = getPostsByTag(tag, 1, locale);
+        if (!data) {
+          return <NotFound />;
+        }
+        return <TagPage tag={tag} data={data} siteUrl={SITE_URL} />;
+      }),
+      route("/tag/:tag/page/:num", ({ params, ctx }) => {
+        const tag = decodeURIComponent(params.tag);
+        const num = Number(params.num);
+        if (num === 1) {
+          return Response.redirect(
+            `${SITE_URL}/tag/${encodeURIComponent(tag)}`,
+            301
+          );
+        }
+        const locale = (ctx as Record<string, unknown>).locale as
+          | "en-US"
+          | "pt-BR";
+        const data = getPostsByTag(tag, num, locale);
+        if (!data) {
+          return <NotFound />;
+        }
+        return <TagPage tag={tag} data={data} siteUrl={SITE_URL} />;
       }),
       route("/:slug", ({ params, request }) => {
         const post = getPostBySlug(params.slug);

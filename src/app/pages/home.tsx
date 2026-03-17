@@ -97,12 +97,13 @@ export const Home = ({ data, siteUrl }: HomeProps) => {
               {post.tags.length > 0 && (
                 <div className="mt-2.5 flex flex-wrap gap-1.5">
                   {post.tags.map((tag) => (
-                    <span
+                    <a
                       key={tag}
-                      className="inline-block text-xs tracking-[0.04em] text-text-muted bg-surface-1 py-1 px-2.5 rounded-full"
+                      href={`/tag/${encodeURIComponent(tag)}`}
+                      className="inline-block text-xs tracking-[0.04em] text-text-muted bg-surface-1 py-1 px-2.5 rounded-full no-underline hover:bg-surface-2 hover:text-text-strong transition-colors duration-150"
                     >
                       {tag}
-                    </span>
+                    </a>
                   ))}
                 </div>
               )}

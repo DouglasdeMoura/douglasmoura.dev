@@ -135,6 +135,28 @@ export const getPaginatedPosts = (
   };
 };
 
+export const getPostsByTag = (
+  tag: string,
+  page: number,
+  locale?: Post["locale"]
+): PaginatedPosts | undefined => {
+  const filtered = sortedPosts.filter(
+    (p) =>
+      p.tags.some((t) => t.toLowerCase() === tag.toLowerCase()) &&
+      (!locale || p.locale === locale)
+  );
+  const totalPages = Math.max(1, Math.ceil(filtered.length / POSTS_PER_PAGE));
+  if (page < 1 || page > totalPages || filtered.length === 0) {
+    return undefined;
+  }
+  const start = (page - 1) * POSTS_PER_PAGE;
+  return {
+    page,
+    posts: filtered.slice(start, start + POSTS_PER_PAGE),
+    totalPages,
+  };
+};
+
 export const serializePost = (post: Post): string => {
   const frontmatter = [
     "---",
