@@ -1,37 +1,42 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
-  /* Surface */
-  --color-surface-0: oklch(0.985 0.005 260);
-  --color-surface-1: oklch(0.96 0.008 260);
-  --color-surface-2: oklch(0.93 0.01 260);
+  /* Surface — #ffffff, subtle off-whites */
+  --color-surface-0: oklch(1 0 0);
+  --color-surface-1: oklch(0.97 0.003 268);
+  --color-surface-2: oklch(0.94 0.006 268);
 
-  /* Text */
-  --color-text: oklch(0.2 0.02 260);
-  --color-text-muted: oklch(0.45 0.02 260);
+  /* Text — #0d0d0d primary, muted ~68% mix */
+  --color-text: oklch(0.15 0 0);
+  --color-text-muted: oklch(0.45 0 0);
 
-  /* Accent */
-  --color-accent: oklch(0.55 0.18 260);
-  --color-accent-hover: oklch(0.48 0.2 260);
+  /* Accent — #3758e8 blue */
+  --color-accent: oklch(0.53 0.22 268);
+  --color-accent-hover: oklch(0.46 0.24 268);
 
-  /* Border */
-  --color-border: oklch(0.88 0.01 260);
+  /* Border — #dcdcde */
+  --color-border: oklch(0.89 0 0);
 }
 
 .dark {
-  --color-surface-0: oklch(0.16 0.02 260);
-  --color-surface-1: oklch(0.2 0.025 260);
-  --color-surface-2: oklch(0.25 0.03 260);
+  /* Surface — hsl(0 0% 10%) base */
+  --color-surface-0: oklch(0.2 0 0);
+  --color-surface-1: oklch(0.24 0.005 268);
+  --color-surface-2: oklch(0.28 0.008 268);
 
-  --color-text: oklch(0.92 0.01 260);
-  --color-text-muted: oklch(0.65 0.02 260);
+  /* Text — white at 85% opacity equivalent */
+  --color-text: oklch(0.9 0 0);
+  --color-text-muted: oklch(0.65 0 0);
 
-  --color-accent: oklch(0.72 0.15 260);
-  --color-accent-hover: oklch(0.78 0.17 260);
+  /* Accent — lighter blue for dark backgrounds */
+  --color-accent: oklch(0.72 0.18 268);
+  --color-accent-hover: oklch(0.78 0.16 268);
 
-  --color-border: oklch(0.32 0.03 260);
+  /* Border */
+  --color-border: oklch(0.35 0 0);
 }
 
 @theme inline {
@@ -51,9 +56,10 @@ body {
 }
 
 a {
-  color: var(--color-accent);
+  color: var(--color-text);
+  text-decoration: underline;
 }
 
 a:hover {
-  color: var(--color-accent-hover);
+  text-decoration: none;
 }
