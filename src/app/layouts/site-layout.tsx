@@ -15,8 +15,11 @@ export const SiteLayout = ({
 
   return (
     <>
+      <a href="#main-content" className="skip-link">
+        Skip to content
+      </a>
       <Header theme={theme} locale={locale} alternates={alternates} />
-      <main>{children}</main>
+      <main id="main-content">{children}</main>
     </>
   );
 };
