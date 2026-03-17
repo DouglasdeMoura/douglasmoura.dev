@@ -74,7 +74,7 @@ export const SearchTrigger = ({
         className="group relative hidden sm:inline-flex items-center gap-2 rounded-lg border border-border bg-surface-0 px-3 py-1.5 text-sm text-text-muted hover:text-text hover:border-text-muted transition-colors duration-150"
       >
         <MagnifyingGlassIcon size={14} weight="bold" />
-        <span>{label}...</span>
+        <span>{label}…</span>
         <span className="inline-flex items-center gap-0.5 ml-1">
           <kbd className="text-[10px]">{isMac ? "⌘" : "Ctrl"}</kbd>
           <kbd className="text-[10px]">K</kbd>

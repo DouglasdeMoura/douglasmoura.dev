@@ -20,7 +20,7 @@ const translations = {
     Previous: "Anterior",
     "Published on": "Publicado em",
     Search: "Pesquisar",
-    "Search posts...": "Pesquisar artigos...",
+    "Search posts…": "Pesquisar artigos…",
     "Skip to content": "Pular para o conteúdo",
     Talks: "Palestras",
     Theme: "Tema",

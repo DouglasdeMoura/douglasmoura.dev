@@ -54,7 +54,7 @@ export const Header = ({
       <SearchTrigger
         locale={locale}
         label={t("Search")}
-        placeholder={t("Search posts...")}
+        placeholder={t("Search posts…")}
         emptyText={t("No results found.")}
         navItems={[
           { href: "/about", label: t("About") },
