@@ -6,7 +6,7 @@ import { t } from "#app/lib/i18n.js";
 import type { PostAlternate } from "#app/lib/posts.js";
 
 const GRAVATAR_URL =
-  "https://www.gravatar.com/avatar/997c72f0b7ca0fc26bdf60ca27cb4194?s=96";
+  "https://www.gravatar.com/avatar/997c72f0b7ca0fc26bdf60ca27cb4194?s=128";
 
 interface HeaderProps {
   theme: "light" | "dark" | "system";
@@ -19,16 +19,19 @@ export const Header = ({ theme, locale, alternates }: HeaderProps) => (
     <a
       href="/"
       aria-label="Home"
-      className="hover:opacity-80 transition-opacity duration-150"
+      className="flex items-center gap-3 hover:opacity-80 transition-opacity duration-150"
     >
       <img
         src={GRAVATAR_URL}
         alt="Douglas Moura"
-        width={40}
-        height={40}
+        width={48}
+        height={48}
         decoding="async"
-        className="rounded-full"
+        className="rounded-full ring-2 ring-accent"
       />
+      <span className="text-sm font-medium text-text-strong">
+        Douglas Moura
+      </span>
     </a>
     <nav className="flex items-center gap-4 sm:gap-6">
       <a
