@@ -243,6 +243,13 @@ pre.shiki code {
   font-style: normal;
 }
 
+/* ── Command palette ── */
+
+[cmdk-input]:focus {
+  outline: none;
+  box-shadow: none;
+}
+
 /* ── Command palette entry ── */
 
 @media (prefers-reduced-motion: no-preference) {
