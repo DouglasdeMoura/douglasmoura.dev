@@ -75,6 +75,22 @@ a:hover {
   outline-offset: 2px;
 }
 
+/* ── Subtle atmosphere ── */
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+  background: radial-gradient(
+    ellipse at 50% 0%,
+    var(--color-surface-1) 0%,
+    transparent 70%
+  );
+  opacity: 0.4;
+}
+
 /* ── Prose overrides (cannot be Tailwind — Typography plugin variables) ── */
 
 .prose {

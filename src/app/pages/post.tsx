@@ -20,10 +20,7 @@ export const Post = async ({ post }: PostProps) => {
         siteUrl={SITE_URL}
         alternates={getPostAlternates(post.slug)}
       />
-      <article
-        lang={post.locale}
-        className="prose dark:prose-invert mx-auto px-6 py-8"
-      >
+      <article lang={post.locale} className="prose mx-auto px-6 py-8">
         <header className="not-prose mb-8">
           <h1 className="text-3xl font-bold tracking-tight text-text-strong leading-tight">
             {post.title}
@@ -39,7 +36,7 @@ export const Post = async ({ post }: PostProps) => {
             <time
               dateTime={post.updated}
               itemProp="dateModified"
-              className="sr-only"
+              className="mt-1 block text-sm text-text-muted tracking-wide"
             >
               {t("Last updated on")} {formatDate(post.updated)}
             </time>
@@ -49,7 +46,7 @@ export const Post = async ({ post }: PostProps) => {
               {post.tags.map((tag) => (
                 <span
                   key={tag}
-                  className="inline-block text-xs tracking-[0.04em] text-text-muted bg-surface-1 py-[0.2em] px-[0.6em] rounded-full"
+                  className="inline-block text-xs tracking-[0.04em] text-text-muted bg-surface-1 py-1 px-2.5 rounded-full"
                 >
                   {tag}
                 </span>
