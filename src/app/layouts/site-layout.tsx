@@ -34,7 +34,7 @@ export const SiteLayout = ({
             GitHub
           </a>
           <a
-            href="https://linkedin.com/in/douglasdemoura"
+            href="https://linkedin.com/in/dougmoura"
             target="_blank"
             rel="noopener noreferrer"
           >
