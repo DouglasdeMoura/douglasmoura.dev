@@ -8,9 +8,6 @@ interface ShortcutHintProps {
   other: string[];
 }
 
-const kbdClass =
-  "inline-flex items-center justify-center min-w-[1.25rem] rounded border border-border bg-surface-0 px-1 py-0.5 text-[10px] font-medium text-text-muted";
-
 export const ShortcutHint = ({ label, mac, other }: ShortcutHintProps) => {
   const [isMac, setIsMac] = useState(false);
 
@@ -28,7 +25,7 @@ export const ShortcutHint = ({ label, mac, other }: ShortcutHintProps) => {
       {label}
       <span className="inline-flex items-center gap-0.5">
         {keys.map((key) => (
-          <kbd key={key} className={kbdClass}>
+          <kbd key={key} className="text-[10px]">
             {key}
           </kbd>
         ))}

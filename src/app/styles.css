@@ -185,6 +185,42 @@ pre.shiki code {
   font-style: normal;
 }
 
+/* ── Keyboard key caps ── */
+
+kbd {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.4em;
+  height: 1.5em;
+  padding: 0 0.4em;
+  font-family: inherit;
+  font-size: 0.8em;
+  font-weight: 500;
+  line-height: 1;
+  white-space: nowrap;
+  color: var(--color-text);
+  background: linear-gradient(180deg, oklch(1 0 0 / 0.55), oklch(1 0 0 / 0))
+    var(--color-surface-0);
+  border: 1px solid var(--color-border);
+  border-bottom-width: 2px;
+  border-bottom-color: oklch(0 0 0 / 0.15);
+  border-radius: 5px;
+  box-shadow:
+    0 1px 1px oklch(0 0 0 / 0.08),
+    0 0.5px 0 oklch(1 0 0 / 0.45) inset;
+}
+
+.dark kbd {
+  background: linear-gradient(180deg, oklch(1 0 0 / 0.08), oklch(1 0 0 / 0))
+    var(--color-surface-0);
+  border-color: oklch(1 0 0 / 0.15);
+  border-bottom-color: oklch(0 0 0 / 0.4);
+  box-shadow:
+    0 1px 2px oklch(0 0 0 / 0.35),
+    0 0.5px 0 oklch(1 0 0 / 0.07) inset;
+}
+
 /* ── Reduced motion ── */
 
 @media (prefers-reduced-motion: reduce) {
