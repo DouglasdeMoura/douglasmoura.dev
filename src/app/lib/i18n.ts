@@ -9,9 +9,11 @@ const translations = {
   "pt-BR": {
     About: "Sobre",
     Archive: "Arquivo",
+    "Back to home": "Voltar ao início",
     Language: "Idioma",
     "Last updated on": "Atualizado em",
     Next: "Próximo",
+    "Page not found": "Página não encontrada",
     Pagination: "Paginação",
     Posts: "Artigos",
     Previous: "Anterior",

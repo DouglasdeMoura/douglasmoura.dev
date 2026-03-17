@@ -15,6 +15,7 @@ import {
 import { searchPosts } from "#app/lib/search.js";
 import type { Theme } from "#app/lib/types.js";
 import { Home } from "#app/pages/home.js";
+import { NotFound } from "#app/pages/not-found.js";
 import { Post } from "#app/pages/post.js";
 
 export type { AppContext, Theme } from "#app/lib/types.js";
@@ -113,7 +114,7 @@ export default defineApp([
           | "pt-BR";
         const data = getPaginatedPosts(1, locale);
         if (!data) {
-          return new Response("Not Found", { status: 404 });
+          return <NotFound />;
         }
         return <Home data={data} siteUrl={SITE_URL} />;
       }),
@@ -127,14 +128,14 @@ export default defineApp([
           | "pt-BR";
         const data = getPaginatedPosts(num, locale);
         if (!data) {
-          return new Response("Not Found", { status: 404 });
+          return <NotFound />;
         }
         return <Home data={data} siteUrl={SITE_URL} />;
       }),
       route("/:slug", ({ params, request }) => {
         const post = getPostBySlug(params.slug);
         if (!post) {
-          return new Response("Not Found", { status: 404 });
+          return <NotFound />;
         }
         const accept = request.headers.get("Accept") ?? "";
         if (accept.includes("text/markdown")) {
