@@ -186,8 +186,11 @@ export const CommandMenu = ({
                       key={item.href}
                       value={item.href}
                       onSelect={handleNavigate}
-                      className="flex cursor-default items-center rounded-lg px-3 py-2 text-sm text-text-muted outline-none select-none data-[selected=true]:bg-surface-1 data-[selected=true]:text-text-strong"
+                      className="flex cursor-default items-center gap-2 rounded-lg px-3 py-2 text-sm text-text-muted outline-none select-none data-[selected=true]:bg-surface-1 data-[selected=true]:text-text-strong"
                     >
+                      {item.icon && (
+                        <span className="size-4 shrink-0">{item.icon}</span>
+                      )}
                       {item.label}
                     </Command.Item>
                   ))}

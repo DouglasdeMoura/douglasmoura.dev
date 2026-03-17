@@ -1,3 +1,7 @@
+import { Bookmarks as BookmarksIcon } from "@phosphor-icons/react/dist/ssr/Bookmarks";
+import { Microphone as MicrophoneIcon } from "@phosphor-icons/react/dist/ssr/Microphone";
+import { User as UserIcon } from "@phosphor-icons/react/dist/ssr/User";
+
 import { LocaleToggle } from "#app/components/locale-toggle.js";
 import { SearchTrigger } from "#app/components/search-trigger.js";
 import { ThemeToggle } from "#app/components/theme-toggle.js";
@@ -58,9 +62,21 @@ export const Header = ({
           placeholder={t("Search posts…")}
           emptyText={t("No results found")}
           navItems={[
-            { href: "/about", label: t("About") },
-            { href: "/talks", label: t("Talks") },
-            { href: "/bookmarks", label: t("Bookmarks") },
+            {
+              href: "/about",
+              icon: <UserIcon size={16} />,
+              label: t("About"),
+            },
+            {
+              href: "/talks",
+              icon: <MicrophoneIcon size={16} />,
+              label: t("Talks"),
+            },
+            {
+              href: "/bookmarks",
+              icon: <BookmarksIcon size={16} />,
+              label: t("Bookmarks"),
+            },
           ]}
         />
         <ThemeToggle

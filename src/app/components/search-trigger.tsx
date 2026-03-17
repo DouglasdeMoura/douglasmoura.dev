@@ -9,6 +9,7 @@ import { ShortcutHint } from "#app/components/shortcut-hint.js";
 export interface NavItem {
   label: string;
   href: string;
+  icon?: React.ReactNode;
 }
 
 interface SearchTriggerProps {
