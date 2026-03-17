@@ -136,13 +136,13 @@ export const CommandMenu = ({
   return (
     <div className="fixed inset-0 z-50">
       <div
-        className="fixed inset-0 bg-black/50"
+        className="cmdk-backdrop fixed inset-0 bg-black/50"
         onClick={handleClose}
         onKeyDown={handleBackdropKeyDown}
         role="presentation"
       />
 
-      <div className="fixed left-1/2 top-[20%] w-full max-w-lg -translate-x-1/2 px-4">
+      <div className="cmdk-dialog fixed left-1/2 top-[20%] w-full max-w-lg -translate-x-1/2 px-4">
         <Command
           label="Search posts"
           shouldFilter={false}
@@ -171,7 +171,7 @@ export const CommandMenu = ({
               <button
                 type="button"
                 onClick={handleClearQuery}
-                className="ml-2 text-xs text-text-muted hover:text-text-strong motion-safe:transition-colors motion-safe:duration-150"
+                className="ml-2 text-xs text-text-muted hover:text-text-strong active:scale-[0.97] motion-safe:transition-[color,transform] motion-safe:duration-150"
               >
                 Esc
               </button>
