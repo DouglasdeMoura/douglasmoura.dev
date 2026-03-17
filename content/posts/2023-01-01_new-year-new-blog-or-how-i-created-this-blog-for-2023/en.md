@@ -20,7 +20,7 @@ I tried several CMSs ([Directus](https://directus.io/), [KeystoneJS](https://key
 
 I tried [Astro](https://astro.build/) (which is excellent!) and [Remix](https://remix.run/), but I ended up choosing Next.js, mainly because of the Vercel image generation library, which I use to generate images of the post, like this one:
 
-<img src="https://douglasmoura.dev/api/v1/og?ok" alt="The job that's never started as takes longest to finish" />
+<img src="/posts/og.png" alt="The job that's never started as takes longest to finish" />
 
 And here we come to the choice of what I would use to create the styles of the blog. In recent years, I styled React applications with [CSS Modules](https://github.com/css-modules/css-modules), [Styled Components](https://styled-components.com/), [Stitches](https://stitches.dev/), [Tailwind](https://tailwindcss.com/) and [Chakra UI](https://chakra-ui.com/). I even stated to create a Design System with Stitches and Tailwind, but create an entire Design System all by myself would take a long time, so, I decided to take the shorter route.
 

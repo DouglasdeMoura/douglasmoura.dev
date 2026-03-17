@@ -44,7 +44,7 @@ mas acabei optando pelo [Next.js](https://nextjs.org/), pricipalmente por conta
 da biblioteca de geração de imagens da [Vercel](https://vercel.com/), que eu uso para gerar as imagens do post,
 como essa aqui:
 
-<img src="https://douglasmoura.dev/api/v1/og?ok" alt="O trabalho que nunca começou é o que leva mais tempo para terminar" />
+<img src="/posts/og.png" alt="O trabalho que nunca começou é o que leva mais tempo para terminar" />
 
 E aqui chegamos à escolha do que eu utilizaria para criar os estilos do blog.
 Nos últimos anos, estilizei aplicações em React com [CSS Modules](https://github.com/css-modules/css-modules),
