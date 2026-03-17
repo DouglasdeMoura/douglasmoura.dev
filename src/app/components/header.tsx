@@ -22,29 +22,33 @@ export const Header = ({ theme, locale, alternates }: HeaderProps) => (
         alt="Douglas Moura"
         width={40}
         height={40}
+        decoding="async"
         className="rounded-full"
       />
     </a>
-    <nav className="flex items-center gap-6">
+    <nav className="flex items-center gap-4 sm:gap-6">
       <a
         href="/about"
-        className="text-sm text-text-muted hover:text-text-strong"
+        className="inline-flex items-center justify-center min-h-11 text-sm text-text-muted hover:text-text-strong"
       >
         {t("About")}
       </a>
-      <a href="/" className="text-sm text-text-muted hover:text-text-strong">
+      <a
+        href="/"
+        className="inline-flex items-center justify-center min-h-11 text-sm text-text-muted hover:text-text-strong"
+      >
         {t("Posts")}
       </a>
       <a
         href="/archive"
-        className="text-sm text-text-muted hover:text-text-strong"
+        className="inline-flex items-center justify-center min-h-11 text-sm text-text-muted hover:text-text-strong"
       >
         {t("Archive")}
       </a>
       <a
         href="/search"
         aria-label={t("Search")}
-        className="text-text-muted hover:text-text-strong"
+        className="inline-flex items-center justify-center min-w-11 min-h-11 text-text-muted hover:text-text-strong"
       >
         <MagnifyingGlassIcon size={18} weight="bold" />
       </a>

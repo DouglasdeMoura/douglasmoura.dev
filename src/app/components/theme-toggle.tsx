@@ -57,7 +57,7 @@ export const ThemeToggle = ({ initialTheme, label }: ThemeToggleProps) => {
       type="button"
       onClick={cycle}
       aria-label={`${label}: ${labels[theme]}`}
-      className="text-text-muted hover:text-text-strong"
+      className="inline-flex items-center justify-center min-w-11 min-h-11 text-text-muted hover:text-text-strong"
     >
       {theme === "light" && <SunIcon size={18} weight="fill" />}
       {theme === "dark" && <MoonIcon size={18} weight="fill" />}

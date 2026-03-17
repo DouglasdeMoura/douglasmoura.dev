@@ -36,7 +36,7 @@ export const LocaleToggle = ({
       type="button"
       onClick={toggle}
       aria-label={`${label}: ${locale === "en-US" ? "English" : "Português"}`}
-      className="text-sm text-text-muted hover:text-text-strong"
+      className="inline-flex items-center justify-center min-w-11 min-h-11 text-sm text-text-muted hover:text-text-strong"
     >
       {locale === "en-US" ? "PT" : "EN"}
     </button>
