@@ -116,7 +116,7 @@ export const ThemeToggle = ({
       type="button"
       onClick={cycle}
       aria-label={`${label}: ${THEME_LABELS[theme]}`}
-      className="group relative inline-flex items-center justify-center min-w-11 min-h-11 text-text-muted hover:text-text-strong active:scale-[0.97] motion-safe:transition-[color,transform] motion-safe:duration-150"
+      className="group relative inline-flex items-center justify-center size-8 text-text-muted hover:text-text-strong active:scale-[0.97] motion-safe:transition-[color,transform] motion-safe:duration-150"
     >
       {icon}
       <ShortcutHint label={label} mac={["⌥", "T"]} other={["Alt", "T"]} />

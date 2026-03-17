@@ -42,13 +42,13 @@ export const Header = ({
       <nav className="flex items-center gap-4 sm:gap-6">
         <a
           href="/about"
-          className="hidden sm:inline-flex items-center justify-center min-h-11 text-sm text-text-muted hover:text-text-strong active:scale-[0.97] motion-safe:transition-[color,transform] motion-safe:duration-150"
+          className="hidden sm:inline-flex items-center justify-center h-12 px-4 text-sm text-text-muted hover:text-text-strong active:scale-[0.97] motion-safe:transition-[color,transform] motion-safe:duration-150"
         >
           {t("About")}
         </a>
         <a
           href="/talks"
-          className="hidden sm:inline-flex items-center justify-center min-h-11 text-sm text-text-muted hover:text-text-strong active:scale-[0.97] motion-safe:transition-[color,transform] motion-safe:duration-150"
+          className="hidden sm:inline-flex items-center justify-center h-12 px-4 text-sm text-text-muted hover:text-text-strong active:scale-[0.97] motion-safe:transition-[color,transform] motion-safe:duration-150"
         >
           {t("Talks")}
         </a>
