@@ -36,6 +36,12 @@ export const Document: React.FC<
           dangerouslySetInnerHTML={{ __html: themeScript }}
         />
         <link rel="stylesheet" href={styles} />
+        <link
+          rel="alternate"
+          type="application/rss+xml"
+          title="Douglas Moura"
+          href="/feed.xml"
+        />
         <link rel="modulepreload" href="/src/client.tsx" />
       </head>
       <body>
