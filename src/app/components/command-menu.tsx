@@ -134,7 +134,7 @@ export const CommandMenu = ({
   return createPortal(
     <div className="fixed inset-0 z-50">
       <div
-        className="cmdk-backdrop fixed inset-0 bg-black/50"
+        className="cmdk-backdrop fixed inset-0 bg-black/30 backdrop-blur-sm"
         onClick={handleClose}
         onKeyDown={handleBackdropKeyDown}
         role="presentation"
