@@ -14,7 +14,7 @@ const themeScript = `(function(){
 
 export const Document: React.FC<
   RequestInfo & { children: React.ReactNode }
-> = ({ ctx, children }) => {
+> = ({ ctx, rw, children }) => {
   const appCtx = ctx as { locale?: string; theme?: string };
   const theme = appCtx.theme ?? "system";
 
@@ -33,6 +33,7 @@ export const Document: React.FC<
           content="Douglas Moura — Software Engineer. Articles on web development, TypeScript, React, and more."
         />
         <script
+          nonce={rw.nonce}
           /* oxlint-disable-next-line eslint-plugin-react(no-danger) -- FOUC prevention: must run before paint */
           dangerouslySetInnerHTML={{ __html: themeScript }}
         />
