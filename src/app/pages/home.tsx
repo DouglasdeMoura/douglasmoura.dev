@@ -68,26 +68,37 @@ export const Home = ({ data, siteUrl }: HomeProps) => {
         <link rel="next" href={`${siteUrl}/page/${page + 1}`} />
       )}
 
-      <section className="prose dark:prose-invert mx-auto px-6 py-4">
-        {posts.map((post) => (
-          <article key={post.slug}>
-            <h2>
-              <a href={`/${post.slug}`}>{post.title}</a>
-            </h2>
-            <time dateTime={post.created}>{formatDate(post.created)}</time>
-            <p>{post.description}</p>
-            {post.tags.length > 0 && (
-              <ul>
-                {post.tags.map((tag) => (
-                  <li key={tag}>{tag}</li>
-                ))}
-              </ul>
-            )}
-          </article>
-        ))}
+      <section className="prose dark:prose-invert mx-auto px-6 py-8">
+        <div className="not-prose space-y-6">
+          {posts.map((post) => (
+            <article key={post.slug} className="post-card">
+              <h2 className="text-xl font-semibold tracking-tight">
+                <a href={`/${post.slug}`}>{post.title}</a>
+              </h2>
+              <time
+                dateTime={post.created}
+                className="text-sm text-text-muted tracking-wide"
+              >
+                {formatDate(post.created)}
+              </time>
+              <p className="mt-1.5 text-text-muted leading-relaxed">
+                {post.description}
+              </p>
+              {post.tags.length > 0 && (
+                <div className="mt-2.5 flex flex-wrap gap-1.5">
+                  {post.tags.map((tag) => (
+                    <span key={tag} className="tag">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              )}
+            </article>
+          ))}
+        </div>
 
         {totalPages > 1 && (
-          <nav aria-label={t("Pagination")}>
+          <nav aria-label={t("Pagination")} className="not-prose pagination">
             {page > 1 && (
               <a href={page === 2 ? "/" : `/page/${page - 1}`} rel="prev">
                 {t("Previous")}
@@ -96,8 +107,8 @@ export const Home = ({ data, siteUrl }: HomeProps) => {
             {pageNumbers(page, totalPages).map((item) => {
               if (item.type === "ellipsis") {
                 return (
-                  <span key={item.key} className="hidden sm:inline">
-                    …
+                  <span key={item.key} className="hidden sm:inline-flex">
+                    ...
                   </span>
                 );
               }
@@ -106,7 +117,7 @@ export const Home = ({ data, siteUrl }: HomeProps) => {
                   <span
                     key={item.key}
                     aria-current="page"
-                    className="hidden sm:inline"
+                    className="hidden sm:inline-flex"
                   >
                     {item.page}
                   </span>
@@ -116,7 +127,7 @@ export const Home = ({ data, siteUrl }: HomeProps) => {
                 <a
                   key={item.key}
                   href={item.page === 1 ? "/" : `/page/${item.page}`}
-                  className="hidden sm:inline"
+                  className="hidden sm:inline-flex"
                 >
                   {item.page}
                 </a>

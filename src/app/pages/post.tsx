@@ -22,11 +22,17 @@ export const Post = async ({ post }: PostProps) => {
       />
       <article
         lang={post.locale}
-        className="prose dark:prose-invert mx-auto px-6 py-4"
+        className="prose dark:prose-invert mx-auto px-6 py-8"
       >
-        <header>
-          <h1>{post.title}</h1>
-          <time dateTime={post.created} itemProp="datePublished">
+        <header className="post-header not-prose mb-8">
+          <h1 className="text-3xl font-bold tracking-tight text-text-strong leading-tight">
+            {post.title}
+          </h1>
+          <time
+            dateTime={post.created}
+            itemProp="datePublished"
+            className="mt-3 block text-sm text-text-muted tracking-wide"
+          >
             {t("Published on")} {formatDate(post.created)}
           </time>
           {post.updated && post.updated !== post.created && (
@@ -39,11 +45,13 @@ export const Post = async ({ post }: PostProps) => {
             </time>
           )}
           {post.tags.length > 0 && (
-            <ul>
+            <div className="mt-3 flex flex-wrap gap-1.5">
               {post.tags.map((tag) => (
-                <li key={tag}>{tag}</li>
+                <span key={tag} className="tag">
+                  {tag}
+                </span>
               ))}
-            </ul>
+            </div>
           )}
         </header>
         {/* oxlint-disable-next-line eslint-plugin-react(no-danger) -- safe: rendering our own markdown, not user input */}
