@@ -11,6 +11,7 @@ export const SiteLayout = ({
 }) => {
   const appCtx = (requestInfo?.ctx ?? {}) as AppContext;
   const theme = appCtx.theme ?? "system";
+  const themeExplicit = appCtx.themeExplicit ?? false;
   const locale = appCtx.locale ?? "en-US";
   const alternates = appCtx.alternates ?? [];
 
@@ -22,7 +23,12 @@ export const SiteLayout = ({
       >
         {t("Skip to content")}
       </a>
-      <Header theme={theme} locale={locale} alternates={alternates} />
+      <Header
+        theme={theme}
+        themeExplicit={themeExplicit}
+        locale={locale}
+        alternates={alternates}
+      />
       <main id="main-content">{children}</main>
       <footer className="border-t border-border px-4 pt-6 pb-8 max-w-prose mx-auto">
         <nav className="flex items-center justify-center gap-6 text-sm text-text-muted mb-4">

@@ -10,11 +10,17 @@ const GRAVATAR_URL =
 
 interface HeaderProps {
   theme: "light" | "dark" | "system";
+  themeExplicit: boolean;
   locale: "en-US" | "pt-BR";
   alternates: PostAlternate[];
 }
 
-export const Header = ({ theme, locale, alternates }: HeaderProps) => (
+export const Header = ({
+  theme,
+  themeExplicit,
+  locale,
+  alternates,
+}: HeaderProps) => (
   <header className="flex items-center justify-between border-b border-border px-4 py-4 max-w-prose mx-auto">
     <a
       href="/"
@@ -59,7 +65,11 @@ export const Header = ({ theme, locale, alternates }: HeaderProps) => (
       >
         <MagnifyingGlassIcon size={18} weight="bold" />
       </a>
-      <ThemeToggle initialTheme={theme} label={t("Theme")} />
+      <ThemeToggle
+        initialTheme={theme}
+        initialExplicit={themeExplicit}
+        label={t("Theme")}
+      />
       <LocaleToggle
         initialLocale={locale}
         label={t("Language")}

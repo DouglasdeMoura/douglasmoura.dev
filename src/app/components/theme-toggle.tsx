@@ -22,12 +22,19 @@ const applyTheme = (theme: Theme): void => {
 
 interface ThemeToggleProps {
   initialTheme: Theme;
+  initialExplicit: boolean;
   label: string;
 }
 
-export const ThemeToggle = ({ initialTheme, label }: ThemeToggleProps) => {
+export const ThemeToggle = ({
+  initialTheme,
+  initialExplicit,
+  label,
+}: ThemeToggleProps) => {
   const [theme, setThemeState] = useState<Theme>(initialTheme);
-  const [userSelectedSystem, setUserSelectedSystem] = useState(false);
+  const [userSelectedSystem, setUserSelectedSystem] = useState(
+    initialExplicit && initialTheme === "system"
+  );
   const [isDark, setIsDark] = useState(initialTheme === "dark");
 
   useEffect(() => {

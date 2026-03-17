@@ -43,10 +43,18 @@ const resolveLocale = (request: Request): "en-US" | "pt-BR" => {
   return "en-US";
 };
 
-const resolveTheme = (request: Request): Theme => {
+interface ResolvedTheme {
+  theme: Theme;
+  explicit: boolean;
+}
+
+const resolveTheme = (request: Request): ResolvedTheme => {
   const cookie = request.headers.get("Cookie") ?? "";
   const match = cookie.match(/theme=(light|dark|system)/);
-  return (match?.[1] as Theme) ?? "system";
+  if (match) {
+    return { explicit: true, theme: match[1] as Theme };
+  }
+  return { explicit: false, theme: "system" };
 };
 
 export default defineApp([
@@ -105,7 +113,9 @@ export default defineApp([
     return markdownResponse(post);
   }),
   ({ request, ctx }) => {
-    (ctx as Record<string, unknown>).theme = resolveTheme(request);
+    const resolved = resolveTheme(request);
+    (ctx as Record<string, unknown>).theme = resolved.theme;
+    (ctx as Record<string, unknown>).themeExplicit = resolved.explicit;
     (ctx as Record<string, unknown>).locale = resolveLocale(request);
     const slug = new URL(request.url).pathname.slice(1);
     const post = slug ? getPostBySlug(slug) : undefined;
