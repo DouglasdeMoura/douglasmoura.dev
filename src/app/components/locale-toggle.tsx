@@ -1,7 +1,8 @@
 "use client";
 
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
+import { ShortcutHint } from "#app/components/shortcut-hint.js";
 import { setLocale } from "#app/lib/locale-action.js";
 
 interface PostAlternate {
@@ -31,14 +32,30 @@ export const LocaleToggle = ({
     window.location.href = alt ? `/${alt.slug}` : "/";
   }, [locale, alternates]);
 
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.altKey && e.key === "l") {
+        e.preventDefault();
+        toggle();
+      }
+    };
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [toggle]);
+
   return (
     <button
       type="button"
       onClick={toggle}
       aria-label={`${label}: ${locale === "en-US" ? "English" : "Português"}`}
-      className="inline-flex items-center justify-center min-w-11 min-h-11 text-sm text-text-muted hover:text-text-strong transition-colors duration-150"
+      className="group relative inline-flex items-center justify-center min-w-11 min-h-11 text-sm text-text-muted hover:text-text-strong transition-colors duration-150"
     >
       {locale === "en-US" ? "PT" : "EN"}
+      <ShortcutHint
+        mac="⌥L"
+        other="Alt+L"
+        className="top-[calc(100%-14px)] left-1/2"
+      />
     </button>
   );
 };
