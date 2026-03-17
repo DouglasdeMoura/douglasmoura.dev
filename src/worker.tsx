@@ -1,8 +1,9 @@
-import { render, route } from "rwsdk/router";
+import { layout, render, route } from "rwsdk/router";
 import { defineApp } from "rwsdk/worker";
 
 import { Document } from "#app/document.js";
 import { setCommonHeaders } from "#app/headers.js";
+import { SiteLayout } from "#app/layouts/site-layout.js";
 import { generateOgImage } from "#app/lib/og.js";
 import type { Post as PostData } from "#app/lib/posts.js";
 import {
@@ -11,15 +12,11 @@ import {
   serializePost,
 } from "#app/lib/posts.js";
 import { searchPosts } from "#app/lib/search.js";
+import type { Theme } from "#app/lib/types.js";
 import { Home } from "#app/pages/home.js";
 import { Post } from "#app/pages/post.js";
 
-export type Theme = "light" | "dark" | "system";
-
-export interface AppContext {
-  locale?: "en-US" | "pt-BR";
-  theme?: Theme;
-}
+export type { AppContext, Theme } from "#app/lib/types.js";
 
 const SITE_URL = import.meta.env.VITE_SITE_URL ?? "https://douglasmoura.dev";
 
@@ -97,40 +94,43 @@ export default defineApp([
   ({ request, ctx }) => {
     (ctx as Record<string, unknown>).theme = resolveTheme(request);
   },
-  render(Document, [
-    route("/", ({ request, ctx }) => {
-      const locale = resolveLocale(request);
-      (ctx as Record<string, unknown>).locale = locale;
-      const data = getPaginatedPosts(1, locale);
-      if (!data) {
-        return new Response("Not Found", { status: 404 });
-      }
-      return <Home data={data} siteUrl={SITE_URL} />;
-    }),
-    route("/page/:num", ({ params, request, ctx }) => {
-      const num = Number(params.num);
-      if (num === 1) {
-        return Response.redirect(`${SITE_URL}/`, 301);
-      }
-      const locale = resolveLocale(request);
-      (ctx as Record<string, unknown>).locale = locale;
-      const data = getPaginatedPosts(num, locale);
-      if (!data) {
-        return new Response("Not Found", { status: 404 });
-      }
-      return <Home data={data} siteUrl={SITE_URL} />;
-    }),
-    route("/:slug", ({ params, request, ctx }) => {
-      const post = getPostBySlug(params.slug);
-      if (!post) {
-        return new Response("Not Found", { status: 404 });
-      }
-      const accept = request.headers.get("Accept") ?? "";
-      if (accept.includes("text/markdown")) {
-        return markdownResponse(post);
-      }
-      (ctx as Record<string, unknown>).locale = post.locale;
-      return <Post post={post} />;
-    }),
-  ]),
+  render(
+    Document,
+    layout(SiteLayout, [
+      route("/", ({ request, ctx }) => {
+        const locale = resolveLocale(request);
+        (ctx as Record<string, unknown>).locale = locale;
+        const data = getPaginatedPosts(1, locale);
+        if (!data) {
+          return new Response("Not Found", { status: 404 });
+        }
+        return <Home data={data} siteUrl={SITE_URL} />;
+      }),
+      route("/page/:num", ({ params, request, ctx }) => {
+        const num = Number(params.num);
+        if (num === 1) {
+          return Response.redirect(`${SITE_URL}/`, 301);
+        }
+        const locale = resolveLocale(request);
+        (ctx as Record<string, unknown>).locale = locale;
+        const data = getPaginatedPosts(num, locale);
+        if (!data) {
+          return new Response("Not Found", { status: 404 });
+        }
+        return <Home data={data} siteUrl={SITE_URL} />;
+      }),
+      route("/:slug", ({ params, request, ctx }) => {
+        const post = getPostBySlug(params.slug);
+        if (!post) {
+          return new Response("Not Found", { status: 404 });
+        }
+        const accept = request.headers.get("Accept") ?? "";
+        if (accept.includes("text/markdown")) {
+          return markdownResponse(post);
+        }
+        (ctx as Record<string, unknown>).locale = post.locale;
+        return <Post post={post} />;
+      }),
+    ])
+  ),
 ]);
