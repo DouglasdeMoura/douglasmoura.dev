@@ -40,7 +40,7 @@ export const SiteLayout = ({
           >
             LinkedIn
           </a>
-          <a href="/feed.xml">RSS</a>
+          <a href={`/${locale}/feed.xml`}>RSS</a>
         </nav>
         <p className="text-center text-sm text-text-muted">
           &copy; {new Date().getFullYear()} Douglas Moura

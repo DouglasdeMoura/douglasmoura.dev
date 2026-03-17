@@ -38,9 +38,15 @@ export const Document: React.FC<
         <link rel="stylesheet" href={styles} />
         <link
           rel="alternate"
-          type="application/rss+xml"
-          title="Douglas Moura"
-          href="/feed.xml"
+          type="application/atom+xml"
+          title="Douglas Moura (English)"
+          href="/en-US/feed.xml"
+        />
+        <link
+          rel="alternate"
+          type="application/atom+xml"
+          title="Douglas Moura (Português)"
+          href="/pt-BR/feed.xml"
         />
         <link rel="modulepreload" href="/src/client.tsx" />
       </head>

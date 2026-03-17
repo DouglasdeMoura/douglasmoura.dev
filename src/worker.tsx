@@ -4,6 +4,7 @@ import { defineApp } from "rwsdk/worker";
 import { Document } from "#app/document.js";
 import { setCommonHeaders } from "#app/headers.js";
 import { SiteLayout } from "#app/layouts/site-layout.js";
+import { generateAtomFeed, generateRssFeed } from "#app/lib/feed.js";
 import { generateOgImage } from "#app/lib/og.js";
 import type { Post as PostData } from "#app/lib/posts.js";
 import {
@@ -48,6 +49,14 @@ const resolveTheme = (request: Request): Theme => {
 
 export default defineApp([
   setCommonHeaders(),
+  route("/en-US/feed.xml", () => generateAtomFeed("en-US", SITE_URL)),
+  route("/en-US/rss.xml", () => generateRssFeed("en-US", SITE_URL)),
+  route("/pt-BR/feed.xml", () => generateAtomFeed("pt-BR", SITE_URL)),
+  route("/pt-BR/rss.xml", () => generateRssFeed("pt-BR", SITE_URL)),
+  route("/feed.xml", () =>
+    Response.redirect(`${SITE_URL}/en-US/feed.xml`, 301)
+  ),
+  route("/rss.xml", () => Response.redirect(`${SITE_URL}/en-US/rss.xml`, 301)),
   route("/api/v1/og", ({ request }) => {
     const slug = new URL(request.url).searchParams.get("slug");
     if (!slug) {
