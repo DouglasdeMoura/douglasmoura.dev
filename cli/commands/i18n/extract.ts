@@ -230,8 +230,8 @@ export default defineCommand({
       required: false,
       type: "positional",
     },
-    "remove-stale": {
-      description: "Remove stale keys instead of just warning",
+    "keep-stale": {
+      description: "Keep stale keys instead of removing them",
       type: "boolean",
     },
   },
@@ -272,11 +272,11 @@ export default defineCommand({
       return;
     }
 
-    const removeStale = Boolean(args["remove-stale"]);
+    const keepStale = Boolean(args["keep-stale"]);
     const { merged, added, stale } = mergeTranslations(
       locales,
       keys,
-      removeStale
+      !keepStale
     );
 
     if (added.length === 0 && stale.length === 0) {
@@ -293,7 +293,7 @@ export default defineCommand({
       process.exit(1);
     }
 
-    if (removeStale) {
+    if (stale.length > 0 && !keepStale) {
       consola.info(`Removing ${stale.length} stale key(s)`);
     }
 

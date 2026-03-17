@@ -8,7 +8,6 @@ type Locale = "en-US" | "pt-BR";
 const translations = {
   "pt-BR": {
     About: "Sobre",
-    Archive: "Arquivo",
     "Back to home": "Voltar ao início",
     Bookmarks: "Favoritos",
     Language: "Idioma",
@@ -17,7 +16,6 @@ const translations = {
     "No results found.": "Nenhum resultado encontrado.",
     "Page not found": "Página não encontrada",
     Pagination: "Paginação",
-    Posts: "Artigos",
     "Posts tagged": "Artigos com a tag",
     Previous: "Anterior",
     "Published on": "Publicado em",
