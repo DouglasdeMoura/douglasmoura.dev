@@ -68,7 +68,7 @@ export const Home = ({ data, siteUrl }: HomeProps) => {
         <link rel="next" href={`${siteUrl}/page/${page + 1}`} />
       )}
 
-      <section className="prose dark:prose-invert mx-auto">
+      <section className="prose dark:prose-invert mx-auto px-6 py-4">
         {posts.map((post) => (
           <article key={post.slug}>
             <h2>
