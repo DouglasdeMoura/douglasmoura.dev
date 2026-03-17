@@ -20,6 +20,8 @@ const translations = {
     "Published on": "Publicado em",
     Search: "Buscar",
     "Skip to content": "Pular para o conteúdo",
+    "The page you're looking for doesn't exist or has been moved.":
+      "A página que você procura não existe ou foi movida.",
     Theme: "Tema",
   },
 } as const satisfies Record<string, Record<string, string>>;
