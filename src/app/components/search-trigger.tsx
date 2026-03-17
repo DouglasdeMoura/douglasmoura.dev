@@ -31,18 +31,15 @@ export const SearchTrigger = ({
     setIsMac(navigator.platform.startsWith("Mac"));
   }, []);
 
-  const handleKeyDown = useCallback(
-    (e: KeyboardEvent) => {
-      if ((e.metaKey || e.ctrlKey) && e.key === "k") {
-        e.preventDefault();
-        setOpen((prev) => !prev);
-      }
-      if (e.key === "Escape" && open) {
-        setOpen(false);
-      }
-    },
-    [open]
-  );
+  const handleKeyDown = useCallback((e: KeyboardEvent) => {
+    if ((e.metaKey || e.ctrlKey) && e.key === "k") {
+      e.preventDefault();
+      setOpen((prev) => !prev);
+    }
+    if (e.key === "Escape") {
+      setOpen(false);
+    }
+  }, []);
 
   useEffect(() => {
     document.addEventListener("keydown", handleKeyDown);

@@ -5,6 +5,13 @@ import { useCallback, useEffect, useRef, useState } from "react";
 
 import type { NavItem } from "#app/components/search-trigger.js";
 
+const formatDate = (iso: string, locale: string): string =>
+  new Intl.DateTimeFormat(locale, {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+  }).format(new Date(iso));
+
 interface SearchResult {
   slug: string;
   title: string;
@@ -119,16 +126,6 @@ export const CommandMenu = ({
     setQuery("");
   }, []);
 
-  const formatDate = useCallback(
-    (iso: string) =>
-      new Intl.DateTimeFormat(locale, {
-        day: "numeric",
-        month: "short",
-        year: "numeric",
-      }).format(new Date(iso)),
-    [locale]
-  );
-
   if (!open) {
     return null;
   }
@@ -220,7 +217,7 @@ export const CommandMenu = ({
                   {result.title}
                 </span>
                 <span className="text-xs text-text-muted line-clamp-1">
-                  {formatDate(result.created)}
+                  {formatDate(result.created, locale)}
                   {result.tags.length > 0 && (
                     <> &middot; {result.tags.join(", ")}</>
                   )}

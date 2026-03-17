@@ -10,6 +10,12 @@ import { setTheme } from "#app/lib/theme-action.js";
 
 type Theme = "light" | "dark" | "system";
 
+const THEME_LABELS: Record<Theme, string> = {
+  dark: "Dark",
+  light: "Light",
+  system: "System",
+};
+
 const applyTheme = (theme: Theme): void => {
   const root = document.documentElement;
   const isDark =
@@ -94,12 +100,6 @@ export const ThemeToggle = ({
     return () => document.removeEventListener("keydown", handleKeyDown);
   }, [cycle]);
 
-  const labels: Record<Theme, string> = {
-    dark: "Dark",
-    light: "Light",
-    system: "System",
-  };
-
   const showMonitor = theme === "system" && userSelectedSystem;
 
   let icon = isDark ? (
@@ -115,7 +115,7 @@ export const ThemeToggle = ({
     <button
       type="button"
       onClick={cycle}
-      aria-label={`${label}: ${labels[theme]}`}
+      aria-label={`${label}: ${THEME_LABELS[theme]}`}
       className="group relative inline-flex items-center justify-center min-w-11 min-h-11 text-text-muted hover:text-text-strong active:scale-[0.97] motion-safe:transition-[color,transform] motion-safe:duration-150"
     >
       {icon}
