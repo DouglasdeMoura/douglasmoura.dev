@@ -1,6 +1,6 @@
 "use client";
 
-import { Moon, Sun } from "@phosphor-icons/react";
+import { Monitor, Moon, Sun } from "@phosphor-icons/react";
 import { useCallback, useEffect, useState } from "react";
 
 import { setTheme } from "#app/lib/theme-action.js";
@@ -59,11 +59,9 @@ export const ThemeToggle = ({ initialTheme, label }: ThemeToggleProps) => {
       aria-label={`${label}: ${labels[theme]}`}
       className="text-text-muted hover:text-text-strong"
     >
-      {theme === "light" ? (
-        <Sun size={18} weight="fill" />
-      ) : (
-        <Moon size={18} weight="fill" />
-      )}
+      {theme === "light" && <Sun size={18} weight="fill" />}
+      {theme === "dark" && <Moon size={18} weight="fill" />}
+      {theme === "system" && <Monitor size={18} weight="fill" />}
     </button>
   );
 };
