@@ -15,7 +15,7 @@ interface HeaderProps {
 }
 
 export const Header = ({ theme, locale, alternates }: HeaderProps) => (
-  <header className="flex items-center justify-between border-b border-border px-6 py-4 max-w-prose mx-auto">
+  <header className="flex items-center justify-between border-b border-border px-4 py-4 max-w-prose mx-auto">
     <a
       href="/"
       aria-label="Home"

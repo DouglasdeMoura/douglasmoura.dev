@@ -68,10 +68,10 @@ export const Home = ({ data, siteUrl }: HomeProps) => {
         <link rel="next" href={`${siteUrl}/page/${page + 1}`} />
       )}
 
-      <section className="prose dark:prose-invert mx-auto px-6 py-8">
+      <section className="prose dark:prose-invert mx-auto py-8">
         <div className="not-prose divide-y divide-border">
           {posts.map((post, index) => (
-            <article key={post.slug} className="py-6 first:pt-0">
+            <article key={post.slug} className="py-6 px-4 first:pt-0">
               <h2 className={`mt-0 ${index === 0 ? "text-2xl" : "text-xl"}`}>
                 <a
                   href={`/${post.slug}`}
@@ -109,7 +109,7 @@ export const Home = ({ data, siteUrl }: HomeProps) => {
         {totalPages > 1 && (
           <nav
             aria-label={t("Pagination")}
-            className="not-prose flex items-center justify-center gap-1 pt-6 border-t border-border mt-8"
+            className="not-prose flex items-center justify-center gap-1 px-4 pt-6 border-t border-border mt-8"
           >
             {page > 1 && (
               <a

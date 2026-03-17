@@ -20,7 +20,7 @@ export const Post = async ({ post }: PostProps) => {
         siteUrl={SITE_URL}
         alternates={getPostAlternates(post.slug)}
       />
-      <article lang={post.locale} className="prose mx-auto px-6 py-8">
+      <article lang={post.locale} className="prose mx-auto px-4 py-8">
         <header className="not-prose mb-8">
           <h1 className="text-3xl font-bold tracking-tight text-text-strong leading-tight">
             {post.title}
