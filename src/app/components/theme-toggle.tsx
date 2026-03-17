@@ -27,25 +27,45 @@ interface ThemeToggleProps {
 
 export const ThemeToggle = ({ initialTheme, label }: ThemeToggleProps) => {
   const [theme, setThemeState] = useState<Theme>(initialTheme);
+  const [userSelectedSystem, setUserSelectedSystem] = useState(false);
+  const [isDark, setIsDark] = useState(initialTheme === "dark");
 
   useEffect(() => {
     applyTheme(theme);
+
+    const dark =
+      theme === "dark" ||
+      (theme === "system" &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches);
+    setIsDark(dark);
 
     if (theme !== "system") {
       return;
     }
 
     const mq = window.matchMedia("(prefers-color-scheme: dark)");
-    const onChange = () => applyTheme("system");
+    const onChange = () => {
+      applyTheme("system");
+      setIsDark(mq.matches);
+    };
     mq.addEventListener("change", onChange);
     return () => mq.removeEventListener("change", onChange);
   }, [theme]);
 
   const cycle = useCallback(() => {
-    const order: Theme[] = ["system", "light", "dark"];
-    const next = order[(order.indexOf(theme) + 1) % order.length];
-    setThemeState(next);
-    setTheme(next);
+    if (theme === "system") {
+      const prefersDark = window.matchMedia(
+        "(prefers-color-scheme: dark)"
+      ).matches;
+      const next = prefersDark ? "light" : "dark";
+      setThemeState(next);
+      setTheme(next);
+      setUserSelectedSystem(false);
+    } else {
+      setThemeState("system");
+      setTheme("system");
+      setUserSelectedSystem(true);
+    }
   }, [theme]);
 
   const labels: Record<Theme, string> = {
@@ -54,6 +74,17 @@ export const ThemeToggle = ({ initialTheme, label }: ThemeToggleProps) => {
     system: "System",
   };
 
+  const showMonitor = theme === "system" && userSelectedSystem;
+
+  let icon = isDark ? (
+    <MoonIcon size={18} weight="fill" />
+  ) : (
+    <SunIcon size={18} weight="fill" />
+  );
+  if (showMonitor) {
+    icon = <MonitorIcon size={18} weight="fill" />;
+  }
+
   return (
     <button
       type="button"
@@ -61,9 +92,7 @@ export const ThemeToggle = ({ initialTheme, label }: ThemeToggleProps) => {
       aria-label={`${label}: ${labels[theme]}`}
       className="inline-flex items-center justify-center min-w-11 min-h-11 text-text-muted hover:text-text-strong transition-colors duration-150"
     >
-      {theme === "light" && <SunIcon size={18} weight="fill" />}
-      {theme === "dark" && <MoonIcon size={18} weight="fill" />}
-      {theme === "system" && <MonitorIcon size={18} weight="fill" />}
+      {icon}
     </button>
   );
 };
