@@ -70,12 +70,14 @@ export const Home = ({ data, siteUrl }: HomeProps) => {
 
       <section className="prose dark:prose-invert mx-auto px-6 py-8">
         <div className="not-prose space-y-6">
-          {posts.map((post) => (
+          {posts.map((post, index) => (
             <article
               key={post.slug}
               className="pb-7 border-b border-border last:border-b-0"
             >
-              <h2 className="mb-1 mt-0 text-xl">
+              <h2
+                className={`mb-1 mt-0 ${index === 0 ? "text-2xl" : "text-xl"}`}
+              >
                 <a
                   href={`/${post.slug}`}
                   className="text-text-strong font-semibold -tracking-[0.01em] no-underline hover:text-accent transition-colors duration-150"
@@ -97,7 +99,7 @@ export const Home = ({ data, siteUrl }: HomeProps) => {
                   {post.tags.map((tag) => (
                     <span
                       key={tag}
-                      className="inline-block text-xs tracking-[0.04em] text-text-muted bg-surface-1 py-[0.2em] px-[0.6em] rounded-full"
+                      className="inline-block text-xs tracking-[0.04em] text-text-muted bg-surface-1 py-1 px-2.5 rounded-full"
                     >
                       {tag}
                     </span>
@@ -111,7 +113,7 @@ export const Home = ({ data, siteUrl }: HomeProps) => {
         {totalPages > 1 && (
           <nav
             aria-label={t("Pagination")}
-            className="not-prose flex items-center justify-center gap-1 pt-8 border-t border-border mt-12"
+            className="not-prose flex items-center justify-center gap-1 pt-6 border-t border-border mt-8"
           >
             {page > 1 && (
               <a
