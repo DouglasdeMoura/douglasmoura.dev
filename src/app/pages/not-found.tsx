@@ -6,7 +6,7 @@ export const NotFound = () => (
     <p className="text-lg text-text-muted">{t("Page not found")}</p>
     <a
       href="/"
-      className="mt-4 inline-block text-accent hover:text-accent-hover"
+      className="mt-4 inline-block text-accent hover:text-accent-hover underline underline-offset-[3px] decoration-1 decoration-border hover:decoration-accent-hover transition-colors duration-150"
     >
       {t("Back to home")}
     </a>

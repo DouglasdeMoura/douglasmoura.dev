@@ -75,7 +75,7 @@ export const Home = ({ data, siteUrl }: HomeProps) => {
               key={post.slug}
               className="pb-7 border-b border-border last:border-b-0"
             >
-              <h2 className="mb-1 mt-0 text-xl font-semibold tracking-tight">
+              <h2 className="mb-1 mt-0 text-xl">
                 <a
                   href={`/${post.slug}`}
                   className="text-text-strong font-semibold -tracking-[0.01em] no-underline hover:text-accent transition-colors duration-150"

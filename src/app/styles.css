@@ -31,13 +31,13 @@
 }
 
 .dark {
-  --color-surface-0: oklch(0.2 0 0);
-  --color-surface-1: oklch(0.26 0 0);
-  --color-surface-2: oklch(0.3 0 0);
+  --color-surface-0: oklch(0.2 0.005 108);
+  --color-surface-1: oklch(0.26 0.005 108);
+  --color-surface-2: oklch(0.3 0.005 108);
 
-  --color-text: oklch(0.77 0 0);
-  --color-text-strong: oklch(0.949 0 0);
-  --color-text-muted: oklch(0.64 0 0);
+  --color-text: oklch(0.77 0.005 108);
+  --color-text-strong: oklch(0.949 0.005 108);
+  --color-text-muted: oklch(0.64 0.01 108);
 
   --color-accent: oklch(0.72 0.18 268);
   --color-accent-hover: oklch(0.78 0.16 268);
@@ -138,4 +138,17 @@ a:hover {
   :where(blockquote):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
   border-inline-start-color: var(--color-accent);
   font-style: normal;
+}
+
+/* ── Reduced motion ── */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
