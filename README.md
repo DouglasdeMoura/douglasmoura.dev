@@ -43,6 +43,15 @@ content/posts/
 │   └── cover.jpg
 ```
 
+## AI Skills
+
+This project uses [Claude Code](https://docs.anthropic.com/en/docs/claude-code) skills for design and code quality:
+
+- **[Impeccable](https://impeccable.style/)** — Frontend design skills (audit, critique, polish, animate, and more) for building distinctive interfaces
+- **[Vercel React Best Practices](https://vercel.com/blog/introducing-react-best-practices)** — Performance optimization rules for React and Next.js from Vercel Engineering
+
+Skills are installed in `.agents/skills/` and configured via `.claude/skills/`.
+
 ## Scripts
 
 | Script         | Description                    |
