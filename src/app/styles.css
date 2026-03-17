@@ -1,6 +1,14 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
+@font-face {
+  font-family: "Geist";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("geist/dist/fonts/geist-sans/Geist-Variable.woff2") format("woff2");
+}
+
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
@@ -42,6 +50,7 @@
 }
 
 @theme inline {
+  --font-sans: "Geist", ui-sans-serif, system-ui, sans-serif;
   --color-surface-0: var(--color-surface-0);
   --color-surface-1: var(--color-surface-1);
   --color-surface-2: var(--color-surface-2);

@@ -24,9 +24,9 @@ export const generateOgImage = async (
   post: Post,
   siteUrl: string
 ): Promise<Response> => {
-  const [interExtraBold, interMedium] = await Promise.all([
-    loadGoogleFont("Inter", 800),
-    loadGoogleFont("Inter", 500),
+  const [geistBold, geistMedium] = await Promise.all([
+    loadGoogleFont("Geist", 700),
+    loadGoogleFont("Geist", 500),
   ]);
 
   const { hostname } = new URL(siteUrl);
@@ -35,14 +35,14 @@ export const generateOgImage = async (
   return new ImageResponse(html, {
     fonts: [
       {
-        data: interExtraBold,
-        name: "Inter",
+        data: geistBold,
+        name: "Geist",
         style: "normal" as const,
-        weight: 800,
+        weight: 700,
       },
       {
-        data: interMedium,
-        name: "Inter",
+        data: geistMedium,
+        name: "Geist",
         style: "normal" as const,
         weight: 500,
       },
