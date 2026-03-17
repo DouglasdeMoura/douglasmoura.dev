@@ -48,7 +48,7 @@ export const LocaleToggle = ({
       type="button"
       onClick={toggle}
       aria-label={`${label}: ${locale === "en-US" ? "English" : "Português"}`}
-      className="group relative inline-flex items-center justify-center min-w-11 min-h-11 text-sm text-text-muted hover:text-text-strong transition-colors duration-150"
+      className="group relative inline-flex items-center justify-center min-w-11 min-h-11 text-sm text-text-muted hover:text-text-strong motion-safe:transition-colors motion-safe:duration-150"
     >
       {locale === "en-US" ? "PT" : "EN"}
       <ShortcutHint label={label} mac={["⌥", "L"]} other={["Alt", "L"]} />

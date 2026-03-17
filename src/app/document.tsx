@@ -50,7 +50,7 @@ export const Document: React.FC<
         />
         <link rel="modulepreload" href="/src/client.tsx" />
       </head>
-      <body className="bg-surface-0 text-text transition-colors duration-300 ease-in-out">
+      <body className="bg-surface-0 text-text motion-safe:transition-colors motion-safe:duration-300 motion-safe:ease-in-out">
         {children}
         <script>import(&quot;/src/client.tsx&quot;)</script>
       </body>

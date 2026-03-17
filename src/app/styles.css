@@ -63,7 +63,12 @@
 a {
   color: var(--color-text-muted);
   text-decoration: none;
-  transition: color 0.15s ease;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a {
+    transition: color 0.15s ease;
+  }
 }
 
 a:hover {
@@ -118,9 +123,14 @@ body::before {
   text-underline-offset: 3px;
   text-decoration-thickness: 1px;
   text-decoration-color: var(--color-border);
-  transition:
-    color 0.15s ease,
-    text-decoration-color 0.15s ease;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .prose :where(a):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+    transition:
+      color 0.15s ease,
+      text-decoration-color 0.15s ease;
+  }
 }
 
 .prose
@@ -219,17 +229,4 @@ kbd {
   box-shadow:
     0 1px 2px oklch(0 0 0 / 0.35),
     0 0.5px 0 oklch(1 0 0 / 0.07) inset;
-}
-
-/* ── Reduced motion ── */
-
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
 }

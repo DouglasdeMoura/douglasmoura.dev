@@ -13,7 +13,7 @@ export const NotFound = () => (
     </p>
     <a
       href="/"
-      className="mt-6 inline-block text-accent hover:text-accent-hover underline underline-offset-[3px] decoration-1 decoration-border hover:decoration-accent-hover transition-colors duration-150"
+      className="mt-6 inline-block text-accent hover:text-accent-hover underline underline-offset-[3px] decoration-1 decoration-border hover:decoration-accent-hover motion-safe:transition-colors motion-safe:duration-150"
     >
       {t("Back to home")}
     </a>

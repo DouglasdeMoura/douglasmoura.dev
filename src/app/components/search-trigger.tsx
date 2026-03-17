@@ -60,7 +60,7 @@ export const SearchTrigger = ({
         type="button"
         onClick={handleOpen}
         aria-label={label}
-        className="group relative sm:hidden inline-flex items-center justify-center min-w-11 min-h-11 text-text-muted hover:text-text-strong transition-colors duration-150"
+        className="group relative sm:hidden inline-flex items-center justify-center min-w-11 min-h-11 text-text-muted hover:text-text-strong motion-safe:transition-colors motion-safe:duration-150"
       >
         <MagnifyingGlassIcon size={18} weight="bold" />
       </button>
@@ -69,7 +69,7 @@ export const SearchTrigger = ({
       <button
         type="button"
         onClick={handleOpen}
-        className="group relative hidden sm:inline-flex items-center gap-2 rounded-lg border border-border bg-surface-0 px-3 py-1.5 text-sm text-text-muted hover:text-text hover:border-text-muted transition-colors duration-150"
+        className="group relative hidden sm:inline-flex items-center gap-2 rounded-lg border border-border bg-surface-0 px-3 py-1.5 text-sm text-text-muted hover:text-text hover:border-text-muted motion-safe:transition-colors motion-safe:duration-150"
       >
         <MagnifyingGlassIcon size={14} weight="bold" />
         <span>{label}…</span>

@@ -24,7 +24,7 @@ export const Header = ({
     <a
       href="/"
       aria-label="Home"
-      className="flex items-center gap-3 hover:opacity-80 transition-opacity duration-150"
+      className="flex items-center gap-3 hover:opacity-80 motion-safe:transition-opacity motion-safe:duration-150"
     >
       <img
         src={GRAVATAR_URL}
@@ -41,13 +41,13 @@ export const Header = ({
     <nav className="flex items-center gap-4 sm:gap-6">
       <a
         href="/about"
-        className="hidden sm:inline-flex items-center justify-center min-h-11 text-sm text-text-muted hover:text-text-strong transition-colors duration-150"
+        className="hidden sm:inline-flex items-center justify-center min-h-11 text-sm text-text-muted hover:text-text-strong motion-safe:transition-colors motion-safe:duration-150"
       >
         {t("About")}
       </a>
       <a
         href="/talks"
-        className="hidden sm:inline-flex items-center justify-center min-h-11 text-sm text-text-muted hover:text-text-strong transition-colors duration-150"
+        className="hidden sm:inline-flex items-center justify-center min-h-11 text-sm text-text-muted hover:text-text-strong motion-safe:transition-colors motion-safe:duration-150"
       >
         {t("Talks")}
       </a>

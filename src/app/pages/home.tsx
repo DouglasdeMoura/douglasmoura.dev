@@ -83,7 +83,7 @@ export const Home = ({ data, siteUrl }: HomeProps) => {
               <h2 className={`mt-0 ${index === 0 ? "text-3xl" : "text-xl"}`}>
                 <a
                   href={`/${post.slug}`}
-                  className="text-text-strong font-semibold -tracking-[0.01em] no-underline hover:text-accent transition-colors duration-150"
+                  className="text-text-strong font-semibold -tracking-[0.01em] no-underline hover:text-accent motion-safe:transition-colors motion-safe:duration-150"
                 >
                   {post.title}
                 </a>
@@ -103,7 +103,7 @@ export const Home = ({ data, siteUrl }: HomeProps) => {
                     <a
                       key={tag}
                       href={`/tag/${encodeURIComponent(tag)}`}
-                      className="inline-block lowercase text-xs tracking-[0.04em] text-text-muted bg-surface-1 py-1 px-2.5 rounded-full no-underline hover:bg-surface-2 hover:text-text-strong transition-colors duration-150"
+                      className="inline-block lowercase text-xs tracking-[0.04em] text-text-muted bg-surface-1 py-1 px-2.5 rounded-full no-underline hover:bg-surface-2 hover:text-text-strong motion-safe:transition-colors motion-safe:duration-150"
                     >
                       {tag}
                     </a>
@@ -123,7 +123,7 @@ export const Home = ({ data, siteUrl }: HomeProps) => {
               <a
                 href={page === 2 ? "/" : `/page/${page - 1}`}
                 rel="prev"
-                className="inline-flex items-center justify-center min-w-11 h-11 px-2 text-sm rounded-md text-text-muted hover:text-text-strong hover:bg-surface-1 transition-colors duration-150"
+                className="inline-flex items-center justify-center min-w-11 h-11 px-2 text-sm rounded-md text-text-muted hover:text-text-strong hover:bg-surface-1 motion-safe:transition-colors motion-safe:duration-150"
               >
                 {t("Previous")}
               </a>
@@ -154,7 +154,7 @@ export const Home = ({ data, siteUrl }: HomeProps) => {
                 <a
                   key={item.key}
                   href={item.page === 1 ? "/" : `/page/${item.page}`}
-                  className="hidden sm:inline-flex items-center justify-center min-w-11 h-11 px-2 text-sm rounded-md text-text-muted hover:text-text-strong hover:bg-surface-1 transition-colors duration-150"
+                  className="hidden sm:inline-flex items-center justify-center min-w-11 h-11 px-2 text-sm rounded-md text-text-muted hover:text-text-strong hover:bg-surface-1 motion-safe:transition-colors motion-safe:duration-150"
                 >
                   {item.page}
                 </a>
@@ -164,7 +164,7 @@ export const Home = ({ data, siteUrl }: HomeProps) => {
               <a
                 href={`/page/${page + 1}`}
                 rel="next"
-                className="inline-flex items-center justify-center min-w-11 h-11 px-2 text-sm rounded-md text-text-muted hover:text-text-strong hover:bg-surface-1 transition-colors duration-150"
+                className="inline-flex items-center justify-center min-w-11 h-11 px-2 text-sm rounded-md text-text-muted hover:text-text-strong hover:bg-surface-1 motion-safe:transition-colors motion-safe:duration-150"
               >
                 {t("Next")}
               </a>

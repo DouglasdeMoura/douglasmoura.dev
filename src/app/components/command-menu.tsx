@@ -171,7 +171,7 @@ export const CommandMenu = ({
               <button
                 type="button"
                 onClick={handleClearQuery}
-                className="ml-2 text-xs text-text-muted hover:text-text-strong transition-colors duration-150"
+                className="ml-2 text-xs text-text-muted hover:text-text-strong motion-safe:transition-colors motion-safe:duration-150"
               >
                 Esc
               </button>
