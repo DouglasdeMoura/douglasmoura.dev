@@ -20,6 +20,9 @@ export const SiteLayout = ({
       </a>
       <Header theme={theme} locale={locale} alternates={alternates} />
       <main id="main-content">{children}</main>
+      <footer className="border-t border-border px-6 py-6 text-center text-sm text-text-muted max-w-prose mx-auto">
+        <p>&copy; {new Date().getFullYear()} Douglas Moura</p>
+      </footer>
     </>
   );
 };
