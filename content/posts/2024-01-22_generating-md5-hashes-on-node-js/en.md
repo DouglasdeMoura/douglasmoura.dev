@@ -3,7 +3,7 @@ title: Generating MD5 hashes on Node.js
 slug: generating-md5-hashes-on-node-js
 locale: en-US
 created: 2024-01-23 13:20:06.581Z
-updated: 2026-03-17 11:45:02.000Z
+updated: 2026-03-17 12:00:54.000Z
 tags:
   - Node.js
   - javascript
@@ -14,7 +14,7 @@ type: post
 You can create hashes in Node.js without the need to install any external library. Usually, I create the following utility function in the projects I work on:
 
 ```javascript
-import { createHash } from "node:crypto"
+import { createHash } from "node:crypto";
 
 /**
  * Hashes a string using md5
