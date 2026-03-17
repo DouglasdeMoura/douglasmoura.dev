@@ -8,6 +8,7 @@ import { generateOgImage } from "#app/lib/og.js";
 import type { Post as PostData } from "#app/lib/posts.js";
 import {
   getPaginatedPosts,
+  getPostAlternates,
   getPostBySlug,
   serializePost,
 } from "#app/lib/posts.js";
@@ -94,6 +95,14 @@ export default defineApp([
   ({ request, ctx }) => {
     (ctx as Record<string, unknown>).theme = resolveTheme(request);
     (ctx as Record<string, unknown>).locale = resolveLocale(request);
+    const slug = new URL(request.url).pathname.slice(1);
+    const post = slug ? getPostBySlug(slug) : undefined;
+    if (post) {
+      (ctx as Record<string, unknown>).locale = post.locale;
+      (ctx as Record<string, unknown>).alternates = getPostAlternates(
+        post.slug
+      );
+    }
   },
   render(
     Document,
@@ -122,7 +131,7 @@ export default defineApp([
         }
         return <Home data={data} siteUrl={SITE_URL} />;
       }),
-      route("/:slug", ({ params, request, ctx }) => {
+      route("/:slug", ({ params, request }) => {
         const post = getPostBySlug(params.slug);
         if (!post) {
           return new Response("Not Found", { status: 404 });
@@ -131,7 +140,6 @@ export default defineApp([
         if (accept.includes("text/markdown")) {
           return markdownResponse(post);
         }
-        (ctx as Record<string, unknown>).locale = post.locale;
         return <Post post={post} />;
       }),
     ])
