@@ -53,10 +53,10 @@ export const SearchTrigger = ({
         type="button"
         onClick={handleOpen}
         aria-label={label}
-        className="inline-flex items-center gap-1.5 justify-center min-h-11 text-text-muted hover:text-text-strong transition-colors duration-150"
+        className="group relative inline-flex items-center justify-center min-w-11 min-h-11 text-text-muted hover:text-text-strong transition-colors duration-150"
       >
         <MagnifyingGlassIcon size={18} weight="bold" />
-        <kbd className="hidden sm:inline-flex items-center gap-0.5 rounded border border-border bg-surface-1 px-1.5 py-0.5 text-[10px] font-medium text-text-muted">
+        <kbd className="pointer-events-none absolute top-full mt-1 hidden sm:group-hover:inline-flex items-center gap-0.5 rounded border border-border bg-surface-1 px-1.5 py-0.5 text-[10px] font-medium text-text-muted opacity-0 group-hover:opacity-100 transition-opacity duration-150">
           {isMac ? "⌘" : "Ctrl+"}K
         </kbd>
       </button>
