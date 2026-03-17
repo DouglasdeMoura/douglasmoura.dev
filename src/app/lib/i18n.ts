@@ -7,11 +7,16 @@ type Locale = "en-US" | "pt-BR";
 
 const translations = {
   "pt-BR": {
+    About: "Sobre",
+    Archive: "Arquivo",
     "Last updated on": "Atualizado em",
     Next: "Próximo",
     Pagination: "Paginação",
+    Posts: "Artigos",
     Previous: "Anterior",
     "Published on": "Publicado em",
+    Search: "Buscar",
+    Theme: "Tema",
   },
 } as const satisfies Record<string, Record<string, string>>;
 

@@ -105,10 +105,7 @@ export default defineApp([
       if (!data) {
         return new Response("Not Found", { status: 404 });
       }
-      const theme = resolveTheme(request);
-      return (
-        <Home data={data} siteUrl={SITE_URL} locale={locale} theme={theme} />
-      );
+      return <Home data={data} siteUrl={SITE_URL} />;
     }),
     route("/page/:num", ({ params, request, ctx }) => {
       const num = Number(params.num);
@@ -121,10 +118,7 @@ export default defineApp([
       if (!data) {
         return new Response("Not Found", { status: 404 });
       }
-      const theme = resolveTheme(request);
-      return (
-        <Home data={data} siteUrl={SITE_URL} locale={locale} theme={theme} />
-      );
+      return <Home data={data} siteUrl={SITE_URL} />;
     }),
     route("/:slug", ({ params, request, ctx }) => {
       const post = getPostBySlug(params.slug);

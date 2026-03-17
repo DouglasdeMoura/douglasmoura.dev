@@ -1,5 +1,3 @@
-import { LocaleToggle } from "#app/components/locale-toggle.js";
-import { ThemeToggle } from "#app/components/theme-toggle.js";
 import { formatDate, t } from "#app/lib/i18n.js";
 import type { PaginatedPosts } from "#app/lib/posts.js";
 
@@ -44,11 +42,9 @@ const pageNumbers = (current: number, total: number): PageItem[] => {
 interface HomeProps {
   data: PaginatedPosts;
   siteUrl: string;
-  locale: "en-US" | "pt-BR";
-  theme: "light" | "dark" | "system";
 }
 
-export const Home = ({ data, siteUrl, locale, theme }: HomeProps) => {
+export const Home = ({ data, siteUrl }: HomeProps) => {
   const { posts, page, totalPages } = data;
 
   return (
@@ -72,8 +68,6 @@ export const Home = ({ data, siteUrl, locale, theme }: HomeProps) => {
         <link rel="next" href={`${siteUrl}/page/${page + 1}`} />
       )}
 
-      <LocaleToggle initialLocale={locale} />
-      <ThemeToggle initialTheme={theme} />
       <section className="prose dark:prose-invert mx-auto">
         {posts.map((post) => (
           <article key={post.slug}>

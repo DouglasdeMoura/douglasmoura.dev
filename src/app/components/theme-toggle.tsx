@@ -1,5 +1,6 @@
 "use client";
 
+import { Moon, Sun } from "@phosphor-icons/react";
 import { useCallback, useEffect, useState } from "react";
 
 import { setTheme } from "#app/lib/theme-action.js";
@@ -17,7 +18,12 @@ const applyTheme = (theme: Theme): void => {
   root.dataset.theme = theme;
 };
 
-export const ThemeToggle = ({ initialTheme }: { initialTheme: Theme }) => {
+interface ThemeToggleProps {
+  initialTheme: Theme;
+  label: string;
+}
+
+export const ThemeToggle = ({ initialTheme, label }: ThemeToggleProps) => {
   const [theme, setThemeState] = useState<Theme>(initialTheme);
 
   useEffect(() => {
@@ -45,11 +51,19 @@ export const ThemeToggle = ({ initialTheme }: { initialTheme: Theme }) => {
     light: "Light",
     system: "System",
   };
-  const label = labels[theme];
 
   return (
-    <button type="button" onClick={cycle} aria-label={`Theme: ${label}`}>
-      {label}
+    <button
+      type="button"
+      onClick={cycle}
+      aria-label={`${label}: ${labels[theme]}`}
+      className="text-text-muted hover:text-text-strong"
+    >
+      {theme === "light" ? (
+        <Sun size={18} weight="fill" />
+      ) : (
+        <Moon size={18} weight="fill" />
+      )}
     </button>
   );
 };

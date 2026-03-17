@@ -1,5 +1,7 @@
 import type { RequestInfo } from "rwsdk/worker";
 
+import { Header } from "#app/components/header.js";
+
 import styles from "./styles.css?url";
 
 const themeScript = `(function(){
@@ -38,7 +40,8 @@ export const Document: React.FC<
         <link rel="modulepreload" href="/src/client.tsx" />
       </head>
       <body>
-        {children}
+        <Header theme={theme as "light" | "dark" | "system"} />
+        <main>{children}</main>
         <script>import(&quot;/src/client.tsx&quot;)</script>
       </body>
     </html>
