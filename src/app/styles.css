@@ -262,11 +262,8 @@ pre.shiki code {
   @keyframes cmdk-dialog-in {
     from {
       opacity: 0;
-      transform: translateX(-50%) scale(0.95);
+      transform: scale(0.95);
       filter: blur(4px);
-    }
-    to {
-      filter: blur(0px);
     }
   }
 
