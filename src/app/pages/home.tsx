@@ -68,12 +68,16 @@ export const Home = ({ data, siteUrl }: HomeProps) => {
         <link rel="next" href={`${siteUrl}/page/${page + 1}`} />
       )}
 
-      <section className="prose mx-auto py-10">
-        <div className="not-prose space-y-5 px-4">
+      <section className="prose mx-auto py-10 px-4">
+        <div className="not-prose">
           {posts.map((post, index) => (
             <article
               key={post.slug}
-              className="rounded-xl border border-border bg-surface-0 p-5 shadow-sm dark:shadow-none"
+              className={
+                index === 0
+                  ? "rounded-xl border border-border bg-surface-0 p-5 shadow-sm dark:shadow-none mb-10"
+                  : "py-5 border-b border-border last:border-b-0"
+              }
             >
               {index === 0 && post.cover && (
                 <img

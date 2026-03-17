@@ -49,12 +49,9 @@ export const TagPage = ({ tag, data, siteUrl }: TagPageProps) => {
           </h1>
         </header>
 
-        <div className="not-prose space-y-5 px-4">
+        <div className="not-prose divide-y divide-border">
           {posts.map((post) => (
-            <article
-              key={post.slug}
-              className="rounded-xl border border-border bg-surface-0 p-5 shadow-sm dark:shadow-none"
-            >
+            <article key={post.slug} className="py-5 px-4 first:pt-0">
               <h2 className="mt-0 text-xl">
                 <a
                   href={`/${post.slug}`}
