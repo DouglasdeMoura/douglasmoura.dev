@@ -1,4 +1,5 @@
 import { Header } from "#app/components/header.js";
+import { t } from "#app/lib/i18n.js";
 import type { AppContext } from "#app/lib/types.js";
 
 export const SiteLayout = ({
@@ -17,9 +18,9 @@ export const SiteLayout = ({
     <>
       <a
         href="#main-content"
-        className="absolute -left-[9999px] z-[999] px-4 py-2 bg-accent text-white text-sm no-underline rounded-br-md focus:left-0 focus:top-0"
+        className="fixed top-0 left-0 z-50 -translate-y-full focus:translate-y-0 border-b-2 border-r-2 border-accent bg-surface-0 px-5 py-2.5 text-xs font-medium tracking-widest uppercase text-text-strong no-underline shadow-md transition-transform duration-200 ease-out rounded-br-md outline-none"
       >
-        Skip to content
+        {t("Skip to content")}
       </a>
       <Header theme={theme} locale={locale} alternates={alternates} />
       <main id="main-content">{children}</main>
