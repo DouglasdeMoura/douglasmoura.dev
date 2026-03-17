@@ -3,11 +3,11 @@ title: The Powerful Programmer
 slug: the-powerful-programmer
 locale: en-US
 created: 2024-01-23 13:26:41.726Z
-updated: 2024-01-25 17:03:59.369Z
+updated: 2026-03-17 16:47:18.000Z
 tags:
   - Software Engineering
   - Patterns
-  - Carreer
+  - Career
 cover: ./cover.jpg
 type: post
 ---

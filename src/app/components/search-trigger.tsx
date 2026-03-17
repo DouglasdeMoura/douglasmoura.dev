@@ -4,8 +4,6 @@ import { MagnifyingGlass as MagnifyingGlassIcon } from "@phosphor-icons/react/di
 import { useCallback, useEffect, useState } from "react";
 
 import { CommandMenu } from "#app/components/command-menu.js";
-import { ShortcutHint } from "#app/components/shortcut-hint.js";
-
 export interface NavItem {
   label: string;
   href: string;
@@ -79,7 +77,6 @@ export const SearchTrigger = ({
           <kbd className="text-[10px]">{isMac ? "⌘" : "Ctrl"}</kbd>
           <kbd className="text-[10px]">K</kbd>
         </span>
-        <ShortcutHint label={label} mac={["⌘", "K"]} other={["Ctrl", "K"]} />
       </button>
 
       <CommandMenu
