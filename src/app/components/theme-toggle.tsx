@@ -60,19 +60,26 @@ export const ThemeToggle = ({
   }, [theme]);
 
   const cycle = useCallback(() => {
+    const prefersDark = window.matchMedia(
+      "(prefers-color-scheme: dark)"
+    ).matches;
+    const osTheme: Theme = prefersDark ? "dark" : "light";
+    const oppositeOfOs: Theme = prefersDark ? "light" : "dark";
+
+    let next: Theme;
     if (theme === "system") {
-      const prefersDark = window.matchMedia(
-        "(prefers-color-scheme: dark)"
-      ).matches;
-      const next = prefersDark ? "light" : "dark";
-      setThemeState(next);
-      setTheme(next);
+      next = oppositeOfOs;
+      setUserSelectedSystem(false);
+    } else if (theme === oppositeOfOs) {
+      next = osTheme;
       setUserSelectedSystem(false);
     } else {
-      setThemeState("system");
-      setTheme("system");
+      next = "system";
       setUserSelectedSystem(true);
     }
+
+    setThemeState(next);
+    setTheme(next);
   }, [theme]);
 
   const labels: Record<Theme, string> = {
