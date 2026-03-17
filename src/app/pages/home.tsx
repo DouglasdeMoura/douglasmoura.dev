@@ -71,9 +71,17 @@ export const Home = ({ data, siteUrl }: HomeProps) => {
       <section className="prose dark:prose-invert mx-auto px-6 py-8">
         <div className="not-prose space-y-6">
           {posts.map((post) => (
-            <article key={post.slug} className="post-card">
-              <h2 className="text-xl font-semibold tracking-tight">
-                <a href={`/${post.slug}`}>{post.title}</a>
+            <article
+              key={post.slug}
+              className="pb-7 border-b border-border last:border-b-0"
+            >
+              <h2 className="mb-1 mt-0 text-xl font-semibold tracking-tight">
+                <a
+                  href={`/${post.slug}`}
+                  className="text-text-strong font-semibold -tracking-[0.01em] no-underline hover:text-accent transition-colors duration-150"
+                >
+                  {post.title}
+                </a>
               </h2>
               <time
                 dateTime={post.created}
@@ -81,13 +89,16 @@ export const Home = ({ data, siteUrl }: HomeProps) => {
               >
                 {formatDate(post.created)}
               </time>
-              <p className="mt-1.5 text-text-muted leading-relaxed">
+              <p className="mt-1.5 mb-0 text-text-muted leading-relaxed">
                 {post.description}
               </p>
               {post.tags.length > 0 && (
                 <div className="mt-2.5 flex flex-wrap gap-1.5">
                   {post.tags.map((tag) => (
-                    <span key={tag} className="tag">
+                    <span
+                      key={tag}
+                      className="inline-block text-xs tracking-[0.04em] text-text-muted bg-surface-1 py-[0.2em] px-[0.6em] rounded-full"
+                    >
                       {tag}
                     </span>
                   ))}
@@ -98,16 +109,26 @@ export const Home = ({ data, siteUrl }: HomeProps) => {
         </div>
 
         {totalPages > 1 && (
-          <nav aria-label={t("Pagination")} className="not-prose pagination">
+          <nav
+            aria-label={t("Pagination")}
+            className="not-prose flex items-center justify-center gap-1 pt-8 border-t border-border mt-12"
+          >
             {page > 1 && (
-              <a href={page === 2 ? "/" : `/page/${page - 1}`} rel="prev">
+              <a
+                href={page === 2 ? "/" : `/page/${page - 1}`}
+                rel="prev"
+                className="inline-flex items-center justify-center min-w-11 h-11 px-2 text-sm rounded-md text-text-muted hover:text-text-strong hover:bg-surface-1 transition-colors duration-150"
+              >
                 {t("Previous")}
               </a>
             )}
             {pageNumbers(page, totalPages).map((item) => {
               if (item.type === "ellipsis") {
                 return (
-                  <span key={item.key} className="hidden sm:inline-flex">
+                  <span
+                    key={item.key}
+                    className="hidden sm:inline-flex items-center justify-center min-w-11 h-11 px-2 text-sm rounded-md text-text-muted"
+                  >
                     ...
                   </span>
                 );
@@ -117,7 +138,7 @@ export const Home = ({ data, siteUrl }: HomeProps) => {
                   <span
                     key={item.key}
                     aria-current="page"
-                    className="hidden sm:inline-flex"
+                    className="hidden sm:inline-flex items-center justify-center min-w-11 h-11 px-2 text-sm rounded-md text-text-strong bg-surface-2 font-medium"
                   >
                     {item.page}
                   </span>
@@ -127,14 +148,18 @@ export const Home = ({ data, siteUrl }: HomeProps) => {
                 <a
                   key={item.key}
                   href={item.page === 1 ? "/" : `/page/${item.page}`}
-                  className="hidden sm:inline-flex"
+                  className="hidden sm:inline-flex items-center justify-center min-w-11 h-11 px-2 text-sm rounded-md text-text-muted hover:text-text-strong hover:bg-surface-1 transition-colors duration-150"
                 >
                   {item.page}
                 </a>
               );
             })}
             {page < totalPages && (
-              <a href={`/page/${page + 1}`} rel="next">
+              <a
+                href={`/page/${page + 1}`}
+                rel="next"
+                className="inline-flex items-center justify-center min-w-11 h-11 px-2 text-sm rounded-md text-text-muted hover:text-text-strong hover:bg-surface-1 transition-colors duration-150"
+              >
                 {t("Next")}
               </a>
             )}

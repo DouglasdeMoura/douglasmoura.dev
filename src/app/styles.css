@@ -58,15 +58,7 @@
   --color-border: var(--color-border);
 }
 
-/* ── Base ── */
-
-body {
-  background-color: var(--color-surface-0);
-  color: var(--color-text);
-  transition:
-    background-color 0.3s ease,
-    color 0.3s ease;
-}
+/* ── Base element styles (cannot be Tailwind — global selectors) ── */
 
 a {
   color: var(--color-text-muted);
@@ -83,26 +75,7 @@ a:hover {
   outline-offset: 2px;
 }
 
-/* ── Skip-to-content ── */
-
-.skip-link {
-  position: absolute;
-  left: -9999px;
-  z-index: 999;
-  padding: 0.5rem 1rem;
-  background-color: var(--color-accent);
-  color: white;
-  font-size: 0.875rem;
-  text-decoration: none;
-  border-radius: 0 0 0.375rem 0;
-}
-
-.skip-link:focus {
-  left: 0;
-  top: 0;
-}
-
-/* ── Prose overrides — align with OKLCH palette ── */
+/* ── Prose overrides (cannot be Tailwind — Typography plugin variables) ── */
 
 .prose {
   --tw-prose-body: var(--color-text);
@@ -165,107 +138,4 @@ a:hover {
   :where(blockquote):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
   border-inline-start-color: var(--color-accent);
   font-style: normal;
-}
-
-/* ── Post article header ── */
-
-.post-header time {
-  font-size: 0.875rem;
-  letter-spacing: 0.02em;
-  color: var(--color-text-muted);
-}
-
-/* ── Tags ── */
-
-.tag {
-  display: inline-block;
-  font-size: 0.75rem;
-  letter-spacing: 0.04em;
-  color: var(--color-text-muted);
-  background-color: var(--color-surface-1);
-  padding: 0.2em 0.6em;
-  border-radius: 9999px;
-}
-
-/* ── Pagination ── */
-
-.pagination {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.25rem;
-  padding-top: 2rem;
-  border-top: 1px solid var(--color-border);
-  margin-top: 3rem;
-}
-
-.pagination a,
-.pagination span {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 2.75rem;
-  height: 2.75rem;
-  padding: 0 0.5rem;
-  font-size: 0.875rem;
-  border-radius: 0.375rem;
-  color: var(--color-text-muted);
-  transition:
-    color 0.15s ease,
-    background-color 0.15s ease;
-}
-
-.pagination a:hover {
-  color: var(--color-text-strong);
-  background-color: var(--color-surface-1);
-}
-
-.pagination [aria-current="page"] {
-  color: var(--color-text-strong);
-  background-color: var(--color-surface-2);
-  font-weight: 500;
-}
-
-/* ── Post card on homepage ── */
-
-.post-card {
-  padding-bottom: 1.75rem;
-  border-bottom: 1px solid var(--color-border);
-}
-
-.post-card:last-child {
-  border-bottom: none;
-}
-
-.post-card h2 {
-  margin-bottom: 0.25rem;
-  margin-top: 0;
-}
-
-.post-card h2 a {
-  color: var(--color-text-strong);
-  font-weight: 600;
-  letter-spacing: -0.01em;
-  text-decoration: none;
-}
-
-.post-card h2 a:hover {
-  color: var(--color-accent);
-}
-
-.post-card p {
-  color: var(--color-text-muted);
-  margin-top: 0.375rem;
-  margin-bottom: 0;
-}
-
-/* ── Header ── */
-
-.site-header {
-  border-bottom: 1px solid var(--color-border);
-}
-
-.site-header nav a,
-.site-header nav button {
-  transition: color 0.15s ease;
 }

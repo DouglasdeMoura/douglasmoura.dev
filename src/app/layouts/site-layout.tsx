@@ -15,7 +15,10 @@ export const SiteLayout = ({
 
   return (
     <>
-      <a href="#main-content" className="skip-link">
+      <a
+        href="#main-content"
+        className="absolute -left-[9999px] z-[999] px-4 py-2 bg-accent text-white text-sm no-underline rounded-br-md focus:left-0 focus:top-0"
+      >
         Skip to content
       </a>
       <Header theme={theme} locale={locale} alternates={alternates} />

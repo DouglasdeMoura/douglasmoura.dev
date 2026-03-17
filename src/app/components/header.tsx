@@ -15,7 +15,7 @@ interface HeaderProps {
 }
 
 export const Header = ({ theme, locale, alternates }: HeaderProps) => (
-  <header className="site-header flex items-center justify-between px-6 py-4 max-w-prose mx-auto">
+  <header className="flex items-center justify-between border-b border-border px-6 py-4 max-w-prose mx-auto">
     <a href="/" aria-label="Home">
       <img
         src={GRAVATAR_URL}
@@ -29,26 +29,26 @@ export const Header = ({ theme, locale, alternates }: HeaderProps) => (
     <nav className="flex items-center gap-4 sm:gap-6">
       <a
         href="/about"
-        className="inline-flex items-center justify-center min-h-11 text-sm text-text-muted hover:text-text-strong"
+        className="inline-flex items-center justify-center min-h-11 text-sm text-text-muted hover:text-text-strong transition-colors duration-150"
       >
         {t("About")}
       </a>
       <a
         href="/"
-        className="inline-flex items-center justify-center min-h-11 text-sm text-text-muted hover:text-text-strong"
+        className="inline-flex items-center justify-center min-h-11 text-sm text-text-muted hover:text-text-strong transition-colors duration-150"
       >
         {t("Posts")}
       </a>
       <a
         href="/archive"
-        className="inline-flex items-center justify-center min-h-11 text-sm text-text-muted hover:text-text-strong"
+        className="inline-flex items-center justify-center min-h-11 text-sm text-text-muted hover:text-text-strong transition-colors duration-150"
       >
         {t("Archive")}
       </a>
       <a
         href="/search"
         aria-label={t("Search")}
-        className="inline-flex items-center justify-center min-w-11 min-h-11 text-text-muted hover:text-text-strong"
+        className="inline-flex items-center justify-center min-w-11 min-h-11 text-text-muted hover:text-text-strong transition-colors duration-150"
       >
         <MagnifyingGlassIcon size={18} weight="bold" />
       </a>

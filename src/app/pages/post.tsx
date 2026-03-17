@@ -24,7 +24,7 @@ export const Post = async ({ post }: PostProps) => {
         lang={post.locale}
         className="prose dark:prose-invert mx-auto px-6 py-8"
       >
-        <header className="post-header not-prose mb-8">
+        <header className="not-prose mb-8">
           <h1 className="text-3xl font-bold tracking-tight text-text-strong leading-tight">
             {post.title}
           </h1>
@@ -47,7 +47,10 @@ export const Post = async ({ post }: PostProps) => {
           {post.tags.length > 0 && (
             <div className="mt-3 flex flex-wrap gap-1.5">
               {post.tags.map((tag) => (
-                <span key={tag} className="tag">
+                <span
+                  key={tag}
+                  className="inline-block text-xs tracking-[0.04em] text-text-muted bg-surface-1 py-[0.2em] px-[0.6em] rounded-full"
+                >
                   {tag}
                 </span>
               ))}
