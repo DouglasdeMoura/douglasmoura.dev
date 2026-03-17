@@ -13,6 +13,7 @@ const translations = {
     Language: "Idioma",
     "Last updated on": "Atualizado em",
     Next: "Próximo",
+    "No results found.": "Nenhum resultado encontrado.",
     "Page not found": "Página não encontrada",
     Pagination: "Paginação",
     Posts: "Artigos",
@@ -20,6 +21,7 @@ const translations = {
     Previous: "Anterior",
     "Published on": "Publicado em",
     Search: "Buscar",
+    "Search posts...": "Buscar artigos...",
     "Skip to content": "Pular para o conteúdo",
     "The page you're looking for doesn't exist or has been moved.":
       "A página que você procura não existe ou foi movida.",

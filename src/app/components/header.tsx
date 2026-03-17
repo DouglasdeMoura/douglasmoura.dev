@@ -1,6 +1,5 @@
-import { MagnifyingGlass as MagnifyingGlassIcon } from "@phosphor-icons/react/dist/ssr/MagnifyingGlass";
-
 import { LocaleToggle } from "#app/components/locale-toggle.js";
+import { SearchTrigger } from "#app/components/search-trigger.js";
 import { ThemeToggle } from "#app/components/theme-toggle.js";
 import { t } from "#app/lib/i18n.js";
 import type { PostAlternate } from "#app/lib/posts.js";
@@ -58,13 +57,12 @@ export const Header = ({
       >
         {t("Archive")}
       </a>
-      <a
-        href="/search"
-        aria-label={t("Search")}
-        className="inline-flex items-center justify-center min-w-11 min-h-11 text-text-muted hover:text-text-strong transition-colors duration-150"
-      >
-        <MagnifyingGlassIcon size={18} weight="bold" />
-      </a>
+      <SearchTrigger
+        locale={locale}
+        label={t("Search")}
+        placeholder={t("Search posts...")}
+        emptyText={t("No results found.")}
+      />
       <ThemeToggle
         initialTheme={theme}
         initialExplicit={themeExplicit}
