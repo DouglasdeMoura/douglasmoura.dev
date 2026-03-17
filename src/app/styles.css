@@ -82,20 +82,57 @@ a {
   outline-offset: 2px;
 }
 
-/* ── Subtle atmosphere ── */
+/* ── Atmosphere: dot grid + color wash ── */
 
-body::before {
+body::before,
+body::after {
   content: "";
   position: fixed;
   inset: 0;
   pointer-events: none;
   z-index: -1;
-  background: radial-gradient(
-    ellipse at 50% 0%,
-    var(--color-surface-1) 0%,
-    transparent 70%
+}
+
+body::before {
+  background-image: radial-gradient(
+    circle,
+    var(--color-border) 1px,
+    transparent 1px
   );
+  background-size: 24px 24px;
   opacity: 0.4;
+}
+
+body::after {
+  background:
+    radial-gradient(
+      ellipse at 20% 0%,
+      oklch(0.7 0.08 268 / 0.06) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      ellipse at 80% 0%,
+      oklch(0.7 0.08 108 / 0.06) 0%,
+      transparent 50%
+    );
+}
+
+.dark body::before {
+  opacity: 0.15;
+}
+
+.dark body::after {
+  background:
+    radial-gradient(
+      ellipse at 20% 0%,
+      oklch(0.5 0.12 268 / 0.08) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      ellipse at 80% 0%,
+      oklch(0.5 0.08 108 / 0.06) 0%,
+      transparent 50%
+    );
 }
 
 /* ── Prose overrides (cannot be Tailwind — Typography plugin variables) ── */
@@ -160,6 +197,14 @@ body::before {
 
 .prose :where(pre):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
   border: 1px solid var(--color-border);
+  border-radius: 0.75rem;
+  box-shadow: 0 1px 3px oklch(0 0 0 / 0.04);
+}
+
+.dark
+  .prose
+  :where(pre):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+  box-shadow: 0 1px 3px oklch(0 0 0 / 0.2);
 }
 
 /* ── Shiki dual-theme highlighting ── */
@@ -176,8 +221,9 @@ body::before {
 
 pre.shiki {
   background-color: var(--shiki-light-bg);
-  padding: 1em 1.25em;
+  padding: 1.25em 1.5em;
   overflow-x: auto;
+  border-radius: 0.75rem;
 }
 
 .dark pre.shiki {

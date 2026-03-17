@@ -68,15 +68,18 @@ export const Home = ({ data, siteUrl }: HomeProps) => {
         <link rel="next" href={`${siteUrl}/page/${page + 1}`} />
       )}
 
-      <section className="prose mx-auto py-8">
-        <div className="not-prose divide-y divide-border">
+      <section className="prose mx-auto py-10">
+        <div className="not-prose space-y-5 px-4">
           {posts.map((post, index) => (
-            <article key={post.slug} className="py-6 px-4 first:pt-0">
+            <article
+              key={post.slug}
+              className="rounded-xl border border-border bg-surface-0 p-5 shadow-sm dark:shadow-none"
+            >
               {index === 0 && post.cover && (
                 <img
                   src={post.cover}
                   alt=""
-                  className="w-full rounded-lg mb-4 aspect-[2/1] object-cover"
+                  className="w-full rounded-lg mb-5 aspect-[2/1] object-cover shadow-md"
                   decoding="async"
                 />
               )}
@@ -117,7 +120,7 @@ export const Home = ({ data, siteUrl }: HomeProps) => {
         {totalPages > 1 && (
           <nav
             aria-label={t("Pagination")}
-            className="not-prose flex items-center justify-center gap-1 px-4 pt-6 border-t border-border mt-8"
+            className="not-prose flex items-center justify-center gap-1 px-4 pt-8 mt-4"
           >
             {page > 1 && (
               <a

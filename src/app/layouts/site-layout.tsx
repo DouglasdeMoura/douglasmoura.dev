@@ -30,7 +30,7 @@ export const SiteLayout = ({
         alternates={alternates}
       />
       <main id="main-content">{children}</main>
-      <footer className="border-t border-border px-4 pt-6 pb-8 max-w-prose mx-auto">
+      <footer className="px-4 pt-8 pb-10 max-w-prose mx-auto">
         <nav className="flex items-center justify-center gap-6 text-sm text-text-muted mb-4">
           <a
             href="https://github.com/douglasdemoura"

@@ -20,58 +20,60 @@ export const Header = ({
   locale,
   alternates,
 }: HeaderProps) => (
-  <header className="flex items-center justify-between border-b border-border px-4 py-4 max-w-prose mx-auto">
-    <a
-      href="/"
-      aria-label="Home"
-      className="flex items-center gap-3 hover:opacity-80 motion-safe:transition-opacity motion-safe:duration-150"
-    >
-      <img
-        src={GRAVATAR_URL}
-        alt="Douglas Moura"
-        width={48}
-        height={48}
-        decoding="async"
-        className="rounded-full ring-[3px] ring-accent"
-      />
-      <span className="hidden sm:inline text-sm font-medium text-text-strong">
-        Douglas Moura
-      </span>
-    </a>
-    <nav className="flex items-center gap-4 sm:gap-6">
+  <header className="sticky top-0 z-40 border-b border-border bg-surface-0/80 backdrop-blur-lg">
+    <div className="flex items-center justify-between px-4 py-4 max-w-prose mx-auto">
       <a
-        href="/about"
-        className="hidden sm:inline-flex items-center justify-center min-h-11 text-sm text-text-muted hover:text-text-strong active:scale-[0.97] motion-safe:transition-[color,transform] motion-safe:duration-150"
+        href="/"
+        aria-label="Home"
+        className="flex items-center gap-3 hover:opacity-80 motion-safe:transition-opacity motion-safe:duration-150"
       >
-        {t("About")}
+        <img
+          src={GRAVATAR_URL}
+          alt="Douglas Moura"
+          width={48}
+          height={48}
+          decoding="async"
+          className="rounded-full ring-[3px] ring-accent"
+        />
+        <span className="hidden sm:inline text-sm font-medium text-text-strong">
+          Douglas Moura
+        </span>
       </a>
-      <a
-        href="/talks"
-        className="hidden sm:inline-flex items-center justify-center min-h-11 text-sm text-text-muted hover:text-text-strong active:scale-[0.97] motion-safe:transition-[color,transform] motion-safe:duration-150"
-      >
-        {t("Talks")}
-      </a>
-      <SearchTrigger
-        locale={locale}
-        label={t("Search")}
-        placeholder={t("Search posts…")}
-        emptyText={t("No results found")}
-        navItems={[
-          { href: "/about", label: t("About") },
-          { href: "/talks", label: t("Talks") },
-          { href: "/bookmarks", label: t("Bookmarks") },
-        ]}
-      />
-      <ThemeToggle
-        initialTheme={theme}
-        initialExplicit={themeExplicit}
-        label={t("Theme")}
-      />
-      <LocaleToggle
-        initialLocale={locale}
-        label={t("Language")}
-        alternates={alternates}
-      />
-    </nav>
+      <nav className="flex items-center gap-4 sm:gap-6">
+        <a
+          href="/about"
+          className="hidden sm:inline-flex items-center justify-center min-h-11 text-sm text-text-muted hover:text-text-strong active:scale-[0.97] motion-safe:transition-[color,transform] motion-safe:duration-150"
+        >
+          {t("About")}
+        </a>
+        <a
+          href="/talks"
+          className="hidden sm:inline-flex items-center justify-center min-h-11 text-sm text-text-muted hover:text-text-strong active:scale-[0.97] motion-safe:transition-[color,transform] motion-safe:duration-150"
+        >
+          {t("Talks")}
+        </a>
+        <SearchTrigger
+          locale={locale}
+          label={t("Search")}
+          placeholder={t("Search posts…")}
+          emptyText={t("No results found")}
+          navItems={[
+            { href: "/about", label: t("About") },
+            { href: "/talks", label: t("Talks") },
+            { href: "/bookmarks", label: t("Bookmarks") },
+          ]}
+        />
+        <ThemeToggle
+          initialTheme={theme}
+          initialExplicit={themeExplicit}
+          label={t("Theme")}
+        />
+        <LocaleToggle
+          initialLocale={locale}
+          label={t("Language")}
+          alternates={alternates}
+        />
+      </nav>
+    </div>
   </header>
 );

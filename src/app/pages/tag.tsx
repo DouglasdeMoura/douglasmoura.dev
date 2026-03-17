@@ -42,16 +42,19 @@ export const TagPage = ({ tag, data, siteUrl }: TagPageProps) => {
         <link rel="next" href={`${siteUrl}${basePath}/page/${page + 1}`} />
       )}
 
-      <section className="prose mx-auto py-8">
+      <section className="prose mx-auto py-10">
         <header className="not-prose mb-8 px-4">
           <h1 className="text-2xl font-bold tracking-tight text-text-strong">
             {t("Posts tagged")} &ldquo;{tag}&rdquo;
           </h1>
         </header>
 
-        <div className="not-prose divide-y divide-border">
+        <div className="not-prose space-y-5 px-4">
           {posts.map((post) => (
-            <article key={post.slug} className="py-6 px-4 first:pt-0">
+            <article
+              key={post.slug}
+              className="rounded-xl border border-border bg-surface-0 p-5 shadow-sm dark:shadow-none"
+            >
               <h2 className="mt-0 text-xl">
                 <a
                   href={`/${post.slug}`}
@@ -89,7 +92,7 @@ export const TagPage = ({ tag, data, siteUrl }: TagPageProps) => {
         {totalPages > 1 && (
           <nav
             aria-label={t("Pagination")}
-            className="not-prose flex items-center justify-center gap-1 px-4 pt-6 border-t border-border mt-8"
+            className="not-prose flex items-center justify-center gap-1 px-4 pt-8 mt-4"
           >
             {page > 1 && (
               <a
