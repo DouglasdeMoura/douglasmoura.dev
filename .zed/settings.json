@@ -70,5 +70,17 @@
         "source.organizeImports.oxc": true
       }
     }
+  },
+  "context_servers": {
+    "chrome-devtools": {
+      "source": "custom",
+      "command": "npx",
+      "args": [
+        "-y",
+        "chrome-devtools-mcp",
+        "--executablePath=/usr/bin/chromium",
+        "--headless"
+      ]
+    }
   }
 }
