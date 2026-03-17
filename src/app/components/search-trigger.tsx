@@ -52,11 +52,7 @@ export const SearchTrigger = ({
         className="group relative inline-flex items-center justify-center min-w-11 min-h-11 text-text-muted hover:text-text-strong transition-colors duration-150"
       >
         <MagnifyingGlassIcon size={18} weight="bold" />
-        <ShortcutHint
-          mac="⌘K"
-          other="Ctrl+K"
-          className="top-[calc(100%-14px)] left-1/2"
-        />
+        <ShortcutHint label={label} mac="⌘K" other="Ctrl+K" />
       </button>
       <CommandMenu
         open={open}

@@ -51,11 +51,7 @@ export const LocaleToggle = ({
       className="group relative inline-flex items-center justify-center min-w-11 min-h-11 text-sm text-text-muted hover:text-text-strong transition-colors duration-150"
     >
       {locale === "en-US" ? "PT" : "EN"}
-      <ShortcutHint
-        mac="⌥L"
-        other="Alt+L"
-        className="top-[calc(100%-14px)] left-1/2"
-      />
+      <ShortcutHint label={label} mac="⌥L" other="Alt+L" />
     </button>
   );
 };
