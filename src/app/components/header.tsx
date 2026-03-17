@@ -46,16 +46,16 @@ export const Header = ({
         {t("About")}
       </a>
       <a
-        href="/"
+        href="/talks"
         className="inline-flex items-center justify-center min-h-11 text-sm text-text-muted hover:text-text-strong transition-colors duration-150"
       >
-        {t("Posts")}
+        {t("Talks")}
       </a>
       <a
-        href="/archive"
+        href="/bookmarks"
         className="inline-flex items-center justify-center min-h-11 text-sm text-text-muted hover:text-text-strong transition-colors duration-150"
       >
-        {t("Archive")}
+        {t("Bookmarks")}
       </a>
       <SearchTrigger
         locale={locale}

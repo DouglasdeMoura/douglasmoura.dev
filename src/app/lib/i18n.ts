@@ -10,6 +10,7 @@ const translations = {
     About: "Sobre",
     Archive: "Arquivo",
     "Back to home": "Voltar ao início",
+    Bookmarks: "Favoritos",
     Language: "Idioma",
     "Last updated on": "Atualizado em",
     Next: "Próximo",
@@ -23,8 +24,7 @@ const translations = {
     Search: "Buscar",
     "Search posts...": "Buscar artigos...",
     "Skip to content": "Pular para o conteúdo",
-    "The page you're looking for doesn't exist or has been moved.":
-      "A página que você procura não existe ou foi movida.",
+    Talks: "Palestras",
     Theme: "Tema",
   },
 } as const satisfies Record<string, Record<string, string>>;
