@@ -5,6 +5,7 @@ import { Moon as MoonIcon } from "@phosphor-icons/react/dist/csr/Moon";
 import { Sun as SunIcon } from "@phosphor-icons/react/dist/csr/Sun";
 import { useCallback, useEffect, useState } from "react";
 
+import { ShortcutHint } from "#app/components/shortcut-hint.js";
 import { setTheme } from "#app/lib/theme-action.js";
 
 type Theme = "light" | "dark" | "system";
@@ -82,6 +83,17 @@ export const ThemeToggle = ({
     setTheme(next);
   }, [theme]);
 
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.altKey && e.key === "t") {
+        e.preventDefault();
+        cycle();
+      }
+    };
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [cycle]);
+
   const labels: Record<Theme, string> = {
     dark: "Dark",
     light: "Light",
@@ -104,9 +116,14 @@ export const ThemeToggle = ({
       type="button"
       onClick={cycle}
       aria-label={`${label}: ${labels[theme]}`}
-      className="inline-flex items-center justify-center min-w-11 min-h-11 text-text-muted hover:text-text-strong transition-colors duration-150"
+      className="group relative inline-flex items-center justify-center min-w-11 min-h-11 text-text-muted hover:text-text-strong transition-colors duration-150"
     >
       {icon}
+      <ShortcutHint
+        mac="⌥T"
+        other="Alt+T"
+        className="top-[calc(100%-14px)] left-1/2"
+      />
     </button>
   );
 };

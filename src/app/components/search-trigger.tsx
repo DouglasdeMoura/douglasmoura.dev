@@ -4,6 +4,7 @@ import { MagnifyingGlass as MagnifyingGlassIcon } from "@phosphor-icons/react/di
 import { useCallback, useEffect, useState } from "react";
 
 import { CommandMenu } from "#app/components/command-menu.js";
+import { ShortcutHint } from "#app/components/shortcut-hint.js";
 
 interface SearchTriggerProps {
   locale: "en-US" | "pt-BR";
@@ -19,11 +20,6 @@ export const SearchTrigger = ({
   emptyText,
 }: SearchTriggerProps) => {
   const [open, setOpen] = useState(false);
-  const [isMac, setIsMac] = useState(false);
-
-  useEffect(() => {
-    setIsMac(navigator.platform.startsWith("Mac"));
-  }, []);
 
   const handleKeyDown = useCallback(
     (e: KeyboardEvent) => {
@@ -56,9 +52,11 @@ export const SearchTrigger = ({
         className="group relative inline-flex items-center justify-center min-w-11 min-h-11 text-text-muted hover:text-text-strong transition-colors duration-150"
       >
         <MagnifyingGlassIcon size={18} weight="bold" />
-        <kbd className="pointer-events-none absolute top-[calc(100%-14px)] left-1/2 hidden sm:group-hover:inline-flex items-center gap-0.5 rounded border border-border bg-surface-1 px-1.5 py-0.5 text-[10px] font-medium text-text-muted opacity-0 translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-200 ease-out group-not-hover:transition-none">
-          {isMac ? "⌘" : "Ctrl+"}K
-        </kbd>
+        <ShortcutHint
+          mac="⌘K"
+          other="Ctrl+K"
+          className="top-[calc(100%-14px)] left-1/2"
+        />
       </button>
       <CommandMenu
         open={open}
