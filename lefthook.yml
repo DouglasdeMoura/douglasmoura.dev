@@ -6,6 +6,15 @@ pre-commit:
       run: pnpm exec ultracite fix {staged_files}
       stage_fixed: true
 
+    - name: update post timestamps
+      glob: "content/posts/**/*.md"
+      run: |
+        NOW=$(date -u +"%Y-%m-%d %H:%M:%S.000Z")
+        for f in {staged_files}; do
+          sed -i "s/^updated:.*$/updated: $NOW/" "$f"
+        done
+      stage_fixed: true
+
     - name: typecheck
       glob: "*.{ts,tsx}"
       run: pnpm tsc --noEmit
