@@ -201,7 +201,10 @@ export const CommandMenu = ({
 
             <Command.List className="max-h-80 overflow-y-auto overflow-x-hidden p-1">
               {!query.trim() && navItems.length > 0 && (
-                <Command.Group>
+                <Command.Group
+                  heading="Pages"
+                  className="[&_[cmdk-group-heading]]:px-3 [&_[cmdk-group-heading]]:py-1.5 [&_[cmdk-group-heading]]:text-xs [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group-heading]]:text-text-muted"
+                >
                   {navItems.map((item) => (
                     <Command.Item
                       key={item.href}

@@ -66,19 +66,19 @@ export const Header = ({
               href: "/about",
               icon: <UserIcon size={16} />,
               label: t("About"),
-              shortcut: "1",
+              shortcut: "a",
             },
             {
               href: "/talks",
               icon: <MicrophoneIcon size={16} />,
               label: t("Talks"),
-              shortcut: "2",
+              shortcut: "t",
             },
             {
               href: "/bookmarks",
               icon: <BookmarksIcon size={16} />,
               label: t("Bookmarks"),
-              shortcut: "3",
+              shortcut: "b",
             },
           ]}
         />
