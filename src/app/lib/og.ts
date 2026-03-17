@@ -3,10 +3,18 @@ import { ImageResponse } from "workers-og";
 import { buildOgHtml } from "#app/components/og-image.js";
 import type { Post } from "#app/lib/posts.js";
 
+const fontCache = new Map<string, ArrayBuffer>();
+
 const loadGoogleFont = async (
   family: string,
   weight: number
 ): Promise<ArrayBuffer> => {
+  const cacheKey = `${family}-${weight}`;
+  const cached = fontCache.get(cacheKey);
+  if (cached) {
+    return cached;
+  }
+
   const url = `https://fonts.googleapis.com/css2?family=${family}:wght@${weight}&display=swap`;
   const cssResponse = await fetch(url);
   const css = await cssResponse.text();
@@ -17,7 +25,9 @@ const loadGoogleFont = async (
     throw new Error(`Failed to load font: ${family} ${weight}`);
   }
   const fontResponse = await fetch(fontUrlMatch[1]);
-  return fontResponse.arrayBuffer();
+  const buffer = await fontResponse.arrayBuffer();
+  fontCache.set(cacheKey, buffer);
+  return buffer;
 };
 
 export const generateOgImage = async (
