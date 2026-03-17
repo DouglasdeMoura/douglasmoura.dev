@@ -13,7 +13,7 @@ const translations = {
     Language: "Idioma",
     "Last updated on": "Atualizado em",
     Next: "Próximo",
-    "No results found.": "Nenhum resultado encontrado.",
+    "No results found": "Nenhum resultado encontrado",
     "Page not found": "Página não encontrada",
     Pagination: "Paginação",
     "Posts tagged": "Artigos com a tag",

@@ -55,7 +55,7 @@ export const Header = ({
         locale={locale}
         label={t("Search")}
         placeholder={t("Search posts…")}
-        emptyText={t("No results found.")}
+        emptyText={t("No results found")}
         navItems={[
           { href: "/about", label: t("About") },
           { href: "/talks", label: t("Talks") },
