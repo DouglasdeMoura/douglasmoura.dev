@@ -25,6 +25,11 @@
   /* Accent */
   --color-accent: oklch(0.53 0.22 268);
   --color-accent-hover: oklch(0.46 0.24 268);
+  --color-avatar-ring: color-mix(
+    in oklch,
+    var(--color-text-muted) 72%,
+    var(--color-surface-0)
+  );
 
   /* Border */
   --color-border: oklch(0.935 0.012 107);
@@ -55,6 +60,7 @@
   --color-text-muted: var(--color-text-muted);
   --color-accent: var(--color-accent);
   --color-accent-hover: var(--color-accent-hover);
+  --color-avatar-ring: var(--color-avatar-ring);
   --color-border: var(--color-border);
 }
 

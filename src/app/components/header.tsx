@@ -38,7 +38,7 @@ export const Header = ({
           width={48}
           height={48}
           decoding="async"
-          className="rounded-full ring-[3px] ring-accent"
+          className="rounded-full ring-[3px] ring-avatar-ring"
         />
         <span className="hidden sm:inline text-sm font-medium text-text-strong">
           Douglas Moura
