@@ -74,71 +74,68 @@ export const Home = ({ data, siteUrl, locale, theme }: HomeProps) => {
 
       <LocaleToggle initialLocale={locale} />
       <ThemeToggle initialTheme={theme} />
-
-      <ul>
+      <section className="prose dark:prose-invert mx-auto">
         {posts.map((post) => (
-          <li key={post.slug}>
-            <article>
-              <h2>
-                <a href={`/${post.slug}`}>{post.title}</a>
-              </h2>
-              <time dateTime={post.created}>{formatDate(post.created)}</time>
-              <p>{post.description}</p>
-              {post.tags.length > 0 && (
-                <ul>
-                  {post.tags.map((tag) => (
-                    <li key={tag}>{tag}</li>
-                  ))}
-                </ul>
-              )}
-            </article>
-          </li>
+          <article key={post.slug}>
+            <h2>
+              <a href={`/${post.slug}`}>{post.title}</a>
+            </h2>
+            <time dateTime={post.created}>{formatDate(post.created)}</time>
+            <p>{post.description}</p>
+            {post.tags.length > 0 && (
+              <ul>
+                {post.tags.map((tag) => (
+                  <li key={tag}>{tag}</li>
+                ))}
+              </ul>
+            )}
+          </article>
         ))}
-      </ul>
 
-      {totalPages > 1 && (
-        <nav aria-label={t("Pagination")}>
-          {page > 1 && (
-            <a href={page === 2 ? "/" : `/page/${page - 1}`} rel="prev">
-              {t("Previous")}
-            </a>
-          )}
-          {pageNumbers(page, totalPages).map((item) => {
-            if (item.type === "ellipsis") {
+        {totalPages > 1 && (
+          <nav aria-label={t("Pagination")}>
+            {page > 1 && (
+              <a href={page === 2 ? "/" : `/page/${page - 1}`} rel="prev">
+                {t("Previous")}
+              </a>
+            )}
+            {pageNumbers(page, totalPages).map((item) => {
+              if (item.type === "ellipsis") {
+                return (
+                  <span key={item.key} className="hidden sm:inline">
+                    …
+                  </span>
+                );
+              }
+              if (item.page === page) {
+                return (
+                  <span
+                    key={item.key}
+                    aria-current="page"
+                    className="hidden sm:inline"
+                  >
+                    {item.page}
+                  </span>
+                );
+              }
               return (
-                <span key={item.key} className="hidden sm:inline">
-                  …
-                </span>
-              );
-            }
-            if (item.page === page) {
-              return (
-                <span
+                <a
                   key={item.key}
-                  aria-current="page"
+                  href={item.page === 1 ? "/" : `/page/${item.page}`}
                   className="hidden sm:inline"
                 >
                   {item.page}
-                </span>
+                </a>
               );
-            }
-            return (
-              <a
-                key={item.key}
-                href={item.page === 1 ? "/" : `/page/${item.page}`}
-                className="hidden sm:inline"
-              >
-                {item.page}
+            })}
+            {page < totalPages && (
+              <a href={`/page/${page + 1}`} rel="next">
+                {t("Next")}
               </a>
-            );
-          })}
-          {page < totalPages && (
-            <a href={`/page/${page + 1}`} rel="next">
-              {t("Next")}
-            </a>
-          )}
-        </nav>
-      )}
+            )}
+          </nav>
+        )}
+      </section>
     </>
   );
 };
