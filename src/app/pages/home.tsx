@@ -69,15 +69,10 @@ export const Home = ({ data, siteUrl }: HomeProps) => {
       )}
 
       <section className="prose dark:prose-invert mx-auto px-6 py-8">
-        <div className="not-prose space-y-6">
+        <div className="not-prose divide-y divide-border">
           {posts.map((post, index) => (
-            <article
-              key={post.slug}
-              className="pb-7 border-b border-border last:border-b-0"
-            >
-              <h2
-                className={`mb-1 mt-0 ${index === 0 ? "text-2xl" : "text-xl"}`}
-              >
+            <article key={post.slug} className="py-6 first:pt-0">
+              <h2 className={`mt-0 ${index === 0 ? "text-2xl" : "text-xl"}`}>
                 <a
                   href={`/${post.slug}`}
                   className="text-text-strong font-semibold -tracking-[0.01em] no-underline hover:text-accent transition-colors duration-150"
@@ -87,15 +82,15 @@ export const Home = ({ data, siteUrl }: HomeProps) => {
               </h2>
               <time
                 dateTime={post.created}
-                className="text-sm text-text-muted tracking-wide"
+                className="mt-1 block text-sm text-text-muted tracking-wide"
               >
                 {formatDate(post.created)}
               </time>
-              <p className="mt-1.5 mb-0 text-text-muted leading-relaxed">
+              <p className="mt-2 mb-0 text-text-muted leading-relaxed">
                 {post.description}
               </p>
               {post.tags.length > 0 && (
-                <div className="mt-2.5 flex flex-wrap gap-1.5">
+                <div className="mt-3 flex flex-wrap gap-1.5">
                   {post.tags.map((tag) => (
                     <a
                       key={tag}

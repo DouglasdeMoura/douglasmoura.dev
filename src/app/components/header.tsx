@@ -29,7 +29,7 @@ export const Header = ({ theme, locale, alternates }: HeaderProps) => (
         decoding="async"
         className="rounded-full ring-2 ring-accent"
       />
-      <span className="text-sm font-medium text-text-strong">
+      <span className="hidden sm:inline text-sm font-medium text-text-strong">
         Douglas Moura
       </span>
     </a>
