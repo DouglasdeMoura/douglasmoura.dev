@@ -163,9 +163,13 @@ body::before {
 }
 
 pre.shiki {
-  background-color: var(--color-surface-1);
+  background-color: var(--shiki-light-bg);
   padding: 1em 1.25em;
   overflow-x: auto;
+}
+
+.dark pre.shiki {
+  background-color: var(--shiki-dark-bg);
 }
 
 pre.shiki code {
