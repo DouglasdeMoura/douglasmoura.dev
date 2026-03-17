@@ -21,4 +21,4 @@ pre-commit:
 
     - name: i18n check
       glob: "*.{ts,tsx}"
-      run: pnpm cli i18n extract --check
+      run: pnpm cli i18n extract --check {staged_files}

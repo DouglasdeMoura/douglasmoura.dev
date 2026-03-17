@@ -28,36 +28,53 @@ interface MergeResult {
   stale: string[];
 }
 
-const scanForTKeys = async (srcDir: string): Promise<ScanResult> => {
+const scanFile = async (
+  filePath: string,
+  keys: Set<string>,
+  warnings: string[]
+): Promise<void> => {
+  const content = await readFile(filePath, "utf8");
+
+  if (!IMPORT_PATTERN.test(content)) {
+    return;
+  }
+
+  for (const match of content.matchAll(KEY_PATTERN)) {
+    keys.add(match[1]);
+  }
+
+  const dynamicMatches = content.match(DYNAMIC_PATTERN);
+  if (dynamicMatches) {
+    for (const match of dynamicMatches) {
+      if (/\bt\(\s*["']/.test(match)) {
+        continue;
+      }
+      warnings.push(`${filePath}: dynamic t() call found: ${match.trim()}`);
+    }
+  }
+};
+
+const scanForTKeys = async (
+  srcDir: string,
+  files?: string[]
+): Promise<ScanResult> => {
   const keys = new Set<string>();
   const warnings: string[] = [];
-  const entries = await readdir(srcDir, { recursive: true });
 
-  for (const entry of entries) {
-    if (!/\.[jt]sx?$/.test(entry)) {
-      continue;
-    }
-
-    const filePath = join(srcDir, entry);
-    const content = await readFile(filePath, "utf8");
-
-    if (!IMPORT_PATTERN.test(content)) {
-      continue;
-    }
-
-    for (const match of content.matchAll(KEY_PATTERN)) {
-      keys.add(match[1]);
-    }
-
-    const dynamicMatches = content.match(DYNAMIC_PATTERN);
-    if (dynamicMatches) {
-      for (const match of dynamicMatches) {
-        // Skip matches that are actually string literals (already captured above)
-        if (/\bt\(\s*["']/.test(match)) {
-          continue;
-        }
-        warnings.push(`${filePath}: dynamic t() call found: ${match.trim()}`);
+  if (files && files.length > 0) {
+    for (const file of files) {
+      if (!/\.[jt]sx?$/.test(file)) {
+        continue;
       }
+      await scanFile(file, keys, warnings);
+    }
+  } else {
+    const entries = await readdir(srcDir, { recursive: true });
+    for (const entry of entries) {
+      if (!/\.[jt]sx?$/.test(entry)) {
+        continue;
+      }
+      await scanFile(join(srcDir, entry), keys, warnings);
     }
   }
 
@@ -160,12 +177,58 @@ const buildTranslationsBlock = (
   return lines.join("\n");
 };
 
+const checkPartialKeys = (
+  keys: Set<string>,
+  locales: Record<string, Record<string, string>>
+): void => {
+  const missing: string[] = [];
+  for (const locale of Object.keys(locales)) {
+    for (const key of keys) {
+      if (!locales[locale][key]) {
+        missing.push(`${locale}: "${key}"`);
+      }
+    }
+  }
+  if (missing.length > 0) {
+    consola.info(`Missing ${missing.length} translation(s):`);
+    for (const entry of missing) {
+      consola.log(`  + ${entry}`);
+    }
+    consola.error(
+      "Translations are out of sync. Run `pnpm cli i18n extract` to fix."
+    );
+    process.exit(1);
+  }
+  consola.success("Translations are up to date");
+};
+
+const reportDiff = (added: string[], stale: string[]): void => {
+  if (added.length > 0) {
+    consola.info(`Missing ${added.length} key(s):`);
+    for (const entry of added) {
+      consola.log(`  + ${entry}`);
+    }
+  }
+  if (stale.length > 0) {
+    consola.warn(`Stale ${stale.length} key(s):`);
+    for (const entry of stale) {
+      consola.log(`  - ${entry}`);
+    }
+  }
+};
+
 export default defineCommand({
   args: {
     check: {
       description:
         "Check only — exit with code 1 if translations are out of sync",
       type: "boolean",
+    },
+    files: {
+      description:
+        "Only scan specific files for t() keys (e.g. --files src/app/pages/home.tsx src/app/pages/post.tsx)",
+      required: false,
+      type: "positional",
     },
     "remove-stale": {
       description: "Remove stale keys instead of just warning",
@@ -181,7 +244,13 @@ export default defineCommand({
     const srcDir = join(cwd, "src");
     const i18nPath = join(cwd, "src/app/lib/i18n.ts");
 
-    const { keys, warnings } = await scanForTKeys(srcDir);
+    const rawFiles = args.files as unknown as string | undefined;
+    const fileList = rawFiles
+      ? rawFiles.split(/\s+/).filter(Boolean)
+      : undefined;
+    const isPartialScan = fileList && fileList.length > 0;
+
+    const { keys, warnings } = await scanForTKeys(srcDir, fileList);
 
     if (warnings.length > 0) {
       for (const warning of warnings) {
@@ -189,9 +258,20 @@ export default defineCommand({
       }
     }
 
+    if (isPartialScan && keys.size === 0) {
+      consola.success("No t() keys found in scanned files");
+      return;
+    }
+
     consola.info(`Found ${keys.size} unique t() key(s)`);
 
     const { locales, before, after } = await parseTranslationsFile(i18nPath);
+
+    if (isPartialScan && args.check) {
+      checkPartialKeys(keys, locales);
+      return;
+    }
+
     const removeStale = Boolean(args["remove-stale"]);
     const { merged, added, stale } = mergeTranslations(
       locales,
@@ -204,19 +284,7 @@ export default defineCommand({
       return;
     }
 
-    if (added.length > 0) {
-      consola.info(`Missing ${added.length} key(s):`);
-      for (const entry of added) {
-        consola.log(`  + ${entry}`);
-      }
-    }
-
-    if (stale.length > 0) {
-      consola.warn(`Stale ${stale.length} key(s):`);
-      for (const entry of stale) {
-        consola.log(`  - ${entry}`);
-      }
-    }
+    reportDiff(added, stale);
 
     if (args.check) {
       consola.error(
