@@ -119,7 +119,7 @@ export const ThemeToggle = ({
       className="group relative inline-flex items-center justify-center min-w-11 min-h-11 text-text-muted hover:text-text-strong transition-colors duration-150"
     >
       {icon}
-      <ShortcutHint label={label} mac="⌥T" other="Alt+T" />
+      <ShortcutHint label={label} mac={["⌥", "T"]} other={["Alt", "T"]} />
     </button>
   );
 };
