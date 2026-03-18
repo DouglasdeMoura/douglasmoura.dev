@@ -19,8 +19,8 @@ import toml from "@shikijs/langs/toml";
 import tsx from "@shikijs/langs/tsx";
 import typescript from "@shikijs/langs/typescript";
 import yaml from "@shikijs/langs/yaml";
-import githubDark from "@shikijs/themes/github-dark";
-import githubLight from "@shikijs/themes/github-light";
+import vitesseDark from "@shikijs/themes/vitesse-dark";
+import vitesseLight from "@shikijs/themes/vitesse-light";
 import { init, renderToHtml } from "md4x/wasm";
 
 let ready: Promise<void> | undefined;
@@ -59,7 +59,7 @@ const getHighlighter = () => {
         yaml,
         powershell,
       ],
-      themes: [githubLight, githubDark],
+      themes: [vitesseLight, vitesseDark],
     });
   }
   return highlighterPromise;
@@ -77,8 +77,8 @@ export const renderMarkdown = async (md: string): Promise<string> => {
         defaultColor: false,
         lang: block.lang,
         themes: {
-          dark: "github-dark",
-          light: "github-light",
+          dark: "vitesse-dark",
+          light: "vitesse-light",
         },
       });
     },
