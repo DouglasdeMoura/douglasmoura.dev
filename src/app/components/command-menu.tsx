@@ -65,7 +65,12 @@ export const CommandMenu = ({
   const { data, isLoading }: SWRResponse<SearchResponse> = useSWR(
     swrKey,
     searchFetcher,
-    { keepPreviousData: true }
+    {
+      keepPreviousData: true,
+      revalidateIfStale: false,
+      revalidateOnFocus: false,
+      revalidateOnReconnect: false,
+    }
   );
 
   const results = swrKey ? (data?.results ?? []) : [];
