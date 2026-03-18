@@ -77,6 +77,13 @@ export const Post = ({ post, html, adjacent }: PostProps) => {
             </a>
           )}
         </header>
+        {post.cover && (
+          <img
+            src={post.cover}
+            alt=""
+            className="not-prose mb-10 w-full rounded-xl border border-border"
+          />
+        )}
         {/* oxlint-disable-next-line eslint-plugin-react(no-danger) -- safe: rendering our own markdown, not user input */}
         <div dangerouslySetInnerHTML={{ __html: html }} />
         {(adjacent.prev || adjacent.next) && (
