@@ -4,6 +4,7 @@ import { Command } from "cmdk";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 
+import { Kbd } from "#app/components/kbd.js";
 import type { NavItem } from "#app/components/search-trigger.js";
 
 const formatDate = (iso: string, locale: string): string =>
@@ -136,7 +137,7 @@ export const CommandMenu = ({
         return;
       }
       for (const item of navItems) {
-        if (item.shortcut && e.key === item.shortcut) {
+        if (item.shortcut?.length === 1 && e.key === item.shortcut[0]) {
           e.preventDefault();
           onOpenChange(false);
           window.location.href = item.href;
@@ -217,9 +218,9 @@ export const CommandMenu = ({
                       )}
                       {item.label}
                       {item.shortcut && (
-                        <kbd className="ml-auto text-[10px]">
-                          {item.shortcut}
-                        </kbd>
+                        <span className="ml-auto">
+                          <Kbd keys={item.shortcut} />
+                        </span>
                       )}
                     </Command.Item>
                   ))}

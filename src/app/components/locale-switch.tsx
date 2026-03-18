@@ -1,6 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+
+import { Kbd } from "#app/components/kbd.js";
 
 interface LocaleSwitchProps {
   href: string;
@@ -15,12 +17,6 @@ export const LocaleSwitch = ({
   label,
   tooltip,
 }: LocaleSwitchProps) => {
-  const [isMac, setIsMac] = useState(false);
-
-  useEffect(() => {
-    setIsMac(navigator.platform.startsWith("Mac"));
-  }, []);
-
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.altKey && e.key === "l") {
@@ -31,8 +27,6 @@ export const LocaleSwitch = ({
     document.addEventListener("keydown", handleKeyDown);
     return () => document.removeEventListener("keydown", handleKeyDown);
   }, [href]);
-
-  const keys = isMac ? ["⌥", "L"] : ["Alt", "L"];
 
   return (
     <a
@@ -47,13 +41,7 @@ export const LocaleSwitch = ({
         className="pointer-events-none absolute left-1/2 bottom-full mb-2 -translate-x-1/2 hidden sm:group-hover:flex items-center gap-2 whitespace-nowrap rounded-md border border-border bg-surface-1 px-2.5 py-1.5 text-xs text-text shadow-sm opacity-0 group-hover:opacity-100 -translate-y-1 group-hover:translate-y-0 motion-safe:transition-[opacity,transform] motion-safe:duration-150 motion-safe:ease-[cubic-bezier(0.23,1,0.32,1)] group-not-hover:transition-none"
       >
         {tooltip}
-        <span className="inline-flex items-center gap-0.5">
-          {keys.map((key) => (
-            <kbd key={key} className="text-[10px]">
-              {key}
-            </kbd>
-          ))}
-        </span>
+        <Kbd keys={["Alt", "L"]} />
       </span>
     </a>
   );

@@ -68,31 +68,31 @@ export const Header = ({
               href: "/",
               icon: <HomeIcon size={16} />,
               label: t("Home"),
-              shortcut: "0",
+              shortcut: ["0"],
             },
             {
               href: "/about",
               icon: <UserIcon size={16} />,
               label: t("About"),
-              shortcut: "1",
+              shortcut: ["1"],
             },
             {
               href: "/talks",
               icon: <MicrophoneIcon size={16} />,
               label: t("Talks"),
-              shortcut: "2",
+              shortcut: ["2"],
             },
             {
               href: "/bookmarks",
               icon: <BookmarksIcon size={16} />,
               label: t("Bookmarks"),
-              shortcut: "3",
+              shortcut: ["3"],
             },
             {
               href: getLocaleHref(locale, alternates),
               icon: <TranslateIcon size={16} />,
               label: locale === "en-US" ? "Português" : "English",
-              shortcut: "4",
+              shortcut: ["Alt", "L"],
             },
           ]}
         />

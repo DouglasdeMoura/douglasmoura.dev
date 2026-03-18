@@ -10,7 +10,7 @@ export interface NavItem {
   label: string;
   href: string;
   icon?: React.ReactNode;
-  shortcut?: string;
+  shortcut?: string[];
 }
 
 interface SearchTriggerProps {
@@ -58,7 +58,7 @@ export const SearchTrigger = ({
         className="group relative inline-flex items-center justify-center size-8 text-text-muted hover:text-text-strong active:scale-[0.97] motion-safe:transition-[color,transform] motion-safe:duration-150"
       >
         <MagnifyingGlassIcon size={18} weight="bold" />
-        <ShortcutHint label={label} mac={["⌘", "K"]} other={["Ctrl", "K"]} />
+        <ShortcutHint label={label} keys={["CmdOrCtrl", "K"]} />
       </button>
 
       <CommandMenu
