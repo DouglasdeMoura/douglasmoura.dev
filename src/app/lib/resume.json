@@ -1,7 +1,7 @@
 {
   "$schema": "https://raw.githubusercontent.com/jsonresume/resume-schema/v1.0.0/schema.json",
   "basics": {
-    "name": "Douglas de Moura",
+    "name": "Douglas Moura",
     "label": "Software Engineer",
     "email": "douglas.ademoura@gmail.com",
     "url": "https://douglasmoura.dev",
@@ -30,9 +30,7 @@
       "position": "Software Engineer",
       "startDate": "2025-04",
       "summary": "Development of healthcare solutions.",
-      "highlights": [
-        "Building software for the healthcare market"
-      ]
+      "highlights": ["Building software for the healthcare market"]
     },
     {
       "name": "Caylent",
@@ -260,30 +258,15 @@
     },
     {
       "name": "Cloud & Infrastructure",
-      "keywords": [
-        "AWS",
-        "Terraform",
-        "GitHub Actions",
-        "Docker"
-      ]
+      "keywords": ["AWS", "Terraform", "GitHub Actions", "Docker"]
     },
     {
       "name": "Testing",
-      "keywords": [
-        "Vitest",
-        "Jest",
-        "Playwright",
-        "Cypress",
-        "TDD"
-      ]
+      "keywords": ["Vitest", "Jest", "Playwright", "Cypress", "TDD"]
     },
     {
       "name": "Data",
-      "keywords": [
-        "Snowflake",
-        "Metabase",
-        "RabbitMQ"
-      ]
+      "keywords": ["Snowflake", "Metabase", "RabbitMQ"]
     }
   ],
   "languages": [
