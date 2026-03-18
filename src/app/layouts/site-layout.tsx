@@ -33,7 +33,7 @@ export const SiteLayout = ({
       </a>
       <Header locale={locale} alternates={alternates} />
       <main id="main-content">{children}</main>
-      <footer className="mt-16 border-t border-border">
+      <footer className="mt-8 border-t border-border">
         <div className="max-w-prose mx-auto px-4 py-8">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-6">
             <nav className="flex items-center gap-1">
@@ -88,8 +88,13 @@ export const SiteLayout = ({
               <ThemeToggle initialTheme={theme} label={t("Theme")} />
             </div>
           </div>
-          <p className="mt-6 text-center sm:text-left text-xs text-text-muted/60">
-            &copy; {new Date().getFullYear()} Douglas Moura
+          <p className="mt-6 text-center sm:text-left text-xs text-text-muted/60 flex items-center gap-2">
+            <img
+              src="https://github.com/douglasdemoura.png"
+              alt="Douglas Moura"
+              className="rounded-full h-4 w-4"
+            />{" "}
+            <span>Douglas Moura</span>
           </p>
         </div>
       </footer>
