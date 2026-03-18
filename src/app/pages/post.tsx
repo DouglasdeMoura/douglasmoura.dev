@@ -1,9 +1,12 @@
+import { ArrowLeft as ArrowLeftIcon } from "@phosphor-icons/react/dist/ssr/ArrowLeft";
+import { ArrowRight as ArrowRightIcon } from "@phosphor-icons/react/dist/ssr/ArrowRight";
 import { Translate as TranslateIcon } from "@phosphor-icons/react/dist/ssr/Translate";
 
 import { PostSeo } from "#app/components/post-seo.js";
+import { PrefetchLink } from "#app/components/prefetch-link.js";
 import { formatDate, t } from "#app/lib/i18n.js";
 import { getPostAlternates } from "#app/lib/posts.js";
-import type { Post as PostType } from "#app/lib/posts.js";
+import type { AdjacentPosts, Post as PostType } from "#app/lib/posts.js";
 
 const SITE_URL = import.meta.env.VITE_SITE_URL ?? "https://douglasmoura.dev";
 
@@ -15,9 +18,10 @@ const LOCALE_NAMES: Record<string, string> = {
 interface PostProps {
   post: Omit<PostType, "body">;
   html: string;
+  adjacent: AdjacentPosts;
 }
 
-export const Post = ({ post, html }: PostProps) => {
+export const Post = ({ post, html, adjacent }: PostProps) => {
   const alternates = getPostAlternates(post.slug);
   const alternate = alternates.find((a) => a.locale !== post.locale);
 
@@ -75,6 +79,51 @@ export const Post = ({ post, html }: PostProps) => {
         </header>
         {/* oxlint-disable-next-line eslint-plugin-react(no-danger) -- safe: rendering our own markdown, not user input */}
         <div dangerouslySetInnerHTML={{ __html: html }} />
+        {(adjacent.prev || adjacent.next) && (
+          <nav
+            aria-label={t("Pagination")}
+            className="not-prose mt-16 border-t border-border pt-8 grid grid-cols-2 gap-4"
+          >
+            {adjacent.prev ? (
+              <PrefetchLink
+                href={`/${adjacent.prev.slug}`}
+                className="group flex flex-col gap-1 no-underline"
+              >
+                <span className="flex items-center gap-1 text-xs tracking-wide text-text-muted uppercase">
+                  <ArrowLeftIcon
+                    size={14}
+                    className="motion-safe:transition-transform motion-safe:duration-150 group-hover:-translate-x-0.5"
+                  />
+                  {t("Previous")}
+                </span>
+                <span className="text-sm font-medium text-text-muted group-hover:text-text-strong motion-safe:transition-colors motion-safe:duration-150">
+                  {adjacent.prev.title}
+                </span>
+              </PrefetchLink>
+            ) : (
+              <span />
+            )}
+            {adjacent.next ? (
+              <PrefetchLink
+                href={`/${adjacent.next.slug}`}
+                className="group flex flex-col items-end gap-1 text-right no-underline"
+              >
+                <span className="flex items-center gap-1 text-xs tracking-wide text-text-muted uppercase">
+                  {t("Next")}
+                  <ArrowRightIcon
+                    size={14}
+                    className="motion-safe:transition-transform motion-safe:duration-150 group-hover:translate-x-0.5"
+                  />
+                </span>
+                <span className="text-sm font-medium text-text-muted group-hover:text-text-strong motion-safe:transition-colors motion-safe:duration-150">
+                  {adjacent.next.title}
+                </span>
+              </PrefetchLink>
+            ) : (
+              <span />
+            )}
+          </nav>
+        )}
       </article>
     </>
   );

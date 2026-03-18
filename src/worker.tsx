@@ -9,6 +9,7 @@ import { renderMarkdown } from "#app/lib/markdown.js";
 import { generateOgImage } from "#app/lib/og.js";
 import type { Post as PostData } from "#app/lib/posts.js";
 import {
+  getAdjacentPosts,
   getPaginatedPosts,
   getPostAlternates,
   getPostBySlug,
@@ -228,7 +229,8 @@ export default defineApp([
         }
         const html = await renderMarkdown(post.body);
         const { body: _, ...postWithoutBody } = post;
-        return <Post post={postWithoutBody} html={html} />;
+        const adjacent = getAdjacentPosts(post.slug, post.locale);
+        return <Post post={postWithoutBody} html={html} adjacent={adjacent} />;
       }),
     ])
   ),

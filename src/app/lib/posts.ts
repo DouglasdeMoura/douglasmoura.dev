@@ -157,6 +157,28 @@ export const getPostsByTag = (
   };
 };
 
+export interface AdjacentPosts {
+  prev: Pick<Post, "title" | "slug"> | null;
+  next: Pick<Post, "title" | "slug"> | null;
+}
+
+export const getAdjacentPosts = (
+  slug: string,
+  locale: Post["locale"]
+): AdjacentPosts => {
+  const filtered = sortedPosts.filter((p) => p.locale === locale);
+  const index = filtered.findIndex((p) => p.slug === slug);
+  if (index === -1) {
+    return { next: null, prev: null };
+  }
+  const newer = index > 0 ? filtered[index - 1] : null;
+  const older = index < filtered.length - 1 ? filtered[index + 1] : null;
+  return {
+    next: newer ? { slug: newer.slug, title: newer.title } : null,
+    prev: older ? { slug: older.slug, title: older.title } : null,
+  };
+};
+
 export const serializePost = (post: Post): string => {
   const frontmatter = [
     "---",
