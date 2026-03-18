@@ -207,6 +207,10 @@ body::after {
   box-shadow: 0 1px 3px oklch(0 0 0 / 0.04);
 }
 
+.prose :where(img):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+  border-radius: 0.75rem;
+}
+
 .dark
   .prose
   :where(pre):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
