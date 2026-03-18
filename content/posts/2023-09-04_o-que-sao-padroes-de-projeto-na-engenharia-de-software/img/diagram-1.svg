@@ -1,0 +1,17 @@
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 191.75507049386624 235.14522695527756" width="575.2652114815987" height="705.4356808658326">
+  <!-- svg-source:excalidraw -->
+  
+  <defs>
+    <style class="style-fonts">
+      @font-face {
+        font-family: "Virgil";
+        src: url("https://excalidraw.com/Virgil.woff2");
+      }
+      @font-face {
+        font-family: "Cascadia";
+        src: url("https://excalidraw.com/Cascadia.woff2");
+      }
+    </style>
+    
+  </defs>
+  <rect x="0" y="0" width="191.75507049386624" height="235.14522695527756" fill="#ffffff"></rect><g stroke-linecap="round" transform="translate(10 10) rotate(0 85.87753524693312 107.57261347763878)"><path d="M0 0 C41.61 0, 83.22 0, 171.76 0 M0 0 C40.49 0, 80.99 0, 171.76 0 M171.76 0 C171.76 66.66, 171.76 133.31, 171.76 215.15 M171.76 0 C171.76 62.38, 171.76 124.76, 171.76 215.15 M171.76 215.15 C119.36 215.15, 66.96 215.15, 0 215.15 M171.76 215.15 C128.48 215.15, 85.2 215.15, 0 215.15 M0 215.15 C0 141.56, 0 67.97, 0 0 M0 215.15 C0 158.06, 0 100.97, 0 0" stroke="#1e1e1e" stroke-width="2" fill="none"></path></g><g transform="translate(57.21066116527004 17.448537949250237) rotate(0 34.88901242342854 18.781785626478467)"><text x="0" y="0" font-family="Virgil, Segoe UI Emoji" font-size="30.050857002365568px" fill="#1e1e1e" text-anchor="start" style="white-space: pre;" direction="ltr" dominant-baseline="text-before-edge">Book</text></g><g transform="translate(22.735053612707134 76.61299453764138) rotate(0 40.50996398925781 62.5)"><text x="0" y="0" font-family="Virgil, Segoe UI Emoji" font-size="20px" fill="#1e1e1e" text-anchor="start" style="white-space: pre;" direction="ltr" dominant-baseline="text-before-edge">create</text><text x="0" y="25" font-family="Virgil, Segoe UI Emoji" font-size="20px" fill="#1e1e1e" text-anchor="start" style="white-space: pre;" direction="ltr" dominant-baseline="text-before-edge">update</text><text x="0" y="50" font-family="Virgil, Segoe UI Emoji" font-size="20px" fill="#1e1e1e" text-anchor="start" style="white-space: pre;" direction="ltr" dominant-baseline="text-before-edge">delete</text><text x="0" y="75" font-family="Virgil, Segoe UI Emoji" font-size="20px" fill="#1e1e1e" text-anchor="start" style="white-space: pre;" direction="ltr" dominant-baseline="text-before-edge">findById</text><text x="0" y="100" font-family="Virgil, Segoe UI Emoji" font-size="20px" fill="#1e1e1e" text-anchor="start" style="white-space: pre;" direction="ltr" dominant-baseline="text-before-edge">all</text></g><g stroke-linecap="round"><g transform="translate(10.808382617467487 61.382717468587146) rotate(0 85.24531886866816 -0.190291814657229)"><path d="M0 0 C28.42 -0.06, 142.08 -0.32, 170.49 -0.38 M0 0 C28.42 -0.06, 142.08 -0.32, 170.49 -0.38" stroke="#1e1e1e" stroke-width="2" fill="none"></path></g></g><mask></mask></svg>
