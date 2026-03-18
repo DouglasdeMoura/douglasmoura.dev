@@ -54,8 +54,8 @@ export const Talks = () => {
                     key={`${talk.date}-${talk.event}`}
                     className={`relative ${i < arr.length - 1 ? "pb-8" : ""}`}
                   >
-                    {/* Timeline dot */}
-                    <div className="absolute -left-[calc(1.5rem+5px)] top-[5px] size-2.5 rounded-full bg-accent ring-[3px] ring-surface-0" />
+                    {/* Timeline dot — offset accounts for pl-6 + border-l-2/2 + dot/2 */}
+                    <div className="absolute -left-[calc(1.5rem+6px)] top-[5px] size-2.5 rounded-full bg-accent ring-[3px] ring-surface-0" />
 
                     <h3 className="text-base font-medium text-text-strong leading-snug">
                       {talk.name}
