@@ -19,6 +19,7 @@ import {
 import resume from "#app/lib/resume.json";
 import { searchPosts } from "#app/lib/search.js";
 import type { Theme } from "#app/lib/types.js";
+import { About } from "#app/pages/about.js";
 import { Home } from "#app/pages/home.js";
 import { NotFound } from "#app/pages/not-found.js";
 import { Post } from "#app/pages/post.js";
@@ -188,6 +189,7 @@ export default defineApp([
         }
         return <Home data={data} siteUrl={SITE_URL} />;
       }),
+      route("/about", () => <About />),
       route("/talks", () => <Talks />),
       route("/tag/:tag", ({ params, ctx }) => {
         const tag = decodeURIComponent(params.tag);
