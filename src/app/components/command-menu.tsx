@@ -22,16 +22,18 @@ interface SearchResponse {
   count: number;
 }
 
-const searchFetcher = (url: string) => {
-  const controller = new AbortController();
+const searchFetcher = async (url: string) => {
+  const res = await fetch(url);
+  return (await res.json()) as SearchResponse;
+};
 
-  // oxlint-disable-next-line eslint-plugin-promise(prefer-await-to-then) -- must attach cancel before returning
-  const promise = fetch(url, { signal: controller.signal }).then(
-    (res) => res.json() as Promise<SearchResponse>
-  ) as Promise<SearchResponse> & { cancel?: () => void };
-
-  promise.cancel = () => controller.abort();
-  return promise;
+const useDebouncedValue = <T,>(value: T, delay: number): T => {
+  const [debounced, setDebounced] = useState(value);
+  useEffect(() => {
+    const timer = setTimeout(() => setDebounced(value), delay);
+    return () => clearTimeout(timer);
+  }, [value, delay]);
+  return debounced;
 };
 
 interface CommandMenuProps {
@@ -53,19 +55,17 @@ export const CommandMenu = ({
 }: CommandMenuProps) => {
   const [query, setQuery] = useState("");
   const trimmed = query.trim();
+  const debouncedQuery = useDebouncedValue(trimmed, 200);
 
   const swrKey =
-    open && trimmed
-      ? `/api/v1/search?${new URLSearchParams({ limit: "10", locale, q: trimmed })}`
+    open && debouncedQuery
+      ? `/api/v1/search?${new URLSearchParams({ limit: "10", locale, q: debouncedQuery })}`
       : null;
 
   const { data, isLoading }: SWRResponse<SearchResponse> = useSWR(
     swrKey,
     searchFetcher,
-    {
-      dedupingInterval: 200,
-      keepPreviousData: true,
-    }
+    { keepPreviousData: true }
   );
 
   const results = swrKey ? (data?.results ?? []) : [];
