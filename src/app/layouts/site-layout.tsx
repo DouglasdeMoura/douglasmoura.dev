@@ -1,3 +1,9 @@
+import { Bookmarks as BookmarksIcon } from "@phosphor-icons/react/dist/ssr/Bookmarks";
+import { GithubLogo as GithubIcon } from "@phosphor-icons/react/dist/ssr/GithubLogo";
+import { LinkedinLogo as LinkedinIcon } from "@phosphor-icons/react/dist/ssr/LinkedinLogo";
+import { RssSimple as RssIcon } from "@phosphor-icons/react/dist/ssr/RssSimple";
+import { XLogo as XIcon } from "@phosphor-icons/react/dist/ssr/XLogo";
+
 import { Header } from "#app/components/header.js";
 import { getLocaleHref } from "#app/components/locale-link.js";
 import { LocaleSwitch } from "#app/components/locale-switch.js";
@@ -30,34 +36,47 @@ export const SiteLayout = ({
       <footer className="mt-16 border-t border-border">
         <div className="max-w-prose mx-auto px-4 py-8">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-6">
-            <nav className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-sm">
+            <nav className="flex items-center gap-1">
               <a
                 href="https://github.com/douglasdemoura"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-text-muted hover:text-text-strong motion-safe:transition-colors motion-safe:duration-150"
+                aria-label="GitHub"
+                className="inline-flex items-center justify-center size-8 rounded-full text-text-muted hover:text-text-strong hover:bg-surface-2 motion-safe:transition-[background-color,color] motion-safe:duration-150"
               >
-                GitHub
+                <GithubIcon size={18} />
               </a>
               <a
                 href="https://linkedin.com/in/dougmoura"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-text-muted hover:text-text-strong motion-safe:transition-colors motion-safe:duration-150"
+                aria-label="LinkedIn"
+                className="inline-flex items-center justify-center size-8 rounded-full text-text-muted hover:text-text-strong hover:bg-surface-2 motion-safe:transition-[background-color,color] motion-safe:duration-150"
               >
-                LinkedIn
+                <LinkedinIcon size={18} />
+              </a>
+              <a
+                href="https://x.com/douglasdemoura"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="X"
+                className="inline-flex items-center justify-center size-8 rounded-full text-text-muted hover:text-text-strong hover:bg-surface-2 motion-safe:transition-[background-color,color] motion-safe:duration-150"
+              >
+                <XIcon size={18} />
               </a>
               <a
                 href="/bookmarks"
-                className="text-text-muted hover:text-text-strong motion-safe:transition-colors motion-safe:duration-150"
+                aria-label={t("Bookmarks")}
+                className="inline-flex items-center justify-center size-8 rounded-full text-text-muted hover:text-text-strong hover:bg-surface-2 motion-safe:transition-[background-color,color] motion-safe:duration-150"
               >
-                {t("Bookmarks")}
+                <BookmarksIcon size={18} />
               </a>
               <a
                 href={`/${locale}/feed.xml`}
-                className="text-text-muted hover:text-text-strong motion-safe:transition-colors motion-safe:duration-150"
+                aria-label="RSS"
+                className="inline-flex items-center justify-center size-8 rounded-full text-text-muted hover:text-text-strong hover:bg-surface-2 motion-safe:transition-[background-color,color] motion-safe:duration-150"
               >
-                RSS
+                <RssIcon size={18} />
               </a>
             </nav>
             <div className="flex items-center gap-2">
