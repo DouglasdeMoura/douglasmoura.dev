@@ -15,6 +15,7 @@ import {
   getPostsByTag,
   serializePost,
 } from "#app/lib/posts.js";
+import resume from "#app/lib/resume.json";
 import { searchPosts } from "#app/lib/search.js";
 import type { Theme } from "#app/lib/types.js";
 import { Home } from "#app/pages/home.js";
@@ -94,6 +95,7 @@ export default defineApp([
   route("/en-US/rss.xml", () => generateRssFeed("en-US", SITE_URL)),
   route("/pt-BR/feed.xml", () => generateAtomFeed("pt-BR", SITE_URL)),
   route("/pt-BR/rss.xml", () => generateRssFeed("pt-BR", SITE_URL)),
+  route("/resume.json", () => Response.json(resume)),
   route("/feed.xml", () =>
     Response.redirect(`${SITE_URL}/en-US/feed.xml`, 301)
   ),

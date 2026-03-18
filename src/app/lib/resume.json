@@ -30,7 +30,9 @@
       "position": "Software Engineer",
       "startDate": "2025-04",
       "summary": "Development of healthcare solutions.",
-      "highlights": ["Building software for the healthcare market"]
+      "highlights": [
+        "Building software for the healthcare market"
+      ]
     },
     {
       "name": "Caylent",
@@ -258,15 +260,30 @@
     },
     {
       "name": "Cloud & Infrastructure",
-      "keywords": ["AWS", "Terraform", "GitHub Actions", "Docker"]
+      "keywords": [
+        "AWS",
+        "Terraform",
+        "GitHub Actions",
+        "Docker"
+      ]
     },
     {
       "name": "Testing",
-      "keywords": ["Vitest", "Jest", "Playwright", "Cypress", "TDD"]
+      "keywords": [
+        "Vitest",
+        "Jest",
+        "Playwright",
+        "Cypress",
+        "TDD"
+      ]
     },
     {
       "name": "Data",
-      "keywords": ["Snowflake", "Metabase", "RabbitMQ"]
+      "keywords": [
+        "Snowflake",
+        "Metabase",
+        "RabbitMQ"
+      ]
     }
   ],
   "languages": [
@@ -301,11 +318,32 @@
       "url": "https://github.com/douglasdemoura/natural-forms"
     }
   ],
-  "publications": [
+  "talks": [
     {
-      "name": "Design Systems with Tailwind CSS",
-      "publisher": "CSS Brasil 2023",
-      "summary": "Talk on building design systems with Tailwind CSS."
+      "name": "Processamento paralelo: Node.js vs Golang",
+      "event": "NodeBR + ThePayGroup",
+      "date": "2024-07-31",
+      "slides": "https://processamento-paralelo-go-nodejs.netlify.app/1",
+      "url": "https://www.youtube.com/watch?v=0jpi_JmQOTA"
+    },
+    {
+      "name": "Desenvolvendo APIs fortemente tipadas de ponta a ponta com tRPC",
+      "event": "TDC Connections",
+      "date": "2023-03-23",
+      "url": "https://thedevconf.com/tdc/2023/connections/trilha-javascript-e-node-js"
+    },
+    {
+      "name": "Desenvolvendo APIs fortemente tipadas de ponta a ponta com tRPC",
+      "event": "Live - NodeBR #61 - Node.js como você nunca viu",
+      "date": "2023-03-01",
+      "recording": "https://www.youtube.com/watch?v=tVMmVDELuLE"
+    },
+    {
+      "name": "Criando um design system com Tailwind CSS",
+      "event": "Conferência CSS Brasil 2023",
+      "date": "2023-01-20",
+      "slides": "https://design-system-com-tailwind-css.vercel.app/",
+      "url": "https://conferenciacssbrasil.com.br/"
     }
   ]
 }
