@@ -7,16 +7,18 @@ const SITE_URL = import.meta.env.VITE_SITE_URL ?? "https://douglasmoura.dev";
 
 const bio = {
   "en-US": [
-    "Software engineer based in São Paulo with 6+ years of experience shipping design systems, banking apps, auction platforms, AI agents, and healthcare software for enterprise clients.",
-    "Started in civil engineering — graduated, managed construction projects — then made the leap to software. Co-founded Konkreta, Brazil's main concrete ordering platform. Founded Engenharia Livre, an engineering blog with 40k+ followers.",
-    "Currently building healthcare solutions at Jaya Tech. Previously built LLM-powered products and AI agents at Caylent on AWS.",
-    "I write about web development, TypeScript, and software design.",
+    "Hey, I'm Douglas — a software engineer in São Paulo.",
+    "I didn't start in tech. I studied civil engineering, graduated, managed construction sites, and somewhere along the way realized I'd rather build software than buildings. I co-founded Konkreta, a platform for ordering concrete (yes, actual concrete), and started an engineering blog called Engenharia Livre that grew to 40k+ followers.",
+    "Since making the switch, I've spent the last 6+ years working across the stack — design systems, banking apps, an iron ore auction platform for the Chinese market, AI agents, and healthcare software. I've worked at places like Avanade, Trela, and Caylent, and I currently build healthcare solutions at Jaya Tech.",
+    "I also help organize NodeBR, a community for Brazilian developers, and I enjoy giving talks at conferences when I get the chance.",
+    "Here I write about web development, TypeScript, and the things I learn along the way.",
   ],
   "pt-BR": [
-    "Engenheiro de software em São Paulo com mais de 6 anos de experiência entregando design systems, aplicativos bancários, plataformas de leilão, agentes de IA e software de saúde para clientes corporativos.",
-    "Comecei na engenharia civil — me formei, gerenciei obras — e depois migrei para software. Co-fundei a Konkreta, a principal plataforma de pedidos de concreto do Brasil. Fundei o Engenharia Livre, um blog de engenharia com mais de 40 mil seguidores.",
-    "Atualmente construindo soluções de saúde na Jaya Tech. Anteriormente, construí produtos com LLM e agentes de IA na Caylent na AWS.",
-    "Escrevo sobre desenvolvimento web, TypeScript e design de software.",
+    "Oi, eu sou o Douglas — engenheiro de software em São Paulo.",
+    "Eu não comecei na tecnologia. Estudei engenharia civil, me formei, gerenciei obras, e em algum momento percebi que preferia construir software do que prédios. Co-fundei a Konkreta, uma plataforma de pedidos de concreto (sim, concreto de verdade), e criei o Engenharia Livre, um blog de engenharia que chegou a mais de 40 mil seguidores.",
+    "Desde a transição, passei os últimos 6+ anos trabalhando em todo o stack — design systems, aplicativos bancários, uma plataforma de leilão de minério de ferro para o mercado chinês, agentes de IA e software de saúde. Já trabalhei em empresas como Avanade, Trela e Caylent, e atualmente construo soluções de saúde na Jaya Tech.",
+    "Também ajudo a organizar o NodeBR, uma comunidade para desenvolvedores brasileiros, e gosto de palestrar em conferências quando tenho a oportunidade.",
+    "Aqui escrevo sobre desenvolvimento web, TypeScript e as coisas que aprendo no caminho.",
   ],
 } as const;
 
