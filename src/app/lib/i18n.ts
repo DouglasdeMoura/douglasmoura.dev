@@ -69,3 +69,11 @@ export const formatDate = (iso: string): string =>
     month: "long",
     year: "numeric",
   }).format(new Date(iso));
+
+/** Short date for compact listings (e.g. "Sep 27, 2024" / "27 set. 2024"). */
+export const formatDateShort = (iso: string): string =>
+  new Intl.DateTimeFormat(getLocale(), {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+  }).format(new Date(iso));

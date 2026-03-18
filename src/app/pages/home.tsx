@@ -1,5 +1,5 @@
 import { PrefetchLink } from "#app/components/prefetch-link.js";
-import { formatDate, t } from "#app/lib/i18n.js";
+import { formatDateShort, getLocale, t } from "#app/lib/i18n.js";
 import type { PaginatedPosts } from "#app/lib/posts.js";
 
 interface PageItem {
@@ -40,6 +40,13 @@ const pageNumbers = (current: number, total: number): PageItem[] => {
   return result;
 };
 
+const about = {
+  "en-US":
+    "Software engineer based in São Paulo. I write about web development, TypeScript, and software design.",
+  "pt-BR":
+    "Engenheiro de software em São Paulo. Escrevo sobre desenvolvimento web, TypeScript e design de software.",
+} as const;
+
 interface HomeProps {
   data: PaginatedPosts;
   siteUrl: string;
@@ -47,6 +54,7 @@ interface HomeProps {
 
 export const Home = ({ data, siteUrl }: HomeProps) => {
   const { posts, page, totalPages } = data;
+  const locale = getLocale();
 
   return (
     <>
@@ -70,54 +78,32 @@ export const Home = ({ data, siteUrl }: HomeProps) => {
       )}
 
       <section className="prose mx-auto py-10 px-4">
+        {page === 1 && (
+          <p className="not-prose text-base text-text-muted mt-0 mb-8 leading-relaxed">
+            {about[locale]}
+          </p>
+        )}
+
         <div className="not-prose">
-          {posts.map((post, index) => (
+          {posts.map((post) => (
             <article
               key={post.slug}
-              className={
-                index === 0
-                  ? "pb-8 mb-4 border-b border-border"
-                  : "py-5 border-b border-border last:border-b-0"
-              }
+              className="py-2.5 border-b border-border last:border-b-0"
             >
-              {index === 0 && post.cover && (
-                <img
-                  src={post.cover}
-                  alt=""
-                  className="w-full rounded-lg mb-5 aspect-[2/1] object-cover"
-                  decoding="async"
-                />
-              )}
-              <h2 className={`mt-0 ${index === 0 ? "text-3xl" : "text-xl"}`}>
+              <h2 className="m-0 text-base font-medium">
                 <PrefetchLink
                   href={`/${post.slug}`}
-                  className="text-text-strong font-semibold -tracking-[0.01em] no-underline hover:text-accent motion-safe:transition-colors motion-safe:duration-150"
+                  className="text-text-strong -tracking-[0.01em] no-underline hover:text-accent motion-safe:transition-colors motion-safe:duration-150"
                 >
                   {post.title}
                 </PrefetchLink>
               </h2>
               <time
                 dateTime={post.created}
-                className="mt-1 block text-sm text-text-muted tracking-wide"
+                className="block mt-0.5 text-xs text-text-muted tabular-nums"
               >
-                {formatDate(post.created)}
+                {formatDateShort(post.created)}
               </time>
-              <p className="mt-2 mb-0 text-text-muted leading-relaxed">
-                {post.description}
-              </p>
-              {post.tags.length > 0 && (
-                <div className="mt-3 flex flex-wrap gap-1.5">
-                  {post.tags.map((tag) => (
-                    <a
-                      key={tag}
-                      href={`/tag/${encodeURIComponent(tag)}`}
-                      className="inline-block lowercase text-xs tracking-[0.04em] text-text-muted bg-surface-1 py-1 px-2.5 rounded-full no-underline hover:bg-surface-2 hover:text-text-strong active:scale-[0.97] motion-safe:transition-[color,background-color,transform] motion-safe:duration-150"
-                    >
-                      {tag}
-                    </a>
-                  ))}
-                </div>
-              )}
             </article>
           ))}
         </div>
