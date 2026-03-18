@@ -22,6 +22,7 @@ import { Home } from "#app/pages/home.js";
 import { NotFound } from "#app/pages/not-found.js";
 import { Post } from "#app/pages/post.js";
 import { TagPage } from "#app/pages/tag.js";
+import { Talks } from "#app/pages/talks.js";
 
 export type { AppContext, Theme } from "#app/lib/types.js";
 
@@ -186,6 +187,7 @@ export default defineApp([
         }
         return <Home data={data} siteUrl={SITE_URL} />;
       }),
+      route("/talks", () => <Talks />),
       route("/tag/:tag", ({ params, ctx }) => {
         const tag = decodeURIComponent(params.tag);
         const locale = (ctx as Record<string, unknown>).locale as
