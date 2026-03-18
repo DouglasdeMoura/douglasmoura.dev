@@ -104,7 +104,7 @@ export const getPostAlternates = (slug: string): PostAlternate[] =>
 
 export const getAllPosts = (): Post[] => [...postsBySlug.values()];
 
-const POSTS_PER_PAGE = 20;
+const POSTS_PER_PAGE = 12;
 
 const sortedPosts = getAllPosts().toSorted(
   (a, b) => new Date(b.created).getTime() - new Date(a.created).getTime()
