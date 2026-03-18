@@ -1,0 +1,311 @@
+{
+  "$schema": "https://raw.githubusercontent.com/jsonresume/resume-schema/v1.0.0/schema.json",
+  "basics": {
+    "name": "Douglas de Moura",
+    "label": "Software Engineer",
+    "email": "douglas.ademoura@gmail.com",
+    "url": "https://douglasmoura.dev",
+    "summary": "Software engineer with 6+ years of experience shipping design systems, banking apps, auction platforms, AI agents, and healthcare software for enterprise clients. Currently building healthcare solutions at Jaya Tech. Previously built LLM-powered products and AI agents at Caylent on AWS. Co-founded Konkreta, Brazil's main concrete ordering platform, and founded Engenharia Livre, an engineering blog with 40k+ followers. Started in civil engineering — graduated, managed construction projects — then made the leap to software.",
+    "location": {
+      "city": "São Paulo",
+      "countryCode": "BR",
+      "region": "São Paulo"
+    },
+    "profiles": [
+      {
+        "network": "GitHub",
+        "username": "douglasdemoura",
+        "url": "https://github.com/douglasdemoura"
+      },
+      {
+        "network": "LinkedIn",
+        "username": "dougmoura",
+        "url": "https://linkedin.com/in/dougmoura"
+      }
+    ]
+  },
+  "work": [
+    {
+      "name": "Jaya Tech",
+      "position": "Software Engineer",
+      "startDate": "2025-04",
+      "summary": "Development of healthcare solutions.",
+      "highlights": ["Building software for the healthcare market"]
+    },
+    {
+      "name": "Caylent",
+      "position": "Software Engineer",
+      "startDate": "2024-09",
+      "endDate": "2025-04",
+      "summary": "Built AI-powered products on AWS, including internal LLM chat tools and AI agents for business automation.",
+      "highlights": [
+        "Built an internal ChatGPT-like tool where users can select LLM models, upload documents, and chat — using Amazon Bedrock, Lambda (Python), DynamoDB, and React",
+        "Developed AI agents to increase customer conversion and product utility using Amazon Bedrock and CrewAI",
+        "Implemented quality evaluation tests for AI agent responses and RAG pipelines with DeepEval"
+      ]
+    },
+    {
+      "name": "Trela",
+      "position": "Software Engineer",
+      "startDate": "2021-11",
+      "endDate": "2024-07",
+      "summary": "Full-stack development on a Next.js platform, building design systems, BFFs, microservices, and data infrastructure.",
+      "highlights": [
+        "Built a custom design system with React and Styled Components, tested with Jest and Playwright",
+        "Optimized SEO for the Next.js application",
+        "Migrated styles from Styled Components to CSS Modules for better performance",
+        "Created BFFs to connect microservices using Koa and GraphQL",
+        "Built and migrated microservices from Flask to FastAPI",
+        "Deployed applications on AWS using Terraform via GitHub Actions",
+        "Created data dashboards using Snowflake and Metabase",
+        "Implemented feature flags on backend and frontend (Unleash, then PostHog)",
+        "Implemented an AWS Lambda proxy for feature flags",
+        "Used the outbox pattern for microservice messaging with RabbitMQ"
+      ]
+    },
+    {
+      "name": "DBServer",
+      "position": "Software Engineer",
+      "startDate": "2020-10",
+      "endDate": "2021-10",
+      "summary": "Migrated a banking application from Angular to React and built supporting design systems and backend services.",
+      "highlights": [
+        "Migrated a banking application from Angular.js and Angular 2 to React",
+        "Created a design system with React and Styled Components, documented with Storybook",
+        "Used MobX for application state management",
+        "Built the application BFF with Nest.js"
+      ]
+    },
+    {
+      "name": "Gama Academy",
+      "position": "Training Instructor",
+      "startDate": "2021-01",
+      "endDate": "2021-02",
+      "summary": "Taught web development to aspiring developers.",
+      "highlights": [
+        "Delivered training on React, Next.js, Storybook, CSS Modules, Jest, Cypress, and TDD",
+        "Mentored career-changers entering the tech industry"
+      ]
+    },
+    {
+      "name": "Avanade",
+      "position": "Software Engineer",
+      "startDate": "2019-07",
+      "endDate": "2020-10",
+      "summary": "Built design systems, auction platforms, and internal tools for enterprise clients in healthcare, mining, and cosmetics.",
+      "highlights": [
+        "Built a custom design system from scratch for QSaúde using React, Stitches, and Radix",
+        "Developed an iron ore auction system for the Chinese market for Vale using the WeChat MiniProgram framework",
+        "Documented the entire legacy C# backend and started migration to Node.js with full test coverage",
+        "Trained frontend engineers in React, Jest, SWR, and Cypress",
+        "Developed a Microsoft Dynamics application in Mithril.js and React",
+        "Created internal tools with React for Natura"
+      ]
+    },
+    {
+      "name": "VOLLUP.COM",
+      "position": "Software Engineer",
+      "startDate": "2019-02",
+      "endDate": "2019-06",
+      "summary": "Built digital marketing solutions for mid-to-large companies with PHP, JavaScript, and WordPress.",
+      "highlights": [
+        "Developed custom WordPress themes",
+        "Built a PHP system to convert Photoshop designs into HTML layouts for web and email marketing",
+        "Configured high-performance servers for WordPress hosting"
+      ]
+    },
+    {
+      "name": "Konkreta",
+      "position": "Co-Founder",
+      "url": "https://konkreta.com.br",
+      "startDate": "2018-07",
+      "endDate": "2019-04",
+      "summary": "Co-founded Brazil's main concrete ordering platform.",
+      "highlights": [
+        "Built the ordering platform with Ruby on Rails",
+        "Established commercial partnerships with concrete suppliers in the São Paulo metro area",
+        "Routed customer orders to the nearest suppliers"
+      ]
+    },
+    {
+      "name": "Constrinew Engenharia",
+      "position": "Technical Director",
+      "startDate": "2017-06",
+      "endDate": "2019-04",
+      "summary": "Managed residential and commercial construction projects, including electrical and plumbing design.",
+      "highlights": [
+        "Designed and implemented residential electrical and plumbing systems",
+        "Managed and planned residential and commercial construction projects",
+        "Hired technical teams for all construction phases"
+      ]
+    },
+    {
+      "name": "Pöyry Tecnologia",
+      "position": "Intern",
+      "startDate": "2015-03",
+      "endDate": "2016-06",
+      "summary": "Developed engineering projects and implemented advanced solutions with Revit, Excel, Access, and VBA.",
+      "highlights": [
+        "Developed engineering projects using Revit",
+        "Implemented advanced engineering solutions with Excel, Access, and VBA"
+      ]
+    },
+    {
+      "name": "TeleTech",
+      "position": "Bilingual Technical Support Specialist",
+      "startDate": "2012-04",
+      "endDate": "2015-02",
+      "summary": "Provided bilingual technical support for shared web hosting services, bridging Brazilian and US/Mexico teams.",
+      "highlights": [
+        "Served as the technical point of contact with the foreign shared hosting provider",
+        "Translated demands between the Brazilian and US/Mexico teams",
+        "Last point of contact and resolver for customer service issues"
+      ]
+    },
+    {
+      "name": "TeleTech",
+      "position": "Backoffice",
+      "startDate": "2009-01",
+      "endDate": "2012-08",
+      "summary": "Analyzed and resolved email deliverability and shared hosting issues, and trained new customers.",
+      "highlights": [
+        "Analyzed and fixed email deliverability issues",
+        "Analyzed and fixed shared web hosting problems",
+        "Trained new customers on internal tools"
+      ]
+    },
+    {
+      "name": "Blog da Engenharia",
+      "position": "Developer",
+      "startDate": "2014-08",
+      "endDate": "2015-01",
+      "summary": "Developed and maintained an engineering blog on WordPress, including custom themes and job board integration.",
+      "highlights": [
+        "Developed a custom WordPress theme optimized for email capture",
+        "Built a job board connected to vagas.com.br",
+        "Migrated the blog to a more robust AWS server",
+        "Automated social media publishing for new articles"
+      ]
+    }
+  ],
+  "volunteer": [
+    {
+      "organization": "NodeBR",
+      "position": "Organizer",
+      "url": "https://github.com/nodebr",
+      "startDate": "2024-01",
+      "summary": "Organize free meetups for the Brazilian software development community, moderate the Discord server, and contribute articles on dev.to/nodebr."
+    }
+  ],
+  "education": [
+    {
+      "institution": "Universidade Anhembi Morumbi",
+      "area": "Civil Engineering",
+      "studyType": "Bachelor",
+      "startDate": "2012",
+      "endDate": "2016"
+    },
+    {
+      "institution": "Universidade Federal de Minas Gerais",
+      "area": "Software Testing",
+      "studyType": "Extension Course",
+      "startDate": "2021-05",
+      "endDate": "2021-06"
+    },
+    {
+      "institution": "Universidade Federal de Minas Gerais",
+      "area": "Modern Software Engineering",
+      "studyType": "Extension Course",
+      "startDate": "2020-09",
+      "endDate": "2020-12"
+    }
+  ],
+  "skills": [
+    {
+      "name": "Frontend",
+      "keywords": [
+        "TypeScript",
+        "React",
+        "Next.js",
+        "Tailwind CSS",
+        "Design Systems",
+        "Storybook",
+        "CSS Modules",
+        "Styled Components"
+      ]
+    },
+    {
+      "name": "Backend",
+      "keywords": [
+        "Node.js",
+        "Fastify",
+        "Nest.js",
+        "Cloudflare Workers",
+        "Python",
+        "FastAPI",
+        "GraphQL"
+      ]
+    },
+    {
+      "name": "AI / LLM",
+      "keywords": [
+        "Amazon Bedrock",
+        "CrewAI",
+        "RAG",
+        "DeepEval",
+        "LLM Integration"
+      ]
+    },
+    {
+      "name": "Cloud & Infrastructure",
+      "keywords": ["AWS", "Terraform", "GitHub Actions", "Docker"]
+    },
+    {
+      "name": "Testing",
+      "keywords": ["Vitest", "Jest", "Playwright", "Cypress", "TDD"]
+    },
+    {
+      "name": "Data",
+      "keywords": ["Snowflake", "Metabase", "RabbitMQ"]
+    }
+  ],
+  "languages": [
+    {
+      "language": "Portuguese",
+      "fluency": "Native speaker"
+    },
+    {
+      "language": "English",
+      "fluency": "Professional"
+    }
+  ],
+  "projects": [
+    {
+      "name": "douglasmoura.dev-next",
+      "description": "Personal blog built with React 19 Server Components on Cloudflare Workers",
+      "url": "https://github.com/douglasdemoura/douglasmoura.dev-next"
+    },
+    {
+      "name": "fastify-ts-starter",
+      "description": "Fastify + TypeScript starter with OpenAPI, Vitest, and GitHub Actions",
+      "url": "https://github.com/douglasdemoura/fastify-ts-starter"
+    },
+    {
+      "name": "create-editorconfig",
+      "description": "npx CLI tool to generate .editorconfig files",
+      "url": "https://github.com/douglasdemoura/create-editorconfig"
+    },
+    {
+      "name": "natural-forms",
+      "description": "Unstyled React form components that leverage native browser features",
+      "url": "https://github.com/douglasdemoura/natural-forms"
+    }
+  ],
+  "publications": [
+    {
+      "name": "Design Systems with Tailwind CSS",
+      "publisher": "CSS Brasil 2023",
+      "summary": "Talk on building design systems with Tailwind CSS."
+    }
+  ]
+}
