@@ -1,4 +1,5 @@
 import { Header } from "#app/components/header.js";
+import { getLocaleHref } from "#app/components/locale-link.js";
 import { t } from "#app/lib/i18n.js";
 import type { AppContext } from "#app/lib/types.js";
 
@@ -48,6 +49,13 @@ export const SiteLayout = ({
           </a>
           <a href="/bookmarks">{t("Bookmarks")}</a>
           <a href={`/${locale}/feed.xml`}>RSS</a>
+          <a
+            href={getLocaleHref(locale, alternates)}
+            lang={locale === "en-US" ? "pt-BR" : "en-US"}
+            hrefLang={locale === "en-US" ? "pt-BR" : "en-US"}
+          >
+            {locale === "en-US" ? "Português" : "English"}
+          </a>
         </nav>
         <p className="text-center text-sm text-text-muted">
           &copy; {new Date().getFullYear()} Douglas Moura

@@ -4,7 +4,7 @@ import { Microphone as MicrophoneIcon } from "@phosphor-icons/react/dist/ssr/Mic
 import { Translate as TranslateIcon } from "@phosphor-icons/react/dist/ssr/Translate";
 import { User as UserIcon } from "@phosphor-icons/react/dist/ssr/User";
 
-import { LocaleLink, getLocaleHref } from "#app/components/locale-link.js";
+import { getLocaleHref } from "#app/components/locale-link.js";
 import { SearchTrigger } from "#app/components/search-trigger.js";
 import { ThemeToggle } from "#app/components/theme-toggle.js";
 import { t } from "#app/lib/i18n.js";
@@ -101,7 +101,6 @@ export const Header = ({
           initialExplicit={themeExplicit}
           label={t("Theme")}
         />
-        <LocaleLink locale={locale} alternates={alternates} />
       </nav>
     </div>
   </header>
