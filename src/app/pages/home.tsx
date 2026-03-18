@@ -111,13 +111,13 @@ export const Home = ({ data, siteUrl }: HomeProps) => {
         {totalPages > 1 && (
           <nav
             aria-label={t("Pagination")}
-            className="not-prose flex items-center justify-center gap-1 px-4 pt-8 mt-4"
+            className="not-prose flex items-center justify-center gap-4 pt-6 text-sm"
           >
             {page > 1 && (
               <PrefetchLink
                 href={page === 2 ? "/" : `/page/${page - 1}`}
                 rel="prev"
-                className="inline-flex items-center justify-center min-w-11 h-11 px-2 text-sm rounded-md text-text-muted hover:text-text-strong hover:bg-surface-1 motion-safe:transition-colors motion-safe:duration-150"
+                className="text-text-muted hover:text-accent motion-safe:transition-colors motion-safe:duration-150"
               >
                 {t("Previous")}
               </PrefetchLink>
@@ -125,10 +125,7 @@ export const Home = ({ data, siteUrl }: HomeProps) => {
             {pageNumbers(page, totalPages).map((item) => {
               if (item.type === "ellipsis") {
                 return (
-                  <span
-                    key={item.key}
-                    className="hidden sm:inline-flex items-center justify-center min-w-11 h-11 px-2 text-sm rounded-md text-text-muted"
-                  >
+                  <span key={item.key} className="text-text-muted">
                     ...
                   </span>
                 );
@@ -138,7 +135,7 @@ export const Home = ({ data, siteUrl }: HomeProps) => {
                   <span
                     key={item.key}
                     aria-current="page"
-                    className="hidden sm:inline-flex items-center justify-center min-w-11 h-11 px-2 text-sm rounded-md text-text-strong bg-surface-2 font-medium"
+                    className="text-text-strong font-medium"
                   >
                     {item.page}
                   </span>
@@ -148,7 +145,7 @@ export const Home = ({ data, siteUrl }: HomeProps) => {
                 <PrefetchLink
                   key={item.key}
                   href={item.page === 1 ? "/" : `/page/${item.page}`}
-                  className="hidden sm:inline-flex items-center justify-center min-w-11 h-11 px-2 text-sm rounded-md text-text-muted hover:text-text-strong hover:bg-surface-1 motion-safe:transition-colors motion-safe:duration-150"
+                  className="text-text-muted hover:text-accent motion-safe:transition-colors motion-safe:duration-150"
                 >
                   {item.page}
                 </PrefetchLink>
@@ -158,7 +155,7 @@ export const Home = ({ data, siteUrl }: HomeProps) => {
               <PrefetchLink
                 href={`/page/${page + 1}`}
                 rel="next"
-                className="inline-flex items-center justify-center min-w-11 h-11 px-2 text-sm rounded-md text-text-muted hover:text-text-strong hover:bg-surface-1 motion-safe:transition-colors motion-safe:duration-150"
+                className="text-text-muted hover:text-accent motion-safe:transition-colors motion-safe:duration-150"
               >
                 {t("Next")}
               </PrefetchLink>
