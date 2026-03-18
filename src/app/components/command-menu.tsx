@@ -158,7 +158,7 @@ export const CommandMenu = ({
                 value={query}
                 onValueChange={setQuery}
                 placeholder={placeholder}
-                className="flex h-12 w-full bg-transparent py-3 text-sm text-text outline-none ring-0 border-none shadow-none caret-accent placeholder:text-text-muted"
+                className="flex h-12 w-full bg-transparent py-3 text-sm text-text outline-none ring-0 border-none shadow-none placeholder:text-text-muted"
               />
               {query && (
                 <button
