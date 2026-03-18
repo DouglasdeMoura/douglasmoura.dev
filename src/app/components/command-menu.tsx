@@ -1,8 +1,10 @@
 "use client";
 
 import { Command } from "cmdk";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { createPortal } from "react-dom";
+import useSWR from "swr";
+import type { SWRResponse } from "swr";
 
 import { Kbd } from "#app/components/kbd.js";
 import type { NavItem } from "#app/components/search-trigger.js";
@@ -22,6 +24,23 @@ interface SearchResult {
   created: string;
 }
 
+interface SearchResponse {
+  results: SearchResult[];
+  count: number;
+}
+
+const searchFetcher = (url: string) => {
+  const controller = new AbortController();
+
+  const promise = (async () => {
+    const res = await fetch(url, { signal: controller.signal });
+    return (await res.json()) as SearchResponse;
+  })() as Promise<SearchResponse> & { cancel?: () => void };
+
+  promise.cancel = () => controller.abort();
+  return promise;
+};
+
 interface CommandMenuProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
@@ -40,58 +59,27 @@ export const CommandMenu = ({
   navItems = [],
 }: CommandMenuProps) => {
   const [query, setQuery] = useState("");
-  const [results, setResults] = useState<SearchResult[]>([]);
-  const [loading, setLoading] = useState(false);
-  const abortRef = useRef<AbortController | null>(null);
+  const trimmed = query.trim();
 
-  const fetchResults = useCallback(
-    async (q: string) => {
-      abortRef.current?.abort();
+  const swrKey =
+    open && trimmed
+      ? `/api/v1/search?${new URLSearchParams({ limit: "10", locale, q: trimmed })}`
+      : null;
 
-      if (!q.trim()) {
-        setResults([]);
-        setLoading(false);
-        return;
-      }
-
-      const controller = new AbortController();
-      abortRef.current = controller;
-      setLoading(true);
-
-      try {
-        const params = new URLSearchParams({
-          limit: "10",
-          locale,
-          q: q.trim(),
-        });
-        const res = await fetch(`/api/v1/search?${params}`, {
-          signal: controller.signal,
-        });
-        const data = (await res.json()) as {
-          results: SearchResult[];
-          count: number;
-        };
-        setResults(data.results);
-      } catch {
-        /* aborted */
-      } finally {
-        if (!controller.signal.aborted) {
-          setLoading(false);
-        }
-      }
-    },
-    [locale]
+  const { data, isLoading }: SWRResponse<SearchResponse> = useSWR(
+    swrKey,
+    searchFetcher,
+    {
+      dedupingInterval: 200,
+      keepPreviousData: true,
+    }
   );
 
-  useEffect(() => {
-    const timer = setTimeout(() => fetchResults(query), 200);
-    return () => clearTimeout(timer);
-  }, [query, fetchResults]);
+  const results = swrKey ? (data?.results ?? []) : [];
 
   useEffect(() => {
     if (!open) {
       setQuery("");
-      setResults([]);
     }
   }, [open]);
 
@@ -201,7 +189,7 @@ export const CommandMenu = ({
             </div>
 
             <Command.List className="max-h-80 overflow-y-auto overflow-x-hidden p-1">
-              {!query.trim() && navItems.length > 0 && (
+              {!trimmed && navItems.length > 0 && (
                 <Command.Group
                   heading="Pages"
                   className="[&_[cmdk-group-heading]]:px-3 [&_[cmdk-group-heading]]:py-1.5 [&_[cmdk-group-heading]]:text-xs [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group-heading]]:text-text-muted"
@@ -227,7 +215,7 @@ export const CommandMenu = ({
                 </Command.Group>
               )}
 
-              {loading && (
+              {isLoading && !data && (
                 <Command.Loading>
                   <div className="py-6 text-center text-sm text-text-muted">
                     ...
@@ -235,7 +223,7 @@ export const CommandMenu = ({
                 </Command.Loading>
               )}
 
-              {query.trim() && (
+              {trimmed && !isLoading && results.length === 0 && (
                 <Command.Empty className="py-6 text-center text-sm text-text-muted">
                   {emptyText}
                 </Command.Empty>
