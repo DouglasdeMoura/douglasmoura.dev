@@ -3,7 +3,7 @@ title: Como criar um indicador de carregamento perfeito para seus web apps
 slug: como-criar-um-indicador-de-carregamento-perfeito-para-seus-web-apps
 locale: pt-BR
 created: 2021-03-03 15:00:00.000Z
-updated: 2023-08-12 13:45:55.590Z
+updated: 2026-03-18 21:33:07.000Z
 tags:
   - html
   - javascript
@@ -198,7 +198,7 @@ que seja igual a `true`, diminuiremos a opacidade do elemento e adicionaremos um
 
 Depois de tudo isso, podemos ver o nosso exemplo em ação:
 
-<iframe height="300" style={{width: '100%'}} scrolling="no" title="Exemplo de loading acessível" src="https://codepen.io/douglasdemoura/embed/poNqmYq?default-tab=" frameBorder="no" loading="lazy" />
+<iframe height="300" title="Exemplo de loading acessível" src="https://codepen.io/douglasdemoura/embed/poNqmYq?default-tab=" loading="lazy" allowtransparency="true" allowfullscreen="true"></iframe>
 
 Experimente utilizar um leitor de tela no exemplo que acabamos de construir e veja
 como os atributos que adicionados ao nosso exemplo fornecem uma boa experiência de

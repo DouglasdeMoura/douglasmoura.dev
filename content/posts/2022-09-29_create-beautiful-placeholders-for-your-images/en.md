@@ -3,7 +3,7 @@ title: Create beautiful placeholders for your images
 slug: create-beautiful-placeholders-for-your-images
 locale: en-US
 created: 2022-09-29 15:00:00.000Z
-updated: 2026-03-18 20:44:55.000Z
+updated: 2026-03-18 21:33:07.000Z
 tags:
   - javascript
   - typescript
@@ -42,11 +42,7 @@ So, it solves the sudden layout change, but we can do even better do better addi
 
 You can give a hint for the user that the blank space on your app should be filled with something by adding a background color or animating the transition between two o more colors, like in the example below:
 
-<iframe height="300" style={{width:'100%'}} scrolling="no" title="Animated placeholder" src="https://codepen.io/douglasdemoura/embed/RwyWzEr?default-tab=" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
-  See the Pen <a href="https://codepen.io/douglasdemoura/pen/RwyWzEr">
-  Animated placeholder</a> by Douglas Moura (<a href="https://codepen.io/douglasdemoura">@douglasdemoura</a>)
-  on <a href="https://codepen.io">CodePen</a>.
-</iframe>
+<iframe height="300" title="Animated placeholder" src="https://codepen.io/douglasdemoura/embed/RwyWzEr?default-tab=" loading="lazy" allowtransparency="true" allowfullscreen="true"></iframe>
 
 And our code will look like this:
 
@@ -104,4 +100,4 @@ Yet, this can be even better by displaying a colorful background that matches th
 
 I have implemented that last effect in React for the sake of simplicity and time, but you can re-implement it in whatever framework you like. Just pay attention to the `onLoad` event that changes the opacity of the image.
 
-<iframe src="https://stackblitz.com/edit/vitejs-vite-enczef?embed=1&file=src/Image.module.css" height="500" style={{width: '100%'}} scrolling="no" title="Animated placeholder"  frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true"></iframe>
+<iframe src="https://stackblitz.com/edit/vitejs-vite-enczef?embed=1&file=src/Image.module.css" height="500" title="Animated placeholder" loading="lazy" allowtransparency="true" allowfullscreen="true"></iframe>
