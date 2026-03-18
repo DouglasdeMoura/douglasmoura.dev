@@ -59,6 +59,36 @@ const resolveTheme = (request: Request): ResolvedTheme => {
 
 export default defineApp([
   setCommonHeaders(),
+  route("/en-US", ({ request }) => {
+    const url = new URL(request.url);
+    const redirect = url.searchParams.get("redirect");
+    const safePath =
+      redirect && redirect.startsWith("/") && !redirect.startsWith("//")
+        ? redirect
+        : "/";
+    return new Response(null, {
+      headers: {
+        Location: `${SITE_URL}${safePath}`,
+        "Set-Cookie": "locale=en-US; Path=/; Max-Age=31536000; SameSite=Lax",
+      },
+      status: 302,
+    });
+  }),
+  route("/pt-BR", ({ request }) => {
+    const url = new URL(request.url);
+    const redirect = url.searchParams.get("redirect");
+    const safePath =
+      redirect && redirect.startsWith("/") && !redirect.startsWith("//")
+        ? redirect
+        : "/";
+    return new Response(null, {
+      headers: {
+        Location: `${SITE_URL}${safePath}`,
+        "Set-Cookie": "locale=pt-BR; Path=/; Max-Age=31536000; SameSite=Lax",
+      },
+      status: 302,
+    });
+  }),
   route("/en-US/feed.xml", () => generateAtomFeed("en-US", SITE_URL)),
   route("/en-US/rss.xml", () => generateRssFeed("en-US", SITE_URL)),
   route("/pt-BR/feed.xml", () => generateAtomFeed("pt-BR", SITE_URL)),
