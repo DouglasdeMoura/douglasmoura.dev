@@ -50,19 +50,6 @@ export const Post = ({ post, html, adjacent }: PostProps) => {
                 {t("Last updated on")} {formatDate(post.updated)}
               </time>
             )}
-          {post.tags.length > 0 && (
-            <div className="mt-3 flex flex-wrap gap-1.5">
-              {post.tags.map((tag) => (
-                <a
-                  key={tag}
-                  href={`/tag/${encodeURIComponent(tag)}`}
-                  className="inline-block lowercase text-xs tracking-[0.04em] text-text-muted bg-surface-1 py-1 px-2.5 rounded-full no-underline hover:bg-surface-2 hover:text-text-strong active:scale-[0.97] motion-safe:transition-[color,background-color,transform] motion-safe:duration-150"
-                >
-                  {tag}
-                </a>
-              ))}
-            </div>
-          )}
           {alternate && (
             <a
               href={`/${alternate.slug}`}
@@ -87,10 +74,23 @@ export const Post = ({ post, html, adjacent }: PostProps) => {
         )}
         {/* oxlint-disable-next-line eslint-plugin-react(no-danger) -- safe: rendering our own markdown, not user input */}
         <div dangerouslySetInnerHTML={{ __html: html }} />
+        {post.tags.length > 0 && (
+          <div className="not-prose mt-16 mb-8 flex flex-wrap gap-1.5">
+            {post.tags.map((tag) => (
+              <a
+                key={tag}
+                href={`/tag/${encodeURIComponent(tag)}`}
+                className="inline-block lowercase text-xs tracking-[0.04em] text-text-muted bg-surface-1 py-1 px-2.5 rounded-md no-underline hover:bg-surface-2 hover:text-text-strong active:scale-[0.97] motion-safe:transition-[color,background-color,transform] motion-safe:duration-150"
+              >
+                {tag}
+              </a>
+            ))}
+          </div>
+        )}
         {(adjacent.prev || adjacent.next) && (
           <nav
             aria-label={t("Pagination")}
-            className="not-prose mt-16 border-t border-border pt-8 grid grid-cols-2 gap-4"
+            className="not-prose border-t border-border pt-8 grid grid-cols-2 gap-4"
           >
             {adjacent.prev ? (
               <PrefetchLink
