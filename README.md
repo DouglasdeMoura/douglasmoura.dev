@@ -52,6 +52,7 @@ This project uses [Claude Code](https://docs.anthropic.com/en/docs/claude-code) 
 - **[Vercel React Best Practices](https://vercel.com/blog/introducing-react-best-practices)** — Performance optimization rules for React and Next.js from Vercel Engineering
 - **[Emil Kowalski's Design Engineering](https://emilkowal.ski/)** — UI polish, component design, animation decisions, and the invisible details that make software feel great
 - **[Humanizer](https://github.com/blader/humanizer)** — Removes signs of AI-generated writing from text, making it sound more natural and human
+- **[Cloudflare Skills](https://github.com/cloudflare/skills)** — Cloudflare platform development (Workers, Durable Objects, Wrangler, best practices, and web performance)
 
 Skills are installed in `.agents/skills/` and configured via `.claude/skills/`.
 
