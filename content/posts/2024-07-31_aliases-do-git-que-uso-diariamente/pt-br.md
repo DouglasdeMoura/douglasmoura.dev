@@ -3,7 +3,7 @@ title: Aliases do Git que uso diariamente
 slug: aliases-do-git-que-uso-diariamente
 locale: pt-BR
 created: 2024-07-31 17:24:35.964Z
-updated: 2024-07-31 17:38:59.555Z
+updated: 2026-03-18 18:44:21.000Z
 tags:
   - Linux
   - Terminal
@@ -32,7 +32,7 @@ alias gpo!='git push origin --force-with-lease'
 
 Se você usa o Linux, MacOS ou WSL, basta copiar os _aliases_ acima para o arquivo de configuração do seu shell (`~/.bashrc` para [Bash](https://www.gnu.org/software/bash/), `~/.zshrc` para [ZSH](https://www.zsh.org/), `~/config/fish/config.fish` para [Fish](https://fishshell.com/)). Caso você utilize o PoweShell, adicione as seguintes funções ao seu arquivo `Microsoft.PowerShell_profile.ps1` (para editar com o VS Code, execute `code $PROFILE` no PowerShell):
 
-```pwsh
+```powershell
 function ga { git add $args }
 function gaa { git add --all $args }
 function gb { git branch $args }

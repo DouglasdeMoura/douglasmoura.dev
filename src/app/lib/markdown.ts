@@ -11,6 +11,7 @@ import javascript from "@shikijs/langs/javascript";
 import json from "@shikijs/langs/json";
 import jsx from "@shikijs/langs/jsx";
 import markdown from "@shikijs/langs/markdown";
+import powershell from "@shikijs/langs/powershell";
 import python from "@shikijs/langs/python";
 import rust from "@shikijs/langs/rust";
 import sql from "@shikijs/langs/sql";
@@ -56,6 +57,7 @@ const getHighlighter = () => {
         tsx,
         typescript,
         yaml,
+        powershell,
       ],
       themes: [githubLight, githubDark],
     });
