@@ -42,9 +42,9 @@ const pageNumbers = (current: number, total: number): PageItem[] => {
 
 const about = {
   "en-US":
-    "Software engineer based in São Paulo. I write about web development, TypeScript, and software design.",
+    "Hey, I'm Douglas — a software engineer in São Paulo. Here I write about web development, TypeScript, and the things I learn along the way.",
   "pt-BR":
-    "Engenheiro de software em São Paulo. Escrevo sobre desenvolvimento web, TypeScript e design de software.",
+    "Oi, eu sou o Douglas — engenheiro de software em São Paulo. Aqui escrevo sobre desenvolvimento web, TypeScript e as coisas que aprendo no caminho.",
 } as const;
 
 interface HomeProps {
