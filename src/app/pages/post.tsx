@@ -68,11 +68,11 @@ export const Post = ({ post, html, adjacent }: PostProps) => {
               href={`/${alternate.slug}`}
               lang={alternate.locale}
               hrefLang={alternate.locale}
-              className="mt-4 inline-flex items-center gap-1.5 text-sm text-text-muted no-underline hover:text-text-strong motion-safe:transition-color motion-safe:duration-150"
+              className="mt-4 inline-flex items-center gap-1.5 text-sm text-text no-underline hover:text-text-strong motion-safe:transition-colors motion-safe:duration-150"
             >
               <TranslateIcon size={16} />
               {t("Also available in")}{" "}
-              <span className="underline underline-offset-2">
+              <span className="underline underline-offset-2 decoration-border hover:decoration-text-strong">
                 {LOCALE_NAMES[alternate.locale]}
               </span>
             </a>
