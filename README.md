@@ -26,6 +26,7 @@ pnpm cli posts create          # Create a new post (interactive)
 pnpm cli posts list             # Browse posts with pagination
 pnpm cli posts read [slug]      # Read a post in the terminal
 pnpm cli posts import           # Import from Pocketbase
+pnpm cli i18n extract           # Extract t() keys and sync translations
 ```
 
 ## Content structure
