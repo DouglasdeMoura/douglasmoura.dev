@@ -70,7 +70,7 @@ export const Post = ({ post, html, adjacent }: PostProps) => {
           <img
             src={post.cover}
             alt=""
-            className="not-prose mb-10 w-full rounded-xl border border-border"
+            className="not-prose mb-10 w-full aspect-[3/2] rounded-xl border border-border bg-surface-1 object-cover"
           />
         )}
         {/* oxlint-disable-next-line eslint-plugin-react(no-danger) -- safe: rendering our own markdown, not user input */}
