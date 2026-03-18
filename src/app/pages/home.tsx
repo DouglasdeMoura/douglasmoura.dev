@@ -79,7 +79,7 @@ export const Home = ({ data, siteUrl }: HomeProps) => {
 
       <section className="prose mx-auto py-10 px-4">
         {page === 1 && (
-          <p className="not-prose text-base text-text-muted mt-0 mb-8 leading-relaxed">
+          <p className="not-prose text-lg text-text -tracking-[0.01em] mt-0 mb-8 leading-relaxed">
             {about[locale]}
           </p>
         )}
