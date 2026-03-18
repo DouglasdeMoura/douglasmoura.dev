@@ -22,9 +22,9 @@
   --color-text-strong: oklch(0.121 0.007 108);
   --color-text-muted: oklch(0.457 0.038 108);
 
-  /* Accent */
-  --color-accent: oklch(0.53 0.22 268);
-  --color-accent-hover: oklch(0.46 0.24 268);
+  /* Accent — terminal green */
+  --color-accent: oklch(0.47 0.17 152);
+  --color-accent-hover: oklch(0.4 0.19 152);
   --color-avatar-ring: color-mix(
     in oklch,
     var(--color-text-muted) 72%,
@@ -44,8 +44,8 @@
   --color-text-strong: oklch(0.949 0.005 108);
   --color-text-muted: oklch(0.64 0.01 108);
 
-  --color-accent: oklch(0.72 0.18 268);
-  --color-accent-hover: oklch(0.78 0.16 268);
+  --color-accent: oklch(0.75 0.2 152);
+  --color-accent-hover: oklch(0.8 0.18 152);
 
   --color-border: oklch(1 0 0 / 0.1);
 }
@@ -113,12 +113,12 @@ body::after {
   background:
     radial-gradient(
       ellipse at 20% 0%,
-      oklch(0.7 0.08 268 / 0.06) 0%,
+      oklch(0.7 0.08 152 / 0.06) 0%,
       transparent 50%
     ),
     radial-gradient(
       ellipse at 80% 0%,
-      oklch(0.7 0.08 108 / 0.06) 0%,
+      oklch(0.7 0.06 108 / 0.05) 0%,
       transparent 50%
     );
 }
@@ -131,12 +131,12 @@ body::after {
   background:
     radial-gradient(
       ellipse at 20% 0%,
-      oklch(0.5 0.12 268 / 0.08) 0%,
+      oklch(0.5 0.12 152 / 0.08) 0%,
       transparent 50%
     ),
     radial-gradient(
       ellipse at 80% 0%,
-      oklch(0.5 0.08 108 / 0.06) 0%,
+      oklch(0.5 0.06 108 / 0.05) 0%,
       transparent 50%
     );
 }

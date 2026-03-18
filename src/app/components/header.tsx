@@ -19,10 +19,10 @@ export const Header = ({ locale, alternates }: HeaderProps) => (
     <div className="flex items-center justify-between px-4 py-3 max-w-prose mx-auto">
       <a
         href="/"
-        className="flex items-center gap-1 text-text-strong no-underline hover:text-accent motion-safe:transition-colors motion-safe:duration-150"
+        className="flex items-center gap-1 text-text-strong no-underline motion-safe:transition-colors motion-safe:duration-150"
       >
         <span className="text-base font-semibold tracking-tight">Douglas</span>
-        <span className="text-base font-light tracking-tight opacity-60">
+        <span className="text-base font-normal tracking-tight opacity-60">
           Moura
         </span>
       </a>

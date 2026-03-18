@@ -107,9 +107,7 @@ export const LocaleSwitch = ({
                 } motion-safe:transition-colors motion-safe:duration-150`}
               >
                 {LOCALE_LABELS[loc]}
-                {isActive && (
-                  <CheckIcon size={16} className="text-accent shrink-0" />
-                )}
+                {isActive && <CheckIcon size={16} className="shrink-0" />}
               </a>
             );
           })}
