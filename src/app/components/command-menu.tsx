@@ -8,6 +8,7 @@ import type { SWRResponse } from "swr";
 
 import { Kbd } from "#app/components/kbd.js";
 import type { NavItem } from "#app/components/search-trigger.js";
+import type { SearchResult } from "#app/lib/search.js";
 
 const formatDate = (iso: string, locale: string): string =>
   new Intl.DateTimeFormat(locale, {
@@ -15,14 +16,6 @@ const formatDate = (iso: string, locale: string): string =>
     month: "short",
     year: "numeric",
   }).format(new Date(iso));
-
-interface SearchResult {
-  slug: string;
-  title: string;
-  description: string;
-  tags: string[];
-  created: string;
-}
 
 interface SearchResponse {
   results: SearchResult[];
@@ -83,14 +76,6 @@ export const CommandMenu = ({
     }
   }, [open]);
 
-  const handleSelect = useCallback(
-    (slug: string) => {
-      onOpenChange(false);
-      window.location.href = `/${slug}`;
-    },
-    [onOpenChange]
-  );
-
   const handleNavigate = useCallback(
     (href: string) => {
       onOpenChange(false);
@@ -103,15 +88,6 @@ export const CommandMenu = ({
     onOpenChange(false);
   }, [onOpenChange]);
 
-  const handleBackdropKeyDown = useCallback(
-    (e: React.KeyboardEvent) => {
-      if (e.key === "Escape") {
-        onOpenChange(false);
-      }
-    },
-    [onOpenChange]
-  );
-
   const handleClearQuery = useCallback(() => {
     setQuery("");
   }, []);
@@ -121,7 +97,7 @@ export const CommandMenu = ({
       return;
     }
     const onKeyDown = (e: KeyboardEvent) => {
-      if (query.trim()) {
+      if (trimmed) {
         return;
       }
       for (const item of navItems) {
@@ -135,7 +111,7 @@ export const CommandMenu = ({
     };
     document.addEventListener("keydown", onKeyDown);
     return () => document.removeEventListener("keydown", onKeyDown);
-  }, [open, query, navItems, onOpenChange]);
+  }, [open, trimmed, navItems, onOpenChange]);
 
   if (!open) {
     return null;
@@ -143,10 +119,10 @@ export const CommandMenu = ({
 
   return createPortal(
     <div className="fixed inset-0 z-50">
+      {/* oxlint-disable-next-line eslint-plugin-jsx-a11y(click-events-have-key-events) -- Escape key handled by Command */}
       <div
         className="cmdk-backdrop fixed inset-0 bg-black/30 backdrop-blur-sm"
         onClick={handleClose}
-        onKeyDown={handleBackdropKeyDown}
         role="presentation"
       />
 
@@ -232,8 +208,8 @@ export const CommandMenu = ({
               {results.map((result) => (
                 <Command.Item
                   key={result.slug}
-                  value={result.slug}
-                  onSelect={handleSelect}
+                  value={`/${result.slug}`}
+                  onSelect={handleNavigate}
                   className="group relative flex cursor-default flex-col gap-0.5 rounded-lg px-3 py-2.5 text-sm outline-none select-none data-[selected=true]:bg-surface-1"
                 >
                   <span className="font-medium text-text-strong group-data-[selected=true]:text-accent">
