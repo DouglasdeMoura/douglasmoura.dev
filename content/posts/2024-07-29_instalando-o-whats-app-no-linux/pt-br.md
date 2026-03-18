@@ -47,4 +47,4 @@ EOF
 
 Agora, o WhatsApp estará disponível no menu do seu sistema. No meu Ubuntu 24.04 ficou assim:
 
-![Meu dash do Gnome](https://pocketbase.douglasmoura.dev/api/files/quq9xznky3sx782/8ka7cdr3iet8iqf/screenshot_from_2024_07_29_14_25_00_3M0OyL4OCK.png)
+![Meu dash do Gnome](./screenshot_from_2024_07_29_14_25_00.png)

@@ -27,7 +27,7 @@ It's a good solution, but not a practical one. Gracefully, there's a better way 
 ## JavaScript bookmarklet
 
 <figure>
-<img src="https://dev-to-uploads.s3.amazonaws.com/i/hjvcu6sqxp24u5emozsb.png" alt="Adding the bookmarklet on Firefox" />
+<img src="./hjvcu6sqxp24u5emozsb.png" alt="Adding the bookmarklet on Firefox" />
   <figcaption>
     Adding the bookmarklet on Firefox
   </figcaption>
@@ -48,7 +48,7 @@ javascript: (function () {
 And here is an screenshot of the bookmarklet working:
 
 <figure>
-<img src="https://dev-to-uploads.s3.amazonaws.com/i/erxbc4xcxdk7v0gun8z1.png" alt="Video speed bookmarklet working" />
+<img src="./erxbc4xcxdk7v0gun8z1.png" alt="Video speed bookmarklet working" />
   <figcaption>
     Changing the speed of an (awesome) <a href="https://www.youtube.com/watch?v=G4MvFT8TGII">YouTube video</a>
   </figcaption>

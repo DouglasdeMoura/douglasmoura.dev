@@ -14,7 +14,7 @@ cover: ./cover.jpg
 
 Have you ever faced the situation where the layout of your beautifully crafted interface "breaks" if the image (depeding on the quality of your user's connections) takes some time to load? Something like the example below:
 
-[<img src="https://media.giphy.com/media/Q7B0kOHlC7akJmwTCW/giphy.gif" />](https://media.giphy.com/media/Q7B0kOHlC7akJmwTCW/giphy.gif)
+[<img src="./Q7B0kOHlC7akJmwTCW.gif" />](./Q7B0kOHlC7akJmwTCW.gif)
 
 This happens because the browser has no clue about the dimensions of the image you want to display on your content beforehand.
 
@@ -34,7 +34,7 @@ img {
 }
 ```
 
-[<img src="https://media.giphy.com/media/X4dBoFehuhSrpUIdIA/giphy.gif" width="100%" />](https://media.giphy.com/media/X4dBoFehuhSrpUIdIA/giphy.gif)
+[<img src="./X4dBoFehuhSrpUIdIA.gif" width="100%" />](./X4dBoFehuhSrpUIdIA.gif)
 
 So, it solves the sudden layout change, but we can do even better do better adding an animated background.
 
@@ -92,7 +92,7 @@ img {
 
 And this is the result (check the code on [CodePen](https://codepen.io/douglasdemoura/pen/RwyWBOR)):
 
-<img src="https://media.giphy.com/media/9yYPBL1X9wnAKzhVfE/giphy.gif" />
+<img src="./9yYPBL1X9wnAKzhVfE.gif" />
 
 Yet, this can be even better by displaying a colorful background that matches the image colors.
 
@@ -100,7 +100,7 @@ Yet, this can be even better by displaying a colorful background that matches th
 
 [BlurHash](https://github.com/woltapp/blurhash) is a compact representation of a placeholder for a image. You use it to process your image before sending it to the browser and you'll get a string of 20-30 characters that the algorithm can turn into a blurred image that you can show to your user before the actual image is downloaded. Check how it looks like:
 
-<img src="https://media.giphy.com/media/1RSpYFokgWI2tKRKHk/giphy.gif" />
+<img src="./1RSpYFokgWI2tKRKHk.gif" />
 
 I have implemented that last effect in React for the sake of simplicity and time, but you can re-implement it in whatever framework you like. Just pay attention to the `onLoad` event that changes the opacity of the image.
 
