@@ -1,9 +1,10 @@
 import { Bookmarks as BookmarksIcon } from "@phosphor-icons/react/dist/ssr/Bookmarks";
 import { House as HomeIcon } from "@phosphor-icons/react/dist/ssr/House";
 import { Microphone as MicrophoneIcon } from "@phosphor-icons/react/dist/ssr/Microphone";
+import { Translate as TranslateIcon } from "@phosphor-icons/react/dist/ssr/Translate";
 import { User as UserIcon } from "@phosphor-icons/react/dist/ssr/User";
 
-import { LocaleLink } from "#app/components/locale-link.js";
+import { LocaleLink, getLocaleHref } from "#app/components/locale-link.js";
 import { SearchTrigger } from "#app/components/search-trigger.js";
 import { ThemeToggle } from "#app/components/theme-toggle.js";
 import { t } from "#app/lib/i18n.js";
@@ -86,6 +87,12 @@ export const Header = ({
               icon: <BookmarksIcon size={16} />,
               label: t("Bookmarks"),
               shortcut: "3",
+            },
+            {
+              href: getLocaleHref(locale, alternates),
+              icon: <TranslateIcon size={16} />,
+              label: locale === "en-US" ? "Português" : "English",
+              shortcut: "4",
             },
           ]}
         />
