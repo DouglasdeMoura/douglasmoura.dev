@@ -23,7 +23,7 @@ const translations = {
     Search: "Pesquisar",
     "Search posts…": "Pesquisar artigos…",
     "Skip to content": "Pular para o conteúdo",
-    "Switch language": "Alterar linguage",
+    "Switch language": "Alterar linguagem",
     Talks: "Palestras",
     Theme: "Tema",
   },

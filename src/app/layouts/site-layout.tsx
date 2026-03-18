@@ -53,7 +53,8 @@ export const SiteLayout = ({
           <LocaleSwitch
             href={getLocaleHref(locale, alternates)}
             targetLocale={locale === "en-US" ? "pt-BR" : "en-US"}
-            label={t("Switch language")}
+            tooltip={t("Switch language")}
+            label={locale === "en-US" ? "Português" : "English"}
           />
         </nav>
         <p className="text-center text-sm text-text-muted">
