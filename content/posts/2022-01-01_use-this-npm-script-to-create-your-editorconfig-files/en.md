@@ -3,7 +3,7 @@ title: Use this NPM script to create your EditorConfig files
 slug: use-this-npm-script-to-create-your-editorconfig-files
 locale: en-US
 created: 2022-01-09 15:00:00.000Z
-updated: 2023-01-04 15:16:37.227Z
+updated: 2026-03-18 20:44:55.000Z
 tags:
   - javascript
   - editorconfig
@@ -29,7 +29,7 @@ trim_trailing_whitespace = true
 
 If you want to customize the settings or even add more for a different set of files (by defining a glob pattern), just ommit the `-y` argument in the terminal and answer the prompted questions.
 
-<img src="./usage.svg" alt="Using create-editorconfig on ZSH" />
+<img src="./img/usage.svg" alt="Using create-editorconfig on ZSH" />
 
 ## What is EditorConfig?
 
@@ -39,7 +39,7 @@ EditorConfig is a configuration file (the `.editorconfig`) that defines the codi
 
 To apply your `.editorconfig` rules, your code editor should have a plugin or have EditorConfig rule parsing implemented natively (if you are using VS Code, you must install [this extension](https://marketplace.visualstudio.com/items?itemName=EditorConfig.EditorConfig).
 
-[![EditorConfig extension on VS Code Marketplace](./641onx2wrltmoq1ze501.png)](https://marketplace.visualstudio.com/items?itemName=EditorConfig.EditorConfig)
+[![EditorConfig extension on VS Code Marketplace](./img/641onx2wrltmoq1ze501.png)](https://marketplace.visualstudio.com/items?itemName=EditorConfig.EditorConfig)
 
 ## How can I contribute to `create-editorconfig`?
 

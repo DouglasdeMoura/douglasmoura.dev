@@ -3,7 +3,7 @@ title: Instalando o WhatsApp no Linux
 slug: instalando-o-whats-app-no-linux
 locale: pt-BR
 created: 2024-07-29 17:18:23.361Z
-updated: 2024-07-29 17:34:53.815Z
+updated: 2026-03-18 20:44:55.000Z
 tags:
   - WhatsApp
   - Linux
@@ -47,4 +47,4 @@ EOF
 
 Agora, o WhatsApp estará disponível no menu do seu sistema. No meu Ubuntu 24.04 ficou assim:
 
-![Meu dash do Gnome](./screenshot_from_2024_07_29_14_25_00.png)
+![Meu dash do Gnome](./img/screenshot_from_2024_07_29_14_25_00.png)

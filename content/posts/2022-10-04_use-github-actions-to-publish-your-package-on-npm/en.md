@@ -3,7 +3,7 @@ title: Use GitHub actions to publish your package on NPM
 slug: use-github-actions-to-publish-your-package-on-npm
 locale: en-US
 created: 2022-10-04 15:00:00.000Z
-updated: 2022-12-29 14:51:36.616Z
+updated: 2026-03-18 20:44:55.000Z
 tags:
   - javascript
   - typescript
@@ -44,16 +44,16 @@ jobs:
 If you read the YAML file above (that you should put on the `.github/workflows/npm-publish.yml` directory of your git repository), you should have noted that the environment variable `NODE_AUTH_TOKEN` should be defined. Create a new automation access token on the control panel of NPM:
 
 1. Access your NPM account and click in "Access tokens":
-   ![Access tokens on NPM](./hddbdiev3xhhrl0s09km.png)
+   ![Access tokens on NPM](./img/hddbdiev3xhhrl0s09km.png)
 
 2. Name your new access token and select the "Automation" type for it:
 
-![Creating access token on NPM](./4oect8iqd17igcbnrrg1.png)
+![Creating access token on NPM](./img/4oect8iqd17igcbnrrg1.png)
 
 3. Go to your GitHub repository, click in "Settings > Secrets > Actions > New repository secret", name it as NODE_AUTH_TOKEN and paste the access token you just got from NPM:
 
-![Create a new secret on the GitHub repository](./wv7pw3j8elyjeoaeehif.png)
+![Create a new secret on the GitHub repository](./img/wv7pw3j8elyjeoaeehif.png)
 
 4. Create a new release for your package. This should trigger our GitHub Action and publish to NPM.
 
-![Creating a new release on GitHub](./31fsgle783ujl75stld1.png)
+![Creating a new release on GitHub](./img/31fsgle783ujl75stld1.png)

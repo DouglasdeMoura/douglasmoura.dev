@@ -3,7 +3,7 @@ title: Desenvolvendo APIs fortemente tipadas de ponta a ponta com tRPC
 slug: desenvolvendo-apis-fortemente-tipadas-de-ponta-a-ponta-com-trpc
 locale: pt-BR
 created: 2023-10-10 17:44:09.835Z
-updated: 2023-10-10 17:46:27.097Z
+updated: 2026-03-18 20:44:55.000Z
 tags:
   - typescript
   - API
@@ -17,7 +17,7 @@ O desenvolvimento de <abbr title="Application Programming Interface">API</abbr>s
 
 RPC (_Remote Procedure Call_ - em português: chamada de função remota) é um mecanismo de comunicação entre dois computadores, onde um pode ser identificado como _cliente_ e o outro por ser identificado como _servidor_. Do ponto de vista do cliente, chamar uma RPC é apenas uma questão de chamar uma função com seus devidos argumentos e aguardar uma resposta, a fim de continuar a execução do programa.
 
-![Diagrama de uma chamada de função remota (RPC)](./hzx0azc3l9qcathciv8o.png)
+![Diagrama de uma chamada de função remota (RPC)](./img/hzx0azc3l9qcathciv8o.png)
 
 E por que alguém faria isso? Ora, para distribuir seu sistema em servidores distintos, no momento que essa distribuição fizer sentido para o desenvolvimento do sistema.
 
@@ -491,7 +491,7 @@ const query = <Procedure extends keyof API>(
 
 E agora, temos uma função que documenta todas as funções disponíveis no nosso servidor (e seus respectivos argumentos) apenas com seus tipos:
 
-![Mostrando o autocomplete das funções do servidor](./ujxxpvxxqaxxizgo6dvh.png)
+![Mostrando o autocomplete das funções do servidor](./img/ujxxpvxxqaxxizgo6dvh.png)
 
 É importante notar que estamos utilizando `import type { API } from '../../server/src/procedures'` (ênfase no `type`), pois, depois de compilar o nosso código para JavaScript, não queremos nenhum código do servidor disponível no cliente.
 
@@ -616,7 +616,7 @@ Se você leu os comentários do arquivo `server/src/router.ts` verá que o tRPC 
 
 No cliente, podemos utilizar o serviço básico do tRPC (similar ao que fizemos em nossa função `query` no exemplo anterior:
 
-![Tipagem dos endpoint do cliente do tRPC](./gagmnv6duxkuzbu4lthj.png)
+![Tipagem dos endpoint do cliente do tRPC](./img/gagmnv6duxkuzbu4lthj.png)
 
 Ou, caso nosso frontend seja feito em React ou Next.js, podemos usar o cliente que se aproveita das facilidades do [@tanstack/query](https://tanstack.com/query/latest).
 

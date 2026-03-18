@@ -3,7 +3,7 @@ title: What is a RPC (Remote Procedure Call)?
 slug: what-is-a-rpc-remote-procedure-call
 locale: en-US
 created: 2022-10-07 15:00:00.000Z
-updated: 2022-12-29 14:51:32.038Z
+updated: 2026-03-18 20:44:55.000Z
 tags:
   - programming
   - computerscience
@@ -16,7 +16,7 @@ A **remote procedure call** (RPC) is a mechanism of communication between two co
 
 From the client's point of view, the RPC is just a matter of calling a function with the desired arguments and await for the response, in order to continue the program's execution.
 
-![Diagram on how a RPC (remote procedure call) works](./p3733ruz3n51tadloaaq.png)
+![Diagram on how a RPC (remote procedure call) works](./img/p3733ruz3n51tadloaaq.png)
 
 Thus, using an RPC allows one programmer to distribute the system, according to their needs.
 
