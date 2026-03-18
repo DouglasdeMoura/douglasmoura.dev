@@ -11,6 +11,11 @@ const coverImages = import.meta.glob(
   { eager: true, import: "default", query: "?url" }
 ) as Record<string, string>;
 
+const inlineImages = import.meta.glob(
+  "/content/posts/**/img/*.{jpg,jpeg,png,webp,gif,svg}",
+  { eager: true, import: "default", query: "?url" }
+) as Record<string, string>;
+
 export interface Post {
   title: string;
   slug: string;
@@ -21,6 +26,8 @@ export interface Post {
   body: string;
   cover: string;
   description: string;
+  /** Map from relative path (e.g. "./img/foo.png") to resolved asset URL */
+  images: Record<string, string>;
 }
 
 const stripMarkdown = (md: string): string =>
@@ -67,11 +74,20 @@ for (const [path, raw] of Object.entries(modules)) {
   const coverKey = Object.keys(coverImages).find((key) => key.startsWith(dir));
   const locale: Post["locale"] = data.locale === "pt-BR" ? "pt-BR" : "en-US";
 
+  const images: Record<string, string> = {};
+  for (const [imgPath, url] of Object.entries(inlineImages)) {
+    if (imgPath.startsWith(dir)) {
+      const relative = `./${imgPath.slice(dir.length)}`;
+      images[relative] = url;
+    }
+  }
+
   postsBySlug.set(slug, {
     body: content,
     cover: coverKey ? coverImages[coverKey] : "",
     created: String(data.created ?? ""),
     description: makeExcerpt(stripMarkdown(content)),
+    images,
     locale,
     slug,
     tags: (data.tags as string[]) || [],
@@ -177,6 +193,18 @@ export const getAdjacentPosts = (
     next: newer ? { slug: newer.slug, title: newer.title } : null,
     prev: older ? { slug: older.slug, title: older.title } : null,
   };
+};
+
+export const resolvePostImages = (
+  html: string,
+  images: Post["images"]
+): string => {
+  if (Object.keys(images).length === 0) {
+    return html;
+  }
+  return html.replaceAll(/(?:src|href)="(\.\/img\/[^"]+)"/g, (match, rel) =>
+    images[rel] ? match.replace(rel, images[rel]) : match
+  );
 };
 
 export const serializePost = (post: Post): string => {

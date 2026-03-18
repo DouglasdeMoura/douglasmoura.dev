@@ -1,7 +1,7 @@
 import { Feed } from "feed";
 
 import { renderMarkdown } from "#app/lib/markdown.js";
-import { getAllPosts } from "#app/lib/posts.js";
+import { getAllPosts, resolvePostImages } from "#app/lib/posts.js";
 import type { Post } from "#app/lib/posts.js";
 
 type Locale = "en-US" | "pt-BR";
@@ -77,7 +77,8 @@ const buildFeed = async (locale: Locale, siteUrl: string): Promise<Feed> => {
   const posts = getPostsByLocale(locale);
 
   for (const post of posts) {
-    const html = await renderMarkdown(post.body);
+    const rawHtml = await renderMarkdown(post.body);
+    const html = resolvePostImages(rawHtml, post.images);
     const postUrl = `${siteUrl}/${post.slug}`;
 
     feed.addItem({

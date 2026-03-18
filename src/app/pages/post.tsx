@@ -17,7 +17,7 @@ const LOCALE_NAMES: Record<string, string> = {
 };
 
 interface PostProps {
-  post: Omit<PostType, "body">;
+  post: Omit<PostType, "body" | "images">;
   html: string;
   adjacent: AdjacentPosts;
 }

@@ -5,7 +5,7 @@ export const PostSeo = ({
   siteUrl,
   alternates,
 }: {
-  post: Omit<Post, "body">;
+  post: Omit<Post, "body" | "images">;
   siteUrl: string;
   alternates: PostAlternate[];
 }) => {

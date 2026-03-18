@@ -14,6 +14,7 @@ import {
   getPostAlternates,
   getPostBySlug,
   getPostsByTag,
+  resolvePostImages,
   serializePost,
 } from "#app/lib/posts.js";
 import resume from "#app/lib/resume.json";
@@ -229,8 +230,9 @@ export default defineApp([
         if (accept.includes("text/markdown")) {
           return markdownResponse(post);
         }
-        const html = await renderMarkdown(post.body);
-        const { body: _, ...postWithoutBody } = post;
+        const rawHtml = await renderMarkdown(post.body);
+        const html = resolvePostImages(rawHtml, post.images);
+        const { body: _, images: __, ...postWithoutBody } = post;
         const adjacent = getAdjacentPosts(post.slug, post.locale);
         return <Post post={postWithoutBody} html={html} adjacent={adjacent} />;
       }),
