@@ -25,10 +25,10 @@ interface SearchResponse {
 const searchFetcher = (url: string) => {
   const controller = new AbortController();
 
-  const promise = (async () => {
-    const res = await fetch(url, { signal: controller.signal });
-    return (await res.json()) as SearchResponse;
-  })() as Promise<SearchResponse> & { cancel?: () => void };
+  // oxlint-disable-next-line eslint-plugin-promise(prefer-await-to-then) -- must attach cancel before returning
+  const promise = fetch(url, { signal: controller.signal }).then(
+    (res) => res.json() as Promise<SearchResponse>
+  ) as Promise<SearchResponse> & { cancel?: () => void };
 
   promise.cancel = () => controller.abort();
   return promise;
