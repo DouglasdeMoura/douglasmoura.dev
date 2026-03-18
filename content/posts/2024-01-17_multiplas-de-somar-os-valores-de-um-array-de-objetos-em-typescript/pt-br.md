@@ -3,7 +3,7 @@ title: Múltiplas formas de somar os valores de um array de objetos, em TypeScri
 slug: multiplas-de-somar-os-valores-de-um-array-de-objetos-em-typescript
 locale: pt-BR
 created: 2024-01-17 23:28:26.679Z
-updated: 2024-01-23 13:49:43.604Z
+updated: 2026-03-18 21:35:48.000Z
 tags:
   - tutorial
   - typescript
@@ -13,7 +13,8 @@ cover: ./cover.jpg
 
 Há algum tempo, o [Zan Franceschi](https://twitter.com/zanfranceschi) postou o seguinte desafio:
 
-<Tweet id="1564671754483765251" />
+<blockquote class="twitter-tweet"><p lang="pt" dir="ltr">desafio mass bora:<br><br>dado um array de objetos, escreva uma função que some os valores de cada propriedade do objeto.<br><br>Ex: [{a: 1, b: 2}, {a: 3, b: 4}]<br><br>resultado: {a: 4, b: 6}</p>&mdash; zan (@zanfranceschi) <a href="https://twitter.com/zanfranceschi/status/1564671754483765251">August 30, 2022</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 Neste artigo, vou resolvê-lo de duas formas: uma com laços e outra sem laços, com TypeScript.
 
