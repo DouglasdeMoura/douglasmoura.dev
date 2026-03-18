@@ -9,9 +9,6 @@ import { SearchTrigger } from "#app/components/search-trigger.js";
 import { t } from "#app/lib/i18n.js";
 import type { PostAlternate } from "#app/lib/posts.js";
 
-const GRAVATAR_URL =
-  "https://www.gravatar.com/avatar/997c72f0b7ca0fc26bdf60ca27cb4194?s=128";
-
 interface HeaderProps {
   locale: "en-US" | "pt-BR";
   alternates: PostAlternate[];
@@ -19,34 +16,26 @@ interface HeaderProps {
 
 export const Header = ({ locale, alternates }: HeaderProps) => (
   <header className="sticky top-0 z-40 border-b border-border bg-surface-0/80 backdrop-blur-lg">
-    <div className="flex items-center justify-between px-4 py-4 max-w-prose mx-auto">
+    <div className="flex items-center justify-between px-4 py-3 max-w-prose mx-auto">
       <a
         href="/"
-        aria-label="Home"
-        className="flex items-center gap-3 hover:opacity-80 motion-safe:transition-opacity motion-safe:duration-150"
+        className="group flex items-center gap-1 text-text-strong no-underline hover:text-accent motion-safe:transition-colors motion-safe:duration-150"
       >
-        <img
-          src={GRAVATAR_URL}
-          alt="Douglas Moura"
-          width={48}
-          height={48}
-          decoding="async"
-          className="rounded-full ring-[3px] ring-avatar-ring"
-        />
-        <span className="hidden sm:inline text-sm font-medium text-text-strong">
-          Douglas Moura
+        <span className="text-base font-semibold tracking-tight">Douglas</span>
+        <span className="text-base font-light tracking-tight text-text-muted group-hover:text-accent motion-safe:transition-colors motion-safe:duration-150">
+          Moura
         </span>
       </a>
-      <nav className="flex items-center gap-4 sm:gap-6">
+      <nav className="flex items-center gap-1 sm:gap-2">
         <a
           href="/about"
-          className="hidden sm:inline-flex items-center justify-center h-12 px-4 text-sm text-text-muted hover:text-text-strong active:scale-[0.97] motion-safe:transition-[color,transform] motion-safe:duration-150"
+          className="hidden sm:inline-flex items-center justify-center h-8 px-3 rounded-md text-sm text-text-muted hover:text-text-strong hover:bg-surface-2 active:scale-[0.97] motion-safe:transition-[color,background-color,transform] motion-safe:duration-150"
         >
           {t("About")}
         </a>
         <a
           href="/talks"
-          className="hidden sm:inline-flex items-center justify-center h-12 px-4 text-sm text-text-muted hover:text-text-strong active:scale-[0.97] motion-safe:transition-[color,transform] motion-safe:duration-150"
+          className="hidden sm:inline-flex items-center justify-center h-8 px-3 rounded-md text-sm text-text-muted hover:text-text-strong hover:bg-surface-2 active:scale-[0.97] motion-safe:transition-[color,background-color,transform] motion-safe:duration-150"
         >
           {t("Talks")}
         </a>
