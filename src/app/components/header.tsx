@@ -89,6 +89,7 @@ export const Header = ({
               shortcut: ["3"],
             },
             {
+              forceReload: true,
               href: getLocaleHref(locale, alternates),
               icon: <TranslateIcon size={16} />,
               label: locale === "en-US" ? "Português" : "English",

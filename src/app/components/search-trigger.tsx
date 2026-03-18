@@ -11,6 +11,7 @@ export interface NavItem {
   href: string;
   icon?: React.ReactNode;
   shortcut?: string[];
+  forceReload?: boolean;
 }
 
 interface SearchTriggerProps {

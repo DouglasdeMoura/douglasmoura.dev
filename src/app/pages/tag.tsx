@@ -41,6 +41,22 @@ export const TagPage = ({ tag, data, siteUrl }: TagPageProps) => {
       {page < totalPages && (
         <link rel="next" href={`${siteUrl}${basePath}/page/${page + 1}`} />
       )}
+      {posts.slice(0, 3).map((post) => (
+        <link
+          key={`prefetch-${post.slug}`}
+          rel="x-prefetch"
+          href={`/${post.slug}`}
+        />
+      ))}
+      {page > 1 && (
+        <link
+          rel="x-prefetch"
+          href={page === 2 ? basePath : `${basePath}/page/${page - 1}`}
+        />
+      )}
+      {page < totalPages && (
+        <link rel="x-prefetch" href={`${basePath}/page/${page + 1}`} />
+      )}
 
       <section className="prose mx-auto py-10">
         <header className="not-prose mb-8 px-4">

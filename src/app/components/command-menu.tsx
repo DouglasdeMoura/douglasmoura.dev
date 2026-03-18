@@ -4,6 +4,7 @@ import { MagnifyingGlass as MagnifyingGlassIcon } from "@phosphor-icons/react/di
 import { Command } from "cmdk";
 import { useCallback, useEffect, useState } from "react";
 import { createPortal } from "react-dom";
+import { navigate } from "rwsdk/client";
 import useSWR from "swr";
 
 import { Kbd } from "#app/components/kbd.js";
@@ -88,9 +89,14 @@ export const CommandMenu = ({
   const handleNavigate = useCallback(
     (href: string) => {
       onOpenChange(false);
-      window.location.href = href;
+      const item = navItems.find((n) => n.href === href);
+      if (item?.forceReload) {
+        window.location.href = href;
+      } else {
+        navigate(href);
+      }
     },
-    [onOpenChange]
+    [onOpenChange, navItems]
   );
 
   const handleClose = useCallback(() => {
@@ -109,7 +115,11 @@ export const CommandMenu = ({
         if (item.shortcut?.length === 1 && e.key === item.shortcut[0]) {
           e.preventDefault();
           onOpenChange(false);
-          window.location.href = item.href;
+          if (item.forceReload) {
+            window.location.href = item.href;
+          } else {
+            navigate(item.href);
+          }
           return;
         }
       }

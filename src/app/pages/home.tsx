@@ -67,6 +67,19 @@ export const Home = ({ data, siteUrl }: HomeProps) => {
       {page < totalPages && (
         <link rel="next" href={`${siteUrl}/page/${page + 1}`} />
       )}
+      {posts.slice(0, 3).map((post) => (
+        <link
+          key={`prefetch-${post.slug}`}
+          rel="x-prefetch"
+          href={`/${post.slug}`}
+        />
+      ))}
+      {page > 1 && (
+        <link rel="x-prefetch" href={page === 2 ? "/" : `/page/${page - 1}`} />
+      )}
+      {page < totalPages && (
+        <link rel="x-prefetch" href={`/page/${page + 1}`} />
+      )}
 
       <section className="prose mx-auto py-10 px-4">
         <div className="not-prose">

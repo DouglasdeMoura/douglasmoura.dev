@@ -49,6 +49,9 @@ export const Document: React.FC<
           href="/pt-BR/feed.xml"
         />
         <link rel="modulepreload" href="/src/client.tsx" />
+        <link rel="x-prefetch" href="/about" />
+        <link rel="x-prefetch" href="/talks" />
+        <link rel="x-prefetch" href="/bookmarks" />
       </head>
       <body className="bg-surface-0 text-text motion-safe:transition-colors motion-safe:duration-300 motion-safe:ease-[cubic-bezier(0.23,1,0.32,1)]">
         {children}
