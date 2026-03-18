@@ -4,6 +4,7 @@ import { Translate as TranslateIcon } from "@phosphor-icons/react/dist/ssr/Trans
 
 import { PostSeo } from "#app/components/post-seo.js";
 import { PrefetchLink } from "#app/components/prefetch-link.js";
+import { TagLink } from "#app/components/tag-link.js";
 import { formatDate, t } from "#app/lib/i18n.js";
 import { getPostAlternates } from "#app/lib/posts.js";
 import type { AdjacentPosts, Post as PostType } from "#app/lib/posts.js";
@@ -77,13 +78,7 @@ export const Post = ({ post, html, adjacent }: PostProps) => {
         {post.tags.length > 0 && (
           <div className="not-prose mt-16 mb-8 flex flex-wrap gap-1.5">
             {post.tags.map((tag) => (
-              <a
-                key={tag}
-                href={`/tag/${encodeURIComponent(tag)}`}
-                className="inline-block lowercase text-xs tracking-[0.04em] text-text-muted bg-surface-1 py-1 px-2.5 rounded-md no-underline hover:bg-surface-2 hover:text-text-strong active:scale-[0.97] motion-safe:transition-[color,background-color,transform] motion-safe:duration-150"
-              >
-                {tag}
-              </a>
+              <TagLink key={tag} tag={tag} />
             ))}
           </div>
         )}

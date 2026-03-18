@@ -1,4 +1,5 @@
 import { PrefetchLink } from "#app/components/prefetch-link.js";
+import { TagLink } from "#app/components/tag-link.js";
 import { formatDate, t } from "#app/lib/i18n.js";
 import type { PaginatedPosts } from "#app/lib/posts.js";
 
@@ -73,13 +74,7 @@ export const TagPage = ({ tag, data, siteUrl }: TagPageProps) => {
               {post.tags.length > 0 && (
                 <div className="mt-3 flex flex-wrap gap-1.5">
                   {post.tags.map((tagName) => (
-                    <a
-                      key={tagName}
-                      href={`/tag/${encodeURIComponent(tagName)}`}
-                      className="inline-block lowercase text-xs tracking-[0.04em] text-text-muted bg-surface-1 py-1 px-2.5 rounded-full no-underline hover:bg-surface-2 hover:text-text-strong active:scale-[0.97] motion-safe:transition-[color,background-color,transform] motion-safe:duration-150"
-                    >
-                      {tagName}
-                    </a>
+                    <TagLink key={tagName} tag={tagName} />
                   ))}
                 </div>
               )}
