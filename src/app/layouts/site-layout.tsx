@@ -1,6 +1,7 @@
 import { Header } from "#app/components/header.js";
 import { getLocaleHref } from "#app/components/locale-link.js";
 import { LocaleSwitch } from "#app/components/locale-switch.js";
+import { ThemeToggle } from "#app/components/theme-toggle.js";
 import { t } from "#app/lib/i18n.js";
 import type { AppContext } from "#app/lib/types.js";
 
@@ -13,7 +14,6 @@ export const SiteLayout = ({
 }) => {
   const appCtx = (requestInfo?.ctx ?? {}) as AppContext;
   const theme = appCtx.theme ?? "system";
-  const themeExplicit = appCtx.themeExplicit ?? false;
   const locale = appCtx.locale ?? "en-US";
   const alternates = appCtx.alternates ?? [];
 
@@ -25,41 +25,54 @@ export const SiteLayout = ({
       >
         {t("Skip to content")}
       </a>
-      <Header
-        theme={theme}
-        themeExplicit={themeExplicit}
-        locale={locale}
-        alternates={alternates}
-      />
+      <Header locale={locale} alternates={alternates} />
       <main id="main-content">{children}</main>
-      <footer className="px-4 pt-8 pb-10 max-w-prose mx-auto">
-        <nav className="flex items-center justify-center gap-6 text-sm text-text-muted mb-4">
-          <a
-            href="https://github.com/douglasdemoura"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            GitHub
-          </a>
-          <a
-            href="https://linkedin.com/in/dougmoura"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            LinkedIn
-          </a>
-          <a href="/bookmarks">{t("Bookmarks")}</a>
-          <a href={`/${locale}/feed.xml`}>RSS</a>
-          <LocaleSwitch
-            href={getLocaleHref(locale, alternates)}
-            targetLocale={locale === "en-US" ? "pt-BR" : "en-US"}
-            tooltip={t("Switch language")}
-            label={locale === "en-US" ? "Português" : "English"}
-          />
-        </nav>
-        <p className="text-center text-sm text-text-muted">
-          &copy; {new Date().getFullYear()} Douglas Moura
-        </p>
+      <footer className="mt-16 border-t border-border">
+        <div className="max-w-prose mx-auto px-4 py-8">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-6">
+            <nav className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-sm">
+              <a
+                href="https://github.com/douglasdemoura"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-text-muted hover:text-text-strong motion-safe:transition-colors motion-safe:duration-150"
+              >
+                GitHub
+              </a>
+              <a
+                href="https://linkedin.com/in/dougmoura"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-text-muted hover:text-text-strong motion-safe:transition-colors motion-safe:duration-150"
+              >
+                LinkedIn
+              </a>
+              <a
+                href="/bookmarks"
+                className="text-text-muted hover:text-text-strong motion-safe:transition-colors motion-safe:duration-150"
+              >
+                {t("Bookmarks")}
+              </a>
+              <a
+                href={`/${locale}/feed.xml`}
+                className="text-text-muted hover:text-text-strong motion-safe:transition-colors motion-safe:duration-150"
+              >
+                RSS
+              </a>
+            </nav>
+            <div className="flex items-center gap-2">
+              <LocaleSwitch
+                href={getLocaleHref(locale, alternates)}
+                currentLocale={locale}
+                label={t("Switch language")}
+              />
+              <ThemeToggle initialTheme={theme} label={t("Theme")} />
+            </div>
+          </div>
+          <p className="mt-6 text-center sm:text-left text-xs text-text-muted/60">
+            &copy; {new Date().getFullYear()} Douglas Moura
+          </p>
+        </div>
       </footer>
     </>
   );

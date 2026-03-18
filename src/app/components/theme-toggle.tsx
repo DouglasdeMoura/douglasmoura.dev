@@ -74,45 +74,26 @@ const ThemeButton = ({
 
 interface ThemeToggleProps {
   initialTheme: Theme;
-  initialExplicit: boolean;
   label: string;
 }
 
-export const ThemeToggle = ({
-  initialTheme,
-  initialExplicit,
-  label,
-}: ThemeToggleProps) => {
+export const ThemeToggle = ({ initialTheme, label }: ThemeToggleProps) => {
   const [theme, setThemeState] = useState<Theme>(initialTheme);
-  const [userSelectedSystem, setUserSelectedSystem] = useState(
-    initialExplicit && initialTheme === "system"
-  );
-  const [isDark, setIsDark] = useState(initialTheme === "dark");
 
   useEffect(() => {
     applyTheme(theme);
-
-    const dark =
-      theme === "dark" ||
-      (theme === "system" &&
-        window.matchMedia("(prefers-color-scheme: dark)").matches);
-    setIsDark(dark);
 
     if (theme !== "system") {
       return;
     }
 
     const mq = window.matchMedia("(prefers-color-scheme: dark)");
-    const onChange = () => {
-      applyTheme("system");
-      setIsDark(mq.matches);
-    };
+    const onChange = () => applyTheme("system");
     mq.addEventListener("change", onChange);
     return () => mq.removeEventListener("change", onChange);
   }, [theme]);
 
   const selectTheme = useCallback((next: Theme) => {
-    setUserSelectedSystem(next === "system");
     setThemeState(next);
     setTheme(next);
   }, []);
@@ -147,66 +128,39 @@ export const ThemeToggle = ({
     return () => document.removeEventListener("keydown", handleKeyDown);
   }, [cycle]);
 
-  const selectSystem = useCallback(() => selectTheme("system"), [selectTheme]);
-  const selectLight = useCallback(() => selectTheme("light"), [selectTheme]);
-  const selectDark = useCallback(() => selectTheme("dark"), [selectTheme]);
+  const handleSelectSystem = useCallback(
+    () => selectTheme("system"),
+    [selectTheme]
+  );
+  const handleSelectLight = useCallback(
+    () => selectTheme("light"),
+    [selectTheme]
+  );
+  const handleSelectDark = useCallback(
+    () => selectTheme("dark"),
+    [selectTheme]
+  );
 
-  const themeCallbacks: Record<Theme, () => void> = {
-    dark: selectDark,
-    light: selectLight,
-    system: selectSystem,
+  const handleSelect: Record<Theme, () => void> = {
+    dark: handleSelectDark,
+    light: handleSelectLight,
+    system: handleSelectSystem,
   };
 
-  const showMonitor = theme === "system" && userSelectedSystem;
-
-  let activeIcon = isDark ? (
-    <MoonIcon size={18} weight="fill" />
-  ) : (
-    <SunIcon size={18} weight="fill" />
-  );
-  if (showMonitor) {
-    activeIcon = <MonitorIcon size={18} weight="fill" />;
-  }
-
   return (
-    <div className="group/theme relative size-8">
-      {/* Cycle button — always visible, primary interaction on mobile */}
-      <button
-        type="button"
-        onClick={cycle}
-        aria-label={`${label}: ${THEME_LABELS[theme]}`}
-        className="inline-flex items-center justify-center size-8 text-text-muted hover:text-text-strong active:scale-[0.97] motion-safe:transition-[color,transform] motion-safe:duration-150"
-      >
-        {activeIcon}
-      </button>
-
-      {/* Expanding pill — anchored at top, fixed order, expands downward */}
-      <div
-        role="radiogroup"
-        aria-label={label}
-        className="hidden sm:flex absolute z-10 top-0 left-1/2 -translate-x-1/2 flex-col items-center rounded-full opacity-0 pointer-events-none border border-transparent group-hover/theme:opacity-100 group-hover/theme:pointer-events-auto group-hover/theme:border-border group-hover/theme:bg-surface-1 group-hover/theme:shadow-sm motion-safe:transition-[opacity,border-color,background-color,box-shadow] motion-safe:duration-200"
-      >
-        {CYCLE_ORDER.map((t, i) => {
-          const isActive = theme === t;
-          const isFirst = i === 0;
-          const onClick = themeCallbacks[t];
-          return isFirst ? (
-            <ThemeButton
-              key={t}
-              theme={t}
-              isActive={isActive}
-              onClick={onClick}
-            />
-          ) : (
-            <div
-              key={t}
-              className="overflow-hidden h-0 group-hover/theme:h-8 motion-safe:transition-[height] motion-safe:duration-200"
-            >
-              <ThemeButton theme={t} isActive={isActive} onClick={onClick} />
-            </div>
-          );
-        })}
-      </div>
+    <div
+      role="radiogroup"
+      aria-label={label}
+      className="inline-flex items-center gap-1 rounded-full border border-border bg-surface-1 p-1"
+    >
+      {CYCLE_ORDER.map((t) => (
+        <ThemeButton
+          key={t}
+          theme={t}
+          isActive={theme === t}
+          onClick={handleSelect[t]}
+        />
+      ))}
     </div>
   );
 };

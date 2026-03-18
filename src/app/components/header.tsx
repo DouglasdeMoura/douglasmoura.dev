@@ -6,7 +6,6 @@ import { User as UserIcon } from "@phosphor-icons/react/dist/ssr/User";
 
 import { getLocaleHref } from "#app/components/locale-link.js";
 import { SearchTrigger } from "#app/components/search-trigger.js";
-import { ThemeToggle } from "#app/components/theme-toggle.js";
 import { t } from "#app/lib/i18n.js";
 import type { PostAlternate } from "#app/lib/posts.js";
 
@@ -14,18 +13,11 @@ const GRAVATAR_URL =
   "https://www.gravatar.com/avatar/997c72f0b7ca0fc26bdf60ca27cb4194?s=128";
 
 interface HeaderProps {
-  theme: "light" | "dark" | "system";
-  themeExplicit: boolean;
   locale: "en-US" | "pt-BR";
   alternates: PostAlternate[];
 }
 
-export const Header = ({
-  theme,
-  themeExplicit,
-  locale,
-  alternates,
-}: HeaderProps) => (
+export const Header = ({ locale, alternates }: HeaderProps) => (
   <header className="sticky top-0 z-40 border-b border-border bg-surface-0/80 backdrop-blur-lg">
     <div className="flex items-center justify-between px-4 py-4 max-w-prose mx-auto">
       <a
@@ -96,11 +88,6 @@ export const Header = ({
               shortcut: ["Alt", "L"],
             },
           ]}
-        />
-        <ThemeToggle
-          initialTheme={theme}
-          initialExplicit={themeExplicit}
-          label={t("Theme")}
         />
       </nav>
     </div>
