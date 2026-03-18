@@ -2,7 +2,6 @@ import { Translate as TranslateIcon } from "@phosphor-icons/react/dist/ssr/Trans
 
 import { PostSeo } from "#app/components/post-seo.js";
 import { formatDate, t } from "#app/lib/i18n.js";
-import { renderMarkdown } from "#app/lib/markdown.js";
 import { getPostAlternates } from "#app/lib/posts.js";
 import type { Post as PostType } from "#app/lib/posts.js";
 
@@ -14,11 +13,11 @@ const LOCALE_NAMES: Record<string, string> = {
 };
 
 interface PostProps {
-  post: PostType;
+  post: Omit<PostType, "body">;
+  html: string;
 }
 
-export const Post = async ({ post }: PostProps) => {
-  const html = await renderMarkdown(post.body);
+export const Post = ({ post, html }: PostProps) => {
   const alternates = getPostAlternates(post.slug);
   const alternate = alternates.find((a) => a.locale !== post.locale);
 

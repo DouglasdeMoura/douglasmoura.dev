@@ -5,6 +5,7 @@ import { Document } from "#app/document.js";
 import { setCommonHeaders } from "#app/headers.js";
 import { SiteLayout } from "#app/layouts/site-layout.js";
 import { generateAtomFeed, generateRssFeed } from "#app/lib/feed.js";
+import { renderMarkdown } from "#app/lib/markdown.js";
 import { generateOgImage } from "#app/lib/og.js";
 import type { Post as PostData } from "#app/lib/posts.js";
 import {
@@ -212,7 +213,7 @@ export default defineApp([
         }
         return <TagPage tag={tag} data={data} siteUrl={SITE_URL} />;
       }),
-      route("/:slug", ({ params, request }) => {
+      route("/:slug", async ({ params, request }) => {
         const post = getPostBySlug(params.slug);
         if (!post) {
           return <NotFound />;
@@ -221,7 +222,9 @@ export default defineApp([
         if (accept.includes("text/markdown")) {
           return markdownResponse(post);
         }
-        return <Post post={post} />;
+        const html = await renderMarkdown(post.body);
+        const { body: _, ...postWithoutBody } = post;
+        return <Post post={postWithoutBody} html={html} />;
       }),
     ])
   ),
