@@ -88,14 +88,6 @@ export const SiteLayout = ({
               <ThemeToggle initialTheme={theme} label={t("Theme")} />
             </div>
           </div>
-          <p className="mt-6 text-center sm:text-left text-xs text-text-muted/60 flex items-center gap-2">
-            <img
-              src="https://github.com/douglasdemoura.png"
-              alt="Douglas Moura"
-              className="rounded-full h-4 w-4"
-            />{" "}
-            <span>Douglas Moura</span>
-          </p>
         </div>
       </footer>
     </>
