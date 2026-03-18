@@ -27,6 +27,6 @@ export const setCommonHeaders =
     // unsafe-eval required: react-server-dom-webpack uses eval in the worker bundle.
     response.headers.set(
       "Content-Security-Policy",
-      `default-src 'self'; script-src 'self' 'unsafe-eval' 'nonce-${nonce}' https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' https://www.gravatar.com 'self' https://github.com 'self' https://www.github.com 'self' https://avatars.githubusercontent.com 'self' dev-to-uploads.s3.amazonaws.com; frame-ancestors 'self'; frame-src 'self' https://challenges.cloudflare.com; object-src 'none';`
+      `default-src 'self'; script-src 'self' 'unsafe-eval' 'nonce-${nonce}' https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' https://www.gravatar.com 'self' https://github.com 'self' https://www.github.com 'self' https://avatars.githubusercontent.com 'self' dev-to-uploads.s3.amazonaws.com 'self' https://pocketbase.douglasmoura.dev; frame-ancestors 'self'; frame-src 'self' https://challenges.cloudflare.com; object-src 'none';`
     );
   };
