@@ -20,7 +20,7 @@ const isMac = (): boolean => {
       typeof navigator !== "undefined" &&
       ((navigator as Navigator & { userAgentData?: { platform?: string } })
         .userAgentData?.platform === "macOS" ||
-        navigator.platform.startsWith("Mac"));
+        navigator?.platform?.startsWith("Mac"));
   }
   return detectedMac;
 };
