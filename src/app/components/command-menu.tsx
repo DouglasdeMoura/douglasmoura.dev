@@ -1,26 +1,34 @@
 "use client";
 
+import { MagnifyingGlass as MagnifyingGlassIcon } from "@phosphor-icons/react/dist/csr/MagnifyingGlass";
 import { Command } from "cmdk";
 import { useCallback, useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import useSWR from "swr";
-import type { SWRResponse } from "swr";
 
 import { Kbd } from "#app/components/kbd.js";
 import type { NavItem } from "#app/components/search-trigger.js";
 import type { SearchResult } from "#app/lib/search.js";
 
-const formatDate = (iso: string, locale: string): string =>
-  new Intl.DateTimeFormat(locale, {
-    day: "numeric",
-    month: "short",
-    year: "numeric",
-  }).format(new Date(iso));
-
 interface SearchResponse {
   results: SearchResult[];
   count: number;
 }
+
+const dateFormatters = new Map<string, Intl.DateTimeFormat>();
+
+const formatDate = (iso: string, locale: string): string => {
+  let fmt = dateFormatters.get(locale);
+  if (!fmt) {
+    fmt = new Intl.DateTimeFormat(locale, {
+      day: "numeric",
+      month: "short",
+      year: "numeric",
+    });
+    dateFormatters.set(locale, fmt);
+  }
+  return fmt.format(new Date(iso));
+};
 
 const searchFetcher = async (url: string) => {
   const res = await fetch(url);
@@ -62,18 +70,14 @@ export const CommandMenu = ({
       ? `/api/v1/search?${new URLSearchParams({ limit: "10", locale, q: debouncedQuery })}`
       : null;
 
-  const { data, isLoading }: SWRResponse<SearchResponse> = useSWR(
-    swrKey,
-    searchFetcher,
-    {
-      keepPreviousData: true,
-      revalidateIfStale: false,
-      revalidateOnFocus: false,
-      revalidateOnReconnect: false,
-    }
-  );
+  const { data, isLoading } = useSWR(swrKey, searchFetcher, {
+    keepPreviousData: true,
+    revalidateIfStale: false,
+    revalidateOnFocus: false,
+    revalidateOnReconnect: false,
+  });
 
-  const results = swrKey ? (data?.results ?? []) : [];
+  const results = data?.results ?? [];
 
   useEffect(() => {
     if (!open) {
@@ -92,10 +96,6 @@ export const CommandMenu = ({
   const handleClose = useCallback(() => {
     onOpenChange(false);
   }, [onOpenChange]);
-
-  const handleClearQuery = useCallback(() => {
-    setQuery("");
-  }, []);
 
   useEffect(() => {
     if (!open) {
@@ -139,18 +139,10 @@ export const CommandMenu = ({
             className="rounded-xl border border-border bg-surface-0 shadow-2xl overflow-hidden"
           >
             <div className="flex items-center border-b border-border px-3">
-              <svg
-                className="mr-2 size-4 shrink-0 text-text-muted"
-                fill="none"
-                stroke="currentColor"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                viewBox="0 0 24 24"
-              >
-                <circle cx={11} cy={11} r={8} />
-                <path d="m21 21-4.3-4.3" />
-              </svg>
+              <MagnifyingGlassIcon
+                size={16}
+                className="mr-2 shrink-0 text-text-muted"
+              />
               <Command.Input
                 autoFocus
                 value={query}
@@ -161,7 +153,7 @@ export const CommandMenu = ({
               {query && (
                 <button
                   type="button"
-                  onClick={handleClearQuery}
+                  onClick={handleClose}
                   className="ml-2 text-xs text-text-muted hover:text-text-strong active:scale-[0.97] motion-safe:transition-[color,transform] motion-safe:duration-150"
                 >
                   Esc
@@ -204,7 +196,7 @@ export const CommandMenu = ({
                 </Command.Loading>
               )}
 
-              {trimmed && !isLoading && results.length === 0 && (
+              {debouncedQuery && !isLoading && results.length === 0 && (
                 <Command.Empty className="py-6 text-center text-sm text-text-muted">
                   {emptyText}
                 </Command.Empty>
