@@ -40,15 +40,16 @@ export const Post = ({ post, html, adjacent }: PostProps) => {
           >
             {t("Published on")} {formatDate(post.created)}
           </time>
-          {post.updated && post.updated !== post.created && (
-            <time
-              dateTime={post.updated}
-              itemProp="dateModified"
-              className="mt-1 block text-sm text-text-muted tracking-wide"
-            >
-              {t("Last updated on")} {formatDate(post.updated)}
-            </time>
-          )}
+          {post.updated &&
+            post.updated.slice(0, 10) !== post.created.slice(0, 10) && (
+              <time
+                dateTime={post.updated}
+                itemProp="dateModified"
+                className="mt-1 block text-sm text-text-muted tracking-wide"
+              >
+                {t("Last updated on")} {formatDate(post.updated)}
+              </time>
+            )}
           {post.tags.length > 0 && (
             <div className="mt-3 flex flex-wrap gap-1.5">
               {post.tags.map((tag) => (
