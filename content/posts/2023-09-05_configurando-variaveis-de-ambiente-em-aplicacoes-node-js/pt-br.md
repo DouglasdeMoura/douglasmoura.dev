@@ -3,7 +3,7 @@ title: Configurando variáveis de ambiente em aplicações Node.js
 slug: configurando-variaveis-de-ambiente-em-aplicacoes-node-js
 locale: pt-BR
 created: 2023-09-05 21:01:49.238Z
-updated: 2023-09-05 21:06:00.400Z
+updated: 2026-03-18 21:24:53.000Z
 tags:
   - Node.js
   - javascript
@@ -18,9 +18,10 @@ Para isso, basta iniciar o seu projeto usando o seguinte comando:
 node --env-file=.env index.js
 ```
 
-<Alert title="Variáveis de ambiente" mb="md" color="blue">
+<aside data-alert data-color="blue" role="note">
+<strong>Variáveis de ambiente</strong>
 <a href="https://pt.wikipedia.org/wiki/Vari%C3%A1vel_de_ambiente">Variáveis de ambiente</a> são valores, definidos pelo usuário que podem afetar o o modo que um programa é executado no computador. Tais valores são usados para passar informações para programas, scripts e comandos, sem que seja necessário alterar o código fonte.
-</Alert>
+</aside>
 
 ## E para versões mais antigas do Node.js?
 

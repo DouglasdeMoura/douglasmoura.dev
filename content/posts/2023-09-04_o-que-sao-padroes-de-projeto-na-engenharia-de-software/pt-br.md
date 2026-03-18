@@ -3,7 +3,7 @@ title: O que são padrões de projeto na engenharia de software?
 slug: o-que-sao-padroes-de-projeto-na-engenharia-de-software
 locale: pt-BR
 created: 2023-09-04 20:00:07.730Z
-updated: 2026-03-18 21:01:38.000Z
+updated: 2026-03-18 21:24:53.000Z
 tags:
   - Engenharia de Software
   - Padrões de Projeto
@@ -114,9 +114,10 @@ export class Book extends ActiveRecord {
 }
 ```
 
-<Alert title="Atenção" mb="md" color="yellow">
+<aside data-alert data-color="yellow" role="note">
+<strong>Atenção</strong>
 A implementação acima é apenas um exemplo didático. Não há preocupações com segurança ou validação de dados antes de inseri-los ou atualizar os dados no banco de dados.
-</Alert>
+</aside>
 
 Note que todo o SQL necessário para manipular os dados no nosso banco SQLite está encapsulado na classe `ActiveRecord`. Além disso, a classe `Book` herda todos os métodos da classe `ActiveRecord` e, portanto, não é necessário escrever o mesmo código para cada tabela do banco de dados. Desse modo, é possível criar várias entidades distintas no nosso sistema, como `Author`, `Publisher`, `Category`, `BookCategory`, `BookAuthor`, `BookPublisher`, etc. Todas elas herdam os métodos da classe `ActiveRecord` e, portanto, não é necessário escrever o mesmo código para cada tabela do banco de dados.
 

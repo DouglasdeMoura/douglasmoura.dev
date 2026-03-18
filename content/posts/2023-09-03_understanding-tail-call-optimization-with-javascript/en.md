@@ -3,7 +3,7 @@ title: Understanding Tail Call Optimization With JavaScript
 slug: understanding-tail-call-optimization-with-javascript
 locale: en-US
 created: 2023-10-24 15:13:38.216Z
-updated: 2026-03-18 21:01:38.000Z
+updated: 2026-03-18 21:24:53.000Z
 tags:
   - algorithms
   - javascript
@@ -27,9 +27,10 @@ const factorial = (n) => {
 };
 ```
 
-<Alert title="Factorial" mb="md" color="blue">
+<aside data-alert data-color="blue" role="note">
+<strong>Factorial</strong>
 In Mathematics, the factorial of a non-negative integer (n!) is the product of all positive integers less than or equal to n.
-</Alert>
+</aside>
 
 The function above was implemented iteratively, that is, it uses a loop to calculate the factorial of a number. However, it is possible to implement the same function recursively (that is, a function that references itself):
 

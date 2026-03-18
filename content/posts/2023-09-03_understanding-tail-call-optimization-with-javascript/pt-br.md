@@ -3,7 +3,7 @@ title: Entendendo o que é Tail Call Optimization com JavaScript
 slug: entendendo-o-que-e-tail-call-optimization-com-javascript
 locale: pt-BR
 created: 2023-09-03 02:40:27.535Z
-updated: 2026-03-18 21:01:38.000Z
+updated: 2026-03-18 21:24:53.000Z
 tags:
   - javascript
   - algorithms
@@ -27,9 +27,10 @@ const factorial = (n) => {
 };
 ```
 
-<Alert title="Fatorial" mb="md" color="blue">
+<aside data-alert data-color="blue" role="note">
+<strong>Fatorial</strong>
 Em matemática, o fatorial de um inteiro n não negativo (n!), é o produto de todos os inteiros positivos menores ou iguais a n.
-</Alert>
+</aside>
 
 A função acima foi implementada de forma iterativa, ou seja, ela utiliza um laço de repetição para calcular o fatorial de um número. Porém, é possível implementar a mesma função de forma recursiva (ou seja: uma função que referencia a si mesma):
 

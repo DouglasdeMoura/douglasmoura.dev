@@ -3,7 +3,7 @@ title: Introdução à algoritmos
 slug: introducao-a-algoritmos
 locale: pt-BR
 created: 2024-01-25 16:53:40.103Z
-updated: 2024-01-25 17:00:20.007Z
+updated: 2026-03-18 21:24:53.000Z
 tags:
   - Iniciantes
   - Algoritmos
@@ -22,11 +22,13 @@ Podem haver diferentes algoritmos que resolvem um mesmo problema, alguns mais ef
 
 Problemas <abbr title="Tempo polinomial não-determinístico">NP</abbr>-completos são muito interessantes: mesmo que nenhum algoritmo eficiente tenha sido encontrado para esta classe de problemas, não se provou que que não é possível encontrar um algoritmo eficiente (da classe P, que pode ser resolvido em tempo polinomial) para tal problema. Além disso, se houver um algoritmo eficiente para resolver um problema NP-completo, significa que existe um algoritmo eficiente para todos os problemas <abbr title="tempo polinomial não-determinístico">NP</abbr>-completos.
 
-<Alert title="P vs. NP">
+<aside data-alert role="note">
+<strong>P vs. NP</strong>
 P vs. NP é uma questão fundamental em ciência da computação, especificamente no campo da teoria da complexidade computacional. Ela diz respeito à relação entre duas classes de problemas. A classe P consiste em problemas de decisão (problemas com resposta sim ou não) que podem ser resolvidos rapidamente (em tempo polinomial) por um computador determinístico, o que significa que o tempo necessário para resolver o problema cresce a uma taxa gerenciável à medida que o tamanho da entrada aumenta. Por outro lado, a classe NP consiste em problemas de decisão para os quais, se uma solução for fornecida, ela pode ser verificada rapidamente (também em tempo polinomial) por um computador determinístico.
 
 A questão crucial, "P é igual a NP?", pergunta se todo problema cuja solução pode ser verificada rapidamente (NP) também pode ser resolvido rapidamente (P). Isso é profundo porque, se P fosse igual a NP, significaria que todos os problemas que podemos verificar rapidamente também podem ser resolvidos rapidamente. Isso tem implicações vastas para vários campos, incluindo criptografia, otimização e design de algoritmos.
-</Alert>
+
+</aside>
 
 ## Complexidade de algoritmos
 

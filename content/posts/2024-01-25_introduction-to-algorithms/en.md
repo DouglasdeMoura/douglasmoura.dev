@@ -3,7 +3,7 @@ title: Introduction to algorithms
 slug: introduction-to-algorithms
 locale: en-US
 created: 2024-01-25 17:00:12.952Z
-updated: 2024-01-25 17:01:52.985Z
+updated: 2026-03-18 21:24:53.000Z
 tags:
   - Beginners
   - Computer Science
@@ -22,11 +22,13 @@ There can be different algorithms that solve the same problem, some more efficie
 
 <abbr title="Non-deterministic Polynomial time">NP</abbr>-complete problems are very interesting: even though no efficient algorithm has been found for this class of problems, it has not been proven that it is not possible to find an efficient algorithm (from class P, which can be solved in polynomial time) for such a problem. Moreover, if there were an efficient algorithm to solve an NP-complete problem, it would mean that there is an efficient algorithm for all <abbr title="Non-deterministic Polynomial time">NP</abbr>-complete problems.
 
-<Alert title="P vs. NP">
+<aside data-alert role="note">
+<strong>P vs. NP</strong>
 P vs. NP is a fundamental question in computer science, specifically in the field of computational complexity theory. It concerns the relationship between two classes of problems. The P class consists of decision problems (problems with a yes or no answer) that can be quickly solved (in polynomial time) by a deterministic computer, meaning that the time needed to solve the problem grows at a manageable rate as the size of the input increases. On the other hand, the NP class consists of decision problems for which, if a solution is provided, it can be quickly verified (also in polynomial time) by a deterministic computer.
 
 The crucial question, "Is P equal to NP?", asks whether every problem whose solution can be quickly verified (NP) can also be solved quickly (P). This is profound because, if P were equal to NP, it would mean that all the problems that we can verify quickly can also be solved quickly. This has vast implications for various fields, including cryptography, optimization, and algorithm design.
-</Alert>
+
+</aside>
 
 ## Algorithmic Complexity
 
