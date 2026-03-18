@@ -8,6 +8,7 @@ type Locale = "en-US" | "pt-BR";
 const translations = {
   "pt-BR": {
     About: "Sobre",
+    "Also available in": "Também disponível em",
     "Back to home": "Voltar ao início",
     Bookmarks: "Favoritos",
     Home: "Início",

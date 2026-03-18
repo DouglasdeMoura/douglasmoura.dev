@@ -1,3 +1,5 @@
+import { Translate as TranslateIcon } from "@phosphor-icons/react/dist/ssr/Translate";
+
 import { PostSeo } from "#app/components/post-seo.js";
 import { formatDate, t } from "#app/lib/i18n.js";
 import { renderMarkdown } from "#app/lib/markdown.js";
@@ -6,20 +8,23 @@ import type { Post as PostType } from "#app/lib/posts.js";
 
 const SITE_URL = import.meta.env.VITE_SITE_URL ?? "https://douglasmoura.dev";
 
+const LOCALE_NAMES: Record<string, string> = {
+  "en-US": "English",
+  "pt-BR": "Português",
+};
+
 interface PostProps {
   post: PostType;
 }
 
 export const Post = async ({ post }: PostProps) => {
   const html = await renderMarkdown(post.body);
+  const alternates = getPostAlternates(post.slug);
+  const alternate = alternates.find((a) => a.locale !== post.locale);
 
   return (
     <>
-      <PostSeo
-        post={post}
-        siteUrl={SITE_URL}
-        alternates={getPostAlternates(post.slug)}
-      />
+      <PostSeo post={post} siteUrl={SITE_URL} alternates={alternates} />
       <article lang={post.locale} className="prose mx-auto px-4 py-10">
         <header className="not-prose mb-10">
           <h1 className="text-4xl font-bold tracking-tight text-text-strong leading-[1.15]">
@@ -53,6 +58,20 @@ export const Post = async ({ post }: PostProps) => {
                 </a>
               ))}
             </div>
+          )}
+          {alternate && (
+            <a
+              href={`/${alternate.slug}`}
+              lang={alternate.locale}
+              hrefLang={alternate.locale}
+              className="mt-4 inline-flex items-center gap-1.5 text-sm text-text-muted no-underline hover:text-text-strong motion-safe:transition-color motion-safe:duration-150"
+            >
+              <TranslateIcon size={16} />
+              {t("Also available in")}{" "}
+              <span className="underline underline-offset-2">
+                {LOCALE_NAMES[alternate.locale]}
+              </span>
+            </a>
           )}
         </header>
         {/* oxlint-disable-next-line eslint-plugin-react(no-danger) -- safe: rendering our own markdown, not user input */}

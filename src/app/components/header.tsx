@@ -3,7 +3,7 @@ import { House as HomeIcon } from "@phosphor-icons/react/dist/ssr/House";
 import { Microphone as MicrophoneIcon } from "@phosphor-icons/react/dist/ssr/Microphone";
 import { User as UserIcon } from "@phosphor-icons/react/dist/ssr/User";
 
-import { LocaleToggle } from "#app/components/locale-toggle.js";
+import { LocaleLink } from "#app/components/locale-link.js";
 import { SearchTrigger } from "#app/components/search-trigger.js";
 import { ThemeToggle } from "#app/components/theme-toggle.js";
 import { t } from "#app/lib/i18n.js";
@@ -94,11 +94,7 @@ export const Header = ({
           initialExplicit={themeExplicit}
           label={t("Theme")}
         />
-        <LocaleToggle
-          initialLocale={locale}
-          label={t("Language")}
-          alternates={alternates}
-        />
+        <LocaleLink locale={locale} alternates={alternates} />
       </nav>
     </div>
   </header>
