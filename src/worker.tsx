@@ -71,7 +71,7 @@ export default defineApp([
         : "/";
     return new Response(null, {
       headers: {
-        Location: `${SITE_URL}${safePath}`,
+        Location: `${url.origin}${safePath}`,
         "Set-Cookie": "locale=en-US; Path=/; Max-Age=31536000; SameSite=Lax",
       },
       status: 302,
@@ -86,7 +86,7 @@ export default defineApp([
         : "/";
     return new Response(null, {
       headers: {
-        Location: `${SITE_URL}${safePath}`,
+        Location: `${url.origin}${safePath}`,
         "Set-Cookie": "locale=pt-BR; Path=/; Max-Age=31536000; SameSite=Lax",
       },
       status: 302,
