@@ -283,8 +283,8 @@ body::after {
   align-items: center;
   gap: 0.5em;
   padding: 0.375em 0.75em;
-  font-size: 0.875rem;
-  line-height: 1;
+  font-size: 0.75rem;
+  line-height: 1.25;
   font-family: var(--font-mono, ui-monospace, monospace);
   font-weight: 500;
   color: var(--color-text);
