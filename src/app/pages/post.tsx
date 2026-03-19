@@ -2,6 +2,7 @@ import { ArrowLeft as ArrowLeftIcon } from "@phosphor-icons/react/dist/ssr/Arrow
 import { ArrowRight as ArrowRightIcon } from "@phosphor-icons/react/dist/ssr/ArrowRight";
 import { Translate as TranslateIcon } from "@phosphor-icons/react/dist/ssr/Translate";
 
+import { CodeCopy } from "#app/components/code-copy.js";
 import { PostSeo } from "#app/components/post-seo.js";
 import { PrefetchLink } from "#app/components/prefetch-link.js";
 import { TagLink } from "#app/components/tag-link.js";
@@ -75,6 +76,7 @@ export const Post = ({ post, html, hasMath, adjacent }: PostProps) => {
             className="not-prose mb-10 w-full aspect-[3/2] rounded-xl border border-border bg-surface-1 object-cover"
           />
         )}
+        <CodeCopy />
         {/* oxlint-disable-next-line eslint-plugin-react(no-danger) -- safe: rendering our own markdown, not user input */}
         <div dangerouslySetInnerHTML={{ __html: html }} />
         {post.tags.length > 0 && (
