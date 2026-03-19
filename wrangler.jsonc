@@ -10,5 +10,9 @@
   "observability": {
     "enabled": true,
   },
+  "routes": [
+    { "pattern": "douglasmoura.dev", "custom_domain": true },
+    { "pattern": "www.douglasmoura.dev", "custom_domain": true },
+  ],
   "vars": {},
 }
