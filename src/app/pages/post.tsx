@@ -22,9 +22,16 @@ interface PostProps {
   html: string;
   hasMath: boolean;
   adjacent: AdjacentPosts;
+  readingTime: number;
 }
 
-export const Post = ({ post, html, hasMath, adjacent }: PostProps) => {
+export const Post = ({
+  post,
+  html,
+  hasMath,
+  adjacent,
+  readingTime,
+}: PostProps) => {
   const alternates = getPostAlternates(post.slug);
   const alternate = alternates.find((a) => a.locale !== post.locale);
 
@@ -37,13 +44,13 @@ export const Post = ({ post, html, hasMath, adjacent }: PostProps) => {
           <h1 className="text-4xl font-bold tracking-tight text-text-strong leading-[1.15]">
             {post.title}
           </h1>
-          <time
-            dateTime={post.created}
-            itemProp="datePublished"
-            className="mt-3 block text-sm text-text-muted tracking-wide"
-          >
-            {t("Published on")} {formatDate(post.created)}
-          </time>
+          <p className="mt-3 text-sm text-text-muted tracking-wide">
+            <time dateTime={post.created} itemProp="datePublished">
+              {t("Published on")} {formatDate(post.created)}
+            </time>
+            {" · "}
+            {readingTime} {t("min. read")}
+          </p>
           {post.updated &&
             post.updated.slice(0, 10) !== post.created.slice(0, 10) && (
               <time

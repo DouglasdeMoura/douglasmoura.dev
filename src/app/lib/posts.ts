@@ -207,6 +207,15 @@ export const resolvePostImages = (
   );
 };
 
+const WORDS_PER_MINUTE = 200;
+
+/** Estimate reading time in minutes from raw markdown body. */
+export const getReadingTime = (body: string): number => {
+  const text = stripMarkdown(body);
+  const words = text.split(/\s+/).filter(Boolean).length;
+  return Math.max(1, Math.round(words / WORDS_PER_MINUTE));
+};
+
 export const serializePost = (post: Post): string => {
   const frontmatter = [
     "---",

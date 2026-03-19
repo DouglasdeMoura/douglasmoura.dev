@@ -14,6 +14,7 @@ import {
   getPostAlternates,
   getPostBySlug,
   getPostsByTag,
+  getReadingTime,
   resolvePostImages,
   serializePost,
 } from "#app/lib/posts.js";
@@ -232,6 +233,7 @@ export default defineApp([
         }
         const rendered = await renderMarkdown(post.body);
         const html = resolvePostImages(rendered.html, post.images);
+        const readingTime = getReadingTime(post.body);
         const { body: _, images: __, ...postWithoutBody } = post;
         const adjacent = getAdjacentPosts(post.slug, post.locale);
         return (
@@ -240,6 +242,7 @@ export default defineApp([
             html={html}
             hasMath={rendered.hasMath}
             adjacent={adjacent}
+            readingTime={readingTime}
           />
         );
       }),

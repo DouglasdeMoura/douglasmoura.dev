@@ -29,6 +29,7 @@ const translations = {
     "Switch language": "Alterar linguagem",
     Talks: "Palestras",
     Theme: "Tema",
+    "min. read": "min. de leitura",
   },
 } as const satisfies Record<string, Record<string, string>>;
 
