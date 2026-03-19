@@ -28,7 +28,7 @@ export const About = () => {
 
   return (
     <>
-      <title>{t("About")} — Douglas Moura</title>
+      <title>`${t("About")} | Douglas Moura`</title>
       <meta name="description" content={bio[locale][0]} />
       <link rel="canonical" href={`${SITE_URL}/about`} />
 
