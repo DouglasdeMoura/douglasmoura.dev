@@ -42,7 +42,7 @@ export const Header = ({ locale, alternates }: HeaderProps) => (
         <SearchTrigger
           locale={locale}
           label={t("Search")}
-          placeholder={t("Search posts…")}
+          placeholder={t("Search or jump to…")}
           emptyText={t("No results found")}
           navItems={[
             {
@@ -71,6 +71,7 @@ export const Header = ({ locale, alternates }: HeaderProps) => (
             },
             {
               forceReload: true,
+              group: "preferences",
               href: getLocaleHref(locale, alternates),
               icon: <TranslateIcon size={16} />,
               label: locale === "en-US" ? "Português" : "English",

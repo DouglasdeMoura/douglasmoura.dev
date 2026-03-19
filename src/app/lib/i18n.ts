@@ -23,7 +23,7 @@ const translations = {
     "Published on": "Publicado em",
     Recording: "Gravação",
     Search: "Pesquisar",
-    "Search posts…": "Pesquisar artigos…",
+    "Search or jump to…": "Pesquisar ou ir para…",
     "Skip to content": "Pular para o conteúdo",
     Slides: "Slides",
     "Switch language": "Alterar linguagem",

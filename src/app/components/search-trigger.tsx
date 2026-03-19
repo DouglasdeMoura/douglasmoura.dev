@@ -12,6 +12,7 @@ export interface NavItem {
   icon?: React.ReactNode;
   shortcut?: string[];
   forceReload?: boolean;
+  group?: "pages" | "preferences";
 }
 
 interface SearchTriggerProps {
