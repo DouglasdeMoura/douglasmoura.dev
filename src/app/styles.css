@@ -289,13 +289,6 @@ body::after {
   opacity: 0.55;
 }
 
-.code-block-filepath {
-  flex: 1 1 auto;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
 .code-block-copy {
   position: relative;
   margin-left: auto;
@@ -323,11 +316,6 @@ body::after {
   .code-block-copy:active {
     transform: scale(0.9);
   }
-}
-
-.code-block-copy .code-copy-icon,
-.code-block-copy .code-check-icon {
-  position: absolute;
 }
 
 @media (prefers-reduced-motion: no-preference) {
