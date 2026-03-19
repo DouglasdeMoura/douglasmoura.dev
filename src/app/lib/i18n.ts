@@ -12,7 +12,7 @@ const translations = {
     "Back to home": "Voltar ao início",
     Bookmarks: "Favoritos",
     "Conference talks and presentations by Douglas Moura.":
-      "Palestras e apresentações, por Douglas Moura",
+      "Palestras e apresentações de Douglas Moura.",
     Event: "Evento",
     Home: "Início",
     "Last updated on": "Atualizado em",
