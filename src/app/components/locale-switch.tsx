@@ -87,7 +87,7 @@ export const LocaleSwitch = ({
       {open && (
         <div
           role="menu"
-          className="absolute bottom-full mb-2 right-0 min-w-max rounded-lg border border-border bg-surface-0 py-1 shadow-lg"
+          className="absolute bottom-full mb-2 left-0 sm:left-auto sm:right-0 min-w-max rounded-lg border border-border bg-surface-0 py-1 shadow-lg"
         >
           {locales.map((loc) => {
             const isActive = loc === currentLocale;
