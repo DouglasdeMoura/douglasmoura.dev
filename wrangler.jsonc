@@ -1,9 +1,11 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "douglasmoura-blog",
+  "name": "blog",
   "main": "src/worker.tsx",
   "compatibility_date": "2025-08-21",
-  "compatibility_flags": ["nodejs_compat"],
+  "compatibility_flags": [
+    "nodejs_compat"
+  ],
   "assets": {
     "binding": "ASSETS",
   },
@@ -11,8 +13,14 @@
     "enabled": true,
   },
   "routes": [
-    { "pattern": "douglasmoura.dev", "custom_domain": true },
-    { "pattern": "www.douglasmoura.dev", "custom_domain": true },
+    {
+      "pattern": "douglasmoura.dev",
+      "custom_domain": true
+    },
+    {
+      "pattern": "www.douglasmoura.dev",
+      "custom_domain": true
+    },
   ],
   "vars": {},
 }
