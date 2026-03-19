@@ -1,6 +1,7 @@
 "use client";
 
 import { MagnifyingGlass as MagnifyingGlassIcon } from "@phosphor-icons/react/dist/csr/MagnifyingGlass";
+import { SpinnerGap } from "@phosphor-icons/react/dist/csr/SpinnerGap";
 import { Command } from "cmdk";
 import { useCallback, useEffect, useState } from "react";
 import { createPortal } from "react-dom";
@@ -44,6 +45,28 @@ const useDebouncedValue = <T,>(value: T, delay: number): T => {
   }, [value, delay]);
   return debounced;
 };
+
+const groupHeadingClasses =
+  "[&_[cmdk-group-heading]]:px-3 [&_[cmdk-group-heading]]:pt-4 [&_[cmdk-group-heading]]:pb-1.5 [&_[cmdk-group-heading]]:text-[9px] [&_[cmdk-group-heading]]:font-semibold [&_[cmdk-group-heading]]:uppercase [&_[cmdk-group-heading]]:tracking-wider [&_[cmdk-group-heading]]:text-text-muted";
+
+const labels = {
+  "en-US": {
+    close: "close",
+    navigate: "navigate",
+    open: "open",
+    pages: "Pages",
+    posts: "Posts",
+    preferences: "Preferences",
+  },
+  "pt-BR": {
+    close: "fechar",
+    navigate: "navegar",
+    open: "abrir",
+    pages: "Páginas",
+    posts: "Artigos",
+    preferences: "Preferências",
+  },
+} as const;
 
 interface CommandMenuProps {
   open: boolean;
@@ -132,6 +155,12 @@ export const CommandMenu = ({
     return null;
   }
 
+  const l = labels[locale];
+  const pageItems = navItems.filter((n) => !n.group || n.group === "pages");
+  const preferenceItems = navItems.filter((n) => n.group === "preferences");
+  const itemClasses =
+    "flex cursor-default items-center gap-2 rounded-lg px-3 py-2 text-sm text-text-muted outline-none select-none data-[selected=true]:bg-surface-2 data-[selected=true]:text-accent";
+
   return createPortal(
     <div className="fixed inset-0 z-50">
       {/* oxlint-disable-next-line eslint-plugin-jsx-a11y(click-events-have-key-events) -- Escape key handled by Command */}
@@ -144,15 +173,22 @@ export const CommandMenu = ({
       <div className="fixed inset-0 top-[20%] flex justify-center px-4 pointer-events-none">
         <div className="cmdk-dialog w-full max-w-lg pointer-events-auto">
           <Command
-            label="Search posts"
+            label="Command palette"
             shouldFilter={false}
-            className="rounded-xl border border-border bg-surface-0 shadow-2xl overflow-hidden"
+            className="rounded-xl border border-border bg-surface-0 shadow-2xl ring-1 ring-black/5 overflow-hidden"
           >
             <div className="flex items-center border-b border-border px-3">
-              <MagnifyingGlassIcon
-                size={16}
-                className="mr-2 shrink-0 text-text-muted"
-              />
+              {isLoading && debouncedQuery ? (
+                <SpinnerGap
+                  size={16}
+                  className="mr-2 shrink-0 text-text-muted animate-spin"
+                />
+              ) : (
+                <MagnifyingGlassIcon
+                  size={16}
+                  className="mr-2 shrink-0 text-text-muted"
+                />
+              )}
               <Command.Input
                 autoFocus
                 value={query}
@@ -160,29 +196,27 @@ export const CommandMenu = ({
                 placeholder={placeholder}
                 className="flex h-12 w-full bg-transparent py-3 text-sm text-text outline-none ring-0 border-none shadow-none placeholder:text-text-muted"
               />
-              {query && (
-                <button
-                  type="button"
-                  onClick={handleClose}
-                  className="ml-2 text-xs text-text-muted hover:text-text-strong active:scale-[0.97] motion-safe:transition-[color,transform] motion-safe:duration-150"
-                >
-                  Esc
-                </button>
-              )}
+              <button
+                type="button"
+                onClick={handleClose}
+                className="ml-2 text-xs text-text-muted hover:text-text-strong active:scale-[0.97] motion-safe:transition-[color,transform] motion-safe:duration-150"
+              >
+                <Kbd keys={["Esc"]} />
+              </button>
             </div>
 
-            <Command.List className="max-h-80 overflow-y-auto overflow-x-hidden p-1">
-              {!trimmed && navItems.length > 0 && (
+            <Command.List className="max-h-96 overflow-y-auto overflow-x-hidden p-1">
+              {!trimmed && pageItems.length > 0 && (
                 <Command.Group
-                  heading="Pages"
-                  className="[&_[cmdk-group-heading]]:px-3 [&_[cmdk-group-heading]]:py-1.5 [&_[cmdk-group-heading]]:text-xs [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group-heading]]:text-text-muted"
+                  heading={l.pages}
+                  className={groupHeadingClasses}
                 >
-                  {navItems.map((item) => (
+                  {pageItems.map((item) => (
                     <Command.Item
                       key={item.href}
                       value={item.href}
                       onSelect={handleNavigate}
-                      className="flex cursor-default items-center gap-2 rounded-lg px-3 py-2 text-sm text-text-muted outline-none select-none data-[selected=true]:bg-surface-1 data-[selected=true]:text-text-strong"
+                      className={itemClasses}
                     >
                       {item.icon && (
                         <span className="size-4 shrink-0">{item.icon}</span>
@@ -198,12 +232,30 @@ export const CommandMenu = ({
                 </Command.Group>
               )}
 
-              {isLoading && !data && (
-                <Command.Loading>
-                  <div className="py-6 text-center text-sm text-text-muted">
-                    ...
-                  </div>
-                </Command.Loading>
+              {!trimmed && preferenceItems.length > 0 && (
+                <Command.Group
+                  heading={l.preferences}
+                  className={groupHeadingClasses}
+                >
+                  {preferenceItems.map((item) => (
+                    <Command.Item
+                      key={item.href}
+                      value={item.href}
+                      onSelect={handleNavigate}
+                      className={itemClasses}
+                    >
+                      {item.icon && (
+                        <span className="size-4 shrink-0">{item.icon}</span>
+                      )}
+                      {item.label}
+                      {item.shortcut && (
+                        <span className="ml-auto">
+                          <Kbd keys={item.shortcut} />
+                        </span>
+                      )}
+                    </Command.Item>
+                  ))}
+                </Command.Group>
               )}
 
               {debouncedQuery && !isLoading && results.length === 0 && (
@@ -212,26 +264,44 @@ export const CommandMenu = ({
                 </Command.Empty>
               )}
 
-              {debouncedQuery &&
-                results.map((result) => (
-                  <Command.Item
-                    key={result.slug}
-                    value={`/${result.slug}`}
-                    onSelect={handleNavigate}
-                    className="group relative flex cursor-default flex-col gap-0.5 rounded-lg px-3 py-2.5 text-sm outline-none select-none data-[selected=true]:bg-surface-1"
-                  >
-                    <span className="font-medium text-text-strong group-data-[selected=true]:text-accent">
-                      {result.title}
-                    </span>
-                    <span className="text-xs text-text-muted line-clamp-1">
-                      {formatDate(result.created, locale)}
-                      {result.tags.length > 0 && (
-                        <> &middot; {result.tags.join(", ")}</>
-                      )}
-                    </span>
-                  </Command.Item>
-                ))}
+              {debouncedQuery && results.length > 0 && (
+                <Command.Group
+                  heading={l.posts}
+                  className={groupHeadingClasses}
+                >
+                  {results.map((result) => (
+                    <Command.Item
+                      key={result.slug}
+                      value={`/${result.slug}`}
+                      onSelect={handleNavigate}
+                      className="group relative flex cursor-default flex-col gap-0.5 rounded-lg px-3 py-2.5 text-sm outline-none select-none data-[selected=true]:bg-surface-2"
+                    >
+                      <span className="font-medium text-text-strong group-data-[selected=true]:text-accent">
+                        {result.title}
+                      </span>
+                      <span className="text-xs text-text-muted line-clamp-1">
+                        {formatDate(result.created, locale)}
+                        {result.tags.length > 0 && (
+                          <> &middot; {result.tags.join(", ")}</>
+                        )}
+                      </span>
+                    </Command.Item>
+                  ))}
+                </Command.Group>
+              )}
             </Command.List>
+
+            <div className="flex items-center gap-3 border-t border-border px-3 py-2 text-[11px] text-text-muted">
+              <span className="inline-flex items-center gap-1">
+                <Kbd keys={["↑↓"]} /> {l.navigate}
+              </span>
+              <span className="inline-flex items-center gap-1">
+                <Kbd keys={["↵"]} /> {l.open}
+              </span>
+              <span className="inline-flex items-center gap-1">
+                <Kbd keys={["Esc"]} /> {l.close}
+              </span>
+            </div>
           </Command>
         </div>
       </div>
