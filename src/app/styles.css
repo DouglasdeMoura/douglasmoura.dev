@@ -232,6 +232,31 @@ body::after {
   padding: 0.5em 0;
 }
 
+/* ── Footnotes ── */
+
+.prose .footnotes {
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+}
+
+.prose .footnotes hr {
+  margin-block: 2em 1em;
+}
+
+.prose .footnotes ol {
+  padding-left: 1.5em;
+}
+
+.prose sup a {
+  text-decoration: none;
+  font-weight: 500;
+  color: var(--color-accent);
+}
+
+.prose sup a:hover {
+  text-decoration: underline;
+}
+
 /* ── Shiki dual-theme highlighting ── */
 
 .shiki,

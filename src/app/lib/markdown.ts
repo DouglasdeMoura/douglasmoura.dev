@@ -23,6 +23,7 @@ import vitesseDark from "@shikijs/themes/vitesse-dark";
 import vitesseLight from "@shikijs/themes/vitesse-light";
 import { init, renderToHtml } from "md4x/wasm";
 
+import { renderFootnotes } from "#app/lib/footnotes.js";
 import { renderMathInHtml } from "#app/lib/katex.js";
 
 let ready: Promise<void> | undefined;
@@ -88,5 +89,6 @@ export const renderMarkdown = async (
     },
   }) as string;
 
-  return renderMathInHtml(raw);
+  const { hasMath, html: mathHtml } = renderMathInHtml(raw);
+  return { hasMath, html: renderFootnotes(mathHtml) };
 };
