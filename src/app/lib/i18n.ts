@@ -11,6 +11,8 @@ const translations = {
     "Also available in": "Também disponível em",
     "Back to home": "Voltar ao início",
     Bookmarks: "Favoritos",
+    "Conference talks and presentations by Douglas Moura.":
+      "Palestras e apresentações, por Douglas Moura",
     Event: "Evento",
     Home: "Início",
     "Last updated on": "Atualizado em",
@@ -26,6 +28,8 @@ const translations = {
     "Search or jump to…": "Pesquisar ou ir para…",
     "Skip to content": "Pular para o conteúdo",
     Slides: "Slides",
+    "Software engineer writing about web development, TypeScript, and more.":
+      "Engenheiro de software escrevendo sobre desenvolvimento web, TypeScript e mais.",
     "Switch language": "Alterar linguagem",
     Talks: "Palestras",
     Theme: "Tema",
