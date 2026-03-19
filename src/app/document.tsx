@@ -39,6 +39,31 @@ export const Document: React.FC<
           /* oxlint-disable-next-line eslint-plugin-react(no-danger) -- FOUC prevention: must run before paint */
           dangerouslySetInnerHTML={{ __html: themeScript }}
         />
+        <link rel="icon" href="/favicon.ico" sizes="32x32" />
+        <link
+          rel="icon"
+          href="/favicon-dark.svg"
+          type="image/svg+xml"
+          media="(prefers-color-scheme: dark)"
+        />
+        <link
+          rel="icon"
+          href="/favicon-light.svg"
+          type="image/svg+xml"
+          media="(prefers-color-scheme: light)"
+        />
+        <meta
+          name="theme-color"
+          content="#fbfbfa"
+          media="(prefers-color-scheme: light)"
+        />
+        <meta
+          name="theme-color"
+          content="#161614"
+          media="(prefers-color-scheme: dark)"
+        />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+        <link rel="manifest" href="/site.webmanifest" />
         <link rel="stylesheet" href={styles} />
         <link
           rel="alternate"
