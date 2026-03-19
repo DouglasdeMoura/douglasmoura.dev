@@ -53,7 +53,7 @@ Você também pode enviar um arquivo JSON ao invés de digitar o JSON no termina
 curl --json @arquivo.json https://dummyjson.com/products/add
 ```
 
-Ou passando os dados do [_stdin_](https://man.archlinux.org/man/stdin.3.en) (note que eu uso `@-` ao invés de `@` para indicar que os dados virão do _stdin_):
+Ou passando os dados do [*stdin*](https://man.archlinux.org/man/stdin.3.en) (note que eu uso `@-` ao invés de `@` para indicar que os dados virão do *stdin*):
 
 ```bash
 curl --json @- https://dummyjson.com/products/add < arquivo.json

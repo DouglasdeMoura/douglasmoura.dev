@@ -11,7 +11,7 @@ cover: ./cover.jpg
 type: post
 ---
 
-No último final de semana (25 e 26 de maio), aconteceu o [Elixir Days](https://www.elixirdays.com/) no auditório da [Link Business School](https://lsb.edu.br/). Apesar do evento ter sido organizado muito em cima da hora (e, por conta disso, não ter tido tempo de abrir o _call for papers_), contou com uma excelente seleção de palestrantes e até mesmo a presença do Bruce Tate, o instrutor do [grox.io](https://grox.io/), que apresentou um workshop sobre alguns conceitos básicos do Elixir e do OTP.
+No último final de semana (25 e 26 de maio), aconteceu o [Elixir Days](https://www.elixirdays.com/) no auditório da [Link Business School](https://lsb.edu.br/). Apesar do evento ter sido organizado muito em cima da hora (e, por conta disso, não ter tido tempo de abrir o *call for papers*), contou com uma excelente seleção de palestrantes e até mesmo a presença do Bruce Tate, o instrutor do [grox.io](https://grox.io/), que apresentou um workshop sobre alguns conceitos básicos do Elixir e do OTP.
 
 Não consegui participar do segundo dia do evento, mas tudo foi gravado e os organizadores disseram que, em breve, as gravações estarão disponíveis no YouTube.
 

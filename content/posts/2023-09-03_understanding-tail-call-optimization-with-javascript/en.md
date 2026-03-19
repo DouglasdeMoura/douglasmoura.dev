@@ -46,7 +46,7 @@ The result of both functions is the same, however, the iterative function is [mu
 
 ## Call Stack
 
-A [call stack](https://developer.mozilla.org/en-US/docs/Glossary/Call_stack) is a data structure that stores information about a program's functions. When a function is called, it is added to the execution stack, as well as all the functions it calls. When a function returns, it is removed from the execution stack. Each function added to the stack is called a _stack frame_.
+A [call stack](https://developer.mozilla.org/en-US/docs/Glossary/Call_stack) is a data structure that stores information about a program's functions. When a function is called, it is added to the execution stack, as well as all the functions it calls. When a function returns, it is removed from the execution stack. Each function added to the stack is called a *stack frame*.
 
 In order to understand what is happening, let's try to represent, graphically, how the calculation of the factorial of 6 is done with the iterative function:
 
@@ -65,7 +65,7 @@ In the recursive function, each call to the `factorial` function is added to the
 
 As defined by [Dr. Axel Rauschmayer](https://dr-axel.de/):
 
-> [...] whenever the last thing a function does is call another function, then this last function does not need to return to its caller. As a consequence, no information needs to be stored on the call stack and the function call is more like a goto (a jump). This type of call is called a _tail call_; not increasing the stack is called tail call optimization (TCO).
+> [...] whenever the last thing a function does is call another function, then this last function does not need to return to its caller. As a consequence, no information needs to be stored on the call stack and the function call is more like a goto (a jump). This type of call is called a *tail call*; not increasing the stack is called tail call optimization (TCO).
 
 Now, we have discovered that our factorial calculation function is not tail recursive. But how can we make it tail recursive? With the help of another function:
 

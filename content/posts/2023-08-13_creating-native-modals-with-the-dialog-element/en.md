@@ -23,9 +23,9 @@ has become the standard for web development for quite some time (popularized by 
 
 But now, with the arrival of the [`<dialog>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog) element in HTML5 (supported by [93.85%](https://caniuse.com/dialog) of browsers in use), it is much easier to create dialogs natively. In this article, we will see how to create a simple modal (and non-modal) dialog with the `<dialog>` element.
 
-## Understanding the _dialog_ element
+## Understanding the *dialog* element
 
-In the sense employed in user interface development, a **dialog** is a <q>conversation</q> between the system and the user, where the system expects a response from the user to continue. A dialog can be **modal** or **non-modal**. A modal dialog (that is, one that changes the **mode** of interaction of the user with the system) is one that locks the interface, preventing the user from interacting with the rest of the page until it is closed. A non-modal dialog (that is, one that _does not_ change the **mode** of interaction of the user with the system), on the other hand, allows the user to interact with the rest of the page while the dialog is open.
+In the sense employed in user interface development, a **dialog** is a <q>conversation</q> between the system and the user, where the system expects a response from the user to continue. A dialog can be **modal** or **non-modal**. A modal dialog (that is, one that changes the **mode** of interaction of the user with the system) is one that locks the interface, preventing the user from interacting with the rest of the page until it is closed. A non-modal dialog (that is, one that *does not* change the **mode** of interaction of the user with the system), on the other hand, allows the user to interact with the rest of the page while the dialog is open.
 
 The simplest way to put a non-modal dialog on the screen is as follows:
 
@@ -38,7 +38,7 @@ The simplest way to put a non-modal dialog on the screen is as follows:
 </dialog>
 ```
 
-Note the form, on line 5, with the _dialog_ method. It is this form that sends actions to the `dialog`. It will be displayed like this:
+Note the form, on line 5, with the *dialog* method. It is this form that sends actions to the `dialog`. It will be displayed like this:
 
 <iframe height="350" style="width:100%" src="https://codepen.io/douglasdemoura/embed/zYMgBOz" loading="lazy" allowtransparency="true" allowfullscreen="true"></iframe>
 

@@ -90,7 +90,7 @@ atributo `aria-live`<sup>[1](#aria-live-regions)</sup>, o qual pode receber um d
    atenção imediata do usuário. É o atributo utilizado com mais frequência.
 
 Também utilizamos o atributo `aria-busy` para informar aos leitores de tela que
-a região está aguardando uma atualiação. Este atributo só aceita valores _booleanos_:
+a região está aguardando uma atualiação. Este atributo só aceita valores *booleanos*:
 `true` ou `false`.
 
 Se você leu o código acima com atenção, verá que definimos outros atributos:

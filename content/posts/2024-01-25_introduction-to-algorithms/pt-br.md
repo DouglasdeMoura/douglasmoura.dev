@@ -14,7 +14,7 @@ type: post
 
 ## O que é um algoritmo?
 
-Um _algoritmo_ é uma especificação precisa e sem ambiguidades de uma sequência de passos computacionais que podem ser realizados mecanicamente[^1]. A partir disso, podemos pensar em uma função que recebe um valor ou um conjunto de valores de **entrada** e retorna um valor ou conjunto de valores em sua **saída**.
+Um *algoritmo* é uma especificação precisa e sem ambiguidades de uma sequência de passos computacionais que podem ser realizados mecanicamente[^1]. A partir disso, podemos pensar em uma função que recebe um valor ou um conjunto de valores de **entrada** e retorna um valor ou conjunto de valores em sua **saída**.
 
 Um algoritmo pode ser **correto** e **incorreto**. Ele é correto quando, dados seus parâmetros de entrada, sua saída for correta e, portanto, **resolve** o problema computacional para qual foi desenvolvido. Um algoritmo incorreto, por sua vez, pode parar com uma saída incorreta ou mesmo não parar para algumas instâncias de entrada. Ainda assim, alguns algoritmos incorretos ainda podem ter aplicações úteis.
 
@@ -32,9 +32,9 @@ A questão crucial, "P é igual a NP?", pergunta se todo problema cuja solução
 
 ## Complexidade de algoritmos
 
-Quando falamos de algoritmos, na maior parte do tempo estamos interessados na taxa de crescimento de tempo e espaço requeridos para resolver instâncias cada vez maiores de determinados problemas. Se estamos interessados no tempo que determinado algoritmo leva para executar sua função, estamos interessados um sua _complexidade temporal_. E o comportamento do limite da complexidade temporal do nosso algoritmo em relação ao aumento das instâncias do problema é chamado de _complexidade assintótica temporal_. E é esse complexidade assintótica que que determina o tamanho do problema que pode ser resolvido por algoritmos[^2].
+Quando falamos de algoritmos, na maior parte do tempo estamos interessados na taxa de crescimento de tempo e espaço requeridos para resolver instâncias cada vez maiores de determinados problemas. Se estamos interessados no tempo que determinado algoritmo leva para executar sua função, estamos interessados um sua *complexidade temporal*. E o comportamento do limite da complexidade temporal do nosso algoritmo em relação ao aumento das instâncias do problema é chamado de *complexidade assintótica temporal*. E é esse complexidade assintótica que que determina o tamanho do problema que pode ser resolvido por algoritmos[^2].
 
-Se um algoritmo leva um tempo $cn^2$ para uma constante $c$ para processar um entrada de tamanho $n$, dizemos que a complexidade do algoritmo é da _ordem de $n^2$_, ou, em notação Bachmann–Landau (também chamada de notação assintótica e notação **Big O**), o algoritmo tem a complexidade $O(n^2)$.
+Se um algoritmo leva um tempo $cn^2$ para uma constante $c$ para processar um entrada de tamanho $n$, dizemos que a complexidade do algoritmo é da *ordem de $n^2$*, ou, em notação Bachmann–Landau (também chamada de notação assintótica e notação **Big O**), o algoritmo tem a complexidade $O(n^2)$.
 
 Para termos uma melhor ideia do que isso significa em relação ao tempo de execução do nosso algoritmo, considere que uma unidade de tempo no computador em que executamos o nosso algoritmo é de 1 milissegundo. Agora, queremos saber qual o tamanho máximo da entrada que o nosso algoritmo pode processar dentro de um determinado limite de tempo (um segundo, um hora e um dia). Observe, na tabela abaixo, o quanto a complexidade do algoritmo interfere no tamanho máximo da entrada que ele pode tratar, dado o limite de tempo:
 
@@ -48,6 +48,6 @@ Para termos uma melhor ideia do que isso significa em relação ao tempo de exec
 
 Ainda que possamos construir computadores mais rápidos, o aumento na velocidade de execução dos algoritmos menos eficientes não seria tão significativo, de modo que que devemos buscar sempre o algoritmo de melhor eficiência para tratar determinado problema.
 
-[^1]: AHO, Alfred V.; ULLMAN, Jeffrey D. _Foundations of Computer Science_. Stanford, 1994.
+[^1]: AHO, Alfred V.; ULLMAN, Jeffrey D. *Foundations of Computer Science*. Stanford, 1994.
 
-[^2]: AHO, Alfred V.; HOPCROFT, John E.; ULLMAN, Jeffrey D. _The Design and Analysis of Computer Algorithms_. Addison-Wesley, 1974.
+[^2]: AHO, Alfred V.; HOPCROFT, John E.; ULLMAN, Jeffrey D. *The Design and Analysis of Computer Algorithms*. Addison-Wesley, 1974.

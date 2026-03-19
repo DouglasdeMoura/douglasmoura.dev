@@ -24,9 +24,9 @@ ICON_INSTALLATION_DIR=~/.local/share/web-apps/icons && mkdir -p $ICON_INSTALLATI
 
 O comando acima irá criar o diretório `~/.local/share/web-apps` e baixará o ícone do WhatsApp.
 
-### 2. Crie o [_desktop entry_](https://wiki.archlinux.org/title/Desktop_entries) da aplicação
+### 2. Crie o [*desktop entry*](https://wiki.archlinux.org/title/Desktop_entries) da aplicação
 
-Para criar o arquivo [_desktop entry_](https://wiki.archlinux.org/title/Desktop_entries) da aplicação, execute o seguinte comando:
+Para criar o arquivo [*desktop entry*](https://wiki.archlinux.org/title/Desktop_entries) da aplicação, execute o seguinte comando:
 
 ```bash
 cat <<EOF >~/.local/share/applications/WhatsApp.desktop

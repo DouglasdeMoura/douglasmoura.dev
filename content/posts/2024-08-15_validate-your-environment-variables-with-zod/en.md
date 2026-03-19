@@ -12,7 +12,7 @@ cover: ./cover.jpg
 type: post
 ---
 
-[Zod](https://github.com/colinhacks/zod) is the most famous validation library in the TypeScript ecosystem. With Zod, you create a _schema_ and validate your data according to the schema. Observe the schema below:
+[Zod](https://github.com/colinhacks/zod) is the most famous validation library in the TypeScript ecosystem. With Zod, you create a *schema* and validate your data according to the schema. Observe the schema below:
 
 ```ts
 import { z } from "zod";

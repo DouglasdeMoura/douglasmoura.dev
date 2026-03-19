@@ -11,7 +11,7 @@ cover: ./cover.jpg
 type: post
 ---
 
-Você pode criar _hashes_ com Node.js sem a necessidade instalar nenhuma biblioteca externa. Normalmente eu crio a seguinte função utilitária nos projetos em que trabalho:
+Você pode criar *hashes* com Node.js sem a necessidade instalar nenhuma biblioteca externa. Normalmente eu crio a seguinte função utilitária nos projetos em que trabalho:
 
 ```javascript
 import { createHash } from "node:crypto";
@@ -27,4 +27,4 @@ export const md5 = (str) => createHash("md5").update(str).digest("hex");
 
 E a uso para substituir a biblioteca [md5](https://www.npmjs.com/package/md5) sempre que encontro.
 
-Note que você pode criar _hashes_ para qualquer algoritmo suportado pela versão do OpenSSL da sua plataforma. No Linux e no Mac, você pode ver quais os algoritmos disponíveis com o comando `openssl list -digest-algorithms`.
+Note que você pode criar *hashes* para qualquer algoritmo suportado pela versão do OpenSSL da sua plataforma. No Linux e no Mac, você pode ver quais os algoritmos disponíveis com o comando `openssl list -digest-algorithms`.

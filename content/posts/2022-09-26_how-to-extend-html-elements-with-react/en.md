@@ -35,7 +35,7 @@ export default Button;
 
 We use the [`PropsWithChildren`](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/d076add9f29db350a19bd94c37b197729cc02f87/types/react/index.d.ts#L822) generic interface that gives the `children` prop and receive `React.ComponentPropsWithRef<'button'>`, that passes all props that a [`button`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button) can receive.
 
-Of course, you can change the interface [`ComponentPropsWithRef`](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/d076add9f29db350a19bd94c37b197729cc02f87/types/react/index.d.ts#L834) for [`ComponentPropsWithoutRef`](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/d076add9f29db350a19bd94c37b197729cc02f87/types/react/index.d.ts#L838) and drop the [`forwardRef`](https://reactjs.org/docs/forwarding-refs.html) function on the definition of your component (although, I do not recomend it - _refs_ may be useful later on your application):
+Of course, you can change the interface [`ComponentPropsWithRef`](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/d076add9f29db350a19bd94c37b197729cc02f87/types/react/index.d.ts#L834) for [`ComponentPropsWithoutRef`](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/d076add9f29db350a19bd94c37b197729cc02f87/types/react/index.d.ts#L838) and drop the [`forwardRef`](https://reactjs.org/docs/forwarding-refs.html) function on the definition of your component (although, I do not recomend it - *refs* may be useful later on your application):
 
 ```typescript
 type ButtonProps = {

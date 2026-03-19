@@ -12,7 +12,7 @@ cover: ./cover.jpg
 type: post
 ---
 
-First described in the classic geometry book _Elements_, by the ancient Greek mathematician Euclid (ca. 300 BC, at the book VII, proposition 2), the method of finding de greatest common divisor between the positive numbers $a$ and $b$, being $a > b$ consists on the knowledge that the common divisors of $a$ and $b$ are the same of $a - b$ and $b$. Therefore, we can find this greatest common divisor by replacing the largest number ($a$) by the different between the two numbers ($a - b$), repeatedly, until the two numbers are equal. In TypeScript, we can do that like this:
+First described in the classic geometry book *Elements*, by the ancient Greek mathematician Euclid (ca. 300 BC, at the book VII, proposition 2), the method of finding de greatest common divisor between the positive numbers $a$ and $b$, being $a > b$ consists on the knowledge that the common divisors of $a$ and $b$ are the same of $a - b$ and $b$. Therefore, we can find this greatest common divisor by replacing the largest number ($a$) by the different between the two numbers ($a - b$), repeatedly, until the two numbers are equal. In TypeScript, we can do that like this:
 
 ```typescript
 const gcd = (a: number, b: number): number => {
@@ -69,7 +69,7 @@ const gcd = (a: number, b: number): number => {
 };
 ```
 
-This variant is called _Euclidean algorithm_ (in contrast of the first one, which is the _Euclid's algorithm_) and it significantly faster than the first implementation.
+This variant is called *Euclidean algorithm* (in contrast of the first one, which is the *Euclid's algorithm*) and it significantly faster than the first implementation.
 
 ## Alternative implementations
 

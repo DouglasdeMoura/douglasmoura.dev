@@ -12,7 +12,7 @@ cover: ./cover.jpg
 type: post
 ---
 
-Primeiramente descrito no clássico livro de geometria _Elementos_, pelo matemático grego antigo Euclides (cerca de 300 a.C., no livro VII, proposição 2), o método de encontrar o maior divisor comum entre os números positivos $a$ e $b$, sendo $a > b$, consiste no conhecimento de que os divisores comuns de $a$ e $b$ são os mesmos de $a - b$ e $b$. Portanto, podemos encontrar esse maior divisor comum substituindo o maior número ($a$) pela diferença entre os dois números ($a - b$), repetidamente, até que os dois números sejam iguais. Em TypeScript, podemos fazer isso assim:
+Primeiramente descrito no clássico livro de geometria *Elementos*, pelo matemático grego antigo Euclides (cerca de 300 a.C., no livro VII, proposição 2), o método de encontrar o maior divisor comum entre os números positivos $a$ e $b$, sendo $a > b$, consiste no conhecimento de que os divisores comuns de $a$ e $b$ são os mesmos de $a - b$ e $b$. Portanto, podemos encontrar esse maior divisor comum substituindo o maior número ($a$) pela diferença entre os dois números ($a - b$), repetidamente, até que os dois números sejam iguais. Em TypeScript, podemos fazer isso assim:
 
 ```typescript
 const gcd = (a: number, b: number): number => {
@@ -68,7 +68,7 @@ const gcd = (a: number, b: number): number => {
 };
 ```
 
-Esta variante é chamada de _algoritmo euclidiano_ (em contraste com a primeira, que é o _algoritmo de Euclides_) e é significativamente mais rápida do que a primeira implementação.
+Esta variante é chamada de *algoritmo euclidiano* (em contraste com a primeira, que é o *algoritmo de Euclides*) e é significativamente mais rápida do que a primeira implementação.
 
 ## Implementações alternativas
 

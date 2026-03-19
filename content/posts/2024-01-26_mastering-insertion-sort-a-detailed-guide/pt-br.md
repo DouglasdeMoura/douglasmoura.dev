@@ -63,4 +63,4 @@ function insertionSort(numbers) {
 
 ### Complexidade de espaço
 
-- **Complexidade de espaço**: $O(1)$. ordenação por inserção é um algoritmo _in-place_; requer um valor constante de espaço na memória.
+- **Complexidade de espaço**: $O(1)$. ordenação por inserção é um algoritmo *in-place*; requer um valor constante de espaço na memória.

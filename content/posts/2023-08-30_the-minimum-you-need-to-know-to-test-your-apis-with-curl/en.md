@@ -53,7 +53,7 @@ You can also send a JSON file instead of typing the JSON in the terminal by putt
 curl --json @arquivo.json https://dummyjson.com/products/add
 ```
 
-Or passing data from [_stdin_](https://man.archlinux.org/man/stdin.3.en) (note that I use `@-` instead of `@` to indicate that the data will come from _stdin_):
+Or passing data from [*stdin*](https://man.archlinux.org/man/stdin.3.en) (note that I use `@-` instead of `@` to indicate that the data will come from *stdin*):
 
 ```bash
 curl --json @- https://dummyjson.com/products/add < file.json

@@ -55,7 +55,7 @@ const makeRequest =
 
 In the code above, we:
 
-1. We build a [closure](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures) that, first, receive the method we want to call and then returns a function where we pass the `url` and the `body` (which is, by default, _JSON-stringified_) of the request.
+1. We build a [closure](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures) that, first, receive the method we want to call and then returns a function where we pass the `url` and the `body` (which is, by default, *JSON-stringified*) of the request.
 
 At this point, we can use our newly created functions like this:
 

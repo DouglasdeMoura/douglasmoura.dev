@@ -25,7 +25,7 @@ npm i fastify react react-dom
 npm i -D @types/node @types/react @types/react-dom tsx typescript
 ```
 
-Agora, configuramos os _scripts_ do nosso projeto. O `package.json` deverá ficará assim:
+Agora, configuramos os *scripts* do nosso projeto. O `package.json` deverá ficará assim:
 
 ```json
 {
@@ -222,4 +222,4 @@ try {
 }
 ```
 
-E com isso, conseguimos renderizar nossos componentes React do lado do servidor e fazer _streaming_ deles para o nosso cliente. E este é o [link](https://github.com/DouglasdeMoura/react-fastify) do repositório.
+E com isso, conseguimos renderizar nossos componentes React do lado do servidor e fazer *streaming* deles para o nosso cliente. E este é o [link](https://github.com/DouglasdeMoura/react-fastify) do repositório.

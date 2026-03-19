@@ -55,7 +55,7 @@ const makeRequest =
 
 No código acima, fizemos o seguinte:
 
-1. Criamos um [encerramento (closure)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures) que, primeiramente, recebe o método que desejamos chamar e, em seguida, retorna uma função onde passamos a `url` e o `body` (que, por padrão, é _JSON-stringificado_) da requisição.
+1. Criamos um [encerramento (closure)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures) que, primeiramente, recebe o método que desejamos chamar e, em seguida, retorna uma função onde passamos a `url` e o `body` (que, por padrão, é *JSON-stringificado*) da requisição.
 
 Neste ponto, podemos usar nossas funções recém-criadas da seguinte forma:
 

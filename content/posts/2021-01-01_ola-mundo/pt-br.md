@@ -13,7 +13,7 @@ Um blog sobre computação e engenharia de software não poderia começar de out
 forma. Desde que o [primeiro livro sobre a linguagem de programação C](https://en.wikipedia.org/wiki/The_C_Programming_Language) foi publicado por Brian Kernighan e Dennis Ritchie em 1978, milhares de programadores deram
 seus primeiros passos nessa disciplina escrevendo um programa que imprime "Hello, world"
 (apesar disso, a primeira versão conhecida desse programa a ser usado como exemplo foi escrita pelo mesmo
-Kernighan no seu _A Tutorial Introduction to the Language B_, de 1972).
+Kernighan no seu *A Tutorial Introduction to the Language B*, de 1972).
 
 Comecei a programar em 2009, quando entrei em uma empresa para prestar suporte
 telefônico para serviços de hospedagem de sites de um grande provedor. Comecei

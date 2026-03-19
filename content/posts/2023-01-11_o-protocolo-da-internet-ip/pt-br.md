@@ -19,11 +19,11 @@ De maneira sucinta, um protocolo é uma definição do formato e da ordem das me
 
 O protocolo de internet foi definido, pela primeira vez, no artigo "A Protocol for Packet Network Intercommunication" em maio de 1974, publicado pelo [IEEE](https://www.ieee.org/), escrito por Vinton Cerf e Robert Kahn.
 
-O IP não requer uma conexão contínua entre os pontos de comunicação, ou seja, o computador que envia os dados não verifica se a mensagem foi recebida. Cada pacote trafegado na rede é tratado de maneira totalmente independente, sem relação com outros pacotes. Para verificar se os pacotes chegaram corretamente ao destino e rearranjá-los na ordem correta, utiliza-se o TCP (_Transmission Control Protocol_ - Protocolo de Controle de Transmissão). Sua utilização é tão comum em conjunto com o IP, que nos referimos aos dois protocolos, ao mesmo tempo, como TCP/IP. É bom salientar the o TCP não é o único protocolo da internet.
+O IP não requer uma conexão contínua entre os pontos de comunicação, ou seja, o computador que envia os dados não verifica se a mensagem foi recebida. Cada pacote trafegado na rede é tratado de maneira totalmente independente, sem relação com outros pacotes. Para verificar se os pacotes chegaram corretamente ao destino e rearranjá-los na ordem correta, utiliza-se o TCP (*Transmission Control Protocol* - Protocolo de Controle de Transmissão). Sua utilização é tão comum em conjunto com o IP, que nos referimos aos dois protocolos, ao mesmo tempo, como TCP/IP. É bom salientar the o TCP não é o único protocolo da internet.
 
 ## Roteamento
 
-Quando enviamos ou recebemos algum dado através da internet, este dado é dividido em pequenas partes chamadas de **pacotes**, que contém o endereço único do remetente e do destinatário (chamado **endereço de IP**). Estes pequenos pacotes são enviados a um _gateway_, que nada mais é do que um computador que conecta duas ou mais redes através de diferentes protocolos. Este gateway verifica se pode encontrar o endereço do destinatário em sua rede. Se não conseguir, encaminha o pacote para o gateway mais próximo, até que o endereço do destinatário seja encontrado (ou retorne um erro, caso o endereço esteja errado ou fora do ar).
+Quando enviamos ou recebemos algum dado através da internet, este dado é dividido em pequenas partes chamadas de **pacotes**, que contém o endereço único do remetente e do destinatário (chamado **endereço de IP**). Estes pequenos pacotes são enviados a um *gateway*, que nada mais é do que um computador que conecta duas ou mais redes através de diferentes protocolos. Este gateway verifica se pode encontrar o endereço do destinatário em sua rede. Se não conseguir, encaminha o pacote para o gateway mais próximo, até que o endereço do destinatário seja encontrado (ou retorne um erro, caso o endereço esteja errado ou fora do ar).
 
 Você pode ver o caminho que os pacotes traçam, entre os roteadores da rede, até o destino, com o comando [`traceroute`](https://www.ibm.com/docs/pt-br/power8?topic=commands-traceroute-command) - ou [`tracert`](https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/tracert), caso esteja no Windows ou ainda, usando o `traceroute` online do [Registro.br](https://registro.br/tecnologia/ferramentas/traceroute/):
 
@@ -50,9 +50,9 @@ Como cada pacote é enviado de maneira independente, eles podem chegar ao destin
 
 Outros protocolos comumente utilizados em conjunto com o IP são:
 
-- UDP (_User Datagram Protocol_): provê um processo de comunicação de baixa latência, largamente utilizado em buscas de DNS e VoIP (_Voice Over IP_ - voz sobre IP);
-- HTTP (_Hyper Text Transfer Protocol_): especifica o protocolo de comunicação que habilita os navegadores a exibirem conteúdo;
-- FTP (_File Transfer Protocol_): especifica o protocolo de gerenciamento de arquivos em cliente conectados.
+- UDP (*User Datagram Protocol*): provê um processo de comunicação de baixa latência, largamente utilizado em buscas de DNS e VoIP (*Voice Over IP* - voz sobre IP);
+- HTTP (*Hyper Text Transfer Protocol*): especifica o protocolo de comunicação que habilita os navegadores a exibirem conteúdo;
+- FTP (*File Transfer Protocol*): especifica o protocolo de gerenciamento de arquivos em cliente conectados.
 
 ## Camadas de protocolos
 
@@ -76,25 +76,25 @@ Uma camada de protocolo pode ser implementada com software ou hardware ou uma co
 ### Camada de aplicação
 
 A camada de aplicação é a camada mais próxima do usuário, fornecendo-lhe os mais diversos tipos de serviços, como e-mail, transferência de arquivos, chat, etc.
-Os pacotes trafegados nessa camada são chamados de _mensagens_.
+Os pacotes trafegados nessa camada são chamados de *mensagens*.
 
 ### Camada de transporte
 
-A camada de transporte fornece serviços de transporte da camada de aplicação entre diferentes pontos da aplicação. Dois protocolos são utilizados nesta camada: TCP e UDP. O TCP fornece um serviço de transmissão confiável, isto é, este protocolo garante que o destinatário está disponível na rede, divide a mensagens em pequenos pacotes para enviá-las, verifica se as mensagens não foram corrompidas no trajeto e as reconstrói no destino. O UDP fornece um serviço de transmissão não confiável, no sentido que não garante que o destinatário está disponível na rede, não divide a mensagem em pacotes, não verifica se as mensagens não foram corrompidas no trajeto e não as reconstrói no destino. Normalmente, o UDP é utilizado para serviços de streaming, como vídeo e áudio, onde a perda de alguns pacotes não é crítica. Os pacotes trafegados nesta camada são chamados de _segmentos_.
+A camada de transporte fornece serviços de transporte da camada de aplicação entre diferentes pontos da aplicação. Dois protocolos são utilizados nesta camada: TCP e UDP. O TCP fornece um serviço de transmissão confiável, isto é, este protocolo garante que o destinatário está disponível na rede, divide a mensagens em pequenos pacotes para enviá-las, verifica se as mensagens não foram corrompidas no trajeto e as reconstrói no destino. O UDP fornece um serviço de transmissão não confiável, no sentido que não garante que o destinatário está disponível na rede, não divide a mensagem em pacotes, não verifica se as mensagens não foram corrompidas no trajeto e não as reconstrói no destino. Normalmente, o UDP é utilizado para serviços de streaming, como vídeo e áudio, onde a perda de alguns pacotes não é crítica. Os pacotes trafegados nesta camada são chamados de *segmentos*.
 
 ### Camada de rede
 
 A camada de rede fornece serviços de roteamento entre diferentes pontos de rede, de modo a movimentar os pacotes de um ponto a outro. Aqui, além do protocolo IP,
-utilizam-se vários outros protocolos de roteamento. Os pacotes trafegados nesta camada são chamados de _datagramas_.
+utilizam-se vários outros protocolos de roteamento. Os pacotes trafegados nesta camada são chamados de *datagramas*.
 
 ### Camada de enlace
 
 A camada de enlace fornece serviços de transmissão de dados entre dispositivos de rede conectados por um meio de transmissão. A camada de rede depende dos serviços
-desta camada para mover os pacotes de um nó a outro da rede. Os pacotes trafegados nesta camada são chamados de _frames_.
+desta camada para mover os pacotes de um nó a outro da rede. Os pacotes trafegados nesta camada são chamados de *frames*.
 
 ### Camada física
 
-O trabalho desta camada consiste em moves os _bits_ individuais dentro de um _frame_ de um nó para o outro. Os protocolos utilizados nesta camada
+O trabalho desta camada consiste em moves os *bits* individuais dentro de um *frame* de um nó para o outro. Os protocolos utilizados nesta camada
 dependem do meio de transmissão (fibra ótica, cabo coaxial, cabo de par trançado, etc.).
 
 ---

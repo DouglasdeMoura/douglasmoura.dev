@@ -12,7 +12,7 @@ cover: ./cover.jpg
 type: post
 ---
 
-Eu já recriei este array tantas vezes na última década que eu só vou deixar este _snippet_ (em JSON) aqui para que eu possa apenas copiá-lo a qualquer momento.
+Eu já recriei este array tantas vezes na última década que eu só vou deixar este *snippet* (em JSON) aqui para que eu possa apenas copiá-lo a qualquer momento.
 
 ```json
 [

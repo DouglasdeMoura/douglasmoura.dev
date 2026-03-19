@@ -46,7 +46,7 @@ O resultado de ambas às funções é o mesmo, porém, a função iterativa é [
 
 ## Pilha de execução
 
-Uma [pilha de execução (call stack)](https://developer.mozilla.org/en-US/docs/Glossary/Call_stack) é uma estrutura de dados que armazena informações sobre as funções de um programa. Quando uma função é chamada, ela é adicionada à pilha de execução, assim como todas as funções que ela chamar. Quando uma função retorna, ela é removida da pilha de execução. Cada função adicionada à pilha é chamada de _stack frame_.
+Uma [pilha de execução (call stack)](https://developer.mozilla.org/en-US/docs/Glossary/Call_stack) é uma estrutura de dados que armazena informações sobre as funções de um programa. Quando uma função é chamada, ela é adicionada à pilha de execução, assim como todas as funções que ela chamar. Quando uma função retorna, ela é removida da pilha de execução. Cada função adicionada à pilha é chamada de *stack frame*.
 
 Para entendermos o que está acontecendo, vamos tentar representar, graficamente, como o cálculo do fatorial de 6 é feito com a função iterativa:
 
@@ -66,9 +66,9 @@ Já, na função recursiva, cada chamada da função `factorial` é adicionada �
 
 Como bem definido pelo [Dr. Axel Rauschmayer](https://dr-axel.de/) (grifo meu):
 
-> [...] sempre que a última coisa que uma função faz é chamar outra função, então esta última não precisa retornar para sua chamadora. Como consequência, nenhuma informação precisa ser armazenada na pilha de chamadas e a chamada de função é mais como um goto (um salto). Esse tipo de chamada é chamado de _tail call_; não aumentar a pilha é chamado de tail call optmization (TCO).
+> [...] sempre que a última coisa que uma função faz é chamar outra função, então esta última não precisa retornar para sua chamadora. Como consequência, nenhuma informação precisa ser armazenada na pilha de chamadas e a chamada de função é mais como um goto (um salto). Esse tipo de chamada é chamado de *tail call*; não aumentar a pilha é chamado de tail call optmization (TCO).
 
-Ora, descobrimos que nossa função para calcular fatorial não é _tail recursive_. Mas, como podemos torná-la tail recursiva? Com a ajuda de outra função:
+Ora, descobrimos que nossa função para calcular fatorial não é *tail recursive*. Mas, como podemos torná-la tail recursiva? Com a ajuda de outra função:
 
 ```javascript
 const factorial = (n) => {
@@ -84,11 +84,11 @@ const factorialHelper = (x, accumulator) => {
 };
 ```
 
-Agora, sim, nossa função é _tail recursive_: a última coisa que ela faz é chamar uma função (e não calcular uma expressão, como na primeira implementação).Agora, vamos ver o modelo de substituição para o cálculo do fatorial de 6 com a nossa nova função `factorial`:
+Agora, sim, nossa função é *tail recursive*: a última coisa que ela faz é chamar uma função (e não calcular uma expressão, como na primeira implementação).Agora, vamos ver o modelo de substituição para o cálculo do fatorial de 6 com a nossa nova função `factorial`:
 
 <img src="./img/diagram-3.svg" alt="Computação tail-recursive do fatorial de 6" />
 
-[O desempenho é superior](https://jsben.ch/vOf9P) ao da nossa primeira implementação, apesar de ainda não bater o desempenho da função iterativa. Porém, ainda nos deparamos com o erro `RangeError: Maximum call stack size exceeded`. Mas, por que isso acontece? Porque, apesar de nossa função ser _tail recursive_, as atuais versões do Node.js e os navegadores ([com exceção do Safari](https://webkit.org/blog/6240/ecmascript-6-proper-tail-calls-in-webkit/)) não implementa Tail Call Optimization (apesar de sua inclusão na especificação do [EcmaScript](https://262.ecma-international.org/6.0/#sec-tail-position-calls) desde 2015).
+[O desempenho é superior](https://jsben.ch/vOf9P) ao da nossa primeira implementação, apesar de ainda não bater o desempenho da função iterativa. Porém, ainda nos deparamos com o erro `RangeError: Maximum call stack size exceeded`. Mas, por que isso acontece? Porque, apesar de nossa função ser *tail recursive*, as atuais versões do Node.js e os navegadores ([com exceção do Safari](https://webkit.org/blog/6240/ecmascript-6-proper-tail-calls-in-webkit/)) não implementa Tail Call Optimization (apesar de sua inclusão na especificação do [EcmaScript](https://262.ecma-international.org/6.0/#sec-tail-position-calls) desde 2015).
 
 Mas, como resolveremos este problema? Com a ajuda de outra função, claro! Para isso, vamos contar com a ajuda do padrão [Trampoline](<https://en.wikipedia.org/wiki/Trampoline_(computing)>):
 

@@ -23,9 +23,9 @@ se tornou o padrão do desenvolvimento web há bastante tempo (popularizado por 
 
 Mas agora, com a chegada do elemento [`<dialog>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog) no HTML5 (suportado por [93,85%](https://caniuse.com/dialog) dos navegadores em uso), é muito mais fácil criar diálogos de forma nativa. Neste artigo, vamos ver como criar um diálogo modal (e não-modal) simples com o elemento `<dialog>`.
 
-## Entendendo o elemento _dialog_
+## Entendendo o elemento *dialog*
 
-No sentido empregado no desenvolvimento de interfaces de usuário, um **diálogo** é uma <q>conversação</q> entre o sistema e o usuário, onde o sistema espera uma resposta do usuário para continuar. Um diálogo pode ser **modal** ou **não-modal**. Um diálogo modal (isto é um, um diálogo que muda o **modo** de interação do usuário com o sistema) é aquele que trava a interface, impedindo o usuário de interagir com o restante da página até que ele seja fechado. Um diálogo não-modal (isto é um, um diálogo que _não_ muda o **modo** de interação do usuário com o sistema), por outro lado, permite que o usuário interaja com o restante da página enquanto o diálogo está aberto.
+No sentido empregado no desenvolvimento de interfaces de usuário, um **diálogo** é uma <q>conversação</q> entre o sistema e o usuário, onde o sistema espera uma resposta do usuário para continuar. Um diálogo pode ser **modal** ou **não-modal**. Um diálogo modal (isto é um, um diálogo que muda o **modo** de interação do usuário com o sistema) é aquele que trava a interface, impedindo o usuário de interagir com o restante da página até que ele seja fechado. Um diálogo não-modal (isto é um, um diálogo que *não* muda o **modo** de interação do usuário com o sistema), por outro lado, permite que o usuário interaja com o restante da página enquanto o diálogo está aberto.
 
 A maneira mais simples de colocar um diálogo não-modal na tela é da seguinte forma:
 
@@ -38,7 +38,7 @@ A maneira mais simples de colocar um diálogo não-modal na tela é da seguinte 
 </dialog>
 ```
 
-Note o formulário, na linha 5, com o método _dialog_. É este formulário que envia ações para o `dialog`. Ele será exibido dessa forma:
+Note o formulário, na linha 5, com o método *dialog*. É este formulário que envia ações para o `dialog`. Ele será exibido dessa forma:
 
 <iframe height="350" style="width:100%" src="https://codepen.io/douglasdemoura/embed/qBQzzww" loading="lazy" allowtransparency="true" allowfullscreen="true"></iframe>
 
@@ -54,7 +54,7 @@ Desta vez, abrimos e fechamos o modal com JavaScript e colocamos o resultado do 
 
 ## Estilizando o modal
 
-O elemento `dialog` pode (é claro), ser estilizado como qualquer outro elemento HTML. Atente-se, porém, que, para estilizar o _overlay_ (o fundo escuro que fica atrás do modal), é necessário usar o seletor `::backdrop`:
+O elemento `dialog` pode (é claro), ser estilizado como qualquer outro elemento HTML. Atente-se, porém, que, para estilizar o *overlay* (o fundo escuro que fica atrás do modal), é necessário usar o seletor `::backdrop`:
 
 <iframe height="350" style="width:100%" src="https://codepen.io/douglasdemoura/embed/PoxrMzW" loading="lazy" allowtransparency="true" allowfullscreen="true"></iframe>
 

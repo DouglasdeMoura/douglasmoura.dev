@@ -15,7 +15,7 @@ O desenvolvimento de <abbr title="Application Programming Interface">API</abbr>s
 
 ## Mas o que é <abbr title="Remote Procedure Call">RPC</abbr>?
 
-RPC (_Remote Procedure Call_ - em português: chamada de função remota) é um mecanismo de comunicação entre dois computadores, onde um pode ser identificado como _cliente_ e o outro por ser identificado como _servidor_. Do ponto de vista do cliente, chamar uma RPC é apenas uma questão de chamar uma função com seus devidos argumentos e aguardar uma resposta, a fim de continuar a execução do programa.
+RPC (*Remote Procedure Call* - em português: chamada de função remota) é um mecanismo de comunicação entre dois computadores, onde um pode ser identificado como *cliente* e o outro por ser identificado como *servidor*. Do ponto de vista do cliente, chamar uma RPC é apenas uma questão de chamar uma função com seus devidos argumentos e aguardar uma resposta, a fim de continuar a execução do programa.
 
 ![Diagrama de uma chamada de função remota (RPC)](./img/hzx0azc3l9qcathciv8o.png)
 
@@ -84,7 +84,7 @@ try {
 }
 ```
 
-Adicionamos as nossas _procedures_:
+Adicionamos as nossas *procedures*:
 
 ```javascript
 // server/src/procedures.js
@@ -612,7 +612,7 @@ try {
 }
 ```
 
-Se você leu os comentários do arquivo `server/src/router.ts` verá que o tRPC utiliza o mesmo modelo mental de operações do GraphQL, chamando as operações de busca de dados de _query_ e as operações de alteração de dados de _mutation_ (inclusive, pode-se dizer que o GraphQL é uma implementação de RPC que adiciona uma linguagem de busca e a documentação das entidades que são disponibilizadas pela API).
+Se você leu os comentários do arquivo `server/src/router.ts` verá que o tRPC utiliza o mesmo modelo mental de operações do GraphQL, chamando as operações de busca de dados de *query* e as operações de alteração de dados de *mutation* (inclusive, pode-se dizer que o GraphQL é uma implementação de RPC que adiciona uma linguagem de busca e a documentação das entidades que são disponibilizadas pela API).
 
 No cliente, podemos utilizar o serviço básico do tRPC (similar ao que fizemos em nossa função `query` no exemplo anterior:
 

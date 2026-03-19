@@ -20,7 +20,7 @@ Acontece que, ao invés de digitar <kbd>'</kbd> + <kbd>c</kbd>, para obter o <kb
 sudo sh -c 'echo "GTK_IM_MODULE=cedilla" >> /etc/environment'
 ```
 
-Depois disso, reinicie sua sessão de usuário (_logout_ e _login_) ou reinicie o computador.
+Depois disso, reinicie sua sessão de usuário (*logout* e *login*) ou reinicie o computador.
 
 ---
 

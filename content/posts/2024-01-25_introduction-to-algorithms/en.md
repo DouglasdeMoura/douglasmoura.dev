@@ -48,6 +48,6 @@ To get a better idea of what this means in relation to the runtime of our algori
 
 Even though we can build faster computers, the increase in the execution speed of less efficient algorithms would not be so significant, so we should always seek the most efficient algorithm to address a given problem.
 
-[^1]: AHO, Alfred V.; ULLMAN, Jeffrey D. _Foundations of Computer Science_. Stanford, 1994.
+[^1]: AHO, Alfred V.; ULLMAN, Jeffrey D. *Foundations of Computer Science*. Stanford, 1994.
 
-[^2]: AHO, Alfred V.; HOPCROFT, John E.; ULLMAN, Jeffrey D. _The Design and Analysis of Computer Algorithms_. Addison-Wesley, 1974.
+[^2]: AHO, Alfred V.; HOPCROFT, John E.; ULLMAN, Jeffrey D. *The Design and Analysis of Computer Algorithms*. Addison-Wesley, 1974.

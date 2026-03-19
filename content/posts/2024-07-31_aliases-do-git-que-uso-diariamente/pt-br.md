@@ -30,7 +30,7 @@ alias gpo='git push origin'
 alias gpo!='git push origin --force-with-lease'
 ```
 
-Se você usa o Linux, MacOS ou WSL, basta copiar os _aliases_ acima para o arquivo de configuração do seu shell (`~/.bashrc` para [Bash](https://www.gnu.org/software/bash/), `~/.zshrc` para [ZSH](https://www.zsh.org/), `~/config/fish/config.fish` para [Fish](https://fishshell.com/)). Caso você utilize o PoweShell, adicione as seguintes funções ao seu arquivo `Microsoft.PowerShell_profile.ps1` (para editar com o VS Code, execute `code $PROFILE` no PowerShell):
+Se você usa o Linux, MacOS ou WSL, basta copiar os *aliases* acima para o arquivo de configuração do seu shell (`~/.bashrc` para [Bash](https://www.gnu.org/software/bash/), `~/.zshrc` para [ZSH](https://www.zsh.org/), `~/config/fish/config.fish` para [Fish](https://fishshell.com/)). Caso você utilize o PoweShell, adicione as seguintes funções ao seu arquivo `Microsoft.PowerShell_profile.ps1` (para editar com o VS Code, execute `code $PROFILE` no PowerShell):
 
 ```powershell
 function ga { git add $args }

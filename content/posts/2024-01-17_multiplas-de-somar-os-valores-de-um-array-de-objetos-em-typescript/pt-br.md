@@ -188,7 +188,7 @@ function somaComForOf(compras: Compra[]): number {
 
 ### 3. Usando `for...in`
 
-O [`for...in`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for...in) é um **laço de iteração** que itera sobre as propriedades enumeráveis do tipo _string_ de um objeto, inclusive as herdadas. Estou colocando esta solução aqui somente para mostrar que ela é possível, mas deve ser preterida em relação às outras soluções apresentadas neste artigo.
+O [`for...in`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for...in) é um **laço de iteração** que itera sobre as propriedades enumeráveis do tipo *string* de um objeto, inclusive as herdadas. Estou colocando esta solução aqui somente para mostrar que ela é possível, mas deve ser preterida em relação às outras soluções apresentadas neste artigo.
 
 ```typescript
 function somaComForIn(compras: Compra[]): number {

@@ -12,7 +12,7 @@ cover: ./cover.jpg
 type: post
 ---
 
-[Zod](https://github.com/colinhacks/zod) é a biblioteca de validação mais famosa do ecossistema TypeScript. Com Zod, você cria um _schema_ e valida seus dados de acordo com o _schema_. Observe o _schema_ abaixo:
+[Zod](https://github.com/colinhacks/zod) é a biblioteca de validação mais famosa do ecossistema TypeScript. Com Zod, você cria um *schema* e valida seus dados de acordo com o *schema*. Observe o *schema* abaixo:
 
 ```ts
 import { z } from "zod";
@@ -24,7 +24,7 @@ const UserSchema = z.object({
 });
 ```
 
-Este _schema_ pode ser usado para validar um objeto da seguinte maneira:
+Este *schema* pode ser usado para validar um objeto da seguinte maneira:
 
 ```ts
 const data = {

@@ -10,7 +10,7 @@ tags:
 cover: ./cover.jpg
 ---
 
-No livro [_A Pattern Language_](https://en.wikipedia.org/wiki/A_Pattern_Language), Christopher Alexander e seus colegas definem um padrão como:
+No livro [*A Pattern Language*](https://en.wikipedia.org/wiki/A_Pattern_Language), Christopher Alexander e seus colegas definem um padrão como:
 
 > Cada padrão descreve um problema que ocorre repetidamente em nosso ambiente e, em seguida, descreve o núcleo da solução para esse problema, de tal forma que você pode usar essa solução um milhão de vezes, sem nunca fazê-lo da mesma maneira duas vezes.
 
@@ -18,7 +18,7 @@ No livro [_A Pattern Language_](https://en.wikipedia.org/wiki/A_Pattern_Language
 Each pattern describes a problem which occurs over and over again in our environment, and then describes the core of the solution to that problem, in such a way that you can use this solution a million times over, without ever doing it the same way twice
 </div>
 
-Cristopher e os outros autores estavam se referindo a padrões de arquitetura de construção, mas, desde muito tempo, a disciplina de engenharia de software adotou este mesmo conceito para o desenvolvimento de software, que foi cristalizado pelo famoso livro [_Design Patterns: Elements of Reusable Object-Oriented Software_](https://engsoftmoderna.info/cap6.html#padr%C3%B5es-de-projeto) de Erich Gamma, Richard Helm, Ralph Johnson e John Vlissides (conhecidos como _Gang of Four_ ou _GoF_). No livro, eles definem padrões de projeto como:
+Cristopher e os outros autores estavam se referindo a padrões de arquitetura de construção, mas, desde muito tempo, a disciplina de engenharia de software adotou este mesmo conceito para o desenvolvimento de software, que foi cristalizado pelo famoso livro [*Design Patterns: Elements of Reusable Object-Oriented Software*](https://engsoftmoderna.info/cap6.html#padr%C3%B5es-de-projeto) de Erich Gamma, Richard Helm, Ralph Johnson e John Vlissides (conhecidos como *Gang of Four* ou *GoF*). No livro, eles definem padrões de projeto como:
 
 > Padrões de projeto descrevem objetos e classes que se relacionam para resolver um problema de projeto genérico em um contexto particular.
 
@@ -39,7 +39,7 @@ CREATE TABLE
   );
 ```
 
-Vamos escolher o padrão [_Active Record_](https://www.martinfowler.com/eaaCatalog/activeRecord.html) para representar os dados de um livro no nosso sistema. Para isso, vamos criar uma classe em JavaScript conforme o diagrama abaixo:
+Vamos escolher o padrão [*Active Record*](https://www.martinfowler.com/eaaCatalog/activeRecord.html) para representar os dados de um livro no nosso sistema. Para isso, vamos criar uma classe em JavaScript conforme o diagrama abaixo:
 
 <img src="./img/diagram-1.svg" alt="Diagrama da classe Book" style="max-width: 250px;" />
 
@@ -121,7 +121,7 @@ A implementação acima é apenas um exemplo didático. Não há preocupações 
 
 Note que todo o SQL necessário para manipular os dados no nosso banco SQLite está encapsulado na classe `ActiveRecord`. Além disso, a classe `Book` herda todos os métodos da classe `ActiveRecord` e, portanto, não é necessário escrever o mesmo código para cada tabela do banco de dados. Desse modo, é possível criar várias entidades distintas no nosso sistema, como `Author`, `Publisher`, `Category`, `BookCategory`, `BookAuthor`, `BookPublisher`, etc. Todas elas herdam os métodos da classe `ActiveRecord` e, portanto, não é necessário escrever o mesmo código para cada tabela do banco de dados.
 
-Mais que isso, podemos reimplementar os métodos da classe pai na classe filha, caso haja algum requisito especial para alguma entidade, como transformar o `delete` em um _soft delete_. Por exemplo:
+Mais que isso, podemos reimplementar os métodos da classe pai na classe filha, caso haja algum requisito especial para alguma entidade, como transformar o `delete` em um *soft delete*. Por exemplo:
 
 ```javascript
 export class Book extends ActiveRecord {
