@@ -91,7 +91,7 @@ const NavItemGroup = ({
         {item.icon && <span className="size-4 shrink-0">{item.icon}</span>}
         {item.label}
         {item.shortcut && (
-          <span className="ml-auto">
+          <span className="ml-auto hidden sm:inline-flex">
             <Kbd keys={item.shortcut} />
           </span>
         )}
@@ -340,7 +340,7 @@ export const CommandMenu = ({
               <button
                 type="button"
                 onClick={handleClose}
-                className="ml-2 text-xs text-text-muted hover:text-text-strong active:scale-[0.97] motion-safe:transition-[color,transform] motion-safe:duration-150"
+                className="ml-2 hidden sm:inline-flex text-xs text-text-muted hover:text-text-strong active:scale-[0.97] motion-safe:transition-[color,transform] motion-safe:duration-150"
               >
                 <Kbd keys={["Esc"]} />
               </button>
@@ -360,7 +360,7 @@ export const CommandMenu = ({
               />
             </Command.List>
 
-            <div className="flex items-center gap-3 border-t border-border px-3 py-2 text-[11px] text-text-muted">
+            <div className="hidden sm:flex items-center gap-3 border-t border-border px-3 py-2 text-[11px] text-text-muted">
               <span className="inline-flex items-center gap-1">
                 <Kbd keys={["↑↓"]} /> {l.navigate}
               </span>
