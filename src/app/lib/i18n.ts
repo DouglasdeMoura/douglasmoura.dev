@@ -13,6 +13,8 @@ const translations = {
     Bookmarks: "Favoritos",
     "Conference talks and presentations by Douglas Moura.":
       "Palestras e apresentações de Douglas Moura.",
+    "Douglas Moura — Software Engineer. Articles on web development, TypeScript, React, and more.":
+      "Douglas Moura — Engenheiro de Software. Artigos sobre desenvolvimento web, TypeScript, React e mais.",
     Event: "Evento",
     Home: "Início",
     "Last updated on": "Atualizado em",

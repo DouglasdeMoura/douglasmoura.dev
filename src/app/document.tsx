@@ -1,5 +1,7 @@
 import type { RequestInfo } from "rwsdk/worker";
 
+import { t } from "#app/lib/i18n.js";
+
 import styles from "./styles.css?url";
 
 const themeScript = `(function(){
@@ -28,7 +30,9 @@ export const Document: React.FC<
         <title>Douglas Moura</title>
         <meta
           name="description"
-          content="Douglas Moura — Software Engineer. Articles on web development, TypeScript, React, and more."
+          content={t(
+            "Douglas Moura — Software Engineer. Articles on web development, TypeScript, React, and more."
+          )}
         />
         <script
           nonce={rw.nonce}
