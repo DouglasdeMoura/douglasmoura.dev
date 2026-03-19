@@ -257,6 +257,57 @@ body::after {
   text-decoration: underline;
 }
 
+/* ── Code block filename header ── */
+
+.code-block-wrapper {
+  border: 1px solid var(--color-border);
+  border-radius: 0.75rem;
+  overflow: hidden;
+  box-shadow: 0 1px 3px oklch(0 0 0 / 0.04);
+}
+
+.dark .code-block-wrapper {
+  box-shadow: 0 1px 3px oklch(0 0 0 / 0.2);
+}
+
+.code-block-filename {
+  padding: 0.625em 1.25em;
+  font-size: 0.8125rem;
+  line-height: 1;
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-weight: 500;
+  color: var(--color-text-muted);
+  background-color: var(--color-surface-2);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.dark .code-block-filename {
+  background-color: oklch(0.17 0.005 108);
+}
+
+.code-block-wrapper pre.shiki {
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  margin: 0;
+}
+
+/* ── Highlighted lines ── */
+
+pre.shiki .line.highlighted-line {
+  display: inline-block;
+  width: calc(100% + 3em);
+  margin-inline: -1.5em;
+  padding-inline: 1.5em;
+  background-color: oklch(0.47 0.17 152 / 0.08);
+  border-left: 2px solid var(--color-accent);
+  padding-left: calc(1.5em - 2px);
+}
+
+.dark pre.shiki .line.highlighted-line {
+  background-color: oklch(0.75 0.2 152 / 0.1);
+}
+
 /* ── Shiki dual-theme highlighting ── */
 
 .shiki,

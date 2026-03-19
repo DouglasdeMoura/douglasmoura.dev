@@ -78,7 +78,21 @@ export const renderMarkdown = async (
       if (!block.lang) {
         return;
       }
-      return shiki.codeToHtml(code, {
+
+      const lines = code.split("\n");
+      const decorations =
+        block.highlights?.map((lineNum) => {
+          const lineIndex = lineNum - 1;
+          const lineLength = lines[lineIndex]?.length ?? 0;
+          return {
+            end: { character: lineLength, line: lineIndex },
+            properties: { class: "highlighted-line" },
+            start: { character: 0, line: lineIndex },
+          };
+        }) ?? [];
+
+      let highlighted = shiki.codeToHtml(code, {
+        decorations,
         defaultColor: false,
         lang: block.lang,
         themes: {
@@ -86,6 +100,12 @@ export const renderMarkdown = async (
           light: "vitesse-light",
         },
       });
+
+      if (block.filename) {
+        highlighted = `<div class="code-block-wrapper"><div class="code-block-filename">${block.filename}</div>${highlighted}</div>`;
+      }
+
+      return highlighted;
     },
   }) as string;
 
