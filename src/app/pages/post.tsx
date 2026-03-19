@@ -19,16 +19,18 @@ const LOCALE_NAMES: Record<string, string> = {
 interface PostProps {
   post: Omit<PostType, "body" | "images">;
   html: string;
+  hasMath: boolean;
   adjacent: AdjacentPosts;
 }
 
-export const Post = ({ post, html, adjacent }: PostProps) => {
+export const Post = ({ post, html, hasMath, adjacent }: PostProps) => {
   const alternates = getPostAlternates(post.slug);
   const alternate = alternates.find((a) => a.locale !== post.locale);
 
   return (
     <>
       <PostSeo post={post} siteUrl={SITE_URL} alternates={alternates} />
+      {hasMath && <link rel="stylesheet" href="/katex/katex.min.css" />}
       <article lang={post.locale} className="prose mx-auto px-4 py-10">
         <header className="not-prose mb-10">
           <h1 className="text-4xl font-bold tracking-tight text-text-strong leading-[1.15]">

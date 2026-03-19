@@ -230,11 +230,18 @@ export default defineApp([
         if (accept.includes("text/markdown")) {
           return markdownResponse(post);
         }
-        const rawHtml = await renderMarkdown(post.body);
-        const html = resolvePostImages(rawHtml, post.images);
+        const rendered = await renderMarkdown(post.body);
+        const html = resolvePostImages(rendered.html, post.images);
         const { body: _, images: __, ...postWithoutBody } = post;
         const adjacent = getAdjacentPosts(post.slug, post.locale);
-        return <Post post={postWithoutBody} html={html} adjacent={adjacent} />;
+        return (
+          <Post
+            post={postWithoutBody}
+            html={html}
+            hasMath={rendered.hasMath}
+            adjacent={adjacent}
+          />
+        );
       }),
     ])
   ),

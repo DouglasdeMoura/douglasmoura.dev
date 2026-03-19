@@ -77,8 +77,8 @@ const buildFeed = async (locale: Locale, siteUrl: string): Promise<Feed> => {
   const posts = getPostsByLocale(locale);
 
   for (const post of posts) {
-    const rawHtml = await renderMarkdown(post.body);
-    const html = resolvePostImages(rawHtml, post.images);
+    const rendered = await renderMarkdown(post.body);
+    const html = resolvePostImages(rendered.html, post.images);
     const postUrl = `${siteUrl}/${post.slug}`;
 
     feed.addItem({

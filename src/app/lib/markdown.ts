@@ -23,6 +23,8 @@ import vitesseDark from "@shikijs/themes/vitesse-dark";
 import vitesseLight from "@shikijs/themes/vitesse-light";
 import { init, renderToHtml } from "md4x/wasm";
 
+import { renderMathInHtml } from "#app/lib/katex.js";
+
 let ready: Promise<void> | undefined;
 
 const ensureInit = (): Promise<void> => {
@@ -65,10 +67,12 @@ const getHighlighter = () => {
   return highlighterPromise;
 };
 
-export const renderMarkdown = async (md: string): Promise<string> => {
+export const renderMarkdown = async (
+  md: string
+): Promise<{ hasMath: boolean; html: string }> => {
   const [, shiki] = await Promise.all([ensureInit(), getHighlighter()]);
 
-  return renderToHtml(md, {
+  const raw = renderToHtml(md, {
     highlighter: (code, block) => {
       if (!block.lang) {
         return;
@@ -83,4 +87,6 @@ export const renderMarkdown = async (md: string): Promise<string> => {
       });
     },
   }) as string;
+
+  return renderMathInHtml(raw);
 };

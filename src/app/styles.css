@@ -224,6 +224,14 @@ body::after {
   box-shadow: 0 1px 3px oklch(0 0 0 / 0.2);
 }
 
+/* ── KaTeX display math overflow ── */
+
+.prose .katex-display {
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 0.5em 0;
+}
+
 /* ── Shiki dual-theme highlighting ── */
 
 .shiki,
