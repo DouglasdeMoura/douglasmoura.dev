@@ -98,6 +98,7 @@ const parseTranslationsFile = async (
 
   const locales: Record<string, Record<string, string>> = {};
   let currentLocale = "";
+  let pendingKey = "";
 
   for (const line of block.split("\n")) {
     const localeMatch = line.match(/^\s*"([^"]+)":\s*\{/);
@@ -108,10 +109,29 @@ const parseTranslationsFile = async (
     }
 
     if (currentLocale) {
+      // Handle value on a continuation line (key was on the previous line)
+      if (pendingKey) {
+        const valueMatch = line.match(/^\s*"([^"]*)",?/);
+        if (valueMatch) {
+          const [, value] = valueMatch;
+          locales[currentLocale][pendingKey] = value;
+          pendingKey = "";
+          continue;
+        }
+        pendingKey = "";
+      }
+
       const kvMatch = line.match(/^\s*(?:"([^"]+)"|(\w+)):\s*"([^"]*)",?/);
       if (kvMatch) {
         const [, quotedKey, unquotedKey, kvValue] = kvMatch;
         locales[currentLocale][quotedKey ?? unquotedKey] = kvValue;
+        continue;
+      }
+
+      // Key on this line, value on the next (linter-wrapped long lines)
+      const keyOnlyMatch = line.match(/^\s*(?:"([^"]+)"|(\w+)):\s*$/);
+      if (keyOnlyMatch) {
+        pendingKey = keyOnlyMatch[1] ?? keyOnlyMatch[2];
         continue;
       }
 
