@@ -48,6 +48,8 @@ const ICON_PATHS: Record<string, string> = {
 const FALLBACK_ICON =
   "M181.66,146.34a8,8,0,0,1,0,11.32l-24,24a8,8,0,0,1-11.32-11.32L164.69,152l-18.35-18.34a8,8,0,0,1,11.32-11.32Zm-72-24a8,8,0,0,0-11.32,0l-24,24a8,8,0,0,0,0,11.32l24,24a8,8,0,0,0,11.32-11.32L91.31,152l18.35-18.34A8,8,0,0,0,109.66,122.34ZM216,88V216a16,16,0,0,1-16,16H56a16,16,0,0,1-16-16V40A16,16,0,0,1,56,24h96a8,8,0,0,1,5.66,2.34l56,56A8,8,0,0,1,216,88Zm-56-8h28.69L160,51.31Zm40,136V96H152a8,8,0,0,1-8-8V40H56V216H200Z";
 
+const COPY_BUTTON = `<button type="button" class="code-block-copy" aria-label="Copy code"><svg aria-hidden="true" class="code-copy-icon absolute" width="16" height="16" viewBox="0 0 256 256" fill="currentColor"><path d="M216,32H88a8,8,0,0,0-8,8V80H40a8,8,0,0,0-8,8V216a8,8,0,0,0,8,8H168a8,8,0,0,0,8-8V176h40a8,8,0,0,0,8-8V40A8,8,0,0,0,216,32ZM160,208H48V96H160Zm48-48H176V88a8,8,0,0,0-8-8H96V48H208Z"/></svg><svg aria-hidden="true" class="code-check-icon absolute" width="16" height="16" viewBox="0 0 256 256" fill="currentColor"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"/></svg></button>`;
+
 const LANG_ALIASES: Record<string, string> = {
   js: "javascript",
   md: "markdown",
@@ -142,7 +144,9 @@ export const renderMarkdown = async (
 
       if (block.filename) {
         const icon = fileIcon(block.lang);
-        highlighted = `<div class="code-block-wrapper"><div class="code-block-filename">${icon}<span class="flex-1 truncate">${block.filename}</span><button type="button" class="code-block-copy" aria-label="Copy code"><svg aria-hidden="true" class="code-copy-icon absolute" width="16" height="16" viewBox="0 0 256 256" fill="currentColor"><path d="M216,32H88a8,8,0,0,0-8,8V80H40a8,8,0,0,0-8,8V216a8,8,0,0,0,8,8H168a8,8,0,0,0,8-8V176h40a8,8,0,0,0,8-8V40A8,8,0,0,0,216,32ZM160,208H48V96H160Zm48-48H176V88a8,8,0,0,0-8-8H96V48H208Z"/></svg><svg aria-hidden="true" class="code-check-icon absolute" width="16" height="16" viewBox="0 0 256 256" fill="currentColor"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"/></svg></button></div>${highlighted}</div>`;
+        highlighted = `<div class="code-block-wrapper"><div class="code-block-filename">${icon}<span class="flex-1 truncate">${block.filename}</span>${COPY_BUTTON}</div>${highlighted}</div>`;
+      } else {
+        highlighted = `<div class="code-block-wrapper"><div class="code-block-header">${COPY_BUTTON}</div>${highlighted}</div>`;
       }
 
       return highlighted;

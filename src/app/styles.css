@@ -282,7 +282,7 @@ body::after {
   display: flex;
   align-items: center;
   gap: 0.5em;
-  padding: 0.625em 1.5em;
+  padding: 0.375em 0.75em;
   font-size: 0.875rem;
   line-height: 1;
   font-family: var(--font-mono, ui-monospace, monospace);
@@ -361,6 +361,21 @@ body::after {
 }
 
 .dark .code-block-filename {
+  background-color: oklch(0.17 0.005 108);
+}
+
+/* ── Plain code blocks (no filename header) ── */
+
+.code-block-header {
+  display: flex;
+  align-items: center;
+  padding: 0.375em 0.75em;
+  font-size: 0.875rem;
+  background-color: var(--color-surface-2);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.dark .code-block-header {
   background-color: oklch(0.17 0.005 108);
 }
 
