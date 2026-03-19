@@ -1,5 +1,6 @@
 import { GithubLogo as GithubIcon } from "@phosphor-icons/react/dist/ssr/GithubLogo";
 import { LinkedinLogo as LinkedinIcon } from "@phosphor-icons/react/dist/ssr/LinkedinLogo";
+import { XLogo as XIcon } from "@phosphor-icons/react/dist/ssr/XLogo";
 
 import { getLocale, t } from "#app/lib/i18n.js";
 
@@ -61,6 +62,15 @@ export const About = () => {
             >
               <LinkedinIcon size={18} />
               LinkedIn
+            </a>
+            <a
+              href="https://x.com/douglasdemoura"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 text-sm text-text-muted no-underline hover:text-text-strong motion-safe:transition-colors motion-safe:duration-150"
+            >
+              <XIcon size={18} />
+              @douglasdemoura
             </a>
           </div>
         </div>
