@@ -27,8 +27,7 @@ Agora que já sabemos o que é RPC, vamos criar uma API simples que tira proveit
 
 Vamos criar uma API que irá criar, ler, atualizar e excluir itens em uma lista de tarefa. Vamos começar com o código básico do nosso servidor. Atente-se aos comentários do código abaixo:
 
-```javascript
-// server/src/index.js
+```javascript [server/src/index.js]
 import Fastify from "fastify";
 
 // Neste arquivo, definiremos todas as procedures disponíveis
@@ -86,9 +85,7 @@ try {
 
 Adicionamos as nossas *procedures*:
 
-```javascript
-// server/src/procedures.js
-
+```javascript [server/src/procedures.js]
 // Criamos um classe de erro personalizada
 // só para as nossas procedures.
 class ProcedureError extends Error {
@@ -231,9 +228,7 @@ curl --json '{"procedure": "deleteTarefa", "args": 4}' http://localhost:3000/rpc
 
 Como queremos uma API cujos tipos possam ser compartilhados do servidor para o cliente, vamos converter o nosso código JavaScript para TypeScript, da seguinte forma (e adicionar algumas melhorias ao mesmo tempo):
 
-```typescript
-// server/src/errors.ts
-
+```typescript [server/src/errors.ts]
 // Vamos separar a nossa classe ProcedureError
 // em seu próprio arquivo:
 
@@ -251,9 +246,7 @@ export class ProcedureError extends Error {
 
 Agora, criamos o arquivo `app.ts` para colocar o código de configuração do servidor, excluindo a parte que inicia o servidor. Novamente, leia os comentários com atenção:
 
-```typescript
-// server/src/app.ts
-
+```typescript [server/src/app.ts]
 import Fastify from "fastify";
 import * as procedures from "./procedures";
 import { ProcedureError } from "./errors";
@@ -306,9 +299,7 @@ export const app = () => {
 
 O arquivo que inicializa o servidor:
 
-```typescript
-// server/src/server.ts
-
+```typescript [server/src/server.ts]
 import { app } from "./app";
 
 const server = app();
@@ -323,9 +314,7 @@ try {
 
 E por fim, adicionaremos os tipos às nossas procedures:
 
-```typescript
-// server/src/procedures.ts
-
+```typescript [server/src/procedures.ts]
 import { ProcedureError } from "./errors";
 
 // O tipo de estrutura de dados do nosso CRUD.
@@ -468,9 +457,7 @@ export type API = {
 
 Com tudo pronto, agora podemos criar o código do nosso cliente e a única coisa que irei usar do código do servidor é o tipo `API` (que definimos no arquivo `src/procedures.ts`). Claro, para fazer isso, o código do cliente ou do servidor devem estar no mesmo [monorepo](https://monorepo.tools/) ou serem compartilhados via [git submodules](https://git-scm.com/book/en/v2/Git-Tools-Submodules):
 
-```typescript
-// client/src/index.ts
-
+```typescript [client/src/index.ts]
 // Este é o caminho do código servidor, que pode estar no mesmo
 // monorepo ou pasta, a depender da sua preferência.
 import type { API } from "../../server/src/procedures";
@@ -501,8 +488,7 @@ Agora que entendemos o que é RPC e construímos nossa própria API com este pad
 
 O tRPC pega o conceito de uma API RPC que acabamos de implementar (e que foi inicialmente apresentado pelo Colin McDonell em seu [blog](https://colinhacks.com/essays/painless-typesafety)) e adiciona uma experiência de desenvolvimento ainda melhor, com validação dos dados de entrada e saída com [Zod](https://github.com/colinhacks/zod) (ou outra biblioteca de validação que você prefira) e até a geração do código do cliente com [@tanstack/query](https://tanstack.com/query/latest) e subscrições para envio de dados em tempo real via WebSockets. Dito isto, vamos refazer a API que construímos acima usando [tRPC](https://trpc.io/) e Fastify:
 
-```typescript
-// server/src/app.ts
+```typescript [server/src/app.ts]
 import Fastify from "fastify";
 import { fastifyTRPCPlugin } from "@trpc/server/adapters/fastify";
 import { appRouter } from "./router";
@@ -519,8 +505,7 @@ export const app = () => {
 };
 ```
 
-```typescript
-// server/src/router.ts
+```typescript [server/src/router.ts]
 import { initTRPC } from "@trpc/server";
 import { z } from "zod";
 
