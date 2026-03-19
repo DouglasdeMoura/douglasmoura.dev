@@ -31,10 +31,10 @@ export const Talks = () => {
 
   return (
     <>
-      <title>{t("Talks")} — Douglas Moura</title>
+      <title>{`${t("Talks")} | Douglas Moura`}</title>
       <meta
         name="description"
-        content="Conference talks and presentations by Douglas Moura."
+        content={`${t("Conference talks and presentations by Douglas Moura.")}`}
       />
       <link rel="canonical" href={`${SITE_URL}/talks`} />
 

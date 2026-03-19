@@ -61,7 +61,7 @@ export const Home = ({ data, siteUrl }: HomeProps) => {
       <title>Douglas Moura</title>
       <meta
         name="description"
-        content="Software engineer writing about web development, TypeScript, and more."
+        content={`${t("Software engineer writing about web development, TypeScript, and more.")}`}
       />
       <link
         rel="canonical"

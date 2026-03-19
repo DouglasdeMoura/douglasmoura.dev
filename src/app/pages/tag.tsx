@@ -16,11 +16,11 @@ export const TagPage = ({ tag, data, siteUrl }: TagPageProps) => {
   return (
     <>
       <title>
-        {t("Posts tagged")} &ldquo;{tag}&rdquo; — Douglas Moura
+        {`${t("Posts tagged")} &ldquo;{tag}&rdquo; | Douglas Moura`}
       </title>
       <meta
         name="description"
-        content={`${t("Posts tagged")} "${tag}" — Douglas Moura`}
+        content={`${t("Posts tagged")} "${tag}" | Douglas Moura`}
       />
       <link
         rel="canonical"
