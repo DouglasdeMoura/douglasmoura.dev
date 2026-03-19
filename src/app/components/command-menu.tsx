@@ -212,24 +212,25 @@ export const CommandMenu = ({
                 </Command.Empty>
               )}
 
-              {results.map((result) => (
-                <Command.Item
-                  key={result.slug}
-                  value={`/${result.slug}`}
-                  onSelect={handleNavigate}
-                  className="group relative flex cursor-default flex-col gap-0.5 rounded-lg px-3 py-2.5 text-sm outline-none select-none data-[selected=true]:bg-surface-1"
-                >
-                  <span className="font-medium text-text-strong group-data-[selected=true]:text-accent">
-                    {result.title}
-                  </span>
-                  <span className="text-xs text-text-muted line-clamp-1">
-                    {formatDate(result.created, locale)}
-                    {result.tags.length > 0 && (
-                      <> &middot; {result.tags.join(", ")}</>
-                    )}
-                  </span>
-                </Command.Item>
-              ))}
+              {debouncedQuery &&
+                results.map((result) => (
+                  <Command.Item
+                    key={result.slug}
+                    value={`/${result.slug}`}
+                    onSelect={handleNavigate}
+                    className="group relative flex cursor-default flex-col gap-0.5 rounded-lg px-3 py-2.5 text-sm outline-none select-none data-[selected=true]:bg-surface-1"
+                  >
+                    <span className="font-medium text-text-strong group-data-[selected=true]:text-accent">
+                      {result.title}
+                    </span>
+                    <span className="text-xs text-text-muted line-clamp-1">
+                      {formatDate(result.created, locale)}
+                      {result.tags.length > 0 && (
+                        <> &middot; {result.tags.join(", ")}</>
+                      )}
+                    </span>
+                  </Command.Item>
+                ))}
             </Command.List>
           </Command>
         </div>
