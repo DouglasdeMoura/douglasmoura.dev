@@ -138,6 +138,12 @@ export const generateSitemap = (siteUrl: string): Response => {
       priority: "0.7",
       ptPath: "/pt-BR/talks",
     },
+    {
+      enPath: "/privacy",
+      lastmod: latestPostDate,
+      priority: "0.3",
+      ptPath: "/pt-BR/privacy",
+    },
   ];
 
   const staticEntries: string[] = [];

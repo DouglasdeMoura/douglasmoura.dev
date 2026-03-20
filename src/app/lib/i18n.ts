@@ -31,6 +31,9 @@ const translations = {
     Pagination: "Paginação",
     "Posts tagged": "Artigos com a tag",
     Previous: "Anterior",
+    "Privacy Policy": "Política de Privacidade",
+    "Privacy policy for douglasmoura.dev — a personal blog with minimal data collection and no tracking cookies.":
+      "Política de privacidade do douglasmoura.dev — um blog pessoal com coleta mínima de dados e sem cookies de rastreamento.",
     "Published on": "Publicado em",
     Recording: "Gravação",
     Search: "Pesquisar",
