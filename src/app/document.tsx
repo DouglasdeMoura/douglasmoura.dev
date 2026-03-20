@@ -1,7 +1,5 @@
 import type { RequestInfo } from "rwsdk/worker";
 
-import { t } from "#app/lib/i18n.js";
-
 import styles from "./styles.css?url";
 
 const themeScript = `(function(){
@@ -27,12 +25,12 @@ export const Document: React.FC<
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>Douglas Moura</title>
-        <meta
-          name="description"
-          content={t(
-            "Douglas Moura — Software Engineer. Articles on web development, TypeScript, React, and more."
-          )}
+        <link
+          rel="preload"
+          href="/fonts/Geist-Variable.woff2"
+          as="font"
+          type="font/woff2"
+          crossOrigin="anonymous"
         />
         <script
           nonce={rw.nonce}

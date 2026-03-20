@@ -48,7 +48,9 @@ export const About = () => {
     <>
       <PageSeo
         title={title}
-        description={bio[locale][0]}
+        description={t(
+          "Douglas Moura is a software engineer in São Paulo. From civil engineering to software — building design systems, banking apps, AI agents, and healthcare solutions."
+        )}
         url={canonicalUrl}
         type="profile"
         image={ogImageUrl}
@@ -71,7 +73,7 @@ export const About = () => {
             <a
               href="https://github.com/douglasdemoura"
               target="_blank"
-              rel="noopener noreferrer"
+              rel="me noopener noreferrer"
               className="inline-flex items-center gap-1.5 text-sm text-text-muted no-underline hover:text-text-strong motion-safe:transition-colors motion-safe:duration-150"
             >
               <GithubIcon size={18} />
@@ -80,7 +82,7 @@ export const About = () => {
             <a
               href="https://linkedin.com/in/dougmoura"
               target="_blank"
-              rel="noopener noreferrer"
+              rel="me noopener noreferrer"
               className="inline-flex items-center gap-1.5 text-sm text-text-muted no-underline hover:text-text-strong motion-safe:transition-colors motion-safe:duration-150"
             >
               <LinkedinIcon size={18} />
@@ -89,7 +91,7 @@ export const About = () => {
             <a
               href="https://x.com/douglasdemoura"
               target="_blank"
-              rel="noopener noreferrer"
+              rel="me noopener noreferrer"
               className="inline-flex items-center gap-1.5 text-sm text-text-muted no-underline hover:text-text-strong motion-safe:transition-colors motion-safe:duration-150"
             >
               <XIcon size={18} />

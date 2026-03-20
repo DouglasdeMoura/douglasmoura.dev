@@ -32,7 +32,9 @@ export const Talks = () => {
 
   const canonicalUrl = `${SITE_URL}/talks`;
   const title = `${t("Talks")} | Douglas Moura`;
-  const description = t("Conference talks and presentations by Douglas Moura.");
+  const description = t(
+    "Conference talks and presentations by Douglas Moura on web development, TypeScript, React, and software engineering at events across Brazil."
+  );
   const ogImageUrl = `${SITE_URL}/api/v1/og?title=${encodeURIComponent(t("Talks"))}`;
 
   return (

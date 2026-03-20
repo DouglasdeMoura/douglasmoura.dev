@@ -30,6 +30,24 @@ export const TagPage = ({ tag, data, siteUrl }: TagPageProps) => {
         description={description}
         url={canonicalUrl}
         image={ogImageUrl}
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            {
+              "@type": "ListItem",
+              item: siteUrl,
+              name: "Home",
+              position: 1,
+            },
+            {
+              "@type": "ListItem",
+              item: canonicalUrl,
+              name: `Tag: ${tag}`,
+              position: 2,
+            },
+          ],
+        }}
       />
       {page > 1 && (
         <link

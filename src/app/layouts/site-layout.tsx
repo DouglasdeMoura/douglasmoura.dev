@@ -40,7 +40,7 @@ export const SiteLayout = ({
               <a
                 href="https://github.com/douglasdemoura"
                 target="_blank"
-                rel="noopener noreferrer"
+                rel="me noopener noreferrer"
                 aria-label="GitHub"
                 className="inline-flex items-center justify-center size-8 rounded-full text-text-muted hover:text-text-strong hover:bg-surface-2 motion-safe:transition-[background-color,color] motion-safe:duration-150"
               >
@@ -49,7 +49,7 @@ export const SiteLayout = ({
               <a
                 href="https://linkedin.com/in/dougmoura"
                 target="_blank"
-                rel="noopener noreferrer"
+                rel="me noopener noreferrer"
                 aria-label="LinkedIn"
                 className="inline-flex items-center justify-center size-8 rounded-full text-text-muted hover:text-text-strong hover:bg-surface-2 motion-safe:transition-[background-color,color] motion-safe:duration-150"
               >
@@ -58,7 +58,7 @@ export const SiteLayout = ({
               <a
                 href="https://x.com/douglasdemoura"
                 target="_blank"
-                rel="noopener noreferrer"
+                rel="me noopener noreferrer"
                 aria-label="X"
                 className="inline-flex items-center justify-center size-8 rounded-full text-text-muted hover:text-text-strong hover:bg-surface-2 motion-safe:transition-[background-color,color] motion-safe:duration-150"
               >

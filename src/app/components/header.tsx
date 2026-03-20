@@ -22,7 +22,7 @@ export const Header = ({ locale, alternates }: HeaderProps) => (
         className="flex items-center gap-1 text-text-strong no-underline motion-safe:transition-colors motion-safe:duration-150"
       >
         <span className="text-base font-semibold tracking-tight">Douglas</span>
-        <span className="text-base font-normal tracking-tight opacity-60">
+        <span className="text-base font-normal tracking-tight opacity-75">
           Moura
         </span>
       </a>

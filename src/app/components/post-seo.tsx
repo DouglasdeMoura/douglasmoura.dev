@@ -14,20 +14,40 @@ export const PostSeo = ({
   const absoluteImage = post.cover ? `${siteUrl}${post.cover}` : "";
   const ogImageUrl = `${siteUrl}/api/v1/og?slug=${encodeURIComponent(post.slug)}`;
 
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "BlogPosting",
-    author: { "@type": "Person", name: "Douglas Moura", url: siteUrl },
-    datePublished: post.created,
-    ...(post.updated && { dateModified: post.updated }),
-    description: post.description,
-    headline: post.title,
-    ...(absoluteImage && { image: absoluteImage }),
-    inLanguage: post.locale,
-    ...(post.tags.length > 0 && { keywords: post.tags.join(", ") }),
-    mainEntityOfPage: { "@id": canonicalUrl, "@type": "WebPage" },
-    publisher: { "@type": "Person", name: "Douglas Moura" },
-  };
+  const jsonLd = [
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      author: { "@type": "Person", name: "Douglas Moura", url: siteUrl },
+      datePublished: post.created,
+      ...(post.updated && { dateModified: post.updated }),
+      description: post.description,
+      headline: post.title,
+      ...(absoluteImage && { image: absoluteImage }),
+      inLanguage: post.locale,
+      ...(post.tags.length > 0 && { keywords: post.tags.join(", ") }),
+      mainEntityOfPage: { "@id": canonicalUrl, "@type": "WebPage" },
+      publisher: { "@type": "Person", name: "Douglas Moura" },
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          item: siteUrl,
+          name: "Home",
+          position: 1,
+        },
+        {
+          "@type": "ListItem",
+          item: canonicalUrl,
+          name: post.title,
+          position: 2,
+        },
+      ],
+    },
+  ];
 
   return (
     <>
@@ -62,6 +82,7 @@ export const PostSeo = ({
       {post.updated && (
         <meta property="article:modified_time" content={post.updated} />
       )}
+      <meta property="article:author" content={`${siteUrl}/about`} />
       {post.tags.map((tag) => (
         <meta property="article:tag" content={tag} key={tag} />
       ))}

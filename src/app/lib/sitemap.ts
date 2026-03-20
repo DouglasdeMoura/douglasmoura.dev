@@ -49,12 +49,26 @@ export const generateSitemap = (siteUrl: string): Response => {
   );
 
   const tags = getAllTags();
-  const tagEntries = [...tags.keys()].toSorted().map(
-    (tag) => `  <url>
-    <loc>${siteUrl}/tag/${escapeXml(encodeURIComponent(tag))}</loc>
+  const tagLastmod = new Map<string, string>();
+  for (const post of posts) {
+    for (const tag of post.tags) {
+      const postDate = post.updated || post.created;
+      const existing = tagLastmod.get(tag);
+      if (!existing || postDate > existing) {
+        tagLastmod.set(tag, postDate);
+      }
+    }
+  }
+  const tagEntries = [...tags.keys()].toSorted().map((tag) => {
+    const lastmod = tagLastmod.get(tag);
+    const lastmodStr = lastmod
+      ? new Date(lastmod).toISOString().split("T")[0]
+      : undefined;
+    return `  <url>
+    <loc>${siteUrl}/tag/${escapeXml(encodeURIComponent(tag))}</loc>${lastmodStr ? `\n    <lastmod>${lastmodStr}</lastmod>` : ""}
     <priority>0.4</priority>
-  </url>`
-  );
+  </url>`;
+  });
 
   const postEntries = posts.map((post) => {
     const alternates = getPostAlternates(post.slug);

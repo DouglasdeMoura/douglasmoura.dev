@@ -25,9 +25,6 @@ export const PageSeo = ({
       <title>{title}</title>
       <meta name="description" content={description} />
       <link rel="canonical" href={url} />
-
-      <link rel="alternate" hrefLang="en-US" href={url} />
-      <link rel="alternate" hrefLang="pt-BR" href={url} />
       <link rel="alternate" hrefLang="x-default" href={url} />
 
       <meta property="og:title" content={title} />
@@ -35,6 +32,10 @@ export const PageSeo = ({
       <meta property="og:url" content={url} />
       <meta property="og:type" content={type} />
       <meta property="og:locale" content={ogLocale} />
+      <meta
+        property="og:locale:alternate"
+        content={locale === "en-US" ? "pt_BR" : "en_US"}
+      />
       <meta property="og:site_name" content="Douglas Moura" />
       {image && (
         <>

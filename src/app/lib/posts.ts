@@ -85,14 +85,20 @@ for (const [path, raw] of Object.entries(modules)) {
   postsBySlug.set(slug, {
     body: content,
     cover: coverKey ? coverImages[coverKey] : "",
-    created: String(data.created ?? ""),
+    created:
+      data.created instanceof Date
+        ? data.created.toISOString()
+        : String(data.created ?? ""),
     description: makeExcerpt(stripMarkdown(content)),
     images,
     locale,
     slug,
     tags: (data.tags as string[]) || [],
     title: (data.title as string) || slug,
-    updated: String(data.updated ?? ""),
+    updated:
+      data.updated instanceof Date
+        ? data.updated.toISOString()
+        : String(data.updated ?? ""),
   });
 
   const group = dirToSlugs.get(dir) ?? [];

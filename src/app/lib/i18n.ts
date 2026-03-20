@@ -11,10 +11,14 @@ const translations = {
     "Also available in": "Também disponível em",
     "Back to home": "Voltar ao início",
     Bookmarks: "Favoritos",
-    "Conference talks and presentations by Douglas Moura.":
-      "Palestras e apresentações de Douglas Moura.",
-    "Douglas Moura — Software Engineer. Articles on web development, TypeScript, React, and more.":
-      "Douglas Moura — Engenheiro de Software. Artigos sobre desenvolvimento web, TypeScript, React e mais.",
+    "Conference talks and presentations by Douglas Moura on web development, TypeScript, React, and software engineering at events across Brazil.":
+      "Palestras e apresentações de Douglas Moura sobre desenvolvimento web, TypeScript, React e engenharia de software em eventos pelo Brasil.",
+    "Douglas Moura is a software engineer in São Paulo. From civil engineering to software — building design systems, banking apps, AI agents, and healthcare solutions.":
+      "Douglas Moura é engenheiro de software em São Paulo. Da engenharia civil ao software — construindo design systems, apps bancários, agentes de IA e soluções de saúde.",
+    "Douglas Moura — Software Engineer in São Paulo. Articles about web development, TypeScript, React, and the things I learn along the way.":
+      "Douglas Moura — Engenheiro de Software em São Paulo. Artigos sobre desenvolvimento web, TypeScript, React e as coisas que aprendo no caminho.",
+    "Douglas Moura — Software Engineer | Web Development Blog":
+      "Douglas Moura — Engenheiro de Software | Blog de Desenvolvimento Web",
     Event: "Evento",
     Home: "Início",
     "Last updated on": "Atualizado em",
@@ -31,8 +35,6 @@ const translations = {
     "Search or jump to…": "Pesquisar ou ir para…",
     "Skip to content": "Pular para o conteúdo",
     Slides: "Slides",
-    "Software engineer writing about web development, TypeScript, and more.":
-      "Engenheiro de software escrevendo sobre desenvolvimento web, TypeScript e mais.",
     "Switch language": "Alterar linguagem",
     Talks: "Palestras",
     Theme: "Tema",
