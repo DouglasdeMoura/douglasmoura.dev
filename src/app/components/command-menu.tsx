@@ -57,6 +57,7 @@ const labels = {
     pages: "Pages",
     posts: "Posts",
     preferences: "Preferences",
+    searchFor: "Search for",
   },
   "pt-BR": {
     close: "fechar",
@@ -65,6 +66,7 @@ const labels = {
     pages: "Páginas",
     posts: "Artigos",
     preferences: "Preferências",
+    searchFor: "Pesquisar por",
   },
 } as const;
 
@@ -196,9 +198,26 @@ const CommandListContent = ({
   onSelect: (href: string) => void;
 }) => {
   const l = labels[locale as keyof typeof labels];
+  const searchPrefix = locale === "pt-BR" ? "/pt-BR" : "";
+  const searchHref = trimmed
+    ? `${searchPrefix}/search?q=${encodeURIComponent(trimmed)}`
+    : "";
 
   return (
     <>
+      {trimmed && (
+        <Command.Item
+          value={searchHref}
+          onSelect={onSelect}
+          className={navItemClasses}
+        >
+          <span className="size-4 shrink-0">
+            <MagnifyingGlassIcon size={16} />
+          </span>
+          {l.searchFor} &ldquo;{trimmed}&rdquo;
+        </Command.Item>
+      )}
+
       {!trimmed && pageItems.length > 0 && (
         <NavItemGroup heading={l.pages} items={pageItems} onSelect={onSelect} />
       )}

@@ -28,6 +28,7 @@ import { About } from "#app/pages/about.js";
 import { Home } from "#app/pages/home.js";
 import { NotFound } from "#app/pages/not-found.js";
 import { Post } from "#app/pages/post.js";
+import { SearchPage } from "#app/pages/search.js";
 import { TagPage } from "#app/pages/tag.js";
 import { Talks } from "#app/pages/talks.js";
 
@@ -214,6 +215,25 @@ export default defineApp([
         return <TagPage tag={tag} data={data} siteUrl={SITE_URL} />;
       }),
 
+      route("/search", async ({ request }) => {
+        const url = new URL(request.url);
+        const q = url.searchParams.get("q")?.trim() ?? "";
+        if (!q) {
+          return (
+            <SearchPage query="" results={[]} count={0} siteUrl={SITE_URL} />
+          );
+        }
+        const data = await searchPosts(q, "en-US", 20, 0);
+        return (
+          <SearchPage
+            query={q}
+            results={data.results}
+            count={data.count}
+            siteUrl={SITE_URL}
+          />
+        );
+      }),
+
       // ── PT-BR routes (prefixed) ──
       route("/pt-BR", () => {
         const data = getPaginatedPosts(1, "pt-BR");
@@ -236,6 +256,31 @@ export default defineApp([
       }),
       route("/pt-BR/about", () => <About basePath="/pt-BR" />),
       route("/pt-BR/talks", () => <Talks basePath="/pt-BR" />),
+      route("/pt-BR/search", async ({ request }) => {
+        const url = new URL(request.url);
+        const q = url.searchParams.get("q")?.trim() ?? "";
+        if (!q) {
+          return (
+            <SearchPage
+              query=""
+              results={[]}
+              count={0}
+              siteUrl={SITE_URL}
+              localePrefix="/pt-BR"
+            />
+          );
+        }
+        const data = await searchPosts(q, "pt-BR", 20, 0);
+        return (
+          <SearchPage
+            query={q}
+            results={data.results}
+            count={data.count}
+            siteUrl={SITE_URL}
+            localePrefix="/pt-BR"
+          />
+        );
+      }),
       route("/pt-BR/tag/:tag", ({ params, response }) => {
         const tag = decodeURIComponent(params.tag);
         const data = getPostsByTag(tag, 1, "pt-BR");

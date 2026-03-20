@@ -19,6 +19,7 @@ const translations = {
       "Douglas Moura — Engenheiro de Software em São Paulo. Artigos sobre desenvolvimento web, TypeScript, React e as coisas que aprendo no caminho.",
     "Douglas Moura — Software Engineer | Web Development Blog":
       "Douglas Moura — Engenheiro de Software | Blog de Desenvolvimento Web",
+    "Enter a search term": "Digite um termo de pesquisa",
     Event: "Evento",
     Home: "Início",
     "Last updated on": "Atualizado em",
@@ -33,6 +34,7 @@ const translations = {
     Recording: "Gravação",
     Search: "Pesquisar",
     "Search or jump to…": "Pesquisar ou ir para…",
+    "Search results for": "Resultados da pesquisa para",
     "Skip to content": "Pular para o conteúdo",
     Slides: "Slides",
     "Switch language": "Alterar linguagem",
@@ -40,6 +42,8 @@ const translations = {
     Theme: "Tema",
     "Web Development Articles": "Artigos sobre Desenvolvimento Web",
     "min. read": "min. de leitura",
+    result: "resultado",
+    results: "resultados",
   },
 } as const satisfies Record<string, Record<string, string>>;
 
