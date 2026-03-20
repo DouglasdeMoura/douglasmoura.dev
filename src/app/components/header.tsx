@@ -28,7 +28,7 @@ export const Header = ({ locale, alternates, pathname }: HeaderProps) => {
           <span className="text-base font-semibold tracking-tight">
             Douglas
           </span>
-          <span className="text-base font-normal tracking-tight opacity-80">
+          <span className="text-base font-normal tracking-tight opacity-90">
             Moura
           </span>
         </a>

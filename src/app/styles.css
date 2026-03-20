@@ -425,6 +425,11 @@ pre.shiki {
   background-color: var(--shiki-dark-bg);
 }
 
+/* Boost low-contrast Vitesse Dark comment tokens for WCAG AA compliance */
+.dark .shiki span[style*="--shiki-dark:#758575"] {
+  --shiki-dark: #8a9e8a !important;
+}
+
 pre.shiki code {
   background-color: transparent;
   padding: 0;
