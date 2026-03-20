@@ -3,7 +3,7 @@ title: Criando modais nativos com o elemento dialog
 slug: criando-modais-nativos-com-o-elemento-dialog
 locale: pt-BR
 created: 2023-08-13 01:49:01.615Z
-updated: 2026-03-18 21:28:39.000Z
+updated: 2026-03-20 19:22:04.000Z
 tags:
   - tutorial
   - javascript
@@ -40,15 +40,15 @@ A maneira mais simples de colocar um diálogo não-modal na tela é da seguinte 
 
 Note o formulário, na linha 5, com o método *dialog*. É este formulário que envia ações para o `dialog`. Ele será exibido dessa forma:
 
-<iframe height="350" style="width:100%" src="https://codepen.io/douglasdemoura/embed/qBQzzww" loading="lazy" allowtransparency="true" allowfullscreen="true"></iframe>
+<iframe height="350" style="width:100%" title="CodePen: elemento dialog básico" src="https://codepen.io/douglasdemoura/embed/qBQzzww" loading="lazy" allowtransparency="true" allowfullscreen="true"></iframe>
 
 O que torna o exemplo acima um diálogo não modal é o uso do atributo `open` (linha 1), o que também faz com que ele não possa ser fechado com a tecla `Esc`. Também é possível criar um diálogo não modal usando a API JavaScript:
 
-<iframe height="350" style="width:100%" src="https://codepen.io/douglasdemoura/embed/BaGXqjx" loading="lazy" allowtransparency="true" allowfullscreen="true"></iframe>
+<iframe height="350" style="width:100%" title="CodePen: dialog com formulário" src="https://codepen.io/douglasdemoura/embed/BaGXqjx" loading="lazy" allowtransparency="true" allowfullscreen="true"></iframe>
 
 Agora, para que o diálogo se comporte como um modal, é necessário que ele seja aberto através de sua API JavaScript, você pode ver no exemplo a seguir:
 
-<iframe height="350" style="width:100%" src="https://codepen.io/douglasdemoura/embed/ZEmdgYj" loading="lazy" allowtransparency="true" allowfullscreen="true"></iframe>
+<iframe height="350" style="width:100%" title="CodePen: dialog com backdrop" src="https://codepen.io/douglasdemoura/embed/ZEmdgYj" loading="lazy" allowtransparency="true" allowfullscreen="true"></iframe>
 
 Desta vez, abrimos e fechamos o modal com JavaScript e colocamos o resultado do formulário no elemento `output` quando o modal é fechado. Leia o código com calma e tente entender o que está acontecendo.
 
@@ -56,7 +56,7 @@ Desta vez, abrimos e fechamos o modal com JavaScript e colocamos o resultado do 
 
 O elemento `dialog` pode (é claro), ser estilizado como qualquer outro elemento HTML. Atente-se, porém, que, para estilizar o *overlay* (o fundo escuro que fica atrás do modal), é necessário usar o seletor `::backdrop`:
 
-<iframe height="350" style="width:100%" src="https://codepen.io/douglasdemoura/embed/PoxrMzW" loading="lazy" allowtransparency="true" allowfullscreen="true"></iframe>
+<iframe height="350" style="width:100%" title="CodePen: dialog com animação" src="https://codepen.io/douglasdemoura/embed/PoxrMzW" loading="lazy" allowtransparency="true" allowfullscreen="true"></iframe>
 
 ## Polyfill
 

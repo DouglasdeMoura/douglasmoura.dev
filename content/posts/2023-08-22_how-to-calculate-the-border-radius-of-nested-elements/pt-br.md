@@ -3,7 +3,7 @@ title: Como calcular o raio da borda (border-radius) de elementos aninhados
 slug: como-calcular-o-raio-da-borda-de-elementos-aninhados
 locale: pt-BR
 created: 2023-08-22 20:05:26.070Z
-updated: 2026-03-18 21:28:39.000Z
+updated: 2026-03-20 19:22:04.000Z
 tags:
   - CSS
   - HTML
@@ -15,7 +15,7 @@ A propriedade [`border-radius`](https://developer.mozilla.org/en-US/docs/Web/CSS
 
 Observe a demonstração abaixo:
 
-<iframe height="350" style="width:100%" src="https://codepen.io/douglasdemoura/embed/ExGaRJY" loading="lazy" allowtransparency="true" allowfullscreen="true"></iframe>
+<iframe height="350" style="width:100%" title="CodePen: demo de border-radius aninhado" src="https://codepen.io/douglasdemoura/embed/ExGaRJY" loading="lazy" allowtransparency="true" allowfullscreen="true"></iframe>
 
 No exemplo acima, os dois círculos possuem o mesmo raio e estão inscritos nos quadrados com bordas arredondas. Note que o raio da borda é o mesmo raio do círculo. Nós queremos que o fim do arco do círculo de cada borda comece seja coincidente com ambos os quadrados. Isso pode ser feito de duas formas:
 
@@ -28,7 +28,7 @@ Observe que o centro dos círculos inscritos nos quadrados não coincidem, assim
 
 Neste exemplo interativo, feito por [Jhey Tompkins](https://jhey.dev/), você pode ver como essa regra se aplica na prática:
 
-<iframe height="350" style="width:100%" src="https://codepen.io/jh3y/embed/KKrYaxx" loading="lazy" allowtransparency="true" allowfullscreen="true"></iframe>
+<iframe height="350" style="width:100%" title="CodePen: border-radius aninhado por Jhey" src="https://codepen.io/jh3y/embed/KKrYaxx" loading="lazy" allowtransparency="true" allowfullscreen="true"></iframe>
 
 ## Referências
 

@@ -3,7 +3,7 @@ title: How to calculate the border-radius of nested elements
 slug: how-to-calculate-the-border-radius-of-nested-elements
 locale: en-US
 created: 2023-08-30 18:47:17.057Z
-updated: 2026-03-18 21:28:39.000Z
+updated: 2026-03-20 19:22:04.000Z
 tags:
   - CSS
   - HTML
@@ -14,7 +14,7 @@ The [`border-radius`](https://developer.mozilla.org/en-US/docs/Web/CSS/border-ra
 
 Check out the demo below:
 
-<iframe height="350" style="width:100%" src="https://codepen.io/douglasdemoura/embed/KKbzrER" loading="lazy" allowtransparency="true" allowfullscreen="true"></iframe>
+<iframe height="350" style="width:100%" title="CodePen: nested border-radius demo" src="https://codepen.io/douglasdemoura/embed/KKbzrER" loading="lazy" allowtransparency="true" allowfullscreen="true"></iframe>
 
 In the example above, the two circles have the same radius and are inscribed in squares with rounded edges. Note that the radius of the border is the same as the radius of the circle. We want the end of the arc of the circle each edge starts to be coincident with both squares. This can be done in two ways:
 
@@ -27,7 +27,7 @@ Note that the center of the circles inscribed in the squares do not coincide, as
 
 In this interactive example, made by [Jhey Tompkins](https://jhey.dev/), you can see how this rule applies in practice:
 
-<iframe height="350" style="width:100%" src="https://codepen.io/jh3y/embed/KKrYaxx" loading="lazy" allowtransparency="true" allowfullscreen="true"></iframe>
+<iframe height="350" style="width:100%" title="CodePen: nested border-radius by Jhey" src="https://codepen.io/jh3y/embed/KKrYaxx" loading="lazy" allowtransparency="true" allowfullscreen="true"></iframe>
 
 ## References
 
