@@ -1,6 +1,7 @@
 import { ArrowLeft as ArrowLeftIcon } from "@phosphor-icons/react/dist/ssr/ArrowLeft";
 import { ArrowRight as ArrowRightIcon } from "@phosphor-icons/react/dist/ssr/ArrowRight";
 import { Translate as TranslateIcon } from "@phosphor-icons/react/dist/ssr/Translate";
+import type { Tweet } from "react-tweet/api";
 
 import { BalancedText } from "#app/components/balanced-text.js";
 import { CodeCopy } from "#app/components/code-copy.js";
@@ -19,13 +20,56 @@ const LOCALE_NAMES: Record<string, string> = {
   "pt-BR": "Português",
 };
 
+const TWEET_PLACEHOLDER_RE = /<div data-tweet-id="(\d+)"><\/div>/g;
+
+const PostBody = ({
+  html,
+  tweets,
+}: {
+  html: string;
+  tweets: (Tweet | undefined)[];
+}) => {
+  if (tweets.length === 0) {
+    return (
+      /* oxlint-disable-next-line eslint-plugin-react(no-danger) -- safe: rendering our own markdown, not user input */
+      <div dangerouslySetInnerHTML={{ __html: html }} />
+    );
+  }
+
+  const segments = html.split(TWEET_PLACEHOLDER_RE);
+  let tweetIndex = 0;
+
+  return (
+    <>
+      {segments.map((segment, i) => {
+        if (i % 2 === 1) {
+          const idx = tweetIndex;
+          tweetIndex += 1;
+          return <TweetEmbed key={`tweet-${segment}`} tweet={tweets[idx]} />;
+        }
+        if (!segment) {
+          return null;
+        }
+        /* oxlint-disable eslint-plugin-react(no-danger) -- safe: rendering our own markdown, not user input */
+        return (
+          <div
+            key={`segment-${segment.slice(0, 32)}`}
+            dangerouslySetInnerHTML={{ __html: segment }}
+          />
+        );
+        /* oxlint-enable eslint-plugin-react(no-danger) */
+      })}
+    </>
+  );
+};
+
 interface PostProps {
   post: Omit<PostType, "body" | "images">;
   html: string;
   hasMath: boolean;
   adjacent: AdjacentPosts;
   readingTime: number;
-  tweetIds: string[];
+  tweets: (Tweet | undefined)[];
 }
 
 export const Post = ({
@@ -34,7 +78,7 @@ export const Post = ({
   hasMath,
   adjacent,
   readingTime,
-  tweetIds,
+  tweets,
 }: PostProps) => {
   const alternates = getPostAlternates(post.slug);
   const alternate = alternates.find((a) => a.locale !== post.locale);
@@ -88,9 +132,7 @@ export const Post = ({
           />
         )}
         <CodeCopy />
-        {tweetIds.length > 0 && <TweetEmbed tweetIds={tweetIds} />}
-        {/* oxlint-disable-next-line eslint-plugin-react(no-danger) -- safe: rendering our own markdown, not user input */}
-        <div dangerouslySetInnerHTML={{ __html: html }} />
+        <PostBody html={html} tweets={tweets} />
         {post.tags.length > 0 && (
           <div className="not-prose mt-16 mb-8 flex flex-wrap gap-1.5">
             {post.tags.map((tag) => (

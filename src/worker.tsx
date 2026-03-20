@@ -21,6 +21,7 @@ import {
 import resume from "#app/lib/resume.json";
 import { searchPosts } from "#app/lib/search.js";
 import { generateSitemap } from "#app/lib/sitemap.js";
+import { fetchTweetData } from "#app/lib/tweets.js";
 import type { Theme } from "#app/lib/types.js";
 import { About } from "#app/pages/about.js";
 import { Home } from "#app/pages/home.js";
@@ -236,6 +237,9 @@ export default defineApp([
         const rendered = await renderMarkdown(post.body);
         const html = resolvePostImages(rendered.html, post.images);
         const readingTime = getReadingTime(post.body);
+        const tweets = await Promise.all(
+          rendered.tweetIds.map((id) => fetchTweetData(id))
+        );
         const { body: _, images: __, ...postWithoutBody } = post;
         const adjacent = getAdjacentPosts(post.slug, post.locale);
         return (
@@ -245,7 +249,7 @@ export default defineApp([
             hasMath={rendered.hasMath}
             adjacent={adjacent}
             readingTime={readingTime}
-            tweetIds={rendered.tweetIds}
+            tweets={tweets}
           />
         );
       }),
