@@ -2,6 +2,7 @@ import { ArrowSquareOut as LinkIcon } from "@phosphor-icons/react/dist/ssr/Arrow
 import { Presentation as SlidesIcon } from "@phosphor-icons/react/dist/ssr/Presentation";
 import { VideoCamera as VideoIcon } from "@phosphor-icons/react/dist/ssr/VideoCamera";
 
+import { PageSeo } from "#app/components/page-seo.js";
 import { formatDate, t } from "#app/lib/i18n.js";
 import resume from "#app/lib/resume.json";
 
@@ -29,14 +30,19 @@ export const Talks = () => {
 
   const years = [...grouped.keys()].toSorted((a, b) => Number(b) - Number(a));
 
+  const canonicalUrl = `${SITE_URL}/talks`;
+  const title = `${t("Talks")} | Douglas Moura`;
+  const description = t("Conference talks and presentations by Douglas Moura.");
+  const ogImageUrl = `${SITE_URL}/api/v1/og?title=${encodeURIComponent(t("Talks"))}`;
+
   return (
     <>
-      <title>{`${t("Talks")} | Douglas Moura`}</title>
-      <meta
-        name="description"
-        content={`${t("Conference talks and presentations by Douglas Moura.")}`}
+      <PageSeo
+        title={title}
+        description={description}
+        url={canonicalUrl}
+        image={ogImageUrl}
       />
-      <link rel="canonical" href={`${SITE_URL}/talks`} />
 
       <section className="prose mx-auto py-10 px-4">
         <div className="not-prose">

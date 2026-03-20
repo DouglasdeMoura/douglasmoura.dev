@@ -2,6 +2,7 @@ import { GithubLogo as GithubIcon } from "@phosphor-icons/react/dist/ssr/GithubL
 import { LinkedinLogo as LinkedinIcon } from "@phosphor-icons/react/dist/ssr/LinkedinLogo";
 import { XLogo as XIcon } from "@phosphor-icons/react/dist/ssr/XLogo";
 
+import { PageSeo } from "#app/components/page-seo.js";
 import { getLocale, t } from "#app/lib/i18n.js";
 
 const SITE_URL = import.meta.env.VITE_SITE_URL ?? "https://douglasmoura.dev";
@@ -25,12 +26,34 @@ const bio = {
 
 export const About = () => {
   const locale = getLocale();
+  const canonicalUrl = `${SITE_URL}/about`;
+  const title = `${t("About")} | Douglas Moura`;
+  const ogImageUrl = `${SITE_URL}/api/v1/og?title=${encodeURIComponent(t("About"))}`;
+
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    description: bio[locale][0],
+    jobTitle: "Software Engineer",
+    name: "Douglas Moura",
+    sameAs: [
+      "https://github.com/douglasdemoura",
+      "https://linkedin.com/in/dougmoura",
+      "https://x.com/douglasdemoura",
+    ],
+    url: SITE_URL,
+  };
 
   return (
     <>
-      <title>{`${t("About")} | Douglas Moura`}</title>
-      <meta name="description" content={bio[locale][0]} />
-      <link rel="canonical" href={`${SITE_URL}/about`} />
+      <PageSeo
+        title={title}
+        description={bio[locale][0]}
+        url={canonicalUrl}
+        type="profile"
+        image={ogImageUrl}
+        jsonLd={jsonLd}
+      />
 
       <section className="prose mx-auto py-10 px-4">
         <div className="not-prose">

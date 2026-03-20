@@ -3,6 +3,7 @@ import { t } from "#app/lib/i18n.js";
 export const NotFound = () => (
   <>
     <title>{`${t("Page not found")} | Douglas Moura`}</title>
+    <meta name="robots" content="noindex" />
     <section className="mx-auto max-w-prose px-4 py-24 text-center">
       <p className="text-8xl font-bold tracking-tighter text-border select-none">
         404

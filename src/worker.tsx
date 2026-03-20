@@ -6,7 +6,7 @@ import { setCommonHeaders } from "#app/headers.js";
 import { SiteLayout } from "#app/layouts/site-layout.js";
 import { generateAtomFeed, generateRssFeed } from "#app/lib/feed.js";
 import { renderMarkdown } from "#app/lib/markdown.js";
-import { generateOgImage } from "#app/lib/og.js";
+import { generateGenericOgImage, generateOgImage } from "#app/lib/og.js";
 import type { Post as PostData } from "#app/lib/posts.js";
 import {
   getAdjacentPosts,
@@ -109,15 +109,23 @@ export default defineApp([
   ),
   route("/rss.xml", () => Response.redirect(`${SITE_URL}/en-US/rss.xml`, 301)),
   route("/api/v1/og", ({ request }) => {
-    const slug = new URL(request.url).searchParams.get("slug");
-    if (!slug) {
-      return new Response("Missing slug parameter", { status: 400 });
+    const url = new URL(request.url);
+    const slug = url.searchParams.get("slug");
+    const title = url.searchParams.get("title");
+
+    if (slug) {
+      const post = getPostBySlug(slug);
+      if (!post) {
+        return new Response("Not Found", { status: 404 });
+      }
+      return generateOgImage(post, SITE_URL);
     }
-    const post = getPostBySlug(slug);
-    if (!post) {
-      return new Response("Not Found", { status: 404 });
+
+    if (title) {
+      return generateGenericOgImage(title, SITE_URL);
     }
-    return generateOgImage(post, SITE_URL);
+
+    return new Response("Missing slug or title parameter", { status: 400 });
   }),
   route("/api/v1/search", async ({ request }) => {
     const url = new URL(request.url);

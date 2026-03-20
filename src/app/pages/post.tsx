@@ -127,7 +127,7 @@ export const Post = ({
         {post.cover && (
           <img
             src={post.cover}
-            alt=""
+            alt={post.title}
             className="not-prose mb-10 w-full aspect-3/2 rounded-xl border border-border bg-surface-1 object-cover"
           />
         )}

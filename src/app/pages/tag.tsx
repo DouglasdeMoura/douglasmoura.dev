@@ -1,6 +1,7 @@
+import { PageSeo } from "#app/components/page-seo.js";
 import { PrefetchLink } from "#app/components/prefetch-link.js";
 import { TagLink } from "#app/components/tag-link.js";
-import { formatDate, t } from "#app/lib/i18n.js";
+import { formatDate, getLocale, t } from "#app/lib/i18n.js";
 import type { PaginatedPosts } from "#app/lib/posts.js";
 
 interface TagPageProps {
@@ -11,24 +12,24 @@ interface TagPageProps {
 
 export const TagPage = ({ tag, data, siteUrl }: TagPageProps) => {
   const { posts, page, totalPages } = data;
+  const locale = getLocale();
   const basePath = `/tag/${encodeURIComponent(tag)}`;
+  const canonicalUrl =
+    page === 1 ? `${siteUrl}${basePath}` : `${siteUrl}${basePath}/page/${page}`;
+  const title = `${t("Posts tagged")} \u201C${tag}\u201D | Douglas Moura`;
+  const description =
+    locale === "pt-BR"
+      ? `Artigos sobre ${tag} — desenvolvimento web, TypeScript e mais por Douglas Moura.`
+      : `Articles about ${tag} — web development, TypeScript, and more by Douglas Moura.`;
+  const ogImageUrl = `${siteUrl}/api/v1/og?title=${encodeURIComponent(`${t("Posts tagged")} "${tag}"`)}`;
 
   return (
     <>
-      <title>
-        {`${t("Posts tagged")} &ldquo;{tag}&rdquo; | Douglas Moura`}
-      </title>
-      <meta
-        name="description"
-        content={`${t("Posts tagged")} "${tag}" | Douglas Moura`}
-      />
-      <link
-        rel="canonical"
-        href={
-          page === 1
-            ? `${siteUrl}${basePath}`
-            : `${siteUrl}${basePath}/page/${page}`
-        }
+      <PageSeo
+        title={title}
+        description={description}
+        url={canonicalUrl}
+        image={ogImageUrl}
       />
       {page > 1 && (
         <link

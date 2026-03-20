@@ -20,6 +20,7 @@ const translations = {
     "Last updated on": "Atualizado em",
     Next: "Próximo",
     "No results found": "Nenhum resultado encontrado",
+    Page: "Página",
     "Page not found": "Página não encontrada",
     Pagination: "Paginação",
     "Posts tagged": "Artigos com a tag",

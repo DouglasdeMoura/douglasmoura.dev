@@ -11,6 +11,22 @@ const escapeHtml = (str: string): string =>
     .replaceAll('"', "&quot;")
     .replaceAll("'", "&#39;");
 
+export const buildGenericOgHtml = (title: string, hostname: string): string =>
+  `<div style="display:flex;padding:60px;background-color:#141517;width:1686px;height:948px;font-family:Geist">
+  <div style="display:flex;align-items:flex-end;justify-content:space-between;height:100%;width:100%;position:relative">
+    <div style="display:flex;flex-direction:column;height:100%;width:100%;justify-content:space-between">
+      <div style="display:flex;flex-direction:column;position:absolute;top:0">
+        <div style="display:flex;font-size:92px;font-weight:700;color:#c1c2c5;line-height:1.4;max-width:98%">${escapeHtml(title)}</div>
+      </div>
+      <div style="display:flex;align-items:center;position:absolute;bottom:0;left:0;width:1566px">
+        <img src="${GRAVATAR_URL}" width="75" height="75" style="border-radius:50%" />
+        <span style="margin-left:16px;font-size:37px;font-weight:500;color:#4338ca;opacity:0.7">@douglasdemoura</span>
+        <span style="margin-left:auto;font-size:37px;font-weight:500;color:#4338ca;opacity:0.7">${escapeHtml(hostname)}</span>
+      </div>
+    </div>
+  </div>
+</div>`;
+
 export const buildOgHtml = (post: Post, hostname: string): string => {
   const displayTags = post.tags.slice(0, 4);
 

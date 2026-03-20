@@ -1,6 +1,6 @@
 import { ImageResponse } from "workers-og";
 
-import { buildOgHtml } from "#app/components/og-image.js";
+import { buildGenericOgHtml, buildOgHtml } from "#app/components/og-image.js";
 import type { Post } from "#app/lib/posts.js";
 
 const fontCache = new Map<string, ArrayBuffer>();
@@ -30,33 +30,37 @@ const loadGoogleFont = async (
   return buffer;
 };
 
+const loadFonts = (): Promise<[ArrayBuffer, ArrayBuffer]> =>
+  Promise.all([loadGoogleFont("Geist", 700), loadGoogleFont("Geist", 500)]);
+
+const ogFonts = (bold: ArrayBuffer, medium: ArrayBuffer) => [
+  { data: bold, name: "Geist", style: "normal" as const, weight: 700 },
+  { data: medium, name: "Geist", style: "normal" as const, weight: 500 },
+];
+
 export const generateOgImage = async (
   post: Post,
   siteUrl: string
 ): Promise<Response> => {
-  const [geistBold, geistMedium] = await Promise.all([
-    loadGoogleFont("Geist", 700),
-    loadGoogleFont("Geist", 500),
-  ]);
-
+  const [geistBold, geistMedium] = await loadFonts();
   const { hostname } = new URL(siteUrl);
-  const html = buildOgHtml(post, hostname);
 
-  return new ImageResponse(html, {
-    fonts: [
-      {
-        data: geistBold,
-        name: "Geist",
-        style: "normal" as const,
-        weight: 700,
-      },
-      {
-        data: geistMedium,
-        name: "Geist",
-        style: "normal" as const,
-        weight: 500,
-      },
-    ],
+  return new ImageResponse(buildOgHtml(post, hostname), {
+    fonts: ogFonts(geistBold, geistMedium),
+    height: 948,
+    width: 1686,
+  });
+};
+
+export const generateGenericOgImage = async (
+  title: string,
+  siteUrl: string
+): Promise<Response> => {
+  const [geistBold, geistMedium] = await loadFonts();
+  const { hostname } = new URL(siteUrl);
+
+  return new ImageResponse(buildGenericOgHtml(title, hostname), {
+    fonts: ogFonts(geistBold, geistMedium),
     height: 948,
     width: 1686,
   });

@@ -1,3 +1,4 @@
+import { PageSeo } from "#app/components/page-seo.js";
 import { PrefetchLink } from "#app/components/prefetch-link.js";
 import { formatDateShort, getLocale, t } from "#app/lib/i18n.js";
 import type { PaginatedPosts } from "#app/lib/posts.js";
@@ -55,17 +56,51 @@ interface HomeProps {
 export const Home = ({ data, siteUrl }: HomeProps) => {
   const { posts, page, totalPages } = data;
   const locale = getLocale();
+  const canonicalUrl = page === 1 ? siteUrl : `${siteUrl}/page/${page}`;
+  const title =
+    page === 1 ? "Douglas Moura" : `Douglas Moura — ${t("Page")} ${page}`;
+  const description = t(
+    "Software engineer writing about web development, TypeScript, and more."
+  );
+  const ogImageUrl = `${siteUrl}/api/v1/og?title=${encodeURIComponent("Douglas Moura")}`;
+
+  const jsonLd =
+    page === 1
+      ? [
+          {
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            name: "Douglas Moura",
+            potentialAction: {
+              "@type": "SearchAction",
+              "query-input": "required name=search_term_string",
+              target: `${siteUrl}/api/v1/search?q={search_term_string}`,
+            },
+            url: siteUrl,
+          },
+          {
+            "@context": "https://schema.org",
+            "@type": "Person",
+            jobTitle: "Software Engineer",
+            name: "Douglas Moura",
+            sameAs: [
+              "https://github.com/douglasdemoura",
+              "https://linkedin.com/in/dougmoura",
+              "https://x.com/douglasdemoura",
+            ],
+            url: siteUrl,
+          },
+        ]
+      : undefined;
 
   return (
     <>
-      <title>Douglas Moura</title>
-      <meta
-        name="description"
-        content={`${t("Software engineer writing about web development, TypeScript, and more.")}`}
-      />
-      <link
-        rel="canonical"
-        href={page === 1 ? siteUrl : `${siteUrl}/page/${page}`}
+      <PageSeo
+        title={title}
+        description={description}
+        url={canonicalUrl}
+        image={ogImageUrl}
+        jsonLd={jsonLd}
       />
       {page > 1 && (
         <link
@@ -79,9 +114,9 @@ export const Home = ({ data, siteUrl }: HomeProps) => {
 
       <section className="prose mx-auto py-10 px-4">
         {page === 1 && (
-          <p className="not-prose text-lg text-text -tracking-[0.01em] mt-0 mb-8 leading-relaxed">
+          <h1 className="not-prose text-lg font-normal text-text -tracking-[0.01em] mt-0 mb-8 leading-relaxed">
             {about[locale]}
-          </p>
+          </h1>
         )}
 
         <div className="not-prose">
