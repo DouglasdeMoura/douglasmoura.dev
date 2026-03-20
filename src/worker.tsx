@@ -30,7 +30,7 @@ import { About } from "#app/pages/about.js";
 import { Home } from "#app/pages/home.js";
 import { NotFound } from "#app/pages/not-found.js";
 import { Post } from "#app/pages/post.js";
-import { Privacy } from "#app/pages/privacy.js";
+// import { Privacy } from "#app/pages/privacy.js";
 import { SearchPage } from "#app/pages/search.js";
 import { TagPage } from "#app/pages/tag.js";
 import { Talks } from "#app/pages/talks.js";
@@ -192,7 +192,7 @@ export default defineApp([
       }),
       route("/about", () => <About />),
       route("/talks", () => <Talks />),
-      route("/privacy", () => <Privacy />),
+      // route("/privacy", () => <Privacy />),
       route("/tag/:tag", ({ params, response }) => {
         const rawParam = decodeURIComponent(params.tag);
         const slugged = slugifyTag(rawParam);
@@ -270,7 +270,7 @@ export default defineApp([
       }),
       route("/pt-BR/about", () => <About basePath="/pt-BR" />),
       route("/pt-BR/talks", () => <Talks basePath="/pt-BR" />),
-      route("/pt-BR/privacy", () => <Privacy basePath="/pt-BR" />),
+      // route("/pt-BR/privacy", () => <Privacy basePath="/pt-BR" />),
       route("/pt-BR/search", async ({ request }) => {
         const url = new URL(request.url);
         const q = url.searchParams.get("q")?.trim() ?? "";
