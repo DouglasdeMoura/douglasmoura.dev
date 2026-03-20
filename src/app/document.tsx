@@ -77,6 +77,18 @@ export const Document: React.FC<
           title="Douglas Moura (Português)"
           href="/pt-BR/feed.xml"
         />
+        <link
+          rel="alternate"
+          type="application/rss+xml"
+          title="Douglas Moura RSS (English)"
+          href="/en-US/rss.xml"
+        />
+        <link
+          rel="alternate"
+          type="application/rss+xml"
+          title="Douglas Moura RSS (Português)"
+          href="/pt-BR/rss.xml"
+        />
         <link rel="modulepreload" href="/src/client.tsx" />
       </head>
       <body className="bg-surface-0 text-text motion-safe:transition-colors motion-safe:duration-300 motion-safe:ease-[cubic-bezier(0.23,1,0.32,1)]">

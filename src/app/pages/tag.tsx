@@ -24,10 +24,12 @@ export const TagPage = ({
   const canonicalUrl =
     page === 1 ? `${siteUrl}${basePath}` : `${siteUrl}${basePath}/page/${page}`;
   const title = `${t("Posts tagged")} \u201C${tag}\u201D | Douglas Moura`;
-  const description =
+  const baseDescription =
     locale === "pt-BR"
       ? `Artigos sobre ${tag} — desenvolvimento web, TypeScript e mais por Douglas Moura.`
       : `Articles about ${tag} — web development, TypeScript, and more by Douglas Moura.`;
+  const description =
+    page > 1 ? `${baseDescription} — ${t("Page")} ${page}` : baseDescription;
   const ogImageUrl = `${siteUrl}/api/v1/og?title=${encodeURIComponent(`${t("Posts tagged")} "${tag}"`)}`;
 
   const enTagBase =

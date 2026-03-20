@@ -64,9 +64,11 @@ export const Home = ({ data, siteUrl, basePath = "" }: HomeProps) => {
     page === 1
       ? t("Douglas Moura — Software Engineer | Web Development Blog")
       : `${t("Web Development Articles")} — ${t("Page")} ${page} | Douglas Moura`;
-  const description = t(
+  const baseDescription = t(
     "Douglas Moura — Software Engineer in São Paulo. Articles about web development, TypeScript, React, and the things I learn along the way."
   );
+  const description =
+    page > 1 ? `${baseDescription} — ${t("Page")} ${page}` : baseDescription;
   const ogImageUrl = `${siteUrl}/api/v1/og?title=${encodeURIComponent("Douglas Moura")}`;
 
   const enBase = page === 1 ? siteUrl : `${siteUrl}/page/${page}`;

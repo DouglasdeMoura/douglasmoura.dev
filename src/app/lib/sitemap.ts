@@ -112,12 +112,14 @@ ${hreflangs}
     // EN tag entry
     tagEntries.push(`  <url>
     <loc>${siteUrl}${enPath}</loc>${lastmodStr ? `\n    <lastmod>${lastmodStr}</lastmod>` : ""}
+    <changefreq>weekly</changefreq>
     <priority>0.4</priority>
 ${hreflangs}
   </url>`);
     // PT-BR tag entry
     tagEntries.push(`  <url>
     <loc>${siteUrl}${ptPath}</loc>${lastmodStr ? `\n    <lastmod>${lastmodStr}</lastmod>` : ""}
+    <changefreq>weekly</changefreq>
     <priority>0.4</priority>
 ${hreflangs}
   </url>`);
