@@ -113,7 +113,7 @@ export const LocaleSwitch = ({
           })}
           <div className="border-t border-border mt-1 pt-1 px-3 py-1 flex items-center justify-between gap-4 text-xs text-text-muted/60 whitespace-nowrap">
             <span>{label}</span>
-            <Kbd keys={["Alt", "L"]} />
+            <Kbd keys={["Alt", "L"]} className="hidden md:inline-flex" />
           </div>
         </div>
       )}

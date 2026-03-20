@@ -27,14 +27,17 @@ const isMac = (): boolean => {
 
 interface KbdProps {
   keys: string[];
+  className?: string;
 }
 
-export const Kbd = ({ keys }: KbdProps) => {
+export const Kbd = ({ keys, className }: KbdProps) => {
   const mac = isMac();
   const symbols = mac ? MAC_SYMBOLS : OTHER_SYMBOLS;
 
   return (
-    <span className="inline-flex items-center gap-1">
+    <span
+      className={`inline-flex items-center gap-1${className ? ` ${className}` : ""}`}
+    >
       {keys.map((key) => (
         <kbd
           key={key}
