@@ -29,7 +29,7 @@ export const renderFootnotes = (html: string): string => {
     )
     .join("\n");
 
-  const section = `<section class="footnotes" role="doc-endnotes">\n<hr>\n<ol>\n${items}\n</ol>\n</section>`;
+  const section = `<section class="footnotes" role="region" aria-label="Footnotes">\n<hr>\n<ol>\n${items}\n</ol>\n</section>`;
 
   return `${processed}\n${section}`;
 };
