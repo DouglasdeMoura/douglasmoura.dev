@@ -19,6 +19,7 @@
       "purpose": "maskable"
     }
   ],
+  "description": "Articles on web development, TypeScript, React, and more by Douglas Moura.",
   "start_url": "/",
   "theme_color": "#161614",
   "background_color": "#161614",

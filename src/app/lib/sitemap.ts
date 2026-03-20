@@ -125,23 +125,22 @@ export const generateSitemap = (siteUrl: string): Response => {
       : new Date().toISOString().split("T")[0];
 
   // Static page pairs: EN path ↔ PT-BR path
+  // Only the homepage lastmod tracks the latest post; other pages omit lastmod
+  // since we cannot determine their actual modification date at build time.
   const staticPagePairs = [
     { enPath: "/", lastmod: latestPostDate, priority: "1.0", ptPath: "/pt-BR" },
     {
       enPath: "/about",
-      lastmod: latestPostDate,
       priority: "0.8",
       ptPath: "/pt-BR/about",
     },
     {
       enPath: "/talks",
-      lastmod: latestPostDate,
       priority: "0.7",
       ptPath: "/pt-BR/talks",
     },
     {
       enPath: "/privacy",
-      lastmod: latestPostDate,
       priority: "0.3",
       ptPath: "/pt-BR/privacy",
     },
