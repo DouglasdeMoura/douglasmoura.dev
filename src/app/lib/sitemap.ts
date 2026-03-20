@@ -2,6 +2,7 @@ import {
   getAllPosts,
   getPostAlternates,
   getTagsByLocale,
+  slugifyTag,
 } from "#app/lib/posts.js";
 import type { PostAlternate } from "#app/lib/posts.js";
 
@@ -74,9 +75,9 @@ const buildTagEntries = (
   const entries: string[] = [];
 
   for (const tag of [...allTagNames].toSorted()) {
-    const encodedTag = escapeXml(encodeURIComponent(tag));
-    const enPath = `/tag/${encodedTag}`;
-    const ptPath = `/pt-BR/tag/${encodedTag}`;
+    const tagSlug = slugifyTag(tag);
+    const enPath = `/tag/${tagSlug}`;
+    const ptPath = `/pt-BR/tag/${tagSlug}`;
     const hasEn = enTags.has(tag);
     const hasPt = ptTags.has(tag);
     const hreflangs = tagHreflangs(siteUrl, enPath, ptPath, hasEn, hasPt);

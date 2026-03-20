@@ -3,6 +3,7 @@ import { PageSeo } from "#app/components/page-seo.js";
 import { PrefetchLink } from "#app/components/prefetch-link.js";
 import { TagLink } from "#app/components/tag-link.js";
 import { formatDate, getLocale, t } from "#app/lib/i18n.js";
+import { slugifyTag } from "#app/lib/posts.js";
 import type { PaginatedPosts } from "#app/lib/posts.js";
 
 interface TagPageProps {
@@ -20,7 +21,7 @@ export const TagPage = ({
 }: TagPageProps) => {
   const { posts, page, totalPages } = data;
   const locale = getLocale();
-  const tagPath = `/tag/${encodeURIComponent(tag)}`;
+  const tagPath = `/tag/${slugifyTag(tag)}`;
   const basePath = `${localePrefix}${tagPath}`;
   const canonicalUrl =
     page === 1 ? `${siteUrl}${basePath}` : `${siteUrl}${basePath}/page/${page}`;
