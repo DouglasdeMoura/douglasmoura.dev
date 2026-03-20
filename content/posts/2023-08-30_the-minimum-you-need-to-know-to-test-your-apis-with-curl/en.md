@@ -3,7 +3,7 @@ title: The minimum you need to know to test your APIs with CURL
 slug: the-minimum-you-need-to-know-to-test-your-apis-with-curl
 locale: en-US
 created: 2023-08-30 18:41:29.529Z
-updated: 2024-06-02 00:25:38.664Z
+updated: 2026-03-20 19:14:33.000Z
 tags:
   - curl
   - API
@@ -73,4 +73,4 @@ Julia Evans published a few exercises to help you become fluent in curl. It shou
 
 ## References
 
-- [curl manpage](https://manpages.ubuntu.com/manpages/lunar/en/man1/curl.1.html)
+- [curl manpage](https://curl.se/docs/manpage.html)

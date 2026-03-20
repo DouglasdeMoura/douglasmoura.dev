@@ -3,7 +3,7 @@ title: Ano novo, blog novo (ou como eu criei este blog para 2023)
 slug: ano-novo-blog-novo-ou-como-eu-criei-este-blog-para-2023
 locale: pt-BR
 created: 2023-01-01 16:34:44.490Z
-updated: 2023-08-12 13:34:51.667Z
+updated: 2026-03-20 19:14:33.000Z
 tags:
   - webdev
   - programming
@@ -72,7 +72,7 @@ adianto que você pode ter uma prévia da funcionalidade apertando a tecla <kbd>
 qualquer página.
 
 E, para finalizar, no dia 21 de janeiro eu vou mostrar como criar um design system
-com React e Tailwind na [Conferência CSS Brasil](https://conferenciacssbrasil.com.br/).
+com React e Tailwind na [Conferência CSS Brasil](https://web.archive.org/web/2023/https://conferenciacssbrasil.com.br/).
 Então, se você estiver por lá, te convido a tomar uma cerveja comigo depois do evento :)
 
 Feliz 2023 a todos 🎉.
