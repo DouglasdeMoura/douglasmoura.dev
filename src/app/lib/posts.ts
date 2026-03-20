@@ -1,3 +1,4 @@
+import slugify from "@sindresorhus/slugify";
 import matter from "gray-matter";
 
 const modules = import.meta.glob("/content/posts/**/*.md", {
@@ -150,6 +151,29 @@ export const getTagsByLocale = (
   }
   return tagCounts;
 };
+
+/** Convert a tag display name to a URL-safe slug. */
+export const slugifyTag = (tag: string): string => slugify(tag);
+
+/**
+ * Reverse lookup: given a slugified tag, return the original display name.
+ * When multiple tags produce the same slug (e.g., "javascript" and "JavaScript"),
+ * the first one encountered wins — which is fine because getPostsByTag is
+ * already case-insensitive.
+ */
+const tagSlugMap = new Map<string, string>();
+for (const post of postsBySlug.values()) {
+  for (const tag of post.tags) {
+    const slug = slugifyTag(tag);
+    if (!tagSlugMap.has(slug)) {
+      tagSlugMap.set(slug, tag);
+    }
+  }
+}
+
+/** Resolve a URL slug back to its original tag display name. */
+export const getTagBySlug = (slug: string): string | undefined =>
+  tagSlugMap.get(slug);
 
 const POSTS_PER_PAGE = 12;
 
