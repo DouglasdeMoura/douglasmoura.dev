@@ -54,38 +54,6 @@ const resolveTheme = (request: Request): ResolvedTheme => {
   return { explicit: false, theme: "system" };
 };
 
-/** Render a blog post (shared between EN and PT-BR slug routes). */
-const renderPost = async (params: { slug: string }, request: Request) => {
-  const post = getPostBySlug(params.slug);
-  if (!post) {
-    return <NotFound />;
-  }
-  const accept = request.headers.get("Accept") ?? "";
-  if (accept.includes("text/markdown")) {
-    return markdownResponse(post);
-  }
-  const rendered = await renderMarkdown(post.body);
-  const html = resolvePostImages(rendered.html, post.images);
-  const readingTime = getReadingTime(post.body);
-  const tweets = await Promise.all(
-    rendered.tweetIds.map((id) => fetchTweetData(id))
-  );
-  const howToSchema = buildHowToSchema(post, SITE_URL);
-  const { body: _, images: __, ...postWithoutBody } = post;
-  const adjacent = getAdjacentPosts(post.slug, post.locale);
-  return (
-    <Post
-      post={postWithoutBody}
-      html={html}
-      hasMath={rendered.hasMath}
-      adjacent={adjacent}
-      readingTime={readingTime}
-      tweets={tweets}
-      howToSchema={howToSchema}
-    />
-  );
-};
-
 export default defineApp([
   setCommonHeaders(),
   // Legacy locale-switch redirect (EN): set cookie and redirect to root
@@ -304,10 +272,36 @@ export default defineApp([
       }),
 
       // ── Blog post (catch-all) ──
-      /* oxlint-disable-next-line eslint(require-await) -- rwsdk requires async handlers for layout wrapping */
-      route("/:slug", async ({ params, request }) =>
-        renderPost(params, request)
-      ),
+      route("/:slug", async ({ params, request }) => {
+        const post = getPostBySlug(params.slug);
+        if (!post) {
+          return <NotFound />;
+        }
+        const accept = request.headers.get("Accept") ?? "";
+        if (accept.includes("text/markdown")) {
+          return markdownResponse(post);
+        }
+        const rendered = await renderMarkdown(post.body);
+        const html = resolvePostImages(rendered.html, post.images);
+        const readingTime = getReadingTime(post.body);
+        const tweets = await Promise.all(
+          rendered.tweetIds.map((id) => fetchTweetData(id))
+        );
+        const howToSchema = buildHowToSchema(post, SITE_URL);
+        const { body: _, images: __, ...postWithoutBody } = post;
+        const adjacent = getAdjacentPosts(post.slug, post.locale);
+        return (
+          <Post
+            post={postWithoutBody}
+            html={html}
+            hasMath={rendered.hasMath}
+            adjacent={adjacent}
+            readingTime={readingTime}
+            tweets={tweets}
+            howToSchema={howToSchema}
+          />
+        );
+      }),
     ])
   ),
 ]);
