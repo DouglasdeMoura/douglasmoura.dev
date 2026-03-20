@@ -21,6 +21,7 @@ export const Document: React.FC<
       lang={appCtx.locale === "pt-BR" ? "pt-BR" : "en-US"}
       data-theme={theme}
       className={theme === "dark" ? "dark" : undefined}
+      suppressHydrationWarning
     >
       <head>
         <meta charSet="utf-8" />
