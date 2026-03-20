@@ -1,4 +1,8 @@
-import { getAllPosts, getAllTags, getPostAlternates } from "#app/lib/posts.js";
+import {
+  getAllPosts,
+  getPostAlternates,
+  getTagsByLocale,
+} from "#app/lib/posts.js";
 import type { PostAlternate } from "#app/lib/posts.js";
 
 const escapeXml = (str: string): string =>
@@ -39,6 +43,73 @@ const staticAlternateLinks = (
     `    <xhtml:link rel="alternate" hreflang="pt-BR" href="${siteUrl}${ptPath}" />`,
     `    <xhtml:link rel="alternate" hreflang="x-default" href="${siteUrl}${enPath}" />`,
   ].join("\n");
+
+interface TagLocaleInfo {
+  enTags: Map<string, number>;
+  ptTags: Map<string, number>;
+  tagLastmod: Map<string, Map<string, string>>;
+}
+
+const tagHreflangs = (
+  siteUrl: string,
+  enPath: string,
+  ptPath: string,
+  hasEn: boolean,
+  hasPt: boolean
+): string => {
+  if (hasEn && hasPt) {
+    return staticAlternateLinks(siteUrl, enPath, ptPath);
+  }
+  if (hasEn) {
+    return `    <xhtml:link rel="alternate" hreflang="en-US" href="${siteUrl}${enPath}" />\n    <xhtml:link rel="alternate" hreflang="x-default" href="${siteUrl}${enPath}" />`;
+  }
+  return `    <xhtml:link rel="alternate" hreflang="pt-BR" href="${siteUrl}${ptPath}" />`;
+};
+
+const buildTagEntries = (
+  siteUrl: string,
+  { enTags, ptTags, tagLastmod }: TagLocaleInfo
+): string[] => {
+  const allTagNames = new Set([...enTags.keys(), ...ptTags.keys()]);
+  const entries: string[] = [];
+
+  for (const tag of [...allTagNames].toSorted()) {
+    const encodedTag = escapeXml(encodeURIComponent(tag));
+    const enPath = `/tag/${encodedTag}`;
+    const ptPath = `/pt-BR/tag/${encodedTag}`;
+    const hasEn = enTags.has(tag);
+    const hasPt = ptTags.has(tag);
+    const hreflangs = tagHreflangs(siteUrl, enPath, ptPath, hasEn, hasPt);
+
+    if (hasEn) {
+      const lastmod = tagLastmod.get(tag)?.get("en-US");
+      const lastmodStr = lastmod
+        ? new Date(lastmod).toISOString().split("T")[0]
+        : undefined;
+      entries.push(`  <url>
+    <loc>${siteUrl}${enPath}</loc>${lastmodStr ? `\n    <lastmod>${lastmodStr}</lastmod>` : ""}
+    <changefreq>weekly</changefreq>
+    <priority>0.4</priority>
+${hreflangs}
+  </url>`);
+    }
+
+    if (hasPt) {
+      const lastmod = tagLastmod.get(tag)?.get("pt-BR");
+      const lastmodStr = lastmod
+        ? new Date(lastmod).toISOString().split("T")[0]
+        : undefined;
+      entries.push(`  <url>
+    <loc>${siteUrl}${ptPath}</loc>${lastmodStr ? `\n    <lastmod>${lastmodStr}</lastmod>` : ""}
+    <changefreq>weekly</changefreq>
+    <priority>0.4</priority>
+${hreflangs}
+  </url>`);
+    }
+  }
+
+  return entries;
+};
 
 export const generateSitemap = (siteUrl: string): Response => {
   const posts = getAllPosts().toSorted(
@@ -86,44 +157,27 @@ ${hreflangs}
   </url>`);
   }
 
-  const tags = getAllTags();
-  const tagLastmod = new Map<string, string>();
+  const tagLastmod = new Map<string, Map<string, string>>();
   for (const post of posts) {
     for (const tag of post.tags) {
       const postDate = post.updated || post.created;
-      const existing = tagLastmod.get(tag);
+      let localeMap = tagLastmod.get(tag);
+      if (!localeMap) {
+        localeMap = new Map();
+        tagLastmod.set(tag, localeMap);
+      }
+      const existing = localeMap.get(post.locale);
       if (!existing || postDate > existing) {
-        tagLastmod.set(tag, postDate);
+        localeMap.set(post.locale, postDate);
       }
     }
   }
 
-  const tagEntries: string[] = [];
-  for (const tag of [...tags.keys()].toSorted()) {
-    const lastmod = tagLastmod.get(tag);
-    const lastmodStr = lastmod
-      ? new Date(lastmod).toISOString().split("T")[0]
-      : undefined;
-    const encodedTag = escapeXml(encodeURIComponent(tag));
-    const enPath = `/tag/${encodedTag}`;
-    const ptPath = `/pt-BR/tag/${encodedTag}`;
-    const hreflangs = staticAlternateLinks(siteUrl, enPath, ptPath);
-
-    // EN tag entry
-    tagEntries.push(`  <url>
-    <loc>${siteUrl}${enPath}</loc>${lastmodStr ? `\n    <lastmod>${lastmodStr}</lastmod>` : ""}
-    <changefreq>weekly</changefreq>
-    <priority>0.4</priority>
-${hreflangs}
-  </url>`);
-    // PT-BR tag entry
-    tagEntries.push(`  <url>
-    <loc>${siteUrl}${ptPath}</loc>${lastmodStr ? `\n    <lastmod>${lastmodStr}</lastmod>` : ""}
-    <changefreq>weekly</changefreq>
-    <priority>0.4</priority>
-${hreflangs}
-  </url>`);
-  }
+  const tagEntries = buildTagEntries(siteUrl, {
+    enTags: getTagsByLocale("en-US"),
+    ptTags: getTagsByLocale("pt-BR"),
+    tagLastmod,
+  });
 
   const postEntries = posts.map((post) => {
     const alternates = getPostAlternates(post.slug);

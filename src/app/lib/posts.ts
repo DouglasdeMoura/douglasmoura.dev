@@ -136,6 +136,21 @@ export const getAllTags = (): Map<string, number> => {
   return tagCounts;
 };
 
+export const getTagsByLocale = (
+  locale: Post["locale"]
+): Map<string, number> => {
+  const tagCounts = new Map<string, number>();
+  for (const post of postsBySlug.values()) {
+    if (post.locale !== locale) {
+      continue;
+    }
+    for (const tag of post.tags) {
+      tagCounts.set(tag, (tagCounts.get(tag) ?? 0) + 1);
+    }
+  }
+  return tagCounts;
+};
+
 const POSTS_PER_PAGE = 12;
 
 const sortedPosts = getAllPosts().toSorted(
