@@ -67,17 +67,15 @@ export const PostSeo = ({
           href={`${siteUrl}/${alt.slug}`}
         />
       ))}
-      {alternates.length > 0 && (
-        <link
-          rel="alternate"
-          hrefLang="x-default"
-          href={
-            post.locale === "en-US"
-              ? canonicalUrl
-              : `${siteUrl}/${alternates.find((a) => a.locale === "en-US")?.slug ?? post.slug}`
-          }
-        />
-      )}
+      <link
+        rel="alternate"
+        hrefLang="x-default"
+        href={
+          post.locale === "en-US"
+            ? canonicalUrl
+            : `${siteUrl}/${alternates.find((a) => a.locale === "en-US")?.slug ?? post.slug}`
+        }
+      />
 
       <meta property="og:title" content={post.title} />
       <meta property="og:description" content={post.description} />

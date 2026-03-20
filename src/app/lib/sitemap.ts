@@ -20,7 +20,12 @@ const alternateLinks = (
     (alt) =>
       `    <xhtml:link rel="alternate" hreflang="${alt.locale}" href="${siteUrl}/${escapeXml(alt.slug)}" />`
   );
-  return [self, ...alts].join("\n");
+  const enSlug =
+    locale === "en-US"
+      ? slug
+      : (alternates.find((a) => a.locale === "en-US")?.slug ?? slug);
+  const xDefault = `    <xhtml:link rel="alternate" hreflang="x-default" href="${siteUrl}/${escapeXml(enSlug)}" />`;
+  return [self, ...alts, xDefault].join("\n");
 };
 
 /** Build hreflang links for a pair of EN/PT-BR static page URLs. */
@@ -50,8 +55,18 @@ export const generateSitemap = (siteUrl: string): Response => {
   // Static page pairs: EN path ↔ PT-BR path
   const staticPagePairs = [
     { enPath: "/", lastmod: latestPostDate, priority: "1.0", ptPath: "/pt-BR" },
-    { enPath: "/about", priority: "0.8", ptPath: "/pt-BR/about" },
-    { enPath: "/talks", priority: "0.7", ptPath: "/pt-BR/talks" },
+    {
+      enPath: "/about",
+      lastmod: latestPostDate,
+      priority: "0.8",
+      ptPath: "/pt-BR/about",
+    },
+    {
+      enPath: "/talks",
+      lastmod: latestPostDate,
+      priority: "0.7",
+      ptPath: "/pt-BR/talks",
+    },
   ];
 
   const staticEntries: string[] = [];
@@ -110,14 +125,18 @@ ${hreflangs}
 
   const postEntries = posts.map((post) => {
     const alternates = getPostAlternates(post.slug);
-    const hasAlternates = alternates.length > 0;
     const lastmod = post.updated || post.created;
+    const hreflangs =
+      alternates.length > 0
+        ? alternateLinks(siteUrl, post.slug, post.locale, alternates)
+        : `    <xhtml:link rel="alternate" hreflang="${post.locale}" href="${siteUrl}/${escapeXml(post.slug)}" />\n    <xhtml:link rel="alternate" hreflang="x-default" href="${siteUrl}/${escapeXml(post.slug)}" />`;
 
     return `  <url>
     <loc>${siteUrl}/${escapeXml(post.slug)}</loc>
     <lastmod>${new Date(lastmod).toISOString().split("T")[0]}</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.6</priority>${hasAlternates ? `\n${alternateLinks(siteUrl, post.slug, post.locale, alternates)}` : ""}
+    <priority>0.6</priority>
+${hreflangs}
   </url>`;
   });
 
