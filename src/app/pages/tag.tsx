@@ -27,8 +27,8 @@ export const TagPage = ({
   const title = `${t("Posts tagged")} \u201C${tag}\u201D | Douglas Moura`;
   const baseDescription =
     locale === "pt-BR"
-      ? `Artigos sobre ${tag} — desenvolvimento web, TypeScript e mais por Douglas Moura.`
-      : `Articles about ${tag} — web development, TypeScript, and more by Douglas Moura.`;
+      ? `Artigos e tutoriais sobre ${tag}. Guias práticos de desenvolvimento web, TypeScript, React e engenharia de software por Douglas Moura.`
+      : `Articles and tutorials about ${tag}. Practical guides on web development, TypeScript, React, and software engineering by Douglas Moura.`;
   const description =
     page > 1 ? `${baseDescription} — ${t("Page")} ${page}` : baseDescription;
   const ogImageUrl = `${siteUrl}/api/v1/og?title=${encodeURIComponent(`${t("Posts tagged")} "${tag}"`)}`;

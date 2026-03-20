@@ -59,7 +59,7 @@ export const About = ({ basePath = "" }: AboutProps) => {
       <PageSeo
         title={title}
         description={t(
-          "Douglas Moura is a software engineer in São Paulo. From civil engineering to software — building design systems, banking apps, AI agents, and healthcare solutions."
+          "Douglas Moura is a software engineer in São Paulo. Building design systems, banking apps, AI agents, and healthcare solutions."
         )}
         url={canonicalUrl}
         type="profile"

@@ -14,8 +14,8 @@ const translations = {
     Breadcrumbs: "Navegação estrutural",
     "Conference talks and presentations by Douglas Moura on web development, TypeScript, React, and software engineering at events across Brazil.":
       "Palestras e apresentações de Douglas Moura sobre desenvolvimento web, TypeScript, React e engenharia de software em eventos pelo Brasil.",
-    "Douglas Moura is a software engineer in São Paulo. From civil engineering to software — building design systems, banking apps, AI agents, and healthcare solutions.":
-      "Douglas Moura é engenheiro de software em São Paulo. Da engenharia civil ao software — construindo design systems, apps bancários, agentes de IA e soluções de saúde.",
+    "Douglas Moura is a software engineer in São Paulo. Building design systems, banking apps, AI agents, and healthcare solutions.":
+      "Douglas Moura é engenheiro de software em São Paulo. Construindo design systems, apps bancários, agentes de IA e soluções de saúde.",
     "Douglas Moura — Software Engineer in São Paulo. Articles about web development, TypeScript, React, and the things I learn along the way.":
       "Douglas Moura — Engenheiro de Software em São Paulo. Artigos sobre desenvolvimento web, TypeScript, React e as coisas que aprendo no caminho.",
     "Douglas Moura — Software Engineer | Web Development Blog":
