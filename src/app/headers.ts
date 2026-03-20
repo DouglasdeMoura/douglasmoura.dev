@@ -17,6 +17,9 @@ export const setCommonHeaders =
     // Stops browsers from sending the referring webpage URL in HTTP headers
     response.headers.set("Referrer-Policy", "strict-origin-when-cross-origin");
 
+    // Backward-compat frame-embedding restriction (supplements CSP frame-ancestors)
+    response.headers.set("X-Frame-Options", "SAMEORIGIN");
+
     // Explicitly disables access to specific browser features/APIs
     response.headers.set(
       "Permissions-Policy",
@@ -27,6 +30,6 @@ export const setCommonHeaders =
     // unsafe-eval required: react-server-dom-webpack uses eval in the worker bundle.
     response.headers.set(
       "Content-Security-Policy",
-      `default-src 'self'; script-src 'self' 'unsafe-eval' 'nonce-${nonce}' https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://www.gravatar.com https://github.com https://www.github.com https://avatars.githubusercontent.com dev-to-uploads.s3.amazonaws.com https://pocketbase.douglasmoura.dev https://pbs.twimg.com https://abs.twimg.com; frame-ancestors 'self'; frame-src 'self' https://challenges.cloudflare.com https://codepen.io https://stackblitz.com; object-src 'none';`
+      `default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline' 'nonce-${nonce}' https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://www.gravatar.com https://github.com https://www.github.com https://avatars.githubusercontent.com https://dev-to-uploads.s3.amazonaws.com https://pocketbase.douglasmoura.dev https://pbs.twimg.com https://abs.twimg.com; frame-ancestors 'self'; frame-src 'self' https://challenges.cloudflare.com https://codepen.io https://stackblitz.com; object-src 'none';`
     );
   };
