@@ -20,7 +20,16 @@ export const PostSeo = ({
     {
       "@context": "https://schema.org",
       "@type": "BlogPosting",
-      author: { "@type": "Person", name: "Douglas Moura", url: siteUrl },
+      author: {
+        "@type": "Person",
+        name: "Douglas Moura",
+        sameAs: [
+          "https://github.com/douglasdemoura",
+          "https://linkedin.com/in/dougmoura",
+          "https://x.com/douglasdemoura",
+        ],
+        url: siteUrl,
+      },
       datePublished: post.created,
       ...(post.updated && { dateModified: post.updated }),
       description: post.description,
@@ -29,7 +38,15 @@ export const PostSeo = ({
       inLanguage: post.locale,
       ...(post.tags.length > 0 && { keywords: post.tags.join(", ") }),
       mainEntityOfPage: { "@id": canonicalUrl, "@type": "WebPage" },
-      publisher: { "@type": "Person", name: "Douglas Moura" },
+      publisher: {
+        "@type": "Person",
+        logo: {
+          "@type": "ImageObject",
+          url: `${siteUrl}/android-chrome-512x512.png`,
+        },
+        name: "Douglas Moura",
+        url: siteUrl,
+      },
     },
     {
       "@context": "https://schema.org",
