@@ -21,6 +21,11 @@
       "sourceType": "github",
       "computedHash": "6a21ad67b348273d57576e01157e6d5b572a42938936177e2d9cd219b0233788"
     },
+    "audit-website": {
+      "source": "squirrelscan/skills",
+      "sourceType": "github",
+      "computedHash": "2c060290f90340e8bb6009502ec936b8ebb3ff889332a43e24bf210528ebba9f"
+    },
     "bolder": {
       "source": "pbakaus/impeccable",
       "sourceType": "github",
