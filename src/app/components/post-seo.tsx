@@ -57,6 +57,7 @@ export const PostSeo = ({
       <title>{`${post.title} | Douglas Moura`}</title>
       <meta name="description" content={post.description} />
       <link rel="canonical" href={canonicalUrl} />
+      <meta name="robots" content="max-image-preview:large" />
       <link rel="alternate" type="text/markdown" href={`${canonicalUrl}.md`} />
       <link rel="alternate" hrefLang={post.locale} href={canonicalUrl} />
       {alternates.map((alt) => (
@@ -93,6 +94,8 @@ export const PostSeo = ({
       <meta property="og:image" content={ogImageUrl} />
       <meta property="og:image:width" content="1686" />
       <meta property="og:image:height" content="948" />
+      <meta property="og:image:alt" content={post.title} />
+      <meta property="og:image:type" content="image/png" />
 
       <meta property="article:published_time" content={post.created} />
       {post.updated && (
@@ -107,6 +110,7 @@ export const PostSeo = ({
       <meta name="twitter:title" content={post.title} />
       <meta name="twitter:description" content={post.description} />
       <meta name="twitter:creator" content="@douglasdemoura" />
+      <meta name="twitter:site" content="@douglasdemoura" />
       <meta name="twitter:image" content={ogImageUrl} />
 
       <script

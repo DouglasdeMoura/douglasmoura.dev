@@ -39,8 +39,8 @@ export const SearchPage = ({
         description={title}
         url={canonicalUrl}
         alternates={alternates}
+        robots="noindex"
       />
-      <meta name="robots" content="noindex" />
 
       <section className="prose mx-auto py-10">
         <header className="not-prose mb-8 px-4">

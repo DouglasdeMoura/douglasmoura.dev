@@ -11,6 +11,7 @@ interface PageSeoProps {
   url: string;
   type?: string;
   image?: string;
+  robots?: string;
   jsonLd?: Record<string, unknown> | Record<string, unknown>[];
   alternates?: HrefLangAlternate[];
 }
@@ -21,6 +22,7 @@ export const PageSeo = ({
   url,
   type = "website",
   image,
+  robots = "max-image-preview:large",
   jsonLd,
   alternates,
 }: PageSeoProps) => {
@@ -32,6 +34,7 @@ export const PageSeo = ({
       <title>{title}</title>
       <meta name="description" content={description} />
       <link rel="canonical" href={url} />
+      <meta name="robots" content={robots} />
       {alternates && alternates.length > 0 ? (
         alternates.map((alt) => (
           <link
@@ -60,6 +63,8 @@ export const PageSeo = ({
           <meta property="og:image" content={image} />
           <meta property="og:image:width" content="1686" />
           <meta property="og:image:height" content="948" />
+          <meta property="og:image:alt" content={title} />
+          <meta property="og:image:type" content="image/png" />
         </>
       )}
 
@@ -70,6 +75,7 @@ export const PageSeo = ({
       <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={description} />
       <meta name="twitter:creator" content="@douglasdemoura" />
+      <meta name="twitter:site" content="@douglasdemoura" />
       {image && <meta name="twitter:image" content={image} />}
 
       {jsonLd && (
