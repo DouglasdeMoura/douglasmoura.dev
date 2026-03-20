@@ -123,6 +123,16 @@ const extractTweets = (
   return { html: replaced, tweetIds };
 };
 
+const EXTERNAL_LINK_RE = /<a\s+href="(https?:\/\/[^"]+)"/g;
+
+const addExternalLinkAttrs = (markup: string): string =>
+  markup.replaceAll(EXTERNAL_LINK_RE, (match, href: string) => {
+    if (href.includes("douglasmoura.dev")) {
+      return match;
+    }
+    return `<a href="${href}" target="_blank" rel="noopener noreferrer"`;
+  });
+
 export const renderMarkdown = async (
   md: string
 ): Promise<{ hasMath: boolean; html: string; tweetIds: string[] }> => {
@@ -169,5 +179,6 @@ export const renderMarkdown = async (
 
   const { hasMath, html: mathHtml } = renderMathInHtml(raw);
   const { html: tweetHtml, tweetIds } = extractTweets(mathHtml);
-  return { hasMath, html: renderFootnotes(tweetHtml), tweetIds };
+  const finalHtml = addExternalLinkAttrs(renderFootnotes(tweetHtml));
+  return { hasMath, html: finalHtml, tweetIds };
 };
