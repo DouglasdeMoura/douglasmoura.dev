@@ -18,13 +18,14 @@ export const Document: React.FC<
 
   return (
     <html
-      lang={appCtx.locale === "pt-BR" ? "pt-BR" : "en"}
+      lang={appCtx.locale === "pt-BR" ? "pt-BR" : "en-US"}
       data-theme={theme}
       className={theme === "dark" ? "dark" : undefined}
     >
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="robots" content="max-image-preview:large" />
         <link
           rel="preload"
           href="/fonts/Geist-Variable.woff2"
@@ -63,12 +64,6 @@ export const Document: React.FC<
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <link rel="manifest" href="/site.webmanifest" />
         <link rel="author" href="/humans.txt" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossOrigin="anonymous"
-        />
         <link rel="stylesheet" href={styles} />
         <link
           rel="alternate"
