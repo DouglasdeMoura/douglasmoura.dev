@@ -67,3 +67,6 @@ coverage
 .wrangler
 
 tmp
+
+# autoimprove logs
+.autoimprove/

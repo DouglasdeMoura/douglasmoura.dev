@@ -1,0 +1,498 @@
+#!/usr/bin/env bash
+# ═══════════════════════════════════════════════════════════════════════
+# autoimprove — Autonomous blog improvement loop
+# Inspired by karpathy/autoresearch
+#
+# Uses: gum (UI), squirrel (audit), claude (AI fixes), git (versioning)
+#
+# The loop:
+#   1. Audit the site with squirrelscan
+#   2. Feed issues to Claude Code
+#   3. Claude fixes ONE issue
+#   4. Validate (lint + types)
+#   5. Re-audit → keep if score improved, discard if not
+#   6. Repeat
+#
+# Usage:
+#   ./autoimprove/run [options]
+#   ./autoimprove/run --tag mar20 --iterations 100
+#   ./autoimprove/run --url https://douglasmoura.dev --no-server
+#
+# ═══════════════════════════════════════════════════════════════════════
+set -euo pipefail
+
+# ── Defaults ────────────────────────────────────────────────────────
+TAG="$(date +%b%d | tr '[:upper:]' '[:lower:]')"
+URL="http://localhost:5173"
+ITERS=50
+ITER_TIMEOUT=600
+START_SERVER=true
+CLAUDE_MODEL=""
+# Resolve paths relative to this script's directory
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+PROGRAM="${SCRIPT_DIR}/program.md"
+
+# ── Runtime state ───────────────────────────────────────────────────
+DEV_PID=""
+LOGD=""
+TSV=""
+HAS_SQUIRREL=false
+
+# ── UI (gum) ───────────────────────────────────────────────────────
+banner() {
+  echo ""
+  gum style --border double --padding "0 2" --border-foreground 212 --bold "$@"
+  echo ""
+}
+
+step()  { gum log --level info "$*"; }
+ok()    { gum log --level info "$*"; }
+warn()  { gum log --level warn "$*"; }
+fail()  { gum log --level error "$*"; }
+
+divider() {
+  gum style --foreground 240 "$(printf '%.0s─' {1..60})"
+}
+
+# ── Usage ──────────────────────────────────────────────────────────
+usage() {
+  cat <<'EOF'
+autoimprove — Autonomous blog improvement loop
+
+Usage: ./autoimprove/run [options]
+
+Options:
+  --tag NAME          Run tag for branch naming (default: date, e.g. "mar20")
+  --url URL           Site URL to audit (default: http://localhost:5173)
+  -n, --iterations N  Max iterations (default: 50)
+  --no-server         Don't start a local dev server (use with remote URL)
+  --timeout SECS      Per-iteration timeout in seconds (default: 600)
+  --model MODEL       Claude model to use (e.g. "sonnet", "opus")
+  -h, --help          Show this help
+
+Environment variables:
+  SITE_URL            Override site URL
+  CLAUDE_EXTRA_ARGS   Extra arguments for the claude CLI
+
+Examples:
+  ./autoimprove/run                                        # Run with defaults
+  ./autoimprove/run --tag experiment1 -n 100               # Custom tag, 100 iterations
+  ./autoimprove/run --url https://example.com --no-server  # Audit remote site
+EOF
+}
+
+# ── Parse arguments ────────────────────────────────────────────────
+while (( $# )); do
+  case $1 in
+    --tag)          TAG="$2"; shift 2 ;;
+    --url)          URL="$2"; shift 2 ;;
+    -n|--iterations) ITERS="$2"; shift 2 ;;
+    --no-server)    START_SERVER=false; shift ;;
+    --timeout)      ITER_TIMEOUT="$2"; shift 2 ;;
+    --model)        CLAUDE_MODEL="$2"; shift 2 ;;
+    -h|--help)      usage; exit 0 ;;
+    *)              fail "Unknown option: $1"; usage; exit 1 ;;
+  esac
+done
+
+# Allow SITE_URL env var to override
+URL="${SITE_URL:-$URL}"
+
+# ── Check dependencies ─────────────────────────────────────────────
+check_deps() {
+  local missing=()
+  for cmd in gum claude git pnpm curl bc; do
+    command -v "$cmd" &>/dev/null || missing+=("$cmd")
+  done
+  if (( ${#missing[@]} )); then
+    fail "Missing dependencies: ${missing[*]}"
+    echo "  Install gum:     https://github.com/charmbracelet/gum#installation"
+    echo "  Install claude:   npm install -g @anthropic-ai/claude-code"
+    echo "  Install squirrel: https://squirrelscan.com"
+    exit 1
+  fi
+
+  if command -v squirrel &>/dev/null; then
+    HAS_SQUIRREL=true
+  else
+    warn "squirrel CLI not found — running without audit scores (lint/types only)"
+  fi
+
+  if [[ ! -f "$PROGRAM" ]]; then
+    fail "Missing ${PROGRAM} — this file contains agent instructions"
+    exit 1
+  fi
+}
+
+# ── Git setup ──────────────────────────────────────────────────────
+init_git() {
+  local branch="autoimprove/${TAG}"
+  LOGD=".autoimprove/${TAG}"
+  TSV="${LOGD}/results.tsv"
+
+  mkdir -p "$LOGD"
+
+  # Ensure .autoimprove is gitignored
+  if ! grep -qxF '.autoimprove/' .gitignore 2>/dev/null; then
+    echo '.autoimprove/' >> .gitignore
+  fi
+
+  # Create or switch to branch
+  if git show-ref --verify --quiet "refs/heads/${branch}"; then
+    git checkout "$branch"
+  else
+    git checkout -b "$branch"
+  fi
+
+  # Initialize results TSV
+  if [[ ! -f "$TSV" ]]; then
+    printf 'iter\tcommit\tscore\tdelta\tstatus\tdescription\n' > "$TSV"
+  fi
+
+  step "Branch: ${branch}"
+  step "Logs:   ${LOGD}/"
+}
+
+# ── Dev server management ─────────────────────────────────────────
+start_server() {
+  [[ "$START_SERVER" != true ]] && return
+
+  step "Starting dev server..."
+  pnpm dev > "${LOGD}/dev-server.log" 2>&1 &
+  DEV_PID=$!
+
+  local attempts=0
+  while ! curl -sf -o /dev/null "$URL" 2>/dev/null; do
+    attempts=$((attempts + 1))
+    if (( attempts > 90 )); then
+      fail "Dev server failed to start within 90 seconds"
+      fail "Check ${LOGD}/dev-server.log for errors"
+      exit 1
+    fi
+    sleep 1
+  done
+
+  ok "Dev server ready at ${URL} (PID ${DEV_PID})"
+}
+
+cleanup() {
+  if [[ -n "${DEV_PID:-}" ]]; then
+    kill "$DEV_PID" 2>/dev/null || true
+    wait "$DEV_PID" 2>/dev/null || true
+  fi
+}
+trap cleanup EXIT
+
+# ── Squirrel audit ─────────────────────────────────────────────────
+run_audit() {
+  local label="$1"
+  local audit_file="${LOGD}/audit_${label}.txt"
+  local score=0
+
+  if [[ "$HAS_SQUIRREL" == true ]]; then
+    gum spin --spinner dot --title "Auditing ${URL}..." -- \
+      bash -c "squirrel audit '${URL}' --format llm > '${audit_file}' 2>/dev/null || true"
+
+    # Extract health/quality score — try multiple patterns
+    score=$(grep -oiP '(?:health\s*score|overall\s*score|quality\s*score|score)[:\s]*\K\d+' "$audit_file" 2>/dev/null | head -1) || true
+    score="${score:-0}"
+  fi
+
+  echo "$score"
+}
+
+get_audit_issues() {
+  local label="$1"
+  local f="${LOGD}/audit_${label}.txt"
+  if [[ -f "$f" ]]; then
+    cat "$f"
+  else
+    echo "(No audit data available — squirrel may not be installed or the audit failed)"
+  fi
+}
+
+# ── Validation ─────────────────────────────────────────────────────
+validate() {
+  # Auto-fix formatting first
+  pnpm fix > "${LOGD}/fix.log" 2>&1 || true
+
+  # Then check lint and types
+  local lint_ok=true type_ok=true
+
+  if ! pnpm check > "${LOGD}/lint.log" 2>&1; then
+    lint_ok=false
+  fi
+
+  if ! pnpm types > "${LOGD}/types.log" 2>&1; then
+    type_ok=false
+  fi
+
+  [[ "$lint_ok" == true && "$type_ok" == true ]]
+}
+
+# ── Revert changes ────────────────────────────────────────────────
+revert_changes() {
+  git checkout . 2>/dev/null || true
+  git clean -fd 2>/dev/null || true
+}
+
+# ── Log a result row ──────────────────────────────────────────────
+log_row() {
+  printf '%s\t%s\t%s\t%s\t%s\t%s\n' "$1" "$2" "$3" "$4" "$5" "$6" >> "$TSV"
+}
+
+# ── Display results table ─────────────────────────────────────────
+show_table() {
+  echo ""
+  if command -v gum &>/dev/null; then
+    gum table --separator $'\t' < "$TSV" 2>/dev/null || column -t -s $'\t' < "$TSV"
+  else
+    column -t -s $'\t' < "$TSV"
+  fi
+  echo ""
+}
+
+# ── Try to commit (handles hook failures) ─────────────────────────
+try_commit() {
+  local msg="$1"
+
+  if git add -A && git commit -m "$msg" 2>/dev/null; then
+    return 0
+  fi
+
+  # Hook may have failed — try auto-fix and retry
+  warn "Commit hooks failed, attempting auto-fix..."
+  pnpm fix > "${LOGD}/fix-retry.log" 2>&1 || true
+
+  if git add -A && git commit -m "$msg" 2>/dev/null; then
+    return 0
+  fi
+
+  return 1
+}
+
+# ── Build the Claude prompt ───────────────────────────────────────
+build_prompt() {
+  local iteration="$1"
+  local issues="$2"
+  local history
+  history=$(cat "$TSV")
+
+  cat <<PROMPT
+You are iteration ${iteration} of autoimprove, an autonomous improvement loop.
+
+## Agent Instructions
+$(cat "$PROGRAM")
+
+## Current Audit Report
+${issues}
+
+## Improvement History So Far
+${history}
+
+Pick the single highest-impact unfixed issue and fix it now.
+After making changes, validate with: pnpm check && pnpm types
+If validation fails, fix the error or revert with: git checkout .
+When done, print: DESCRIPTION: <what you changed>
+PROMPT
+}
+
+# ── Extract description from Claude's output ──────────────────────
+extract_description() {
+  local logfile="$1"
+
+  # Try to find DESCRIPTION: line in output
+  local desc
+  desc=$(grep -m1 'DESCRIPTION:' "$logfile" 2>/dev/null \
+    | sed 's/.*DESCRIPTION:[[:space:]]*//' \
+    | head -c 120) || true
+
+  if [[ -z "$desc" ]]; then
+    # Fall back to git diff summary
+    desc=$(git diff --stat 2>/dev/null | tail -1 | sed 's/^[[:space:]]*//' || echo "code changes")
+  fi
+
+  echo "$desc"
+}
+
+# ═══════════════════════════════════════════════════════════════════
+# MAIN
+# ═══════════════════════════════════════════════════════════════════
+main() {
+  check_deps
+
+  banner "autoimprove" "Autonomous Blog Improvement Loop"
+  echo "  Tag:        ${TAG}"
+  echo "  URL:        ${URL}"
+  echo "  Iterations: ${ITERS}"
+  echo "  Timeout:    ${ITER_TIMEOUT}s per iteration"
+  echo "  Squirrel:   $( [[ "$HAS_SQUIRREL" == true ]] && echo "yes" || echo "no (lint-only mode)" )"
+  echo "  Model:      ${CLAUDE_MODEL:-default}"
+  echo ""
+
+  init_git
+  start_server
+
+  # ── Baseline ────────────────────────────────────────────────────
+  divider
+  step "Running baseline audit..."
+
+  local baseline current
+  baseline=$(run_audit "baseline")
+  current="$baseline"
+
+  ok "Baseline score: ${baseline}"
+  log_row 0 "$(git rev-parse --short HEAD)" "$baseline" 0 baseline "Initial state"
+
+  # ── Loop ────────────────────────────────────────────────────────
+  local kept=0 discarded=0 failed=0 skipped=0
+
+  for i in $(seq 1 "$ITERS"); do
+    divider
+    banner "Iteration ${i}/${ITERS}" \
+           "Score: ${current}  |  Kept: ${kept}  |  Discarded: ${discarded}  |  Failed: ${failed}"
+
+    # Get latest audit issues
+    local prev_label
+    if (( i == 1 )); then
+      prev_label="baseline"
+    else
+      # Use the most recent audit that exists
+      prev_label="$(( i - 1 ))"
+      [[ ! -f "${LOGD}/audit_${prev_label}.txt" ]] && prev_label="baseline"
+    fi
+
+    local issues
+    issues=$(get_audit_issues "$prev_label")
+
+    # Build and save prompt
+    local prompt_file="${LOGD}/prompt_${i}.txt"
+    build_prompt "$i" "$issues" > "$prompt_file"
+
+    # ── Run Claude Code ──────────────────────────────────────────
+    local claude_log="${LOGD}/claude_${i}.log"
+    step "Claude is working on iteration ${i}..."
+
+    local claude_args="--dangerously-skip-permissions --output-format text"
+    [[ -n "$CLAUDE_MODEL" ]] && claude_args="${claude_args} --model ${CLAUDE_MODEL}"
+    [[ -n "${CLAUDE_EXTRA_ARGS:-}" ]] && claude_args="${claude_args} ${CLAUDE_EXTRA_ARGS}"
+
+    local claude_exit=0
+    timeout "${ITER_TIMEOUT}" claude -p "$(cat "$prompt_file")" $claude_args \
+      > "$claude_log" 2>&1 || claude_exit=$?
+
+    if (( claude_exit == 124 )); then
+      warn "Claude timed out after ${ITER_TIMEOUT}s"
+      revert_changes
+      log_row "$i" "-" "$current" 0 timeout "Timed out"
+      failed=$((failed + 1))
+      continue
+    elif (( claude_exit != 0 )); then
+      warn "Claude exited with code ${claude_exit}"
+      revert_changes
+      log_row "$i" "-" "$current" 0 crash "Exit code ${claude_exit}"
+      failed=$((failed + 1))
+      continue
+    fi
+
+    # ── Check for NO_MORE_ISSUES signal ──────────────────────────
+    if grep -q 'NO_MORE_ISSUES' "$claude_log" 2>/dev/null; then
+      ok "Claude found no more issues to fix"
+      log_row "$i" "-" "$current" 0 done "No more issues"
+      break
+    fi
+
+    # ── Check for actual changes ─────────────────────────────────
+    if git diff --quiet && git diff --cached --quiet; then
+      step "No changes were made"
+      log_row "$i" "-" "$current" 0 skip "No changes"
+      skipped=$((skipped + 1))
+      continue
+    fi
+
+    # ── Validate ─────────────────────────────────────────────────
+    step "Validating changes..."
+    if ! validate; then
+      warn "Validation failed — reverting"
+      revert_changes
+      log_row "$i" "-" "$current" 0 fail "Lint/types failed"
+      failed=$((failed + 1))
+      continue
+    fi
+    ok "Validation passed"
+
+    # ── Extract description ──────────────────────────────────────
+    local desc
+    desc=$(extract_description "$claude_log")
+
+    # ── Re-audit and decide ──────────────────────────────────────
+    if [[ "$HAS_SQUIRREL" == true ]]; then
+      local new_score delta
+      new_score=$(run_audit "$i")
+      delta=$(echo "${new_score} - ${current}" | bc 2>/dev/null || echo 0)
+
+      if (( new_score >= current )); then
+        ok "Score: ${current} -> ${new_score} (${delta:+$delta})"
+
+        if try_commit "autoimprove(${i}): ${desc}"; then
+          log_row "$i" "$(git rev-parse --short HEAD)" "$new_score" "+${delta}" keep "$desc"
+          current="$new_score"
+          kept=$((kept + 1))
+        else
+          warn "Commit failed even after retry — reverting"
+          revert_changes
+          log_row "$i" "-" "$new_score" "$delta" fail "Commit failed"
+          failed=$((failed + 1))
+        fi
+      else
+        warn "Score dropped: ${current} -> ${new_score} (${delta}) — reverting"
+        revert_changes
+        log_row "$i" "-" "$new_score" "$delta" discard "$desc"
+        discarded=$((discarded + 1))
+      fi
+    else
+      # No squirrel — keep everything that passes validation
+      ok "Keeping (no audit score available)"
+
+      if try_commit "autoimprove(${i}): ${desc}"; then
+        log_row "$i" "$(git rev-parse --short HEAD)" "-" "-" keep "$desc"
+        kept=$((kept + 1))
+      else
+        warn "Commit failed — reverting"
+        revert_changes
+        log_row "$i" "-" "-" "-" fail "Commit failed"
+        failed=$((failed + 1))
+      fi
+    fi
+
+    show_table
+  done
+
+  # ── Summary ───────────────────────────────────────────────────
+  divider
+  banner "autoimprove complete!"
+  echo ""
+  gum style --foreground 76 --bold "  Results"
+  echo "  ────────────────────────────"
+  echo "  Iterations:  ${ITERS}"
+  echo "  Kept:        ${kept}"
+  echo "  Discarded:   ${discarded}"
+  echo "  Failed:      ${failed}"
+  echo "  Skipped:     ${skipped}"
+  if [[ "$HAS_SQUIRREL" == true ]]; then
+    echo "  Score:       ${baseline} -> ${current}"
+  fi
+  echo ""
+  echo "  Branch:      autoimprove/${TAG}"
+  echo "  Logs:        ${LOGD}/"
+  echo ""
+
+  show_table
+
+  echo ""
+  step "Review changes:  git log --oneline autoimprove/${TAG}"
+  step "View diffs:      git diff master...autoimprove/${TAG}"
+  step "Deploy:          git checkout master && git rebase autoimprove/${TAG} && pnpm release"
+}
+
+main "$@"
