@@ -11,6 +11,12 @@ export const setCommonHeaders =
       );
     }
 
+    // Allow CDN and browser caching for HTML pages
+    response.headers.set(
+      "Cache-Control",
+      "public, max-age=60, s-maxage=3600, stale-while-revalidate=86400"
+    );
+
     // Forces browser to use the declared content-type instead of trying to guess/sniff it
     response.headers.set("X-Content-Type-Options", "nosniff");
 
