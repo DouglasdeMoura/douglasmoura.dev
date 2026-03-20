@@ -27,6 +27,7 @@ import { generateSitemap } from "#app/lib/sitemap.js";
 import { fetchTweetData } from "#app/lib/tweets.js";
 import type { Theme } from "#app/lib/types.js";
 import { About } from "#app/pages/about.js";
+import { Bookmarks } from "#app/pages/bookmarks.js";
 import { Home } from "#app/pages/home.js";
 import { NotFound } from "#app/pages/not-found.js";
 import { Post } from "#app/pages/post.js";
@@ -192,6 +193,7 @@ export default defineApp([
       }),
       route("/about", () => <About />),
       route("/talks", () => <Talks />),
+      route("/bookmarks", () => <Bookmarks />),
       // route("/privacy", () => <Privacy />),
       route("/tag/:tag", ({ params, response }) => {
         const rawParam = decodeURIComponent(params.tag);
@@ -270,6 +272,7 @@ export default defineApp([
       }),
       route("/pt-BR/about", () => <About basePath="/pt-BR" />),
       route("/pt-BR/talks", () => <Talks basePath="/pt-BR" />),
+      route("/pt-BR/bookmarks", () => <Bookmarks basePath="/pt-BR" />),
       // route("/pt-BR/privacy", () => <Privacy basePath="/pt-BR" />),
       route("/pt-BR/search", async ({ request }) => {
         const url = new URL(request.url);

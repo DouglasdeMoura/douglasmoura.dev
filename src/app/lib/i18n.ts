@@ -7,11 +7,14 @@ type Locale = "en-US" | "pt-BR";
 
 const translations = {
   "pt-BR": {
+    "A curated collection of links and resources on web development, software engineering, and design.":
+      "Uma coleção curada de links e recursos sobre desenvolvimento web, engenharia de software e design.",
     About: "Sobre",
     "Also available in": "Também disponível em",
     "Back to home": "Voltar ao início",
     Bookmarks: "Favoritos",
     Breadcrumbs: "Navegação estrutural",
+    "Coming soon.": "Em breve.",
     "Conference talks and presentations by Douglas Moura on web development, TypeScript, React, and software engineering at events across Brazil.":
       "Palestras e apresentações de Douglas Moura sobre desenvolvimento web, TypeScript, React e engenharia de software em eventos pelo Brasil.",
     "Douglas Moura is a software engineer in São Paulo. Building design systems, banking apps, AI agents, and healthcare solutions.":
