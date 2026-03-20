@@ -81,6 +81,13 @@ export const PostSeo = ({
       <meta property="og:url" content={canonicalUrl} />
       <meta property="og:type" content="article" />
       <meta property="og:locale" content={ogLocale} />
+      {alternates.map((alt) => (
+        <meta
+          key={`og-alt-${alt.locale}`}
+          property="og:locale:alternate"
+          content={alt.locale.replace("-", "_")}
+        />
+      ))}
       <meta property="og:site_name" content="Douglas Moura" />
       <meta property="og:image" content={ogImageUrl} />
       <meta property="og:image:width" content="1686" />
