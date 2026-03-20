@@ -80,12 +80,14 @@ export const SiteLayout = ({
                 <RssIcon size={18} />
               </a>
             </nav>
+            {/*
             <a
               href={locale === "pt-BR" ? "/pt-BR/privacy" : "/privacy"}
               className="text-xs text-text-muted no-underline hover:text-text-strong motion-safe:transition-colors motion-safe:duration-150"
             >
               {t("Privacy Policy")}
             </a>
+            */}
             <div className="flex items-center gap-2">
               <LocaleSwitch
                 href={getLocaleHref(locale, alternates, pathname)}
