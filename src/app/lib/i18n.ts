@@ -38,6 +38,7 @@ const translations = {
     "Switch language": "Alterar linguagem",
     Talks: "Palestras",
     Theme: "Tema",
+    "Web Development Articles": "Artigos sobre Desenvolvimento Web",
     "min. read": "min. de leitura",
   },
 } as const satisfies Record<string, Record<string, string>>;

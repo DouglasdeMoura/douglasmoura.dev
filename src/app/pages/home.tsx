@@ -60,7 +60,7 @@ export const Home = ({ data, siteUrl }: HomeProps) => {
   const title =
     page === 1
       ? t("Douglas Moura — Software Engineer | Web Development Blog")
-      : `Douglas Moura — ${t("Page")} ${page}`;
+      : `${t("Web Development Articles")} — ${t("Page")} ${page} | Douglas Moura`;
   const description = t(
     "Douglas Moura — Software Engineer in São Paulo. Articles about web development, TypeScript, React, and the things I learn along the way."
   );
