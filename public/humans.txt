@@ -6,10 +6,10 @@ Contact: hello [at] douglasmoura.dev
 Location: Brazil
 
 /* THANKS */
-React, Tailwind CSS, Cloudflare Workers, Redwood SDK
+React, Tailwind CSS, Vercel, Cloudflare, and Redwood SDK teams.
 
 /* SITE */
 Last update: 2026-03-20
 Language: English, Portuguese
 Standards: HTML5, CSS3
-Software: Vite, TypeScript, React 19, Tailwind CSS 4, Cloudflare Workers
+Software: Vite, TypeScript, React 19, Tailwind CSS 4, and RedwoodSDK
