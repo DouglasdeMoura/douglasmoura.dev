@@ -5,6 +5,7 @@ import { Document } from "#app/document.js";
 import { setCommonHeaders } from "#app/headers.js";
 import { SiteLayout } from "#app/layouts/site-layout.js";
 import { generateAtomFeed, generateRssFeed } from "#app/lib/feed.js";
+import { buildHowToSchema } from "#app/lib/howto-schema.js";
 import { renderMarkdown } from "#app/lib/markdown.js";
 import { generateGenericOgImage, generateOgImage } from "#app/lib/og.js";
 import type { Post as PostData } from "#app/lib/posts.js";
@@ -248,6 +249,7 @@ export default defineApp([
         const tweets = await Promise.all(
           rendered.tweetIds.map((id) => fetchTweetData(id))
         );
+        const howToSchema = buildHowToSchema(post, SITE_URL);
         const { body: _, images: __, ...postWithoutBody } = post;
         const adjacent = getAdjacentPosts(post.slug, post.locale);
         return (
@@ -258,6 +260,7 @@ export default defineApp([
             adjacent={adjacent}
             readingTime={readingTime}
             tweets={tweets}
+            howToSchema={howToSchema}
           />
         );
       }),

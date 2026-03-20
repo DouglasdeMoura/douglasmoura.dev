@@ -4,10 +4,12 @@ export const PostSeo = ({
   post,
   siteUrl,
   alternates,
+  howToSchema,
 }: {
   post: Omit<Post, "body" | "images">;
   siteUrl: string;
   alternates: PostAlternate[];
+  howToSchema?: Record<string, unknown> | null;
 }) => {
   const canonicalUrl = `${siteUrl}/${post.slug}`;
   const ogLocale = post.locale.replace("-", "_");
@@ -47,6 +49,7 @@ export const PostSeo = ({
         },
       ],
     },
+    ...(howToSchema ? [howToSchema] : []),
   ];
 
   return (

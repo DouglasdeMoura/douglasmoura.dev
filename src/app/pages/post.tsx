@@ -70,6 +70,7 @@ interface PostProps {
   adjacent: AdjacentPosts;
   readingTime: number;
   tweets: (Tweet | undefined)[];
+  howToSchema?: Record<string, unknown> | null;
 }
 
 export const Post = ({
@@ -79,13 +80,19 @@ export const Post = ({
   adjacent,
   readingTime,
   tweets,
+  howToSchema,
 }: PostProps) => {
   const alternates = getPostAlternates(post.slug);
   const alternate = alternates.find((a) => a.locale !== post.locale);
 
   return (
     <>
-      <PostSeo post={post} siteUrl={SITE_URL} alternates={alternates} />
+      <PostSeo
+        post={post}
+        siteUrl={SITE_URL}
+        alternates={alternates}
+        howToSchema={howToSchema}
+      />
       {hasMath && <link rel="stylesheet" href="/katex/katex.min.css" />}
       <article lang={post.locale} className="prose mx-auto px-4 py-10">
         <header className="not-prose mb-10">
