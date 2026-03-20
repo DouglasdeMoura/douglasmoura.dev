@@ -17,8 +17,43 @@ interface Talk {
 
 const SITE_URL = import.meta.env.VITE_SITE_URL ?? "https://douglasmoura.dev";
 
+const buildEventJsonLd = (talks: Talk[]) =>
+  talks.map((talk) => {
+    const event: Record<string, unknown> = {
+      "@context": "https://schema.org",
+      "@type": "Event",
+      eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+      eventStatus: "https://schema.org/EventScheduled",
+      name: `${talk.name} @ ${talk.event}`,
+      organizer: {
+        "@type": "Organization",
+        name: talk.event,
+      },
+      performer: {
+        "@type": "Person",
+        name: "Douglas Moura",
+        url: "https://douglasmoura.dev",
+      },
+      startDate: talk.date,
+    };
+
+    if (talk.url) {
+      event.url = talk.url;
+    }
+
+    if (talk.recording) {
+      event.recordedIn = {
+        "@type": "VideoObject",
+        url: talk.recording,
+      };
+    }
+
+    return event;
+  });
+
 export const Talks = () => {
   const talks = resume.talks as Talk[];
+  const eventJsonLd = buildEventJsonLd(talks);
 
   const grouped = new Map<string, Talk[]>();
   for (const talk of talks) {
@@ -44,6 +79,11 @@ export const Talks = () => {
         description={description}
         url={canonicalUrl}
         image={ogImageUrl}
+      />
+      <script
+        type="application/ld+json"
+        /* oxlint-disable-next-line eslint-plugin-react(no-danger) -- safe: serializing our own structured data */
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(eventJsonLd) }}
       />
 
       <section className="prose mx-auto py-10 px-4">
