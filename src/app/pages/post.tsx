@@ -7,6 +7,7 @@ import { CodeCopy } from "#app/components/code-copy.js";
 import { PostSeo } from "#app/components/post-seo.js";
 import { PrefetchLink } from "#app/components/prefetch-link.js";
 import { TagLink } from "#app/components/tag-link.js";
+import { TweetEmbed } from "#app/components/tweet-embed.js";
 import { formatDate, t } from "#app/lib/i18n.js";
 import { getPostAlternates } from "#app/lib/posts.js";
 import type { AdjacentPosts, Post as PostType } from "#app/lib/posts.js";
@@ -24,6 +25,7 @@ interface PostProps {
   hasMath: boolean;
   adjacent: AdjacentPosts;
   readingTime: number;
+  tweetIds: string[];
 }
 
 export const Post = ({
@@ -32,6 +34,7 @@ export const Post = ({
   hasMath,
   adjacent,
   readingTime,
+  tweetIds,
 }: PostProps) => {
   const alternates = getPostAlternates(post.slug);
   const alternate = alternates.find((a) => a.locale !== post.locale);
@@ -85,6 +88,7 @@ export const Post = ({
           />
         )}
         <CodeCopy />
+        {tweetIds.length > 0 && <TweetEmbed tweetIds={tweetIds} />}
         {/* oxlint-disable-next-line eslint-plugin-react(no-danger) -- safe: rendering our own markdown, not user input */}
         <div dangerouslySetInnerHTML={{ __html: html }} />
         {post.tags.length > 0 && (

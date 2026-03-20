@@ -245,6 +245,7 @@ export default defineApp([
             hasMath={rendered.hasMath}
             adjacent={adjacent}
             readingTime={readingTime}
+            tweetIds={rendered.tweetIds}
           />
         );
       }),

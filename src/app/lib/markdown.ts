@@ -109,9 +109,23 @@ const getHighlighter = () => {
   return highlighterPromise;
 };
 
+const TWEET_BLOCK_RE =
+  /<blockquote class="twitter-tweet"[\s\S]*?<a href="https?:\/\/(?:twitter\.com|x\.com)\/\w+\/status\/(\d+)"[\s\S]*?<\/blockquote>\s*(?:<script[^>]*platform\.twitter\.com\/widgets\.js[^>]*><\/script>)?/g;
+
+const extractTweets = (
+  markup: string
+): { html: string; tweetIds: string[] } => {
+  const tweetIds: string[] = [];
+  const replaced = markup.replaceAll(TWEET_BLOCK_RE, (_, id: string) => {
+    tweetIds.push(id);
+    return `<div data-tweet-id="${id}"></div>`;
+  });
+  return { html: replaced, tweetIds };
+};
+
 export const renderMarkdown = async (
   md: string
-): Promise<{ hasMath: boolean; html: string }> => {
+): Promise<{ hasMath: boolean; html: string; tweetIds: string[] }> => {
   const [, shiki] = await Promise.all([ensureInit(), getHighlighter()]);
 
   const raw = renderToHtml(md, {
@@ -154,5 +168,6 @@ export const renderMarkdown = async (
   }) as string;
 
   const { hasMath, html: mathHtml } = renderMathInHtml(raw);
-  return { hasMath, html: renderFootnotes(mathHtml) };
+  const { html: tweetHtml, tweetIds } = extractTweets(mathHtml);
+  return { hasMath, html: renderFootnotes(tweetHtml), tweetIds };
 };
