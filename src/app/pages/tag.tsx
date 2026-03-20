@@ -1,3 +1,4 @@
+import { Breadcrumbs } from "#app/components/breadcrumbs.js";
 import { PageSeo } from "#app/components/page-seo.js";
 import { PrefetchLink } from "#app/components/prefetch-link.js";
 import { TagLink } from "#app/components/tag-link.js";
@@ -86,6 +87,13 @@ export const TagPage = ({
       )}
 
       <section className="prose mx-auto py-10">
+        <Breadcrumbs
+          items={[
+            { href: localePrefix || "/", label: t("Home") },
+            { label: `${t("Posts tagged")} \u201C${tag}\u201D` },
+          ]}
+          className="px-4"
+        />
         <header className="not-prose mb-8 px-4">
           <h1 className="text-2xl font-bold tracking-tight text-text-strong">
             {t("Posts tagged")} &ldquo;{tag}&rdquo;

@@ -4,6 +4,7 @@ import { Translate as TranslateIcon } from "@phosphor-icons/react/dist/ssr/Trans
 import type { Tweet } from "react-tweet/api";
 
 import { BalancedText } from "#app/components/balanced-text.js";
+import { Breadcrumbs } from "#app/components/breadcrumbs.js";
 import { CodeCopy } from "#app/components/code-copy.js";
 import { PostSeo } from "#app/components/post-seo.js";
 import { PrefetchLink } from "#app/components/prefetch-link.js";
@@ -95,6 +96,9 @@ export const Post = ({
       />
       {hasMath && <link rel="stylesheet" href="/katex/katex.min.css" />}
       <article lang={post.locale} className="prose mx-auto px-4 py-10">
+        <Breadcrumbs
+          items={[{ href: "/", label: t("Home") }, { label: post.title }]}
+        />
         <header className="not-prose mb-10">
           <h1 className="text-4xl font-bold tracking-tight text-text-strong leading-[1.15]">
             <BalancedText>{post.title}</BalancedText>
