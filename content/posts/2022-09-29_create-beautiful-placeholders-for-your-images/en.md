@@ -3,7 +3,7 @@ title: Create beautiful placeholders for your images
 slug: create-beautiful-placeholders-for-your-images
 locale: en-US
 created: 2022-09-29 15:00:00.000Z
-updated: 2026-03-18 21:33:07.000Z
+updated: 2026-03-20 19:15:29.000Z
 tags:
   - javascript
   - typescript
@@ -14,7 +14,7 @@ cover: ./cover.jpg
 
 Have you ever faced the situation where the layout of your beautifully crafted interface "breaks" if the image (depeding on the quality of your user's connections) takes some time to load? Something like the example below:
 
-[<img src="./img/Q7B0kOHlC7akJmwTCW.gif" />](./img/Q7B0kOHlC7akJmwTCW.gif)
+![Layout breaking while an image loads without a placeholder](./img/Q7B0kOHlC7akJmwTCW.gif)
 
 This happens because the browser has no clue about the dimensions of the image you want to display on your content beforehand.
 
@@ -34,7 +34,7 @@ img {
 }
 ```
 
-[<img src="./img/X4dBoFehuhSrpUIdIA.gif" width="100%" />](./img/X4dBoFehuhSrpUIdIA.gif)
+![Image loading with aspect-ratio preserving layout stability](./img/X4dBoFehuhSrpUIdIA.gif)
 
 So, it solves the sudden layout change, but we can do even better do better adding an animated background.
 
@@ -88,7 +88,7 @@ img {
 
 And this is the result (check the code on [CodePen](https://codepen.io/douglasdemoura/pen/RwyWBOR)):
 
-<img src="./img/9yYPBL1X9wnAKzhVfE.gif" />
+![Animated gray placeholder shown while the image loads](./img/9yYPBL1X9wnAKzhVfE.gif)
 
 Yet, this can be even better by displaying a colorful background that matches the image colors.
 
@@ -96,7 +96,7 @@ Yet, this can be even better by displaying a colorful background that matches th
 
 [BlurHash](https://github.com/woltapp/blurhash) is a compact representation of a placeholder for a image. You use it to process your image before sending it to the browser and you'll get a string of 20-30 characters that the algorithm can turn into a blurred image that you can show to your user before the actual image is downloaded. Check how it looks like:
 
-<img src="./img/1RSpYFokgWI2tKRKHk.gif" />
+![BlurHash placeholder fading into the loaded image](./img/1RSpYFokgWI2tKRKHk.gif)
 
 I have implemented that last effect in React for the sake of simplicity and time, but you can re-implement it in whatever framework you like. Just pay attention to the `onLoad` event that changes the opacity of the image.
 
