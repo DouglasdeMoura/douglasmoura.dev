@@ -97,6 +97,13 @@ export const PostSeo = ({
       <meta property="og:image:alt" content={post.title} />
       <meta property="og:image:type" content="image/png" />
 
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:title" content={post.title} />
+      <meta name="twitter:description" content={post.description} />
+      <meta name="twitter:creator" content="@douglasdemoura" />
+      <meta name="twitter:site" content="@douglasdemoura" />
+      <meta name="twitter:image" content={ogImageUrl} />
+
       <meta property="article:published_time" content={post.created} />
       {post.updated && (
         <meta property="article:modified_time" content={post.updated} />
@@ -105,13 +112,6 @@ export const PostSeo = ({
       {post.tags.map((tag) => (
         <meta property="article:tag" content={tag} key={tag} />
       ))}
-
-      <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:title" content={post.title} />
-      <meta name="twitter:description" content={post.description} />
-      <meta name="twitter:creator" content="@douglasdemoura" />
-      <meta name="twitter:site" content="@douglasdemoura" />
-      <meta name="twitter:image" content={ogImageUrl} />
 
       <script
         type="application/ld+json"
