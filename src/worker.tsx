@@ -16,8 +16,10 @@ import {
   getPostBySlug,
   getPostsByTag,
   getReadingTime,
+  getTagBySlug,
   resolvePostImages,
   serializePost,
+  slugifyTag,
 } from "#app/lib/posts.js";
 import resume from "#app/lib/resume.json";
 import { searchPosts } from "#app/lib/search.js";
@@ -192,7 +194,12 @@ export default defineApp([
       route("/talks", () => <Talks />),
       route("/privacy", () => <Privacy />),
       route("/tag/:tag", ({ params, response }) => {
-        const tag = decodeURIComponent(params.tag);
+        const rawParam = decodeURIComponent(params.tag);
+        const slugged = slugifyTag(rawParam);
+        if (rawParam !== slugged) {
+          return Response.redirect(`${SITE_URL}/tag/${slugged}`, 301);
+        }
+        const tag = getTagBySlug(rawParam) ?? rawParam;
         const data = getPostsByTag(tag, 1, "en-US");
         if (!data) {
           response.status = 404;
@@ -201,13 +208,18 @@ export default defineApp([
         return <TagPage tag={tag} data={data} siteUrl={SITE_URL} />;
       }),
       route("/tag/:tag/page/:num", ({ params, response }) => {
-        const tag = decodeURIComponent(params.tag);
-        const num = Number(params.num);
-        if (num === 1) {
+        const rawParam = decodeURIComponent(params.tag);
+        const slugged = slugifyTag(rawParam);
+        if (rawParam !== slugged) {
           return Response.redirect(
-            `${SITE_URL}/tag/${encodeURIComponent(tag)}`,
+            `${SITE_URL}/tag/${slugged}/page/${params.num}`,
             301
           );
+        }
+        const tag = getTagBySlug(rawParam) ?? rawParam;
+        const num = Number(params.num);
+        if (num === 1) {
+          return Response.redirect(`${SITE_URL}/tag/${slugged}`, 301);
         }
         const data = getPostsByTag(tag, num, "en-US");
         if (!data) {
@@ -285,7 +297,12 @@ export default defineApp([
         );
       }),
       route("/pt-BR/tag/:tag", ({ params, response }) => {
-        const tag = decodeURIComponent(params.tag);
+        const rawParam = decodeURIComponent(params.tag);
+        const slugged = slugifyTag(rawParam);
+        if (rawParam !== slugged) {
+          return Response.redirect(`${SITE_URL}/pt-BR/tag/${slugged}`, 301);
+        }
+        const tag = getTagBySlug(rawParam) ?? rawParam;
         const data = getPostsByTag(tag, 1, "pt-BR");
         if (!data) {
           response.status = 404;
@@ -301,13 +318,18 @@ export default defineApp([
         );
       }),
       route("/pt-BR/tag/:tag/page/:num", ({ params, response }) => {
-        const tag = decodeURIComponent(params.tag);
-        const num = Number(params.num);
-        if (num === 1) {
+        const rawParam = decodeURIComponent(params.tag);
+        const slugged = slugifyTag(rawParam);
+        if (rawParam !== slugged) {
           return Response.redirect(
-            `${SITE_URL}/pt-BR/tag/${encodeURIComponent(tag)}`,
+            `${SITE_URL}/pt-BR/tag/${slugged}/page/${params.num}`,
             301
           );
+        }
+        const tag = getTagBySlug(rawParam) ?? rawParam;
+        const num = Number(params.num);
+        if (num === 1) {
+          return Response.redirect(`${SITE_URL}/pt-BR/tag/${slugged}`, 301);
         }
         const data = getPostsByTag(tag, num, "pt-BR");
         if (!data) {
