@@ -85,11 +85,6 @@ export const Home = ({ data, siteUrl, basePath = "" }: HomeProps) => {
             "@context": "https://schema.org",
             "@type": "WebSite",
             name: "Douglas Moura",
-            potentialAction: {
-              "@type": "SearchAction",
-              "query-input": "required name=search_term_string",
-              target: `${siteUrl}/api/v1/search?q={search_term_string}`,
-            },
             url: siteUrl,
           },
           {
