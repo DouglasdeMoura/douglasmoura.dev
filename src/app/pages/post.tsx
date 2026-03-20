@@ -2,6 +2,7 @@ import { ArrowLeft as ArrowLeftIcon } from "@phosphor-icons/react/dist/ssr/Arrow
 import { ArrowRight as ArrowRightIcon } from "@phosphor-icons/react/dist/ssr/ArrowRight";
 import { Translate as TranslateIcon } from "@phosphor-icons/react/dist/ssr/Translate";
 
+import { BalancedText } from "#app/components/balanced-text.js";
 import { CodeCopy } from "#app/components/code-copy.js";
 import { PostSeo } from "#app/components/post-seo.js";
 import { PrefetchLink } from "#app/components/prefetch-link.js";
@@ -42,7 +43,7 @@ export const Post = ({
       <article lang={post.locale} className="prose mx-auto px-4 py-10">
         <header className="not-prose mb-10">
           <h1 className="text-4xl font-bold tracking-tight text-text-strong leading-[1.15]">
-            {post.title}
+            <BalancedText>{post.title}</BalancedText>
           </h1>
           <p className="mt-3 text-sm text-text-muted tracking-wide">
             <time dateTime={post.created} itemProp="datePublished">
