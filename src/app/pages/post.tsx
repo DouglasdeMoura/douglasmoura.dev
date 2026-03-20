@@ -135,6 +135,8 @@ export const Post = ({
           <img
             src={post.cover}
             alt={post.title}
+            width={900}
+            height={600}
             className="not-prose mb-10 w-full aspect-3/2 rounded-xl border border-border bg-surface-1 object-cover"
           />
         )}
