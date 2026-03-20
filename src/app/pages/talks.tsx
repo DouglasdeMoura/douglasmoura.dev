@@ -10,6 +10,7 @@ interface Talk {
   name: string;
   event: string;
   date: string;
+  location: { name: string; country: string };
   slides?: string;
   url?: string;
   recording?: string;
@@ -24,6 +25,15 @@ const buildEventJsonLd = (talks: Talk[]) =>
       "@type": "Event",
       eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
       eventStatus: "https://schema.org/EventScheduled",
+      location: {
+        "@type": "Place",
+        address: {
+          "@type": "PostalAddress",
+          addressCountry: talk.location.country,
+          addressLocality: talk.location.name,
+        },
+        name: talk.location.name,
+      },
       name: `${talk.name} @ ${talk.event}`,
       organizer: {
         "@type": "Organization",
