@@ -90,8 +90,8 @@ const resolveLocaleFile = (locale: string): string => {
   return `${locale.toLowerCase()}.md`;
 };
 
-const ESC = String.fromCodePoint(0x1B);
-const BEL = String.fromCodePoint(0x07);
+const ESC = "\u001B";
+const BEL = "\u0007";
 const ANSI_RE = new RegExp(
   `${ESC}\\[[0-9;]*m|${ESC}\\]8;;[^${ESC}]*${ESC}\\\\|${ESC}\\]8;;[^${BEL}]*${BEL}`,
   "g"

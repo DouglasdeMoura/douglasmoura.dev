@@ -133,9 +133,13 @@ export const Home = ({ data, siteUrl, basePath = "" }: HomeProps) => {
       )}
 
       <section className="prose mx-auto py-10 px-4">
-        {page === 1 && (
+        {page === 1 ? (
           <h1 className="not-prose text-lg font-normal text-text -tracking-[0.01em] mt-0 mb-8 leading-relaxed">
             {about[locale]}
+          </h1>
+        ) : (
+          <h1 className="not-prose text-lg font-normal text-text -tracking-[0.01em] mt-0 mb-8 leading-relaxed">
+            {t("Web Development Articles")} — {t("Page")} {page}
           </h1>
         )}
 
