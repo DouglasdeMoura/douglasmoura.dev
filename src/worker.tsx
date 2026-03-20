@@ -83,6 +83,14 @@ export default defineApp([
     Response.redirect(`${SITE_URL}/en-US/feed.xml`, 301)
   ),
   route("/rss.xml", () => Response.redirect(`${SITE_URL}/en-US/rss.xml`, 301)),
+  // Case-insensitive redirect for /pt-br → /pt-BR
+  route("/pt-br", ({ request }) => {
+    const url = new URL(request.url);
+    return Response.redirect(
+      `${SITE_URL}/pt-BR${url.pathname.slice("/pt-br".length)}${url.search}`,
+      301
+    );
+  }),
   route("/api/v1/og", ({ request }) => {
     const url = new URL(request.url);
     const slug = url.searchParams.get("slug");
@@ -166,28 +174,30 @@ export default defineApp([
         }
         return <Home data={data} siteUrl={SITE_URL} />;
       }),
-      route("/page/:num", ({ params }) => {
+      route("/page/:num", ({ params, response }) => {
         const num = Number(params.num);
         if (num === 1) {
           return Response.redirect(`${SITE_URL}/`, 301);
         }
         const data = getPaginatedPosts(num, "en-US");
         if (!data) {
+          response.status = 404;
           return <NotFound />;
         }
         return <Home data={data} siteUrl={SITE_URL} />;
       }),
       route("/about", () => <About />),
       route("/talks", () => <Talks />),
-      route("/tag/:tag", ({ params }) => {
+      route("/tag/:tag", ({ params, response }) => {
         const tag = decodeURIComponent(params.tag);
         const data = getPostsByTag(tag, 1, "en-US");
         if (!data) {
+          response.status = 404;
           return <NotFound />;
         }
         return <TagPage tag={tag} data={data} siteUrl={SITE_URL} />;
       }),
-      route("/tag/:tag/page/:num", ({ params }) => {
+      route("/tag/:tag/page/:num", ({ params, response }) => {
         const tag = decodeURIComponent(params.tag);
         const num = Number(params.num);
         if (num === 1) {
@@ -198,6 +208,7 @@ export default defineApp([
         }
         const data = getPostsByTag(tag, num, "en-US");
         if (!data) {
+          response.status = 404;
           return <NotFound />;
         }
         return <TagPage tag={tag} data={data} siteUrl={SITE_URL} />;
@@ -211,23 +222,25 @@ export default defineApp([
         }
         return <Home data={data} siteUrl={SITE_URL} basePath="/pt-BR" />;
       }),
-      route("/pt-BR/page/:num", ({ params }) => {
+      route("/pt-BR/page/:num", ({ params, response }) => {
         const num = Number(params.num);
         if (num === 1) {
           return Response.redirect(`${SITE_URL}/pt-BR`, 301);
         }
         const data = getPaginatedPosts(num, "pt-BR");
         if (!data) {
+          response.status = 404;
           return <NotFound />;
         }
         return <Home data={data} siteUrl={SITE_URL} basePath="/pt-BR" />;
       }),
       route("/pt-BR/about", () => <About basePath="/pt-BR" />),
       route("/pt-BR/talks", () => <Talks basePath="/pt-BR" />),
-      route("/pt-BR/tag/:tag", ({ params }) => {
+      route("/pt-BR/tag/:tag", ({ params, response }) => {
         const tag = decodeURIComponent(params.tag);
         const data = getPostsByTag(tag, 1, "pt-BR");
         if (!data) {
+          response.status = 404;
           return <NotFound />;
         }
         return (
@@ -239,7 +252,7 @@ export default defineApp([
           />
         );
       }),
-      route("/pt-BR/tag/:tag/page/:num", ({ params }) => {
+      route("/pt-BR/tag/:tag/page/:num", ({ params, response }) => {
         const tag = decodeURIComponent(params.tag);
         const num = Number(params.num);
         if (num === 1) {
@@ -250,6 +263,7 @@ export default defineApp([
         }
         const data = getPostsByTag(tag, num, "pt-BR");
         if (!data) {
+          response.status = 404;
           return <NotFound />;
         }
         return (
@@ -263,18 +277,20 @@ export default defineApp([
       }),
 
       // Legacy PT-BR post redirect: /pt-BR/:slug → /:slug (for old bookmarks)
-      route("/pt-BR/:slug", ({ params }) => {
+      route("/pt-BR/:slug", ({ params, response }) => {
         const post = getPostBySlug(params.slug);
         if (post) {
           return Response.redirect(`${SITE_URL}/${post.slug}`, 301);
         }
+        response.status = 404;
         return <NotFound />;
       }),
 
       // ── Blog post (catch-all) ──
-      route("/:slug", async ({ params, request }) => {
+      route("/:slug", async ({ params, request, response }) => {
         const post = getPostBySlug(params.slug);
         if (!post) {
+          response.status = 404;
           return <NotFound />;
         }
         const accept = request.headers.get("Accept") ?? "";
