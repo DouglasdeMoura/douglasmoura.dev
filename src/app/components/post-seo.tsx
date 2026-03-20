@@ -54,6 +54,7 @@ export const PostSeo = ({
 
   return (
     <>
+      {post.cover && <link rel="preload" as="image" href={post.cover} />}
       <title>{`${post.title} | Douglas Moura`}</title>
       <meta name="description" content={post.description} />
       <link rel="canonical" href={canonicalUrl} />
