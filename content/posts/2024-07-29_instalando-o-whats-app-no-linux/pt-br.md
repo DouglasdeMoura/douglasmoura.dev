@@ -3,7 +3,7 @@ title: Instalando o WhatsApp no Linux
 slug: instalando-o-whats-app-no-linux
 locale: pt-BR
 created: 2024-07-29 17:18:23.361Z
-updated: 2026-03-18 20:44:55.000Z
+updated: 2026-03-20 19:25:55.000Z
 tags:
   - WhatsApp
   - Linux
@@ -14,7 +14,7 @@ type: post
 
 Infelizmente, o WhatsApp não fornece um aplicativo oficial para o Linux. Felizmente, se você tem o [Google Chrome](https://www.google.com/intl/pt-BR/chrome/) ou o Chromium instalado no seu computador, você pode instalar a página como uma aplicação. Siga os passos abaixo:
 
-### 1. Baixe um ícone para a sua aplicação
+## 1. Baixe um ícone para a sua aplicação
 
 Eu, por exemplo, escolhi [este](https://github.com/mimbrero/whatsapp-desktop-linux/blob/main/data/icons/hicolor/512x512/apps/io.github.mimbrero.WhatsAppDesktop.png) ícone para o WhatsApp no meu computador. Se quiser utilizar o mesmo, execute o seguinte comando no terminal:
 
@@ -24,7 +24,7 @@ ICON_INSTALLATION_DIR=~/.local/share/web-apps/icons && mkdir -p $ICON_INSTALLATI
 
 O comando acima irá criar o diretório `~/.local/share/web-apps` e baixará o ícone do WhatsApp.
 
-### 2. Crie o [*desktop entry*](https://wiki.archlinux.org/title/Desktop_entries) da aplicação
+## 2. Crie o [*desktop entry*](https://wiki.archlinux.org/title/Desktop_entries) da aplicação
 
 Para criar o arquivo [*desktop entry*](https://wiki.archlinux.org/title/Desktop_entries) da aplicação, execute o seguinte comando:
 

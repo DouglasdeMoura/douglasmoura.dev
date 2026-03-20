@@ -3,7 +3,7 @@ title: Como criar um indicador de carregamento perfeito para seus web apps
 slug: como-criar-um-indicador-de-carregamento-perfeito-para-seus-web-apps
 locale: pt-BR
 created: 2021-03-03 15:00:00.000Z
-updated: 2026-03-18 21:33:07.000Z
+updated: 2026-03-20 19:25:55.000Z
 tags:
   - html
   - javascript
@@ -211,7 +211,7 @@ se a nossa aplicação é acessível.
 </small></p>
 
 <footer className="footnotes">
-  <h4>Referências</h4>
+  <h2>Referências</h2>
 
   <ol>
     <li id="aria-live-regions">

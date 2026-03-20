@@ -3,7 +3,7 @@ title: Use this NPM script to create your EditorConfig files
 slug: use-this-npm-script-to-create-your-editorconfig-files
 locale: en-US
 created: 2022-01-09 15:00:00.000Z
-updated: 2026-03-18 20:44:55.000Z
+updated: 2026-03-20 19:25:55.000Z
 tags:
   - javascript
   - editorconfig
@@ -44,5 +44,3 @@ To apply your `.editorconfig` rules, your code editor should have a plugin or ha
 ## How can I contribute to `create-editorconfig`?
 
 Please, go to the official [GitHub repository](https://github.com/douglasdeMoura/create-editorconfig) and open an issue.
-
-##
