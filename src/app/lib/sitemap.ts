@@ -23,6 +23,18 @@ const alternateLinks = (
   return [self, ...alts].join("\n");
 };
 
+/** Build hreflang links for a pair of EN/PT-BR static page URLs. */
+const staticAlternateLinks = (
+  siteUrl: string,
+  enPath: string,
+  ptPath: string
+): string =>
+  [
+    `    <xhtml:link rel="alternate" hreflang="en-US" href="${siteUrl}${enPath}" />`,
+    `    <xhtml:link rel="alternate" hreflang="pt-BR" href="${siteUrl}${ptPath}" />`,
+    `    <xhtml:link rel="alternate" hreflang="x-default" href="${siteUrl}${enPath}" />`,
+  ].join("\n");
+
 export const generateSitemap = (siteUrl: string): Response => {
   const posts = getAllPosts().toSorted(
     (a, b) => new Date(b.updated).getTime() - new Date(a.updated).getTime()
@@ -35,18 +47,29 @@ export const generateSitemap = (siteUrl: string): Response => {
           .split("T")[0]
       : new Date().toISOString().split("T")[0];
 
-  const staticPages = [
-    { lastmod: latestPostDate, loc: "/", priority: "1.0" },
-    { loc: "/about", priority: "0.8" },
-    { loc: "/talks", priority: "0.7" },
+  // Static page pairs: EN path ↔ PT-BR path
+  const staticPagePairs = [
+    { enPath: "/", lastmod: latestPostDate, priority: "1.0", ptPath: "/pt-BR" },
+    { enPath: "/about", priority: "0.8", ptPath: "/pt-BR/about" },
+    { enPath: "/talks", priority: "0.7", ptPath: "/pt-BR/talks" },
   ];
 
-  const staticEntries = staticPages.map(
-    ({ loc, lastmod, priority }) => `  <url>
-    <loc>${siteUrl}${loc}</loc>${lastmod ? `\n    <lastmod>${lastmod}</lastmod>` : ""}
+  const staticEntries: string[] = [];
+  for (const { enPath, ptPath, lastmod, priority } of staticPagePairs) {
+    const hreflangs = staticAlternateLinks(siteUrl, enPath, ptPath);
+    // EN entry
+    staticEntries.push(`  <url>
+    <loc>${siteUrl}${enPath}</loc>${lastmod ? `\n    <lastmod>${lastmod}</lastmod>` : ""}
     <priority>${priority}</priority>
-  </url>`
-  );
+${hreflangs}
+  </url>`);
+    // PT-BR entry
+    staticEntries.push(`  <url>
+    <loc>${siteUrl}${ptPath}</loc>${lastmod ? `\n    <lastmod>${lastmod}</lastmod>` : ""}
+    <priority>${priority}</priority>
+${hreflangs}
+  </url>`);
+  }
 
   const tags = getAllTags();
   const tagLastmod = new Map<string, string>();
@@ -59,16 +82,31 @@ export const generateSitemap = (siteUrl: string): Response => {
       }
     }
   }
-  const tagEntries = [...tags.keys()].toSorted().map((tag) => {
+
+  const tagEntries: string[] = [];
+  for (const tag of [...tags.keys()].toSorted()) {
     const lastmod = tagLastmod.get(tag);
     const lastmodStr = lastmod
       ? new Date(lastmod).toISOString().split("T")[0]
       : undefined;
-    return `  <url>
-    <loc>${siteUrl}/tag/${escapeXml(encodeURIComponent(tag))}</loc>${lastmodStr ? `\n    <lastmod>${lastmodStr}</lastmod>` : ""}
+    const encodedTag = escapeXml(encodeURIComponent(tag));
+    const enPath = `/tag/${encodedTag}`;
+    const ptPath = `/pt-BR/tag/${encodedTag}`;
+    const hreflangs = staticAlternateLinks(siteUrl, enPath, ptPath);
+
+    // EN tag entry
+    tagEntries.push(`  <url>
+    <loc>${siteUrl}${enPath}</loc>${lastmodStr ? `\n    <lastmod>${lastmodStr}</lastmod>` : ""}
     <priority>0.4</priority>
-  </url>`;
-  });
+${hreflangs}
+  </url>`);
+    // PT-BR tag entry
+    tagEntries.push(`  <url>
+    <loc>${siteUrl}${ptPath}</loc>${lastmodStr ? `\n    <lastmod>${lastmodStr}</lastmod>` : ""}
+    <priority>0.4</priority>
+${hreflangs}
+  </url>`);
+  }
 
   const postEntries = posts.map((post) => {
     const alternates = getPostAlternates(post.slug);

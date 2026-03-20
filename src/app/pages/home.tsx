@@ -51,12 +51,15 @@ const about = {
 interface HomeProps {
   data: PaginatedPosts;
   siteUrl: string;
+  basePath?: string;
 }
 
-export const Home = ({ data, siteUrl }: HomeProps) => {
+export const Home = ({ data, siteUrl, basePath = "" }: HomeProps) => {
   const { posts, page, totalPages } = data;
   const locale = getLocale();
-  const canonicalUrl = page === 1 ? siteUrl : `${siteUrl}/page/${page}`;
+  const baseUrl = `${siteUrl}${basePath}`;
+  const canonicalUrl =
+    page === 1 ? baseUrl || siteUrl : `${baseUrl}/page/${page}`;
   const title =
     page === 1
       ? t("Douglas Moura — Software Engineer | Web Development Blog")
@@ -65,6 +68,15 @@ export const Home = ({ data, siteUrl }: HomeProps) => {
     "Douglas Moura — Software Engineer in São Paulo. Articles about web development, TypeScript, React, and the things I learn along the way."
   );
   const ogImageUrl = `${siteUrl}/api/v1/og?title=${encodeURIComponent("Douglas Moura")}`;
+
+  const enBase = page === 1 ? siteUrl : `${siteUrl}/page/${page}`;
+  const ptBase =
+    page === 1 ? `${siteUrl}/pt-BR` : `${siteUrl}/pt-BR/page/${page}`;
+  const alternates = [
+    { href: enBase, hrefLang: "en-US" },
+    { href: ptBase, hrefLang: "pt-BR" },
+    { href: enBase, hrefLang: "x-default" },
+  ];
 
   const jsonLd =
     page === 1
@@ -95,6 +107,9 @@ export const Home = ({ data, siteUrl }: HomeProps) => {
         ]
       : undefined;
 
+  // Navigation base for pagination links
+  const navBase = basePath || "";
+
   return (
     <>
       <PageSeo
@@ -103,15 +118,16 @@ export const Home = ({ data, siteUrl }: HomeProps) => {
         url={canonicalUrl}
         image={ogImageUrl}
         jsonLd={jsonLd}
+        alternates={alternates}
       />
       {page > 1 && (
         <link
           rel="prev"
-          href={page === 2 ? siteUrl : `${siteUrl}/page/${page - 1}`}
+          href={page === 2 ? baseUrl || siteUrl : `${baseUrl}/page/${page - 1}`}
         />
       )}
       {page < totalPages && (
-        <link rel="next" href={`${siteUrl}/page/${page + 1}`} />
+        <link rel="next" href={`${baseUrl}/page/${page + 1}`} />
       )}
 
       <section className="prose mx-auto py-10 px-4">
@@ -152,7 +168,9 @@ export const Home = ({ data, siteUrl }: HomeProps) => {
           >
             {page > 1 && (
               <PrefetchLink
-                href={page === 2 ? "/" : `/page/${page - 1}`}
+                href={
+                  page === 2 ? navBase || "/" : `${navBase}/page/${page - 1}`
+                }
                 rel="prev"
                 aria-label={t("Previous")}
                 className="inline-flex items-center justify-center size-11 sm:size-auto -ml-3 sm:ml-0 text-text-muted hover:text-accent motion-safe:transition-colors motion-safe:duration-150"
@@ -185,7 +203,11 @@ export const Home = ({ data, siteUrl }: HomeProps) => {
               return (
                 <PrefetchLink
                   key={item.key}
-                  href={item.page === 1 ? "/" : `/page/${item.page}`}
+                  href={
+                    item.page === 1
+                      ? navBase || "/"
+                      : `${navBase}/page/${item.page}`
+                  }
                   className="hidden sm:inline text-text-muted hover:text-accent motion-safe:transition-colors motion-safe:duration-150"
                 >
                   {item.page}
@@ -194,7 +216,7 @@ export const Home = ({ data, siteUrl }: HomeProps) => {
             })}
             {page < totalPages && (
               <PrefetchLink
-                href={`/page/${page + 1}`}
+                href={`${navBase}/page/${page + 1}`}
                 rel="next"
                 aria-label={t("Next")}
                 className="inline-flex items-center justify-center size-11 sm:size-auto ml-auto sm:ml-0 -mr-3 sm:mr-0 text-text-muted hover:text-accent motion-safe:transition-colors motion-safe:duration-150"

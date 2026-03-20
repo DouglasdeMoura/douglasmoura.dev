@@ -7,4 +7,5 @@ export interface AppContext {
   theme?: Theme;
   themeExplicit?: boolean;
   alternates?: PostAlternate[];
+  pathname?: string;
 }

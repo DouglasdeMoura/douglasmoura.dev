@@ -1,5 +1,10 @@
 import { getLocale } from "#app/lib/i18n.js";
 
+interface HrefLangAlternate {
+  hrefLang: string;
+  href: string;
+}
+
 interface PageSeoProps {
   title: string;
   description: string;
@@ -7,6 +12,7 @@ interface PageSeoProps {
   type?: string;
   image?: string;
   jsonLd?: Record<string, unknown> | Record<string, unknown>[];
+  alternates?: HrefLangAlternate[];
 }
 
 export const PageSeo = ({
@@ -16,6 +22,7 @@ export const PageSeo = ({
   type = "website",
   image,
   jsonLd,
+  alternates,
 }: PageSeoProps) => {
   const locale = getLocale();
   const ogLocale = locale.replace("-", "_");
@@ -25,7 +32,18 @@ export const PageSeo = ({
       <title>{title}</title>
       <meta name="description" content={description} />
       <link rel="canonical" href={url} />
-      <link rel="alternate" hrefLang="x-default" href={url} />
+      {alternates && alternates.length > 0 ? (
+        alternates.map((alt) => (
+          <link
+            key={alt.hrefLang}
+            rel="alternate"
+            hrefLang={alt.hrefLang}
+            href={alt.href}
+          />
+        ))
+      ) : (
+        <link rel="alternate" hrefLang="x-default" href={url} />
+      )}
 
       <meta property="og:title" content={title} />
       <meta property="og:description" content={description} />

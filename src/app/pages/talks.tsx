@@ -51,7 +51,11 @@ const buildEventJsonLd = (talks: Talk[]) =>
     return event;
   });
 
-export const Talks = () => {
+interface TalksProps {
+  basePath?: string;
+}
+
+export const Talks = ({ basePath = "" }: TalksProps) => {
   const talks = resume.talks as Talk[];
   const eventJsonLd = buildEventJsonLd(talks);
 
@@ -65,12 +69,18 @@ export const Talks = () => {
 
   const years = [...grouped.keys()].toSorted((a, b) => Number(b) - Number(a));
 
-  const canonicalUrl = `${SITE_URL}/talks`;
+  const canonicalUrl = `${SITE_URL}${basePath}/talks`;
   const title = `${t("Talks")} | Douglas Moura`;
   const description = t(
     "Conference talks and presentations by Douglas Moura on web development, TypeScript, React, and software engineering at events across Brazil."
   );
   const ogImageUrl = `${SITE_URL}/api/v1/og?title=${encodeURIComponent(t("Talks"))}`;
+
+  const alternates = [
+    { href: `${SITE_URL}/talks`, hrefLang: "en-US" },
+    { href: `${SITE_URL}/pt-BR/talks`, hrefLang: "pt-BR" },
+    { href: `${SITE_URL}/talks`, hrefLang: "x-default" },
+  ];
 
   return (
     <>
@@ -79,6 +89,7 @@ export const Talks = () => {
         description={description}
         url={canonicalUrl}
         image={ogImageUrl}
+        alternates={alternates}
       />
       <script
         type="application/ld+json"

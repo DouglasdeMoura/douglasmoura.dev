@@ -24,11 +24,21 @@ const bio = {
   ],
 } as const;
 
-export const About = () => {
+interface AboutProps {
+  basePath?: string;
+}
+
+export const About = ({ basePath = "" }: AboutProps) => {
   const locale = getLocale();
-  const canonicalUrl = `${SITE_URL}/about`;
+  const canonicalUrl = `${SITE_URL}${basePath}/about`;
   const title = `${t("About")} | Douglas Moura`;
   const ogImageUrl = `${SITE_URL}/api/v1/og?title=${encodeURIComponent(t("About"))}`;
+
+  const alternates = [
+    { href: `${SITE_URL}/about`, hrefLang: "en-US" },
+    { href: `${SITE_URL}/pt-BR/about`, hrefLang: "pt-BR" },
+    { href: `${SITE_URL}/about`, hrefLang: "x-default" },
+  ];
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -55,6 +65,7 @@ export const About = () => {
         type="profile"
         image={ogImageUrl}
         jsonLd={jsonLd}
+        alternates={alternates}
       />
 
       <section className="prose mx-auto py-10 px-4">

@@ -22,6 +22,7 @@ export const SiteLayout = ({
   const theme = appCtx.theme ?? "system";
   const locale = appCtx.locale ?? "en-US";
   const alternates = appCtx.alternates ?? [];
+  const pathname = appCtx.pathname ?? "/";
 
   return (
     <>
@@ -31,7 +32,7 @@ export const SiteLayout = ({
       >
         {t("Skip to content")}
       </a>
-      <Header locale={locale} alternates={alternates} />
+      <Header locale={locale} alternates={alternates} pathname={pathname} />
       <main id="main-content">{children}</main>
       <footer className="mt-8 border-t border-border">
         <div className="max-w-prose mx-auto px-4 py-8">
@@ -81,7 +82,7 @@ export const SiteLayout = ({
             </nav>
             <div className="flex items-center gap-2">
               <LocaleSwitch
-                href={getLocaleHref(locale, alternates)}
+                href={getLocaleHref(locale, alternates, pathname)}
                 currentLocale={locale}
                 label={t("Switch language")}
               />

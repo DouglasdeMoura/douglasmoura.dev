@@ -8,12 +8,19 @@ interface TagPageProps {
   tag: string;
   data: PaginatedPosts;
   siteUrl: string;
+  localePrefix?: string;
 }
 
-export const TagPage = ({ tag, data, siteUrl }: TagPageProps) => {
+export const TagPage = ({
+  tag,
+  data,
+  siteUrl,
+  localePrefix = "",
+}: TagPageProps) => {
   const { posts, page, totalPages } = data;
   const locale = getLocale();
-  const basePath = `/tag/${encodeURIComponent(tag)}`;
+  const tagPath = `/tag/${encodeURIComponent(tag)}`;
+  const basePath = `${localePrefix}${tagPath}`;
   const canonicalUrl =
     page === 1 ? `${siteUrl}${basePath}` : `${siteUrl}${basePath}/page/${page}`;
   const title = `${t("Posts tagged")} \u201C${tag}\u201D | Douglas Moura`;
@@ -23,6 +30,18 @@ export const TagPage = ({ tag, data, siteUrl }: TagPageProps) => {
       : `Articles about ${tag} — web development, TypeScript, and more by Douglas Moura.`;
   const ogImageUrl = `${siteUrl}/api/v1/og?title=${encodeURIComponent(`${t("Posts tagged")} "${tag}"`)}`;
 
+  const enTagBase =
+    page === 1 ? `${siteUrl}${tagPath}` : `${siteUrl}${tagPath}/page/${page}`;
+  const ptTagBase =
+    page === 1
+      ? `${siteUrl}/pt-BR${tagPath}`
+      : `${siteUrl}/pt-BR${tagPath}/page/${page}`;
+  const alternates = [
+    { href: enTagBase, hrefLang: "en-US" },
+    { href: ptTagBase, hrefLang: "pt-BR" },
+    { href: enTagBase, hrefLang: "x-default" },
+  ];
+
   return (
     <>
       <PageSeo
@@ -30,6 +49,7 @@ export const TagPage = ({ tag, data, siteUrl }: TagPageProps) => {
         description={description}
         url={canonicalUrl}
         image={ogImageUrl}
+        alternates={alternates}
         jsonLd={{
           "@context": "https://schema.org",
           "@type": "BreadcrumbList",

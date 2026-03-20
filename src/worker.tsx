@@ -40,19 +40,6 @@ const markdownResponse = (post: PostData): Response =>
     headers: { "Content-Type": "text/markdown; charset=utf-8" },
   });
 
-const resolveLocale = (request: Request): "en-US" | "pt-BR" => {
-  const cookie = request.headers.get("Cookie") ?? "";
-  const match = cookie.match(/locale=(en-US|pt-BR)/);
-  if (match) {
-    return match[1] as "en-US" | "pt-BR";
-  }
-  const accept = request.headers.get("Accept-Language") ?? "";
-  if (/pt/i.test(accept)) {
-    return "pt-BR";
-  }
-  return "en-US";
-};
-
 interface ResolvedTheme {
   theme: Theme;
   explicit: boolean;
@@ -67,8 +54,41 @@ const resolveTheme = (request: Request): ResolvedTheme => {
   return { explicit: false, theme: "system" };
 };
 
+/** Render a blog post (shared between EN and PT-BR slug routes). */
+const renderPost = async (params: { slug: string }, request: Request) => {
+  const post = getPostBySlug(params.slug);
+  if (!post) {
+    return <NotFound />;
+  }
+  const accept = request.headers.get("Accept") ?? "";
+  if (accept.includes("text/markdown")) {
+    return markdownResponse(post);
+  }
+  const rendered = await renderMarkdown(post.body);
+  const html = resolvePostImages(rendered.html, post.images);
+  const readingTime = getReadingTime(post.body);
+  const tweets = await Promise.all(
+    rendered.tweetIds.map((id) => fetchTweetData(id))
+  );
+  const howToSchema = buildHowToSchema(post, SITE_URL);
+  const { body: _, images: __, ...postWithoutBody } = post;
+  const adjacent = getAdjacentPosts(post.slug, post.locale);
+  return (
+    <Post
+      post={postWithoutBody}
+      html={html}
+      hasMath={rendered.hasMath}
+      adjacent={adjacent}
+      readingTime={readingTime}
+      tweets={tweets}
+      howToSchema={howToSchema}
+    />
+  );
+};
+
 export default defineApp([
   setCommonHeaders(),
+  // Legacy locale-switch redirect (EN): set cookie and redirect to root
   route("/en-US", ({ request }) => {
     const url = new URL(request.url);
     const redirect = url.searchParams.get("redirect");
@@ -84,21 +104,7 @@ export default defineApp([
       status: 302,
     });
   }),
-  route("/pt-BR", ({ request }) => {
-    const url = new URL(request.url);
-    const redirect = url.searchParams.get("redirect");
-    const safePath =
-      redirect && redirect.startsWith("/") && !redirect.startsWith("//")
-        ? redirect
-        : "/";
-    return new Response(null, {
-      headers: {
-        Location: `${url.origin}${safePath}`,
-        "Set-Cookie": "locale=pt-BR; Path=/; Max-Age=31536000; SameSite=Lax",
-      },
-      status: 302,
-    });
-  }),
+  // Feeds
   route("/en-US/feed.xml", () => generateAtomFeed("en-US", SITE_URL)),
   route("/en-US/rss.xml", () => generateRssFeed("en-US", SITE_URL)),
   route("/pt-BR/feed.xml", () => generateAtomFeed("pt-BR", SITE_URL)),
@@ -141,6 +147,7 @@ export default defineApp([
     const data = await searchPosts(q, locale, limit, offset);
     return Response.json(data);
   }),
+  // Legacy post redirects: /en-US/:slug → /:slug, /pt-BR/:slug → /:slug
   route("/en-US/:slug", ({ params }) => {
     const post = getPostBySlug(params.slug);
     if (!post) {
@@ -149,11 +156,12 @@ export default defineApp([
     return Response.redirect(`${SITE_URL}/${post.slug}`, 301);
   }),
   route("/pt-BR/:slug", ({ params }) => {
+    // Check if it's a blog post slug — if so, redirect to canonical URL
     const post = getPostBySlug(params.slug);
-    if (!post) {
-      return new Response("Not Found", { status: 404 });
+    if (post) {
+      return Response.redirect(`${SITE_URL}/${post.slug}`, 301);
     }
-    return Response.redirect(`${SITE_URL}/${post.slug}`, 301);
+    // Not a post — fall through to the rendered PT-BR routes below
   }),
   route("/:slug.md", ({ params }) => {
     const post = getPostBySlug(params.slug);
@@ -162,12 +170,23 @@ export default defineApp([
     }
     return markdownResponse(post);
   }),
+  // Middleware: set theme, locale, pathname, and post alternates on context
   ({ request, ctx }) => {
     const resolved = resolveTheme(request);
     (ctx as Record<string, unknown>).theme = resolved.theme;
     (ctx as Record<string, unknown>).themeExplicit = resolved.explicit;
-    (ctx as Record<string, unknown>).locale = resolveLocale(request);
-    const slug = new URL(request.url).pathname.slice(1);
+
+    const { pathname } = new URL(request.url);
+    (ctx as Record<string, unknown>).pathname = pathname;
+
+    // Locale is URL-driven: /pt-BR/* is always pt-BR, everything else is en-US
+    (ctx as Record<string, unknown>).locale =
+      pathname === "/pt-BR" || pathname.startsWith("/pt-BR/")
+        ? "pt-BR"
+        : "en-US";
+
+    // Blog post: override locale to match the post's locale
+    const slug = pathname.replace(/^\//, "");
     const post = slug ? getPostBySlug(slug) : undefined;
     if (post) {
       (ctx as Record<string, unknown>).locale = post.locale;
@@ -179,25 +198,20 @@ export default defineApp([
   render(
     Document,
     layout(SiteLayout, [
-      route("/", ({ ctx }) => {
-        const locale = (ctx as Record<string, unknown>).locale as
-          | "en-US"
-          | "pt-BR";
-        const data = getPaginatedPosts(1, locale);
+      // ── EN routes (no prefix) ──
+      route("/", () => {
+        const data = getPaginatedPosts(1, "en-US");
         if (!data) {
           return <NotFound />;
         }
         return <Home data={data} siteUrl={SITE_URL} />;
       }),
-      route("/page/:num", ({ params, ctx }) => {
+      route("/page/:num", ({ params }) => {
         const num = Number(params.num);
         if (num === 1) {
           return Response.redirect(`${SITE_URL}/`, 301);
         }
-        const locale = (ctx as Record<string, unknown>).locale as
-          | "en-US"
-          | "pt-BR";
-        const data = getPaginatedPosts(num, locale);
+        const data = getPaginatedPosts(num, "en-US");
         if (!data) {
           return <NotFound />;
         }
@@ -205,18 +219,15 @@ export default defineApp([
       }),
       route("/about", () => <About />),
       route("/talks", () => <Talks />),
-      route("/tag/:tag", ({ params, ctx }) => {
+      route("/tag/:tag", ({ params }) => {
         const tag = decodeURIComponent(params.tag);
-        const locale = (ctx as Record<string, unknown>).locale as
-          | "en-US"
-          | "pt-BR";
-        const data = getPostsByTag(tag, 1, locale);
+        const data = getPostsByTag(tag, 1, "en-US");
         if (!data) {
           return <NotFound />;
         }
         return <TagPage tag={tag} data={data} siteUrl={SITE_URL} />;
       }),
-      route("/tag/:tag/page/:num", ({ params, ctx }) => {
+      route("/tag/:tag/page/:num", ({ params }) => {
         const tag = decodeURIComponent(params.tag);
         const num = Number(params.num);
         if (num === 1) {
@@ -225,45 +236,74 @@ export default defineApp([
             301
           );
         }
-        const locale = (ctx as Record<string, unknown>).locale as
-          | "en-US"
-          | "pt-BR";
-        const data = getPostsByTag(tag, num, locale);
+        const data = getPostsByTag(tag, num, "en-US");
         if (!data) {
           return <NotFound />;
         }
         return <TagPage tag={tag} data={data} siteUrl={SITE_URL} />;
       }),
-      route("/:slug", async ({ params, request }) => {
-        const post = getPostBySlug(params.slug);
-        if (!post) {
+
+      // ── PT-BR routes (prefixed) ──
+      route("/pt-BR", () => {
+        const data = getPaginatedPosts(1, "pt-BR");
+        if (!data) {
           return <NotFound />;
         }
-        const accept = request.headers.get("Accept") ?? "";
-        if (accept.includes("text/markdown")) {
-          return markdownResponse(post);
+        return <Home data={data} siteUrl={SITE_URL} basePath="/pt-BR" />;
+      }),
+      route("/pt-BR/page/:num", ({ params }) => {
+        const num = Number(params.num);
+        if (num === 1) {
+          return Response.redirect(`${SITE_URL}/pt-BR`, 301);
         }
-        const rendered = await renderMarkdown(post.body);
-        const html = resolvePostImages(rendered.html, post.images);
-        const readingTime = getReadingTime(post.body);
-        const tweets = await Promise.all(
-          rendered.tweetIds.map((id) => fetchTweetData(id))
-        );
-        const howToSchema = buildHowToSchema(post, SITE_URL);
-        const { body: _, images: __, ...postWithoutBody } = post;
-        const adjacent = getAdjacentPosts(post.slug, post.locale);
+        const data = getPaginatedPosts(num, "pt-BR");
+        if (!data) {
+          return <NotFound />;
+        }
+        return <Home data={data} siteUrl={SITE_URL} basePath="/pt-BR" />;
+      }),
+      route("/pt-BR/about", () => <About basePath="/pt-BR" />),
+      route("/pt-BR/talks", () => <Talks basePath="/pt-BR" />),
+      route("/pt-BR/tag/:tag", ({ params }) => {
+        const tag = decodeURIComponent(params.tag);
+        const data = getPostsByTag(tag, 1, "pt-BR");
+        if (!data) {
+          return <NotFound />;
+        }
         return (
-          <Post
-            post={postWithoutBody}
-            html={html}
-            hasMath={rendered.hasMath}
-            adjacent={adjacent}
-            readingTime={readingTime}
-            tweets={tweets}
-            howToSchema={howToSchema}
+          <TagPage
+            tag={tag}
+            data={data}
+            siteUrl={SITE_URL}
+            localePrefix="/pt-BR"
           />
         );
       }),
+      route("/pt-BR/tag/:tag/page/:num", ({ params }) => {
+        const tag = decodeURIComponent(params.tag);
+        const num = Number(params.num);
+        if (num === 1) {
+          return Response.redirect(
+            `${SITE_URL}/pt-BR/tag/${encodeURIComponent(tag)}`,
+            301
+          );
+        }
+        const data = getPostsByTag(tag, num, "pt-BR");
+        if (!data) {
+          return <NotFound />;
+        }
+        return (
+          <TagPage
+            tag={tag}
+            data={data}
+            siteUrl={SITE_URL}
+            localePrefix="/pt-BR"
+          />
+        );
+      }),
+
+      // ── Blog post (catch-all) ──
+      route("/:slug", ({ params, request }) => renderPost(params, request)),
     ])
   ),
 ]);
