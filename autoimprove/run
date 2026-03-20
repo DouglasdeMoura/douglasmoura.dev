@@ -193,8 +193,11 @@ run_audit() {
     gum spin --spinner dot --title "Auditing ${URL}..." -- \
       bash -c "squirrel audit '${URL}' --format llm > '${audit_file}' 2>/dev/null || true"
 
-    # Extract health/quality score — try multiple patterns
-    score=$(grep -oiP '(?:health\s*score|overall\s*score|quality\s*score|score)[:\s]*\K\d+' "$audit_file" 2>/dev/null | head -1) || true
+    # Extract score — handle XML (<score overall="72">) and text (Score: 72) formats
+    score=$(grep -oP 'overall="\K\d+' "$audit_file" 2>/dev/null | head -1) || true
+    if [[ -z "$score" ]]; then
+      score=$(grep -oiP '(?:health\s*score|overall\s*score|quality\s*score|score)[:\s]*\K\d+' "$audit_file" 2>/dev/null | head -1) || true
+    fi
     score="${score:-0}"
   fi
 
