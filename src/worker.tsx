@@ -155,14 +155,6 @@ export default defineApp([
     }
     return Response.redirect(`${SITE_URL}/${post.slug}`, 301);
   }),
-  route("/pt-BR/:slug", ({ params }) => {
-    // Check if it's a blog post slug — if so, redirect to canonical URL
-    const post = getPostBySlug(params.slug);
-    if (post) {
-      return Response.redirect(`${SITE_URL}/${post.slug}`, 301);
-    }
-    // Not a post — fall through to the rendered PT-BR routes below
-  }),
   route("/:slug.md", ({ params }) => {
     const post = getPostBySlug(params.slug);
     if (!post) {
@@ -302,8 +294,20 @@ export default defineApp([
         );
       }),
 
+      // Legacy PT-BR post redirect: /pt-BR/:slug → /:slug (for old bookmarks)
+      route("/pt-BR/:slug", ({ params }) => {
+        const post = getPostBySlug(params.slug);
+        if (post) {
+          return Response.redirect(`${SITE_URL}/${post.slug}`, 301);
+        }
+        return <NotFound />;
+      }),
+
       // ── Blog post (catch-all) ──
-      route("/:slug", ({ params, request }) => renderPost(params, request)),
+      /* oxlint-disable-next-line eslint(require-await) -- rwsdk requires async handlers for layout wrapping */
+      route("/:slug", async ({ params, request }) =>
+        renderPost(params, request)
+      ),
     ])
   ),
 ]);
