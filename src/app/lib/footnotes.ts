@@ -1,3 +1,5 @@
+import { t } from "#app/lib/i18n.js";
+
 const definitionPattern = /<p>\[\^(\w+)\]:\s*([\s\S]*?)<\/p>/g;
 const referencePattern = /\[\^(\w+)\]/g;
 
@@ -25,7 +27,7 @@ export const renderFootnotes = (html: string): string => {
   const items = [...definitions.entries()]
     .map(
       ([id, content]) =>
-        `<li id="fn-${id}"><p>${content} <a href="#fnref-${id}" class="footnote-back"><span class="sr-only">Back to reference ${id}</span><span aria-hidden="true">↩</span></a></p></li>`
+        `<li id="fn-${id}"><p>${content} <a href="#fnref-${id}" class="footnote-back"><span class="sr-only">${t("Back to reference")} ${id}</span><span aria-hidden="true">↩</span></a></p></li>`
     )
     .join("\n");
 

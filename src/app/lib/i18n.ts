@@ -12,6 +12,7 @@ const translations = {
     About: "Sobre",
     "Also available in": "Também disponível em",
     "Back to home": "Voltar ao início",
+    "Back to reference": "Voltar à referência",
     Bookmarks: "Favoritos",
     Breadcrumbs: "Navegação estrutural",
     "Coming soon.": "Em breve.",
