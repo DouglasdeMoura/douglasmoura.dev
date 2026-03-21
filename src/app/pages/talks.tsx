@@ -8,8 +8,8 @@ import resume from "#app/lib/resume.json";
 
 interface Talk {
   name: string;
-  event: string;
-  date: string;
+  entity: string;
+  startDate: string;
   location: { name: string; country: string };
   slides?: string;
   url?: string;
@@ -34,17 +34,17 @@ const buildEventJsonLd = (talks: Talk[]) =>
         },
         name: talk.location.name,
       },
-      name: `${talk.name} @ ${talk.event}`,
+      name: `${talk.name} @ ${talk.entity}`,
       organizer: {
         "@type": "Organization",
-        name: talk.event,
+        name: talk.entity,
       },
       performer: {
         "@type": "Person",
         name: "Douglas Moura",
         url: "https://douglasmoura.dev",
       },
-      startDate: talk.date,
+      startDate: talk.startDate,
     };
 
     if (talk.url) {
@@ -66,12 +66,14 @@ interface TalksProps {
 }
 
 export const Talks = ({ basePath = "" }: TalksProps) => {
-  const talks = resume.talks as Talk[];
+  const talks = resume.projects.filter(
+    (p): p is typeof p & Talk => p.type === "talk"
+  ) as Talk[];
   const eventJsonLd = buildEventJsonLd(talks);
 
   const grouped = new Map<string, Talk[]>();
   for (const talk of talks) {
-    const year = new Date(talk.date).getFullYear().toString();
+    const year = new Date(talk.startDate).getFullYear().toString();
     const list = grouped.get(year) ?? [];
     list.push(talk);
     grouped.set(year, list);
@@ -120,7 +122,7 @@ export const Talks = ({ basePath = "" }: TalksProps) => {
               <div className="relative mt-4 ml-3 border-l-2 border-border pl-6">
                 {grouped.get(year)?.map((talk, i, arr) => (
                   <div
-                    key={`${talk.date}-${talk.event}`}
+                    key={`${talk.startDate}-${talk.entity}`}
                     className={`relative ${i < arr.length - 1 ? "pb-8" : ""}`}
                   >
                     {/* Timeline dot — offset accounts for pl-6 + border-l-2/2 + dot/2 */}
@@ -129,12 +131,14 @@ export const Talks = ({ basePath = "" }: TalksProps) => {
                     <h3 className="text-base font-medium text-text-strong leading-snug">
                       {talk.name}
                     </h3>
-                    <p className="mt-1 text-sm text-text-muted">{talk.event}</p>
+                    <p className="mt-1 text-sm text-text-muted">
+                      {talk.entity}
+                    </p>
                     <time
-                      dateTime={talk.date}
+                      dateTime={talk.startDate}
                       className="mt-0.5 block text-sm text-text-muted tracking-wide"
                     >
-                      {formatDate(talk.date)}
+                      {formatDate(talk.startDate)}
                     </time>
 
                     {(talk.slides || talk.url || talk.recording) && (

@@ -299,35 +299,37 @@
       "name": "natural-forms",
       "description": "Unstyled React form components that leverage native browser features",
       "url": "https://github.com/douglasdemoura/natural-forms"
-    }
-  ],
-  "talks": [
+    },
     {
       "name": "Processamento paralelo: Node.js vs Golang",
-      "event": "NodeBR + ThePayGroup",
-      "date": "2024-07-31",
+      "type": "talk",
+      "entity": "NodeBR + ThePayGroup",
+      "startDate": "2024-07-31",
       "location": { "name": "São Paulo - SP", "country": "Brazil" },
       "slides": "https://processamento-paralelo-go-nodejs.netlify.app/1",
       "url": "https://www.youtube.com/watch?v=0jpi_JmQOTA"
     },
     {
       "name": "Desenvolvendo APIs fortemente tipadas de ponta a ponta com tRPC",
-      "event": "TDC Connections",
-      "date": "2023-03-23",
+      "type": "talk",
+      "entity": "TDC Connections",
+      "startDate": "2023-03-23",
       "location": { "name": "Belo Horizonte - MG", "country": "Brazil" },
       "url": "https://thedevconf.com/tdc/2023/connections/trilha-javascript-e-node-js"
     },
     {
       "name": "Desenvolvendo APIs fortemente tipadas de ponta a ponta com tRPC",
-      "event": "Live - NodeBR #61 - Node.js como você nunca viu",
-      "date": "2023-03-01",
+      "type": "talk",
+      "entity": "Live - NodeBR #61 - Node.js como você nunca viu",
+      "startDate": "2023-03-01",
       "location": { "name": "São Paulo - SP", "country": "Brazil" },
       "recording": "https://www.youtube.com/watch?v=tVMmVDELuLE"
     },
     {
       "name": "Criando um design system com Tailwind CSS",
-      "event": "Conferência CSS Brasil 2023",
-      "date": "2023-01-20",
+      "type": "talk",
+      "entity": "Conferência CSS Brasil 2023",
+      "startDate": "2023-01-20",
       "location": { "name": "São Paulo - SP", "country": "Brazil" },
       "slides": "https://design-system-com-tailwind-css.vercel.app/",
       "url": "https://web.archive.org/web/2023/https://conferenciacssbrasil.com.br/"
