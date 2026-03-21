@@ -20,7 +20,7 @@
   /* Text — warm near-black */
   --color-text: oklch(0.232 0.017 108);
   --color-text-strong: oklch(0.121 0.007 108);
-  --color-text-muted: oklch(0.457 0.038 108);
+  --color-text-muted: oklch(0.44 0.038 108);
 
   /* Accent — terminal green */
   --color-accent: oklch(0.47 0.17 152);
@@ -42,7 +42,7 @@
 
   --color-text: oklch(0.77 0.005 108);
   --color-text-strong: oklch(0.949 0.005 108);
-  --color-text-muted: oklch(0.64 0.01 108);
+  --color-text-muted: oklch(0.7 0.01 108);
 
   --color-accent: oklch(0.75 0.2 152);
   --color-accent-hover: oklch(0.8 0.18 152);
