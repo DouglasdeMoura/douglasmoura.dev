@@ -248,7 +248,7 @@ log_row() {
 show_table() {
   echo ""
   if command -v gum &>/dev/null; then
-    gum table --separator $'\t' < "$TSV" 2>/dev/null || column -t -s $'\t' < "$TSV"
+    gum table --print --separator $'\t' < "$TSV" 2>/dev/null || column -t -s $'\t' < "$TSV"
   else
     column -t -s $'\t' < "$TSV"
   fi
