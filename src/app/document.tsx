@@ -1,5 +1,7 @@
 import type { RequestInfo } from "rwsdk/worker";
 
+import type { AppContext } from "#app/lib/types.js";
+
 import styles from "./styles.css?url";
 
 const themeScript = `(function(){
@@ -13,7 +15,7 @@ const themeScript = `(function(){
 export const Document: React.FC<
   RequestInfo & { children: React.ReactNode }
 > = ({ ctx, rw, children }) => {
-  const appCtx = ctx as { locale?: string; theme?: string };
+  const appCtx = ctx as AppContext;
   const theme = appCtx.theme ?? "system";
 
   return (

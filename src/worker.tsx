@@ -21,7 +21,7 @@ import resume from "#app/lib/resume.json";
 import { searchPosts } from "#app/lib/search.js";
 import { generateSitemap } from "#app/lib/sitemap.js";
 import { fetchTweetData } from "#app/lib/tweets.js";
-import type { Theme } from "#app/lib/types.js";
+import type { AppContext, Theme } from "#app/lib/types.js";
 import { NotFound } from "#app/pages/not-found.js";
 import { Post } from "#app/pages/post.js";
 // import { Privacy } from "#app/pages/privacy.js";
@@ -137,26 +137,24 @@ export default defineApp([
   // Middleware: set theme, locale, pathname, and post alternates on context
   ({ request, ctx }) => {
     const resolved = resolveTheme(request);
-    (ctx as Record<string, unknown>).theme = resolved.theme;
-    (ctx as Record<string, unknown>).themeExplicit = resolved.explicit;
-
     const { pathname } = new URL(request.url);
-    (ctx as Record<string, unknown>).pathname = pathname;
-
+    const appCtx = ctx as AppContext;
+    appCtx.theme = resolved.theme;
+    appCtx.themeExplicit = resolved.explicit;
+    appCtx.pathname = pathname;
     // Locale is URL-driven: /pt-BR/* is always pt-BR, everything else is en-US
-    (ctx as Record<string, unknown>).locale =
+    appCtx.locale =
       pathname === "/pt-BR" || pathname.startsWith("/pt-BR/")
         ? "pt-BR"
         : "en-US";
 
-    // Blog post: override locale to match the post's locale
     const slug = pathname.replace(/^\//, "");
     const post = slug ? getPostBySlug(slug) : undefined;
     if (post) {
-      (ctx as Record<string, unknown>).locale = post.locale;
-      (ctx as Record<string, unknown>).alternates = getPostAlternates(
-        post.slug
-      );
+      appCtx.locale = post.locale;
+      appCtx.alternates = getPostAlternates(post.slug);
+    } else {
+      delete appCtx.alternates;
     }
   },
   render(
