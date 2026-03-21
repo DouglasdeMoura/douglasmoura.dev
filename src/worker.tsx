@@ -11,30 +11,21 @@ import { generateGenericOgImage, generateOgImage } from "#app/lib/og.js";
 import type { Post as PostData } from "#app/lib/posts.js";
 import {
   getAdjacentPosts,
-  getPaginatedPosts,
   getPostAlternates,
   getPostBySlug,
-  getPostsByTag,
   getReadingTime,
-  getTagBySlug,
   resolvePostImages,
   serializePost,
-  slugifyTag,
 } from "#app/lib/posts.js";
 import resume from "#app/lib/resume.json";
 import { searchPosts } from "#app/lib/search.js";
 import { generateSitemap } from "#app/lib/sitemap.js";
 import { fetchTweetData } from "#app/lib/tweets.js";
 import type { Theme } from "#app/lib/types.js";
-import { About } from "#app/pages/about.js";
-import { Bookmarks } from "#app/pages/bookmarks.js";
-import { Home } from "#app/pages/home.js";
 import { NotFound } from "#app/pages/not-found.js";
 import { Post } from "#app/pages/post.js";
 // import { Privacy } from "#app/pages/privacy.js";
-import { SearchPage } from "#app/pages/search.js";
-import { TagPage } from "#app/pages/tag.js";
-import { Talks } from "#app/pages/talks.js";
+import { createLocaleRoutes } from "#app/routes/locale-routes.js";
 
 export type { AppContext, Theme } from "#app/lib/types.js";
 
@@ -171,182 +162,15 @@ export default defineApp([
   render(
     Document,
     layout(SiteLayout, [
-      // ── EN routes (no prefix) ──
-      route("/", () => {
-        const data = getPaginatedPosts(1, "en-US");
-        if (!data) {
-          return <NotFound />;
-        }
-        return <Home data={data} siteUrl={SITE_URL} />;
+      ...createLocaleRoutes({
+        locale: "en-US",
+        pathPrefix: "",
+        siteUrl: SITE_URL,
       }),
-      route("/page/:num", ({ params, response }) => {
-        const num = Number(params.num);
-        if (num === 1) {
-          return Response.redirect(`${SITE_URL}/`, 301);
-        }
-        const data = getPaginatedPosts(num, "en-US");
-        if (!data) {
-          response.status = 404;
-          return <NotFound />;
-        }
-        return <Home data={data} siteUrl={SITE_URL} />;
-      }),
-      route("/about", () => <About />),
-      route("/talks", () => <Talks />),
-      route("/bookmarks", () => <Bookmarks />),
-      // route("/privacy", () => <Privacy />),
-      route("/tag/:tag", ({ params, response }) => {
-        const rawParam = decodeURIComponent(params.tag);
-        const slugged = slugifyTag(rawParam);
-        if (rawParam !== slugged) {
-          return Response.redirect(`${SITE_URL}/tag/${slugged}`, 301);
-        }
-        const tag = getTagBySlug(rawParam) ?? rawParam;
-        const data = getPostsByTag(tag, 1, "en-US");
-        if (!data) {
-          response.status = 404;
-          return <NotFound />;
-        }
-        return <TagPage tag={tag} data={data} siteUrl={SITE_URL} />;
-      }),
-      route("/tag/:tag/page/:num", ({ params, response }) => {
-        const rawParam = decodeURIComponent(params.tag);
-        const slugged = slugifyTag(rawParam);
-        if (rawParam !== slugged) {
-          return Response.redirect(
-            `${SITE_URL}/tag/${slugged}/page/${params.num}`,
-            301
-          );
-        }
-        const tag = getTagBySlug(rawParam) ?? rawParam;
-        const num = Number(params.num);
-        if (num === 1) {
-          return Response.redirect(`${SITE_URL}/tag/${slugged}`, 301);
-        }
-        const data = getPostsByTag(tag, num, "en-US");
-        if (!data) {
-          response.status = 404;
-          return <NotFound />;
-        }
-        return <TagPage tag={tag} data={data} siteUrl={SITE_URL} />;
-      }),
-
-      route("/search", async ({ request }) => {
-        const url = new URL(request.url);
-        const q = url.searchParams.get("q")?.trim() ?? "";
-        if (!q) {
-          return (
-            <SearchPage query="" results={[]} count={0} siteUrl={SITE_URL} />
-          );
-        }
-        const data = await searchPosts(q, "en-US", 20, 0);
-        return (
-          <SearchPage
-            query={q}
-            results={data.results}
-            count={data.count}
-            siteUrl={SITE_URL}
-          />
-        );
-      }),
-
-      // ── PT-BR routes (prefixed) ──
-      route("/pt-BR", () => {
-        const data = getPaginatedPosts(1, "pt-BR");
-        if (!data) {
-          return <NotFound />;
-        }
-        return <Home data={data} siteUrl={SITE_URL} basePath="/pt-BR" />;
-      }),
-      route("/pt-BR/page/:num", ({ params, response }) => {
-        const num = Number(params.num);
-        if (num === 1) {
-          return Response.redirect(`${SITE_URL}/pt-BR`, 301);
-        }
-        const data = getPaginatedPosts(num, "pt-BR");
-        if (!data) {
-          response.status = 404;
-          return <NotFound />;
-        }
-        return <Home data={data} siteUrl={SITE_URL} basePath="/pt-BR" />;
-      }),
-      route("/pt-BR/about", () => <About basePath="/pt-BR" />),
-      route("/pt-BR/talks", () => <Talks basePath="/pt-BR" />),
-      route("/pt-BR/bookmarks", () => <Bookmarks basePath="/pt-BR" />),
-      // route("/pt-BR/privacy", () => <Privacy basePath="/pt-BR" />),
-      route("/pt-BR/search", async ({ request }) => {
-        const url = new URL(request.url);
-        const q = url.searchParams.get("q")?.trim() ?? "";
-        if (!q) {
-          return (
-            <SearchPage
-              query=""
-              results={[]}
-              count={0}
-              siteUrl={SITE_URL}
-              localePrefix="/pt-BR"
-            />
-          );
-        }
-        const data = await searchPosts(q, "pt-BR", 20, 0);
-        return (
-          <SearchPage
-            query={q}
-            results={data.results}
-            count={data.count}
-            siteUrl={SITE_URL}
-            localePrefix="/pt-BR"
-          />
-        );
-      }),
-      route("/pt-BR/tag/:tag", ({ params, response }) => {
-        const rawParam = decodeURIComponent(params.tag);
-        const slugged = slugifyTag(rawParam);
-        if (rawParam !== slugged) {
-          return Response.redirect(`${SITE_URL}/pt-BR/tag/${slugged}`, 301);
-        }
-        const tag = getTagBySlug(rawParam) ?? rawParam;
-        const data = getPostsByTag(tag, 1, "pt-BR");
-        if (!data) {
-          response.status = 404;
-          return <NotFound />;
-        }
-        return (
-          <TagPage
-            tag={tag}
-            data={data}
-            siteUrl={SITE_URL}
-            localePrefix="/pt-BR"
-          />
-        );
-      }),
-      route("/pt-BR/tag/:tag/page/:num", ({ params, response }) => {
-        const rawParam = decodeURIComponent(params.tag);
-        const slugged = slugifyTag(rawParam);
-        if (rawParam !== slugged) {
-          return Response.redirect(
-            `${SITE_URL}/pt-BR/tag/${slugged}/page/${params.num}`,
-            301
-          );
-        }
-        const tag = getTagBySlug(rawParam) ?? rawParam;
-        const num = Number(params.num);
-        if (num === 1) {
-          return Response.redirect(`${SITE_URL}/pt-BR/tag/${slugged}`, 301);
-        }
-        const data = getPostsByTag(tag, num, "pt-BR");
-        if (!data) {
-          response.status = 404;
-          return <NotFound />;
-        }
-        return (
-          <TagPage
-            tag={tag}
-            data={data}
-            siteUrl={SITE_URL}
-            localePrefix="/pt-BR"
-          />
-        );
+      ...createLocaleRoutes({
+        locale: "pt-BR",
+        pathPrefix: "/pt-BR",
+        siteUrl: SITE_URL,
       }),
 
       // Legacy PT-BR post redirect: /pt-BR/:slug → /:slug (for old bookmarks)
