@@ -7,6 +7,7 @@ import {
   slugifyTag,
 } from "#app/lib/posts.js";
 import { searchPosts } from "#app/lib/search.js";
+import type { LocalePathPrefix } from "#app/lib/site.js";
 import { About } from "#app/pages/about.js";
 import { Bookmarks } from "#app/pages/bookmarks.js";
 import { Home } from "#app/pages/home.js";
@@ -14,9 +15,6 @@ import { NotFound } from "#app/pages/not-found.js";
 import { SearchPage } from "#app/pages/search.js";
 import { TagPage } from "#app/pages/tag.js";
 import { Talks } from "#app/pages/talks.js";
-
-/** URL path prefix without trailing slash: English uses `""`, Portuguese uses `"/pt-BR"`. */
-export type LocalePathPrefix = "" | "/pt-BR";
 
 export interface LocaleRoutesOptions {
   siteUrl: string;

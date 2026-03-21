@@ -13,8 +13,7 @@ import { TweetEmbed } from "#app/components/tweet-embed.js";
 import { formatDate, t } from "#app/lib/i18n.js";
 import { getPostAlternates } from "#app/lib/posts.js";
 import type { AdjacentPosts, Post as PostType } from "#app/lib/posts.js";
-
-const SITE_URL = import.meta.env.VITE_SITE_URL ?? "https://douglasmoura.dev";
+import { SITE_URL } from "#app/lib/site.js";
 
 const LOCALE_NAMES: Record<string, string> = {
   "en-US": "English",

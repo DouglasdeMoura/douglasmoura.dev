@@ -1,7 +1,6 @@
 import { PageSeo } from "#app/components/page-seo.js";
 import { t } from "#app/lib/i18n.js";
-
-const SITE_URL = import.meta.env.VITE_SITE_URL ?? "https://douglasmoura.dev";
+import { SITE_URL } from "#app/lib/site.js";
 
 interface BookmarksProps {
   basePath?: string;

@@ -19,6 +19,7 @@ import {
 } from "#app/lib/posts.js";
 import resume from "#app/lib/resume.json";
 import { searchPosts } from "#app/lib/search.js";
+import { localePathPrefix, SITE_URL } from "#app/lib/site.js";
 import { generateSitemap } from "#app/lib/sitemap.js";
 import { fetchTweetData } from "#app/lib/tweets.js";
 import type { AppContext, Theme } from "#app/lib/types.js";
@@ -28,8 +29,6 @@ import { Post } from "#app/pages/post.js";
 import { createLocaleRoutes } from "#app/routes/locale-routes.js";
 
 export type { AppContext, Theme } from "#app/lib/types.js";
-
-const SITE_URL = import.meta.env.VITE_SITE_URL ?? "https://douglasmoura.dev";
 
 const markdownResponse = (post: PostData): Response =>
   new Response(serializePost(post), {
@@ -162,12 +161,12 @@ export default defineApp([
     layout(SiteLayout, [
       ...createLocaleRoutes({
         locale: "en-US",
-        pathPrefix: "",
+        pathPrefix: localePathPrefix("en-US"),
         siteUrl: SITE_URL,
       }),
       ...createLocaleRoutes({
         locale: "pt-BR",
-        pathPrefix: "/pt-BR",
+        pathPrefix: localePathPrefix("pt-BR"),
         siteUrl: SITE_URL,
       }),
 

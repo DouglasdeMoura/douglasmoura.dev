@@ -4,8 +4,7 @@ import { XLogo as XIcon } from "@phosphor-icons/react/dist/ssr/XLogo";
 
 import { PageSeo } from "#app/components/page-seo.js";
 import { getLocale, t } from "#app/lib/i18n.js";
-
-const SITE_URL = import.meta.env.VITE_SITE_URL ?? "https://douglasmoura.dev";
+import { SITE_URL } from "#app/lib/site.js";
 
 const bio = {
   "en-US": [

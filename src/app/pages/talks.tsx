@@ -5,6 +5,7 @@ import { VideoCamera as VideoIcon } from "@phosphor-icons/react/dist/ssr/VideoCa
 import { PageSeo } from "#app/components/page-seo.js";
 import { formatDate, t } from "#app/lib/i18n.js";
 import resume from "#app/lib/resume.json";
+import { SITE_URL } from "#app/lib/site.js";
 
 interface Talk {
   name: string;
@@ -15,8 +16,6 @@ interface Talk {
   url?: string;
   recording?: string;
 }
-
-const SITE_URL = import.meta.env.VITE_SITE_URL ?? "https://douglasmoura.dev";
 
 const buildEventJsonLd = (talks: Talk[]) =>
   talks.map((talk) => {
