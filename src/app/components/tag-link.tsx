@@ -1,5 +1,6 @@
 import { getLocale } from "#app/lib/i18n.js";
 import { slugifyTag } from "#app/lib/posts.js";
+import { localePathPrefix } from "#app/lib/site.js";
 
 interface TagLinkProps {
   tag: string;
@@ -7,7 +8,7 @@ interface TagLinkProps {
 
 export const TagLink = ({ tag }: TagLinkProps) => {
   const locale = getLocale();
-  const prefix = locale === "pt-BR" ? "/pt-BR" : "";
+  const prefix = localePathPrefix(locale);
 
   return (
     <a

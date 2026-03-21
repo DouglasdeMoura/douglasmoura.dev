@@ -9,6 +9,7 @@ import { getLocaleHref } from "#app/components/locale-link.js";
 import { LocaleSwitch } from "#app/components/locale-switch.js";
 import { ThemeToggle } from "#app/components/theme-toggle.js";
 import { t } from "#app/lib/i18n.js";
+import { localePathPrefix } from "#app/lib/site.js";
 import type { AppContext } from "#app/lib/types.js";
 
 export const SiteLayout = ({
@@ -66,7 +67,7 @@ export const SiteLayout = ({
                 <XIcon size={18} />
               </a>
               <a
-                href="/bookmarks"
+                href={`${localePathPrefix(locale)}/bookmarks`}
                 aria-label={t("Bookmarks")}
                 className="inline-flex items-center justify-center size-8 rounded-full text-text-muted hover:text-text-strong hover:bg-surface-2 motion-safe:transition-[background-color,color] motion-safe:duration-150"
               >

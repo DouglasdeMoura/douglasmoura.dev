@@ -8,6 +8,7 @@ import { getLocaleHref } from "#app/components/locale-link.js";
 import { SearchTrigger } from "#app/components/search-trigger.js";
 import { t } from "#app/lib/i18n.js";
 import type { PostAlternate } from "#app/lib/posts.js";
+import { localePathPrefix } from "#app/lib/site.js";
 
 interface HeaderProps {
   locale: "en-US" | "pt-BR";
@@ -16,7 +17,7 @@ interface HeaderProps {
 }
 
 export const Header = ({ locale, alternates, pathname }: HeaderProps) => {
-  const prefix = locale === "pt-BR" ? "/pt-BR" : "";
+  const prefix = localePathPrefix(locale);
 
   return (
     <header className="sticky top-0 z-40 border-b border-border bg-surface-0/80 backdrop-blur-lg">
@@ -70,7 +71,7 @@ export const Header = ({ locale, alternates, pathname }: HeaderProps) => {
                 shortcut: ["2"],
               },
               {
-                href: "/bookmarks",
+                href: `${prefix}/bookmarks`,
                 icon: <BookmarksIcon size={16} />,
                 label: t("Bookmarks"),
                 shortcut: ["3"],

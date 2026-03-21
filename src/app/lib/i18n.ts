@@ -1,6 +1,8 @@
 import pino from "pino";
 import { getRequestInfo } from "rwsdk/worker";
 
+import type { AppContext } from "#app/lib/types.js";
+
 const logger = pino({ name: "i18n" });
 
 type Locale = "en-US" | "pt-BR";
@@ -61,7 +63,7 @@ type TranslationKey = keyof (typeof translations)["pt-BR"];
 export const getLocale = (): Locale => {
   try {
     const { ctx } = getRequestInfo();
-    return (ctx as { locale?: Locale }).locale ?? "en-US";
+    return (ctx as AppContext).locale ?? "en-US";
   } catch {
     return "en-US";
   }

@@ -11,6 +11,7 @@ import useSWR from "swr";
 import { Kbd } from "#app/components/kbd.js";
 import type { NavItem } from "#app/components/search-trigger.js";
 import type { SearchResult } from "#app/lib/search.js";
+import { localePathPrefix } from "#app/lib/site.js";
 
 interface SearchResponse {
   results: SearchResult[];
@@ -110,7 +111,7 @@ const SearchResults = ({
 }: {
   heading: string;
   results: SearchResult[];
-  locale: string;
+  locale: "en-US" | "pt-BR";
   onSelect: (href: string) => void;
 }) => (
   <Command.Group heading={heading} className={groupHeadingClasses}>
@@ -191,14 +192,14 @@ const CommandListContent = ({
   debouncedQuery: string;
   isPending: boolean;
   results: SearchResult[];
-  locale: string;
+  locale: "en-US" | "pt-BR";
   pageItems: NavItem[];
   preferenceItems: NavItem[];
   emptyText: string;
   onSelect: (href: string) => void;
 }) => {
-  const l = labels[locale as keyof typeof labels];
-  const searchPrefix = locale === "pt-BR" ? "/pt-BR" : "";
+  const l = labels[locale];
+  const searchPrefix = localePathPrefix(locale);
   const searchHref = trimmed
     ? `${searchPrefix}/search?q=${encodeURIComponent(trimmed)}`
     : "";

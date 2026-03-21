@@ -1,4 +1,5 @@
 import type { PostAlternate } from "#app/lib/posts.js";
+import { localePathPrefix } from "#app/lib/site.js";
 
 /**
  * Returns the URL for switching to the other locale.
@@ -22,12 +23,12 @@ export const getLocaleHref = (
   // Static pages: toggle the /pt-BR prefix
   if (pathname) {
     if (targetLocale === "pt-BR") {
-      return `/pt-BR${pathname === "/" ? "" : pathname}`;
+      return `${localePathPrefix("pt-BR")}${pathname === "/" ? "" : pathname}`;
     }
     // PT-BR → EN: strip /pt-BR prefix
     const stripped = pathname.replace(/^\/pt-BR\/?/, "/");
     return stripped || "/";
   }
 
-  return targetLocale === "pt-BR" ? "/pt-BR" : "/";
+  return localePathPrefix(targetLocale) || "/";
 };
