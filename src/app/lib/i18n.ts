@@ -1,63 +1,17 @@
 import pino from "pino";
 import { getRequestInfo } from "rwsdk/worker";
 
+import {
+  formatDateShortLocale,
+  translate,
+  translations,
+} from "#app/lib/i18n-messages.js";
+import type { Locale, TranslationKey } from "#app/lib/i18n-messages.js";
 import type { AppContext } from "#app/lib/types.js";
 
+export type { Locale, TranslationKey } from "#app/lib/i18n-messages.js";
+
 const logger = pino({ name: "i18n" });
-
-type Locale = "en-US" | "pt-BR";
-
-const translations = {
-  "pt-BR": {
-    "A curated collection of links and resources on web development, software engineering, and design.":
-      "Uma coleção curada de links e recursos sobre desenvolvimento web, engenharia de software e design.",
-    About: "Sobre",
-    "Also available in": "Também disponível em",
-    "Back to home": "Voltar ao início",
-    "Back to reference": "Voltar à referência",
-    Bookmarks: "Favoritos",
-    Breadcrumbs: "Navegação estrutural",
-    "Coming soon.": "Em breve.",
-    "Conference talks and presentations by Douglas Moura on web development, TypeScript, React, and software engineering at events across Brazil.":
-      "Palestras e apresentações de Douglas Moura sobre desenvolvimento web, TypeScript, React e engenharia de software em eventos pelo Brasil.",
-    "Douglas Moura is a software engineer in São Paulo. Building design systems, banking apps, AI agents, and healthcare solutions.":
-      "Douglas Moura é engenheiro de software em São Paulo. Construindo design systems, apps bancários, agentes de IA e soluções de saúde.",
-    "Douglas Moura — Software Engineer in São Paulo. Articles about web development, TypeScript, React, and the things I learn along the way.":
-      "Douglas Moura — Engenheiro de Software em São Paulo. Artigos sobre desenvolvimento web, TypeScript, React e as coisas que aprendo no caminho.",
-    "Douglas Moura — Software Engineer | Web Development Blog":
-      "Douglas Moura — Engenheiro de Software | Blog de Desenvolvimento Web",
-    "Enter a search term": "Digite um termo de pesquisa",
-    Event: "Evento",
-    Home: "Início",
-    "Last updated on": "Atualizado em",
-    Next: "Próximo",
-    "No results found": "Nenhum resultado encontrado",
-    Page: "Página",
-    "Page not found": "Página não encontrada",
-    Pagination: "Paginação",
-    "Posts tagged": "Artigos com a tag",
-    Previous: "Anterior",
-    "Privacy Policy": "Política de Privacidade",
-    "Privacy policy for douglasmoura.dev — a personal blog with minimal data collection and no tracking cookies.":
-      "Política de privacidade do douglasmoura.dev — um blog pessoal com coleta mínima de dados e sem cookies de rastreamento.",
-    "Published on": "Publicado em",
-    Recording: "Gravação",
-    Search: "Pesquisar",
-    "Search or jump to…": "Pesquisar ou ir para…",
-    "Search results for": "Resultados da pesquisa para",
-    "Skip to content": "Pular para o conteúdo",
-    Slides: "Slides",
-    "Switch language": "Alterar linguagem",
-    Talks: "Palestras",
-    Theme: "Tema",
-    "Web Development Articles": "Artigos sobre Desenvolvimento Web",
-    "min. read": "min. de leitura",
-    result: "resultado",
-    results: "resultados",
-  },
-} as const satisfies Record<string, Record<string, string>>;
-
-type TranslationKey = keyof (typeof translations)["pt-BR"];
 
 /** Read locale from rwsdk request context. Falls back to en-US. */
 export const getLocale = (): Locale => {
@@ -75,16 +29,15 @@ export const getLocale = (): Locale => {
  */
 export const t = (text: TranslationKey | string): string => {
   const locale = getLocale();
-  if (locale === "en-US") {
-    return text;
+  if (locale !== "en-US") {
+    const translated = (translations as Record<string, Record<string, string>>)[
+      locale
+    ]?.[text];
+    if (!translated) {
+      logger.warn({ key: text, locale }, "Missing translation");
+    }
   }
-  const translated = (translations as Record<string, Record<string, string>>)[
-    locale
-  ]?.[text];
-  if (!translated) {
-    logger.warn({ key: text, locale }, "Missing translation");
-  }
-  return translated ?? text;
+  return translate(locale, text);
 };
 
 /** Format a date string using the current request locale. */
@@ -97,8 +50,4 @@ export const formatDate = (iso: string): string =>
 
 /** Short date for compact listings (e.g. "Sep 27, 2024" / "27 set. 2024"). */
 export const formatDateShort = (iso: string): string =>
-  new Intl.DateTimeFormat(getLocale(), {
-    day: "numeric",
-    month: "short",
-    year: "numeric",
-  }).format(new Date(iso));
+  formatDateShortLocale(getLocale(), iso);

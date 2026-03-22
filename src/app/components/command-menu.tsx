@@ -10,6 +10,10 @@ import useSWR from "swr";
 
 import { Kbd } from "#app/components/kbd.js";
 import type { NavItem } from "#app/components/search-trigger.js";
+import {
+  formatDateShortLocale,
+  getCommandMenuLabels,
+} from "#app/lib/i18n-messages.js";
 import type { SearchResult } from "#app/lib/search.js";
 import { localePathPrefix } from "#app/lib/site.js";
 
@@ -17,21 +21,6 @@ interface SearchResponse {
   results: SearchResult[];
   count: number;
 }
-
-const dateFormatters = new Map<string, Intl.DateTimeFormat>();
-
-const formatDate = (iso: string, locale: string): string => {
-  let fmt = dateFormatters.get(locale);
-  if (!fmt) {
-    fmt = new Intl.DateTimeFormat(locale, {
-      day: "numeric",
-      month: "short",
-      year: "numeric",
-    });
-    dateFormatters.set(locale, fmt);
-  }
-  return fmt.format(new Date(iso));
-};
 
 const searchFetcher = async (url: string) => {
   const res = await fetch(url);
@@ -49,27 +38,6 @@ const useDebouncedValue = <T,>(value: T, delay: number): T => {
 
 const groupHeadingClasses =
   "[&_[cmdk-group-heading]]:px-3 [&_[cmdk-group-heading]]:pt-4 [&_[cmdk-group-heading]]:pb-1.5 [&_[cmdk-group-heading]]:text-[9px] [&_[cmdk-group-heading]]:font-semibold [&_[cmdk-group-heading]]:uppercase [&_[cmdk-group-heading]]:tracking-wider [&_[cmdk-group-heading]]:text-text-muted";
-
-const labels = {
-  "en-US": {
-    close: "close",
-    navigate: "navigate",
-    open: "open",
-    pages: "Pages",
-    posts: "Posts",
-    preferences: "Preferences",
-    searchFor: "Search for",
-  },
-  "pt-BR": {
-    close: "fechar",
-    navigate: "navegar",
-    open: "abrir",
-    pages: "Páginas",
-    posts: "Artigos",
-    preferences: "Preferências",
-    searchFor: "Pesquisar por",
-  },
-} as const;
 
 const navItemClasses =
   "flex cursor-default items-center gap-2 rounded-lg px-3 py-2 text-sm text-text-muted outline-none select-none data-[selected=true]:bg-surface-2 data-[selected=true]:text-accent";
@@ -126,7 +94,7 @@ const SearchResults = ({
           {result.title}
         </span>
         <span className="text-xs text-text-muted line-clamp-1">
-          {formatDate(result.created, locale)}
+          {formatDateShortLocale(locale, result.created)}
           {result.tags.length > 0 && <> &middot; {result.tags.join(", ")}</>}
         </span>
       </Command.Item>
@@ -198,7 +166,7 @@ const CommandListContent = ({
   emptyText: string;
   onSelect: (href: string) => void;
 }) => {
-  const l = labels[locale];
+  const l = getCommandMenuLabels(locale);
   const searchPrefix = localePathPrefix(locale);
   const searchHref = trimmed
     ? `${searchPrefix}/search?q=${encodeURIComponent(trimmed)}`
@@ -317,7 +285,7 @@ export const CommandMenu = ({
     return null;
   }
 
-  const l = labels[locale];
+  const l = getCommandMenuLabels(locale);
   const pageItems = navItems.filter((n) => !n.group || n.group === "pages");
   const preferenceItems = navItems.filter((n) => n.group === "preferences");
   const showSpinner = isPending;

@@ -4,9 +4,11 @@ import { join } from "node:path";
 import { defineCommand } from "citty";
 import { consola } from "consola";
 
-const IMPORT_PATTERN =
-  /import\s*\{[^}]*\bt\b[^}]*\}\s*from\s*["']#app\/lib\/i18n/;
+const T_IMPORT_PATTERN =
+  /import\s*\{[^}]*\bt\b[^}]*\}\s*from\s*["']#app\/lib\/i18n(?:\.js)?["']/;
+const I18N_MESSAGES_MODULE = /from\s*["']#app\/lib\/i18n-messages(?:\.js)?["']/;
 const KEY_PATTERN = /\bt\(\s*["']([^"']+)["']\s*\)/g;
+const TRANSLATE_PATTERN = /\btranslate\s*\(\s*[^,]+,\s*["']([^"']+)["']\s*\)/g;
 const DYNAMIC_PATTERN = /\bt\(\s*[^"']/g;
 
 const START_MARKER = "const translations = {";
@@ -34,22 +36,35 @@ const scanFile = async (
   warnings: string[]
 ): Promise<void> => {
   const content = await readFile(filePath, "utf8");
+  const normalizedPath = filePath.replaceAll("\\", "/");
+  const hasTImport = T_IMPORT_PATTERN.test(content);
+  const hasMessagesModule =
+    I18N_MESSAGES_MODULE.test(content) ||
+    normalizedPath.endsWith("src/app/lib/i18n-messages.ts");
 
-  if (!IMPORT_PATTERN.test(content)) {
+  if (!hasTImport && !hasMessagesModule) {
     return;
   }
 
-  for (const match of content.matchAll(KEY_PATTERN)) {
-    keys.add(match[1]);
+  if (hasTImport) {
+    for (const match of content.matchAll(KEY_PATTERN)) {
+      keys.add(match[1]);
+    }
+
+    const dynamicMatches = content.match(DYNAMIC_PATTERN);
+    if (dynamicMatches) {
+      for (const match of dynamicMatches) {
+        if (/\bt\(\s*["']/.test(match)) {
+          continue;
+        }
+        warnings.push(`${filePath}: dynamic t() call found: ${match.trim()}`);
+      }
+    }
   }
 
-  const dynamicMatches = content.match(DYNAMIC_PATTERN);
-  if (dynamicMatches) {
-    for (const match of dynamicMatches) {
-      if (/\bt\(\s*["']/.test(match)) {
-        continue;
-      }
-      warnings.push(`${filePath}: dynamic t() call found: ${match.trim()}`);
+  if (hasMessagesModule) {
+    for (const match of content.matchAll(TRANSLATE_PATTERN)) {
+      keys.add(match[1]);
     }
   }
 };
@@ -89,7 +104,9 @@ const parseTranslationsFile = async (
   const endIdx = content.indexOf(END_MARKER);
 
   if (startIdx === -1 || endIdx === -1) {
-    throw new Error("Could not find translations block in i18n.ts");
+    throw new Error(
+      "Could not find translations block in src/app/lib/i18n-messages.ts"
+    );
   }
 
   const before = content.slice(0, startIdx);
@@ -262,7 +279,7 @@ export default defineCommand({
   async run({ args }) {
     const cwd = process.cwd();
     const srcDir = join(cwd, "src");
-    const i18nPath = join(cwd, "src/app/lib/i18n.ts");
+    const i18nMessagesPath = join(cwd, "src/app/lib/i18n-messages.ts");
 
     const rawFiles = args.files as unknown as string | undefined;
     const fileList = rawFiles
@@ -279,13 +296,14 @@ export default defineCommand({
     }
 
     if (isPartialScan && keys.size === 0) {
-      consola.success("No t() keys found in scanned files");
+      consola.success("No translation keys found in scanned files");
       return;
     }
 
-    consola.info(`Found ${keys.size} unique t() key(s)`);
+    consola.info(`Found ${keys.size} unique translation key(s)`);
 
-    const { locales, before, after } = await parseTranslationsFile(i18nPath);
+    const { locales, before, after } =
+      await parseTranslationsFile(i18nMessagesPath);
 
     if (isPartialScan && args.check) {
       checkPartialKeys(keys, locales);
@@ -318,8 +336,8 @@ export default defineCommand({
     }
 
     const block = buildTranslationsBlock(merged);
-    await writeFile(i18nPath, `${before}${block}${after}`, "utf8");
+    await writeFile(i18nMessagesPath, `${before}${block}${after}`, "utf8");
 
-    consola.success("Updated translations in src/app/lib/i18n.ts");
+    consola.success("Updated translations in src/app/lib/i18n-messages.ts");
   },
 });
