@@ -9,7 +9,11 @@ import {
 import type { Locale, TranslationKey } from "#app/lib/i18n-messages.js";
 import type { AppContext } from "#app/lib/types.js";
 
-export type { Locale, TranslationKey } from "#app/lib/i18n-messages.js";
+export type {
+  CommandMenuLabels,
+  Locale,
+  TranslationKey,
+} from "#app/lib/i18n-messages.js";
 
 const logger = pino({ name: "i18n" });
 

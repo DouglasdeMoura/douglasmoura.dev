@@ -78,7 +78,7 @@ export const translate = (
 const shortDateFormatters = new Map<string, Intl.DateTimeFormat>();
 
 /** Short date for compact listings (e.g. "Sep 27, 2024" / "27 set. 2024"). */
-export const formatDateShortLocale = (locale: string, iso: string): string => {
+export const formatDateShortLocale = (locale: Locale, iso: string): string => {
   let fmt = shortDateFormatters.get(locale);
   if (!fmt) {
     fmt = new Intl.DateTimeFormat(locale, {
@@ -100,3 +100,5 @@ export const getCommandMenuLabels = (locale: Locale) => ({
   preferences: translate(locale, "Preferences"),
   searchFor: translate(locale, "Search for"),
 });
+
+export type CommandMenuLabels = ReturnType<typeof getCommandMenuLabels>;

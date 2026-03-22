@@ -14,6 +14,7 @@ import {
   formatDateShortLocale,
   getCommandMenuLabels,
 } from "#app/lib/i18n-messages.js";
+import type { CommandMenuLabels, Locale } from "#app/lib/i18n-messages.js";
 import type { SearchResult } from "#app/lib/search.js";
 import { localePathPrefix } from "#app/lib/site.js";
 
@@ -79,7 +80,7 @@ const SearchResults = ({
 }: {
   heading: string;
   results: SearchResult[];
-  locale: "en-US" | "pt-BR";
+  locale: Locale;
   onSelect: (href: string) => void;
 }) => (
   <Command.Group heading={heading} className={groupHeadingClasses}>
@@ -151,6 +152,7 @@ const CommandListContent = ({
   isPending,
   results,
   locale,
+  labels,
   pageItems,
   preferenceItems,
   emptyText,
@@ -160,13 +162,13 @@ const CommandListContent = ({
   debouncedQuery: string;
   isPending: boolean;
   results: SearchResult[];
-  locale: "en-US" | "pt-BR";
+  locale: Locale;
+  labels: CommandMenuLabels;
   pageItems: NavItem[];
   preferenceItems: NavItem[];
   emptyText: string;
   onSelect: (href: string) => void;
 }) => {
-  const l = getCommandMenuLabels(locale);
   const searchPrefix = localePathPrefix(locale);
   const searchHref = trimmed
     ? `${searchPrefix}/search?q=${encodeURIComponent(trimmed)}`
@@ -183,17 +185,21 @@ const CommandListContent = ({
           <span className="size-4 shrink-0">
             <MagnifyingGlassIcon size={16} />
           </span>
-          {l.searchFor} &ldquo;{trimmed}&rdquo;
+          {labels.searchFor} &ldquo;{trimmed}&rdquo;
         </Command.Item>
       )}
 
       {!trimmed && pageItems.length > 0 && (
-        <NavItemGroup heading={l.pages} items={pageItems} onSelect={onSelect} />
+        <NavItemGroup
+          heading={labels.pages}
+          items={pageItems}
+          onSelect={onSelect}
+        />
       )}
 
       {!trimmed && preferenceItems.length > 0 && (
         <NavItemGroup
-          heading={l.preferences}
+          heading={labels.preferences}
           items={preferenceItems}
           onSelect={onSelect}
         />
@@ -209,7 +215,7 @@ const CommandListContent = ({
 
       {debouncedQuery && results.length > 0 && (
         <SearchResults
-          heading={l.posts}
+          heading={labels.posts}
           results={results}
           locale={locale}
           onSelect={onSelect}
@@ -222,7 +228,7 @@ const CommandListContent = ({
 interface CommandMenuProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  locale: "en-US" | "pt-BR";
+  locale: Locale;
   placeholder: string;
   emptyText: string;
   navItems?: NavItem[];
@@ -285,7 +291,7 @@ export const CommandMenu = ({
     return null;
   }
 
-  const l = getCommandMenuLabels(locale);
+  const commandMenuLabels = getCommandMenuLabels(locale);
   const pageItems = navItems.filter((n) => !n.group || n.group === "pages");
   const preferenceItems = navItems.filter((n) => n.group === "preferences");
   const showSpinner = isPending;
@@ -341,6 +347,7 @@ export const CommandMenu = ({
                 isPending={isPending}
                 results={results}
                 locale={locale}
+                labels={commandMenuLabels}
                 pageItems={pageItems}
                 preferenceItems={preferenceItems}
                 emptyText={emptyText}
@@ -350,13 +357,13 @@ export const CommandMenu = ({
 
             <div className="hidden sm:flex items-center gap-3 border-t border-border px-3 py-2 text-[11px] text-text-muted">
               <span className="inline-flex items-center gap-1">
-                <Kbd keys={["↑↓"]} /> {l.navigate}
+                <Kbd keys={["↑↓"]} /> {commandMenuLabels.navigate}
               </span>
               <span className="inline-flex items-center gap-1">
-                <Kbd keys={["↵"]} /> {l.open}
+                <Kbd keys={["↵"]} /> {commandMenuLabels.open}
               </span>
               <span className="inline-flex items-center gap-1">
-                <Kbd keys={["Esc"]} /> {l.close}
+                <Kbd keys={["Esc"]} /> {commandMenuLabels.close}
               </span>
             </div>
           </Command>

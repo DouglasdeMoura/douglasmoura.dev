@@ -8,6 +8,7 @@ const T_IMPORT_PATTERN =
   /import\s*\{[^}]*\bt\b[^}]*\}\s*from\s*["']#app\/lib\/i18n(?:\.js)?["']/;
 const I18N_MESSAGES_MODULE = /from\s*["']#app\/lib\/i18n-messages(?:\.js)?["']/;
 const KEY_PATTERN = /\bt\(\s*["']([^"']+)["']\s*\)/g;
+/** Matches `translate(locale, "key")` in i18n-messages (avoid renaming without updating the extractor). */
 const TRANSLATE_PATTERN = /\btranslate\s*\(\s*[^,]+,\s*["']([^"']+)["']\s*\)/g;
 const DYNAMIC_PATTERN = /\bt\(\s*[^"']/g;
 
