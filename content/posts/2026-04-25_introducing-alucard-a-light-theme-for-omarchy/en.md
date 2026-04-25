@@ -3,7 +3,7 @@ title: "Introducing Alucard: a light theme for Omarchy"
 slug: introducing-alucard-a-light-theme-for-omarchy
 locale: en-US
 created: 2026-04-25 14:20:55.468Z
-updated: 2026-04-25 23:01:34.000Z
+updated: 2026-04-25 23:11:04.000Z
 tags:
   - Linux
   - Omarchy
@@ -13,7 +13,7 @@ Since January, I've been using my own light theme for [Omarchy](https://github.c
 
 ## Alucard: a light theme for Omarchy (and the arch-enemy of Dracula)
 
-I'm a die hard fan of the [Dracula theme](https://draculatheme.com/) and I have been using it for years. And, as you might have guessed, I've been using everything I could with a dark theme. But, I have moved to a new house, which is super illuminated by the sun throughout the day with massive windows and, using dark themes with so much natural light proved to be a difficult task. Omarchy (my Linux distro of choice) comes very well served of beautiful [themes](https://learn.omacom.io/2/the-omarchy-manual/52/themes?search=theme) and I started to use either Flexoki Light or Catppuccin Latte during the day. Yet, neither were quite my taste and I knew there were already a light version of the Dracula theme called Alucard that was offered by their Pro package. When I went to their website to check it out, I found out a quite complete [specification](https://draculatheme.com/spec) for the Dracula and the Alucard theme. So, I started working on the Alucard theme for Omarchy and I have been using it everyday since January.
+I'm a die hard fan of the [Dracula theme](https://draculatheme.com/) and I have been using it for years. And, as you might have guessed, I've been using everything I could with a dark theme. But, I have moved to a new house, which is super illuminated by the sun throughout the day with massive windows and, using dark themes with so much natural light proved to be a difficult task. Omarchy (my Linux distro of choice) comes very well served of beautiful [themes](https://learn.omacom.io/2/the-omarchy-manual/52/themes?search=theme) and I started to use either Flexoki Light or Catppuccin Latte during the day. Yet, neither were quite my taste and I knew there were already a light version of the Dracula theme called Alucard that was offered by their Pro package. When I went to their website to check it out, I found out a quite complete [specification](https://draculatheme.com/spec) for the Dracula and the Alucard theme, so, I did what any developer who loves open source do: I scratched my own itch, I mean, I started working on the Alucard theme for Omarchy and I have been using it everyday since January.
 
 
 ![Screenshot of the Alucard theme on Omarchy with the output of ls on the top left, nvim with Lazyvim opened on the bottom left and btop running on the right](./img/omarchy-alucard-theme-preview.png)
