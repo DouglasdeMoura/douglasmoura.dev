@@ -51,7 +51,7 @@ const buildFrontmatter = (opts: {
 }): string => {
   const lines = [
     "---",
-    `title: ${opts.title}`,
+    `title: "${opts.title}"`,
     `slug: ${opts.slug}`,
     `locale: ${opts.locale}`,
     `created: ${opts.date}`,
