@@ -1,9 +1,9 @@
 ---
 title: "Apresentando Alucard: um tema claro para Omarchy"
-slug: introducing-alucard-a-light-theme-for-omarchy
+slug: apresentando-alucard-um-tema-claro-para-omarchy
 locale: pt-BR
 created: 2026-04-25 14:20:55.468Z
-updated: 2026-04-25 23:23:40.000Z
+updated: 2026-04-26 00:43:12.000Z
 tags:
   - Linux
   - Omarchy
