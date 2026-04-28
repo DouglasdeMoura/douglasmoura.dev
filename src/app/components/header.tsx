@@ -1,4 +1,5 @@
 import { Bookmarks as BookmarksIcon } from "@phosphor-icons/react/dist/ssr/Bookmarks";
+import { Books as BooksIcon } from "@phosphor-icons/react/dist/ssr/Books";
 import { House as HomeIcon } from "@phosphor-icons/react/dist/ssr/House";
 import { Microphone as MicrophoneIcon } from "@phosphor-icons/react/dist/ssr/Microphone";
 import { Translate as TranslateIcon } from "@phosphor-icons/react/dist/ssr/Translate";
@@ -41,6 +42,12 @@ export const Header = ({ locale, alternates, pathname }: HeaderProps) => {
             {t("About")}
           </a>
           <a
+            href={`${prefix}/books`}
+            className="hidden sm:inline-flex items-center justify-center h-8 px-3 rounded-md text-sm text-text-muted hover:text-text-strong hover:bg-surface-2 active:scale-[0.97] motion-safe:transition-[color,background-color,transform] motion-safe:duration-150"
+          >
+            {t("Books")}
+          </a>
+          <a
             href={`${prefix}/talks`}
             className="hidden sm:inline-flex items-center justify-center h-8 px-3 rounded-md text-sm text-text-muted hover:text-text-strong hover:bg-surface-2 active:scale-[0.97] motion-safe:transition-[color,background-color,transform] motion-safe:duration-150"
           >
@@ -65,16 +72,22 @@ export const Header = ({ locale, alternates, pathname }: HeaderProps) => {
                 shortcut: ["1"],
               },
               {
+                href: `${prefix}/books`,
+                icon: <BooksIcon size={16} />,
+                label: t("Books"),
+                shortcut: ["2"],
+              },
+              {
                 href: `${prefix}/talks`,
                 icon: <MicrophoneIcon size={16} />,
                 label: t("Talks"),
-                shortcut: ["2"],
+                shortcut: ["3"],
               },
               {
                 href: `${prefix}/bookmarks`,
                 icon: <BookmarksIcon size={16} />,
                 label: t("Bookmarks"),
-                shortcut: ["3"],
+                shortcut: ["4"],
               },
               {
                 forceReload: true,

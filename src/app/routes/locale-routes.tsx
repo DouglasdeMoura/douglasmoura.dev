@@ -1,5 +1,6 @@
 import { route } from "rwsdk/router";
 
+import { getBookBySlug, getBooksByLocale } from "#app/lib/books.js";
 import {
   getPaginatedPosts,
   getPostsByTag,
@@ -9,7 +10,9 @@ import {
 import { searchPosts } from "#app/lib/search.js";
 import type { LocalePathPrefix } from "#app/lib/site.js";
 import { About } from "#app/pages/about.js";
+import { BookPage } from "#app/pages/book.js";
 import { Bookmarks } from "#app/pages/bookmarks.js";
+import { BooksPage } from "#app/pages/books.js";
 import { Home } from "#app/pages/home.js";
 import { NotFound } from "#app/pages/not-found.js";
 import { SearchPage } from "#app/pages/search.js";
@@ -64,6 +67,22 @@ export const createLocaleRoutes = ({
     route(`${pathPrefix}/about`, () => <About basePath={pathPrefix} />),
     route(`${pathPrefix}/talks`, () => <Talks basePath={pathPrefix} />),
     route(`${pathPrefix}/bookmarks`, () => <Bookmarks basePath={pathPrefix} />),
+    route(`${pathPrefix}/books`, () => (
+      <BooksPage
+        books={getBooksByLocale(locale)}
+        siteUrl={siteUrl}
+        basePath={pathPrefix}
+      />
+    )),
+    route(`${pathPrefix}/books/:slug`, ({ params, response }) => {
+      const book = getBookBySlug(params.slug);
+      if (!book || book.locale !== locale) {
+        response.status = 404;
+        return <NotFound />;
+      }
+
+      return <BookPage book={book} siteUrl={siteUrl} basePath={pathPrefix} />;
+    }),
 
     route(tagPath, ({ params, response }) => {
       const rawParam = decodeURIComponent(params.tag);
