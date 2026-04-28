@@ -11,6 +11,19 @@ interface BooksPageProps {
 
 export const BooksPage = ({ books, siteUrl, basePath }: BooksPageProps) => {
   const pageUrl = `${siteUrl}${basePath}/books`;
+  const enUrl = `${siteUrl}/books`;
+  const ptUrl = `${siteUrl}/pt-BR/books`;
+  const alternates = [
+    { href: enUrl, hrefLang: "en-US" },
+    { href: ptUrl, hrefLang: "pt-BR" },
+    { href: enUrl, hrefLang: "x-default" },
+  ];
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: t("Books"),
+    url: pageUrl,
+  };
 
   return (
     <>
@@ -20,6 +33,8 @@ export const BooksPage = ({ books, siteUrl, basePath }: BooksPageProps) => {
           "Technical books and long-form guides by Douglas Moura."
         )}
         url={pageUrl}
+        alternates={alternates}
+        jsonLd={jsonLd}
       />
 
       <section className="prose mx-auto py-10 px-4">

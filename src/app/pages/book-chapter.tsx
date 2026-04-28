@@ -3,6 +3,7 @@ import { ArrowRight as ArrowRightIcon } from "@phosphor-icons/react/dist/ssr/Arr
 
 import { Breadcrumbs } from "#app/components/breadcrumbs.js";
 import { PageSeo } from "#app/components/page-seo.js";
+import { getChapterAlternates } from "#app/lib/books.js";
 import type { AdjacentChapters, Book, BookChapter } from "#app/lib/books.js";
 import { formatDate, t } from "#app/lib/i18n.js";
 
@@ -26,6 +27,37 @@ export const BookChapterPage = ({
   siteUrl,
 }: BookChapterPageProps) => {
   const url = `${siteUrl}${basePath}/books/${book.slug}/${chapter.slug}`;
+  const alternates = getChapterAlternates(book.slug, chapter.slug, book.locale);
+  const enChapterSlug =
+    book.locale === "en-US"
+      ? chapter.slug
+      : (alternates.find((item) => item.locale === "en-US")?.slug ??
+        chapter.slug);
+  const seoAlternates = [
+    { href: url, hrefLang: book.locale },
+    ...alternates.map((alt) => ({
+      href: `${siteUrl}${alt.locale === "pt-BR" ? "/pt-BR" : ""}/books/${book.slug}/${alt.slug}`,
+      hrefLang: alt.locale,
+    })),
+    {
+      href: `${siteUrl}/books/${book.slug}/${enChapterSlug}`,
+      hrefLang: "x-default",
+    },
+  ];
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Chapter",
+    dateModified: chapter.updated,
+    datePublished: chapter.created,
+    inLanguage: chapter.locale,
+    isPartOf: {
+      "@type": "Book",
+      name: book.title,
+      url: `${siteUrl}${basePath}/books/${book.slug}`,
+    },
+    name: chapter.title,
+    url,
+  };
 
   return (
     <>
@@ -33,6 +65,8 @@ export const BookChapterPage = ({
         title={`${chapter.title} | ${book.title}`}
         description={book.description}
         url={url}
+        alternates={seoAlternates}
+        jsonLd={jsonLd}
       />
       {hasMath && <link rel="stylesheet" href="/katex/katex.min.css" />}
       <article className="prose mx-auto px-4 py-10">
