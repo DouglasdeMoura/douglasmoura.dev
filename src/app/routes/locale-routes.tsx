@@ -1,6 +1,13 @@
 import { route } from "rwsdk/router";
 
-import { getBookBySlug, getBooksByLocale } from "#app/lib/books.js";
+import {
+  getAdjacentChapters,
+  getBookBySlug,
+  getBookChapterBySlug,
+  getBookChapters,
+  getBooksByLocale,
+} from "#app/lib/books.js";
+import { renderMarkdown } from "#app/lib/markdown.js";
 import {
   getPaginatedPosts,
   getPostsByTag,
@@ -10,6 +17,7 @@ import {
 import { searchPosts } from "#app/lib/search.js";
 import type { LocalePathPrefix } from "#app/lib/site.js";
 import { About } from "#app/pages/about.js";
+import { BookChapterPage } from "#app/pages/book-chapter.js";
 import { BookPage } from "#app/pages/book.js";
 import { Bookmarks } from "#app/pages/bookmarks.js";
 import { BooksPage } from "#app/pages/books.js";
@@ -81,8 +89,48 @@ export const createLocaleRoutes = ({
         return <NotFound />;
       }
 
-      return <BookPage book={book} siteUrl={siteUrl} basePath={pathPrefix} />;
+      return (
+        <BookPage
+          book={book}
+          chapters={getBookChapters(book.slug, locale)}
+          siteUrl={siteUrl}
+          basePath={pathPrefix}
+        />
+      );
     }),
+    route(
+      `${pathPrefix}/books/:bookSlug/:chapterSlug`,
+      async ({ params, response }) => {
+        const book = getBookBySlug(params.bookSlug);
+        if (!book || book.locale !== locale) {
+          response.status = 404;
+          return <NotFound />;
+        }
+
+        const chapter = getBookChapterBySlug(
+          book.slug,
+          params.chapterSlug,
+          locale
+        );
+        if (!chapter) {
+          response.status = 404;
+          return <NotFound />;
+        }
+
+        const rendered = await renderMarkdown(chapter.body);
+        return (
+          <BookChapterPage
+            book={book}
+            chapter={chapter}
+            html={rendered.html}
+            hasMath={rendered.hasMath}
+            adjacent={getAdjacentChapters(book.slug, chapter.slug, locale)}
+            basePath={pathPrefix}
+            siteUrl={siteUrl}
+          />
+        );
+      }
+    ),
 
     route(tagPath, ({ params, response }) => {
       const rawParam = decodeURIComponent(params.tag);
