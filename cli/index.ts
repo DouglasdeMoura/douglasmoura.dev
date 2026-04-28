@@ -7,6 +7,10 @@ const main = defineCommand({
     version: "1.0.0",
   },
   subCommands: {
+    books: async () => {
+      const m = await import("./commands/books/index.js");
+      return m.default;
+    },
     i18n: async () => {
       const m = await import("./commands/i18n/index.js");
       return m.default;
