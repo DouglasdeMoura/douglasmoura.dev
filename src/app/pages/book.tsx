@@ -70,6 +70,15 @@ export const BookPage = ({
           <p className="mt-1 text-sm text-text-muted tracking-wide">
             {t("Status")}: {book.status}
           </p>
+          <p className="mt-1 text-sm text-text-muted tracking-wide">
+            {t("Version")} {book.version} · {t("Edition")} {book.edition} ·{" "}
+            <a
+              href={`${basePath}/books/${book.slug}/changelog`}
+              className="underline underline-offset-2 decoration-border hover:decoration-text-strong"
+            >
+              Changelog
+            </a>
+          </p>
         </header>
 
         {book.cover && (

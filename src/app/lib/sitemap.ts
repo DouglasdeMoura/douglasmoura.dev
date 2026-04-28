@@ -254,6 +254,20 @@ ${hreflangs}
   </url>`;
   });
 
+  const changelogEntries = books.map((book) => {
+    const path =
+      book.locale === "pt-BR"
+        ? `/pt-BR/books/${book.slug}/changelog`
+        : `/books/${book.slug}/changelog`;
+    return `  <url>
+    <loc>${siteUrl}${path}</loc>
+    <lastmod>${new Date(book.updated || book.created).toISOString().split("T")[0]}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+${singleLocaleLinks(siteUrl, book.locale, path)}
+  </url>`;
+  });
+
   const chapterEntries = books.flatMap((book) => {
     const chapters = getBookChapters(book.slug, book.locale);
     return chapters.map((chapter) => {
@@ -296,7 +310,7 @@ ${hreflangs}
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
-${[...staticEntries, ...tagEntries, ...bookEntries, ...chapterEntries, ...postEntries].join("\n")}
+${[...staticEntries, ...tagEntries, ...bookEntries, ...changelogEntries, ...chapterEntries, ...postEntries].join("\n")}
 </urlset>`;
 
   return new Response(xml, {

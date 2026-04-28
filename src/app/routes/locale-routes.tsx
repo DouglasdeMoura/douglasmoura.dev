@@ -5,6 +5,7 @@ import {
   getBookBySlug,
   getBookChapterBySlug,
   getBookChapters,
+  getBookChangelog,
   getBooksByLocale,
 } from "#app/lib/books.js";
 import { renderMarkdown } from "#app/lib/markdown.js";
@@ -17,6 +18,7 @@ import {
 import { searchPosts } from "#app/lib/search.js";
 import type { LocalePathPrefix } from "#app/lib/site.js";
 import { About } from "#app/pages/about.js";
+import { BookChangelogPage } from "#app/pages/book-changelog.js";
 import { BookChapterPage } from "#app/pages/book-chapter.js";
 import { BookPage } from "#app/pages/book.js";
 import { Bookmarks } from "#app/pages/bookmarks.js";
@@ -127,6 +129,33 @@ export const createLocaleRoutes = ({
             adjacent={getAdjacentChapters(book.slug, chapter.slug, locale)}
             basePath={pathPrefix}
             siteUrl={siteUrl}
+          />
+        );
+      }
+    ),
+    route(
+      `${pathPrefix}/books/:bookSlug/changelog`,
+      async ({ params, response }) => {
+        const book = getBookBySlug(params.bookSlug);
+        if (!book || book.locale !== locale) {
+          response.status = 404;
+          return <NotFound />;
+        }
+
+        const changelog = getBookChangelog(book.slug);
+        if (!changelog) {
+          response.status = 404;
+          return <NotFound />;
+        }
+
+        const rendered = await renderMarkdown(changelog);
+        return (
+          <BookChangelogPage
+            book={book}
+            html={rendered.html}
+            hasMath={rendered.hasMath}
+            siteUrl={siteUrl}
+            basePath={pathPrefix}
           />
         );
       }
