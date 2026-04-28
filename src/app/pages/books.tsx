@@ -38,40 +38,42 @@ export const BooksPage = ({ books, siteUrl, basePath }: BooksPageProps) => {
       />
 
       <section className="prose mx-auto py-10 px-4">
-        <h1 className="not-prose text-lg font-normal text-text -tracking-[0.01em] mt-0 mb-8 leading-relaxed">
-          {t("Books")}
-        </h1>
+        <div className="not-prose">
+          <h1 className="text-4xl font-bold tracking-tight text-text-strong">
+            {t("Books")}
+          </h1>
 
-        {books.length === 0 ? (
-          <p className="not-prose text-text-muted">
-            {t("No books published yet.")}
-          </p>
-        ) : (
-          <div className="not-prose">
-            {books.map((book) => (
-              <article
-                key={book.slug}
-                className="py-3 border-b border-border last:border-b-0"
-              >
-                <h2 className="m-0 text-base font-medium">
-                  <PrefetchLink
-                    href={`${basePath}/books/${book.slug}`}
-                    className="text-text-strong -tracking-[0.01em] no-underline hover:text-accent motion-safe:transition-colors motion-safe:duration-150"
-                  >
-                    {book.title}
-                  </PrefetchLink>
-                </h2>
-                <p className="mt-1 mb-1 text-sm text-text-muted">
-                  {book.description}
-                </p>
-                <p className="m-0 text-xs text-text-muted tabular-nums">
-                  {formatDateShort(book.created)} · {book.chapterCount}{" "}
-                  {t("chapters")} · {book.status}
-                </p>
-              </article>
-            ))}
-          </div>
-        )}
+          {books.length === 0 ? (
+            <p className="not-prose text-text-muted">
+              {t("No books published yet.")}
+            </p>
+          ) : (
+            <div className="not-prose">
+              {books.map((book) => (
+                <article
+                  key={book.slug}
+                  className="py-3 border-b border-border last:border-b-0"
+                >
+                  <h2 className="m-0 text-base font-medium">
+                    <PrefetchLink
+                      href={`${basePath}/books/${book.slug}`}
+                      className="text-text-strong -tracking-[0.01em] no-underline hover:text-accent motion-safe:transition-colors motion-safe:duration-150"
+                    >
+                      {book.title}
+                    </PrefetchLink>
+                  </h2>
+                  <p className="mt-1 mb-1 text-sm text-text-muted">
+                    {book.description}
+                  </p>
+                  <p className="m-0 text-xs text-text-muted tabular-nums">
+                    {formatDateShort(book.created)} · {book.chapterCount}{" "}
+                    {t("chapters")} · {book.status}
+                  </p>
+                </article>
+              ))}
+            </div>
+          )}
+        </div>
       </section>
     </>
   );
