@@ -16,6 +16,11 @@ const chapterModules = import.meta.glob("/content/books/**/chapters/**/*.md", {
   import: "default",
   query: "?raw",
 }) as Record<string, string>;
+const changelogModules = import.meta.glob("/content/books/**/changelog.md", {
+  eager: true,
+  import: "default",
+  query: "?raw",
+}) as Record<string, string>;
 
 export interface BookAlternate {
   locale: "en-US" | "pt-BR";
@@ -32,6 +37,8 @@ export interface Book {
   description: string;
   cover: string;
   status: "draft" | "beta" | "published";
+  edition: string;
+  version: string;
   chapterCount: number;
 }
 
@@ -57,6 +64,7 @@ const dirToSlugs = new Map<string, BookAlternate[]>();
 const chaptersByBookAndLocale = new Map<string, BookChapter[]>();
 
 const chapterCountByBookAndLocale = new Map<string, number>();
+const changelogByBookSlug = new Map<string, string>();
 const chapterAlternatesByKey = new Map<
   string,
   { locale: BookChapter["locale"]; slug: string }[]
@@ -98,6 +106,14 @@ for (const [path, raw] of Object.entries(chapterModules)) {
   chaptersByBookAndLocale.set(key, chapters);
 }
 
+for (const [path, raw] of Object.entries(changelogModules)) {
+  const pathParts = path.split("/");
+  const bookSlug = pathParts[pathParts.indexOf("books") + 1];
+  if (bookSlug) {
+    changelogByBookSlug.set(bookSlug, raw);
+  }
+}
+
 for (const [path, raw] of Object.entries(bookMetaModules)) {
   const { content, data } = matter(raw);
   const slug = data.slug as string | undefined;
@@ -118,6 +134,7 @@ for (const [path, raw] of Object.entries(bookMetaModules)) {
         ? data.created.toISOString()
         : String(data.created ?? ""),
     description: content.trim(),
+    edition: (data.edition as string) || "1st",
     locale,
     slug,
     status:
@@ -130,6 +147,7 @@ for (const [path, raw] of Object.entries(bookMetaModules)) {
       data.updated instanceof Date
         ? data.updated.toISOString()
         : String(data.updated ?? ""),
+    version: (data.version as string) || "0.1.0",
   });
 
   const group = dirToSlugs.get(dir) ?? [];
@@ -231,3 +249,6 @@ export const getChapterAlternates = (
     (item) => item.slug !== chapterSlug || item.locale !== locale
   );
 };
+
+export const getBookChangelog = (bookSlug: string): string | undefined =>
+  changelogByBookSlug.get(bookSlug);
