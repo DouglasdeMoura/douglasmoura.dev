@@ -86,8 +86,8 @@ const SearchResults = ({
   <Command.Group heading={heading} className={groupHeadingClasses}>
     {results.map((result) => (
       <Command.Item
-        key={result.slug}
-        value={`/${result.slug}`}
+        key={`${result.kind}:${result.path}`}
+        value={result.path}
         onSelect={onSelect}
         className="group relative flex cursor-default flex-col gap-0.5 rounded-lg px-3 py-2.5 text-sm outline-none select-none data-[selected=true]:bg-surface-2"
       >

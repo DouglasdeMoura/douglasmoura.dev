@@ -1,4 +1,10 @@
 import {
+  getAllBooks,
+  getBookAlternates,
+  getBookChapters,
+  getChapterAlternates,
+} from "#app/lib/books.js";
+import {
   getAllPosts,
   getPostAlternates,
   getTagsByLocale,
@@ -32,6 +38,15 @@ const alternateLinks = (
   const xDefault = `    <xhtml:link rel="alternate" hreflang="x-default" href="${siteUrl}/${escapeXml(enSlug)}" />`;
   return [self, ...alts, xDefault].join("\n");
 };
+
+const singleLocaleLinks = (
+  siteUrl: string,
+  locale: "en-US" | "pt-BR",
+  path: string
+): string =>
+  locale === "en-US"
+    ? `    <xhtml:link rel="alternate" hreflang="en-US" href="${siteUrl}${path}" />\n    <xhtml:link rel="alternate" hreflang="x-default" href="${siteUrl}${path}" />`
+    : `    <xhtml:link rel="alternate" hreflang="pt-BR" href="${siteUrl}${path}" />`;
 
 /** Build hreflang links for a pair of EN/PT-BR static page URLs. */
 const staticAlternateLinks = (
@@ -140,6 +155,11 @@ export const generateSitemap = (siteUrl: string): Response => {
       ptPath: "/pt-BR/talks",
     },
     {
+      enPath: "/books",
+      priority: "0.8",
+      ptPath: "/pt-BR/books",
+    },
+    {
       enPath: "/privacy",
       priority: "0.3",
       ptPath: "/pt-BR/privacy",
@@ -202,10 +222,81 @@ ${hreflangs}
   </url>`;
   });
 
+  const books = getAllBooks();
+  const bookEntries = books.map((book) => {
+    const alternates = getBookAlternates(book.slug);
+    const path =
+      book.locale === "pt-BR"
+        ? `/pt-BR/books/${book.slug}`
+        : `/books/${book.slug}`;
+    const hreflangs =
+      alternates.length > 0
+        ? alternateLinks(
+            siteUrl,
+            path.replace(/^\//, ""),
+            book.locale,
+            alternates.map((alt) => ({
+              locale: alt.locale,
+              slug:
+                alt.locale === "pt-BR"
+                  ? `pt-BR/books/${alt.slug}`
+                  : `books/${alt.slug}`,
+            }))
+          )
+        : singleLocaleLinks(siteUrl, book.locale, path);
+
+    return `  <url>
+    <loc>${siteUrl}${path}</loc>
+    <lastmod>${new Date(book.updated || book.created).toISOString().split("T")[0]}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+${hreflangs}
+  </url>`;
+  });
+
+  const chapterEntries = books.flatMap((book) => {
+    const chapters = getBookChapters(book.slug, book.locale);
+    return chapters.map((chapter) => {
+      const path =
+        book.locale === "pt-BR"
+          ? `/pt-BR/books/${book.slug}/${chapter.slug}`
+          : `/books/${book.slug}/${chapter.slug}`;
+      const alternates = getChapterAlternates(
+        book.slug,
+        chapter.slug,
+        book.locale
+      );
+
+      const hreflangs =
+        alternates.length > 0
+          ? alternateLinks(
+              siteUrl,
+              path.replace(/^\//, ""),
+              book.locale,
+              alternates.map((alt) => ({
+                locale: alt.locale,
+                slug:
+                  alt.locale === "pt-BR"
+                    ? `pt-BR/books/${book.slug}/${alt.slug}`
+                    : `books/${book.slug}/${alt.slug}`,
+              }))
+            )
+          : singleLocaleLinks(siteUrl, book.locale, path);
+
+      return `  <url>
+    <loc>${siteUrl}${path}</loc>
+    <lastmod>${new Date(chapter.updated || chapter.created).toISOString().split("T")[0]}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+${hreflangs}
+  </url>`;
+    });
+  });
+
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
-${[...staticEntries, ...tagEntries, ...postEntries].join("\n")}
+${[...staticEntries, ...tagEntries, ...bookEntries, ...chapterEntries, ...postEntries].join("\n")}
 </urlset>`;
 
   return new Response(xml, {

@@ -1,5 +1,6 @@
 import { Breadcrumbs } from "#app/components/breadcrumbs.js";
 import { PageSeo } from "#app/components/page-seo.js";
+import { getBookAlternates } from "#app/lib/books.js";
 import type { Book, BookChapter } from "#app/lib/books.js";
 import { formatDate, t } from "#app/lib/i18n.js";
 
@@ -17,6 +18,29 @@ export const BookPage = ({
   basePath,
 }: BookPageProps) => {
   const url = `${siteUrl}${basePath}/books/${book.slug}`;
+  const alternates = getBookAlternates(book.slug);
+  const enSlug =
+    book.locale === "en-US"
+      ? book.slug
+      : (alternates.find((item) => item.locale === "en-US")?.slug ?? book.slug);
+  const seoAlternates = [
+    { href: url, hrefLang: book.locale },
+    ...alternates.map((alt) => ({
+      href: `${siteUrl}${alt.locale === "pt-BR" ? "/pt-BR" : ""}/books/${alt.slug}`,
+      hrefLang: alt.locale,
+    })),
+    { href: `${siteUrl}/books/${enSlug}`, hrefLang: "x-default" },
+  ];
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Book",
+    dateModified: book.updated,
+    datePublished: book.created,
+    description: book.description,
+    inLanguage: book.locale,
+    name: book.title,
+    url,
+  };
 
   return (
     <>
@@ -24,6 +48,8 @@ export const BookPage = ({
         title={`${book.title} | ${t("Books")}`}
         description={book.description}
         url={url}
+        alternates={seoAlternates}
+        jsonLd={jsonLd}
       />
       <article className="prose mx-auto px-4 py-10">
         <Breadcrumbs

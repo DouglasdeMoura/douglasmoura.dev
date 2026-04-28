@@ -75,28 +75,36 @@ export const SearchPage = ({
 
         {results.length > 0 && (
           <div className="not-prose divide-y divide-border">
-            {results.map((post) => (
-              <article key={post.slug} className="py-5 px-4 first:pt-0">
+            {results.map((result) => (
+              <article
+                key={`${result.kind}:${result.path}`}
+                className="py-5 px-4 first:pt-0"
+              >
                 <h2 className="mt-0 text-xl">
                   <PrefetchLink
-                    href={`/${post.slug}`}
+                    href={result.path}
                     className="text-text-strong font-semibold -tracking-[0.01em] no-underline hover:text-accent motion-safe:transition-colors motion-safe:duration-150"
                   >
-                    {post.title}
+                    {result.title}
                   </PrefetchLink>
                 </h2>
+                {result.kind === "chapter" && (
+                  <p className="mt-1 mb-0 text-xs text-text-muted uppercase tracking-wide">
+                    {t("Book chapter")}
+                  </p>
+                )}
                 <time
-                  dateTime={post.created}
+                  dateTime={result.created}
                   className="mt-1 block text-sm text-text-muted tracking-wide"
                 >
-                  {formatDate(post.created)}
+                  {formatDate(result.created)}
                 </time>
                 <p className="mt-2 mb-0 text-text-muted leading-relaxed">
-                  {post.description}
+                  {result.description}
                 </p>
-                {post.tags.length > 0 && (
+                {result.tags.length > 0 && (
                   <div className="mt-3 flex flex-wrap gap-1.5">
-                    {post.tags.map((tagName) => (
+                    {result.tags.map((tagName) => (
                       <TagLink key={tagName} tag={tagName} />
                     ))}
                   </div>
