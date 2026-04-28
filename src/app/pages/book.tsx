@@ -1,15 +1,21 @@
 import { Breadcrumbs } from "#app/components/breadcrumbs.js";
 import { PageSeo } from "#app/components/page-seo.js";
-import type { Book } from "#app/lib/books.js";
+import type { Book, BookChapter } from "#app/lib/books.js";
 import { formatDate, t } from "#app/lib/i18n.js";
 
 interface BookPageProps {
   book: Book;
+  chapters: BookChapter[];
   siteUrl: string;
   basePath: string;
 }
 
-export const BookPage = ({ book, siteUrl, basePath }: BookPageProps) => {
+export const BookPage = ({
+  book,
+  chapters,
+  siteUrl,
+  basePath,
+}: BookPageProps) => {
   const url = `${siteUrl}${basePath}/books/${book.slug}`;
 
   return (
@@ -51,6 +57,30 @@ export const BookPage = ({ book, siteUrl, basePath }: BookPageProps) => {
         )}
 
         <p>{book.description}</p>
+
+        <section className="not-prose mt-10">
+          <h2 className="text-lg font-semibold text-text-strong">
+            {t("Table of contents")}
+          </h2>
+          {chapters.length === 0 ? (
+            <p className="mt-3 text-sm text-text-muted">
+              {t("No chapters yet.")}
+            </p>
+          ) : (
+            <ol className="mt-3 space-y-2">
+              {chapters.map((chapter) => (
+                <li key={chapter.slug} className="text-sm text-text">
+                  <a
+                    href={`${basePath}/books/${book.slug}/${chapter.slug}`}
+                    className="no-underline hover:underline hover:decoration-border hover:underline-offset-2"
+                  >
+                    {chapter.order}. {chapter.title}
+                  </a>
+                </li>
+              ))}
+            </ol>
+          )}
+        </section>
       </article>
     </>
   );
