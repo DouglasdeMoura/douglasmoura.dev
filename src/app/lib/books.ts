@@ -1,10 +1,26 @@
 import matter from "gray-matter";
 
-const bookMetaModules = import.meta.glob("/content/books/**/meta.md", {
+interface BookMetaLocale {
+  title?: string;
+  description?: string;
+  created?: string;
+  updated?: string;
+}
+
+interface BookMetaFile {
+  slug?: string;
+  status?: "draft" | "beta" | "published";
+  edition?: string;
+  version?: string;
+  cover?: string;
+  tags?: string[];
+  locales?: Record<string, BookMetaLocale>;
+}
+
+const bookMetaModules = import.meta.glob("/content/books/**/meta.json", {
   eager: true,
   import: "default",
-  query: "?raw",
-}) as Record<string, string>;
+}) as Record<string, BookMetaFile>;
 
 const coverImages = import.meta.glob(
   "/content/books/**/cover.{jpg,jpeg,png,webp}",
@@ -23,14 +39,14 @@ const changelogModules = import.meta.glob("/content/books/**/changelog.md", {
 }) as Record<string, string>;
 
 export interface BookAlternate {
-  locale: "en-US" | "pt-BR";
+  locale: string;
   slug: string;
 }
 
 export interface Book {
   title: string;
   slug: string;
-  locale: "en-US" | "pt-BR";
+  locale: string;
   created: string;
   updated: string;
   tags: string[];
@@ -45,7 +61,7 @@ export interface Book {
 export interface BookChapter {
   title: string;
   slug: string;
-  locale: "en-US" | "pt-BR";
+  locale: string;
   order: number;
   created: string;
   updated: string;
@@ -59,6 +75,7 @@ export interface AdjacentChapters {
 }
 
 const booksBySlug = new Map<string, Book>();
+const booksBySlugLocale = new Map<string, Book>();
 const alternatesBySlug = new Map<string, BookAlternate[]>();
 const dirToSlugs = new Map<string, BookAlternate[]>();
 const chaptersByBookAndLocale = new Map<string, BookChapter[]>();
@@ -67,14 +84,16 @@ const chapterCountByBookAndLocale = new Map<string, number>();
 const changelogByBookSlug = new Map<string, string>();
 const chapterAlternatesByKey = new Map<
   string,
-  { locale: BookChapter["locale"]; slug: string }[]
+  { locale: string; slug: string }[]
 >();
+const slugLocaleKey = (slug: string, locale: string): string =>
+  `${slug}:${locale}`;
 
 for (const [path, raw] of Object.entries(chapterModules)) {
   const { content, data } = matter(raw);
   const pathParts = path.split("/");
   const bookSlug = pathParts[pathParts.indexOf("books") + 1];
-  const locale: Book["locale"] = data.locale === "pt-BR" ? "pt-BR" : "en-US";
+  const locale = (data.locale as string) || "en-US";
   const key = `${bookSlug}:${locale}`;
   chapterCountByBookAndLocale.set(
     key,
@@ -114,8 +133,7 @@ for (const [path, raw] of Object.entries(changelogModules)) {
   }
 }
 
-for (const [path, raw] of Object.entries(bookMetaModules)) {
-  const { content, data } = matter(raw);
+for (const [path, data] of Object.entries(bookMetaModules)) {
   const slug = data.slug as string | undefined;
   if (!slug) {
     continue;
@@ -123,46 +141,67 @@ for (const [path, raw] of Object.entries(bookMetaModules)) {
 
   const dir = path.slice(0, path.lastIndexOf("/") + 1);
   const coverKey = Object.keys(coverImages).find((key) => key.startsWith(dir));
-  const locale: Book["locale"] = data.locale === "pt-BR" ? "pt-BR" : "en-US";
-  const chapterKey = `${slug}:${locale}`;
+  const locales = Object.entries(data.locales ?? {});
+  const fallbackLocales: [string, BookMetaLocale][] =
+    locales.length > 0
+      ? locales
+      : [
+          [
+            "en-US",
+            {
+              description: "",
+              title: slug,
+            } satisfies BookMetaLocale,
+          ],
+        ];
 
-  booksBySlug.set(slug, {
-    chapterCount: chapterCountByBookAndLocale.get(chapterKey) ?? 0,
-    cover: coverKey ? coverImages[coverKey] : "",
-    created:
-      data.created instanceof Date
-        ? data.created.toISOString()
-        : String(data.created ?? ""),
-    description: content.trim(),
-    edition: (data.edition as string) || "1st",
-    locale,
-    slug,
-    status:
-      data.status === "beta" || data.status === "published"
-        ? data.status
-        : "draft",
-    tags: Array.isArray(data.tags) ? (data.tags as string[]) : [],
-    title: (data.title as string) || slug,
-    updated:
-      data.updated instanceof Date
-        ? data.updated.toISOString()
-        : String(data.updated ?? ""),
-    version: (data.version as string) || "0.1.0",
-  });
+  for (const [locale, localeData] of fallbackLocales) {
+    const chapterKey = `${slug}:${locale}`;
+    const created = localeData.created ?? new Date().toISOString();
+    const updated = localeData.updated ?? created;
 
-  const group = dirToSlugs.get(dir) ?? [];
-  group.push({ locale, slug });
-  dirToSlugs.set(dir, group);
+    const book: Book = {
+      chapterCount: chapterCountByBookAndLocale.get(chapterKey) ?? 0,
+      cover: coverKey ? coverImages[coverKey] : "",
+      created,
+      description: localeData.description?.trim() ?? "",
+      edition: data.edition || "1st",
+      locale,
+      slug,
+      status:
+        data.status === "beta" || data.status === "published"
+          ? data.status
+          : "draft",
+      tags: Array.isArray(data.tags) ? data.tags : [],
+      title: localeData.title || slug,
+      updated,
+      version: data.version || "0.1.0",
+    };
+
+    booksBySlugLocale.set(slugLocaleKey(slug, locale), book);
+    if (!booksBySlug.has(slug) && locale === "en-US") {
+      booksBySlug.set(slug, book);
+    }
+    if (!booksBySlug.has(slug)) {
+      booksBySlug.set(slug, book);
+    }
+
+    const group = dirToSlugs.get(dir) ?? [];
+    group.push({ locale, slug });
+    dirToSlugs.set(dir, group);
+  }
 }
 
 for (const group of dirToSlugs.values()) {
   if (group.length < 2) {
     continue;
   }
-  for (const { slug } of group) {
+  for (const item of group) {
     alternatesBySlug.set(
-      slug,
-      group.filter((alt) => alt.slug !== slug)
+      slugLocaleKey(item.slug, item.locale),
+      group.filter(
+        (alt) => !(alt.slug === item.slug && alt.locale === item.locale)
+      )
     );
   }
 }
@@ -185,30 +224,37 @@ for (const chapters of chaptersByBookAndLocale.values()) {
   }
 }
 
-const sortedBooks = [...booksBySlug.values()].toSorted(
+const sortedBooks = [...booksBySlugLocale.values()].toSorted(
   (a, b) => new Date(b.created).getTime() - new Date(a.created).getTime()
 );
 
 export const getAllBooks = (): Book[] => sortedBooks;
 
-export const getBooksByLocale = (locale: Book["locale"]): Book[] =>
+export const getBooksByLocale = (locale: string): Book[] =>
   sortedBooks.filter((book) => book.locale === locale);
 
-export const getBookBySlug = (slug: string): Book | undefined =>
-  booksBySlug.get(slug);
+export const getBookBySlug = (
+  slug: string,
+  locale?: string
+): Book | undefined =>
+  locale
+    ? booksBySlugLocale.get(slugLocaleKey(slug, locale))
+    : booksBySlug.get(slug);
 
-export const getBookAlternates = (slug: string): BookAlternate[] =>
-  alternatesBySlug.get(slug) ?? [];
+export const getBookAlternates = (
+  slug: string,
+  locale: string
+): BookAlternate[] => alternatesBySlug.get(slugLocaleKey(slug, locale)) ?? [];
 
 export const getBookChapters = (
   bookSlug: string,
-  locale: Book["locale"]
+  locale: string
 ): BookChapter[] => chaptersByBookAndLocale.get(`${bookSlug}:${locale}`) ?? [];
 
 export const getBookChapterBySlug = (
   bookSlug: string,
   chapterSlug: string,
-  locale: Book["locale"]
+  locale: string
 ): BookChapter | undefined =>
   getBookChapters(bookSlug, locale).find(
     (chapter) => chapter.slug === chapterSlug
@@ -217,7 +263,7 @@ export const getBookChapterBySlug = (
 export const getAdjacentChapters = (
   bookSlug: string,
   chapterSlug: string,
-  locale: Book["locale"]
+  locale: string
 ): AdjacentChapters => {
   const chapters = getBookChapters(bookSlug, locale);
   const index = chapters.findIndex((chapter) => chapter.slug === chapterSlug);
@@ -236,8 +282,8 @@ export const getAdjacentChapters = (
 export const getChapterAlternates = (
   bookSlug: string,
   chapterSlug: string,
-  locale: Book["locale"]
-): { locale: BookChapter["locale"]; slug: string }[] => {
+  locale: string
+): { locale: string; slug: string }[] => {
   const chapter = getBookChapterBySlug(bookSlug, chapterSlug, locale);
   if (!chapter) {
     return [];

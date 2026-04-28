@@ -12,40 +12,19 @@ export interface BookMeta {
   status: "draft" | "beta" | "published";
 }
 
-export const parseFrontmatter = (content: string): Record<string, unknown> => {
-  const match = content.match(/^---\n([\s\S]*?)\n---/);
-  if (!match) {
-    return {};
-  }
-
-  const meta: Record<string, unknown> = {};
-  const lines = match[1].split("\n");
-  let currentArray: string[] | null = null;
-  let currentKey = "";
-
-  for (const line of lines) {
-    const arrayItem = line.match(/^\s+-\s+(.+)/);
-    if (arrayItem && currentArray) {
-      currentArray.push(arrayItem[1].replaceAll(/^["']|["']$/g, ""));
-      continue;
+interface BookMetaFile {
+  slug?: string;
+  status?: "draft" | "beta" | "published";
+  tags?: string[];
+  locales?: Record<
+    string,
+    {
+      title?: string;
+      created?: string;
+      updated?: string;
     }
-
-    currentArray = null;
-    const kv = line.match(/^(\w+):\s*(.*)/);
-    if (kv) {
-      const [, key, value] = kv;
-      if (value.trim()) {
-        meta[key] = value.replaceAll(/^["']|["']$/g, "");
-      } else {
-        currentArray = [];
-        currentKey = key;
-        meta[currentKey] = currentArray;
-      }
-    }
-  }
-
-  return meta;
-};
+  >;
+}
 
 export const loadBooks = async (booksDir: string): Promise<BookMeta[]> => {
   const allDirs = await readdir(booksDir);
@@ -53,28 +32,36 @@ export const loadBooks = async (booksDir: string): Promise<BookMeta[]> => {
   const books: BookMeta[] = [];
 
   for (const dir of dirs) {
-    const metaPath = join(booksDir, dir, "meta.md");
-    let content = "";
+    const metaPath = join(booksDir, dir, "meta.json");
+    let content: string;
     try {
       content = await readFile(metaPath, "utf8");
     } catch {
       continue;
     }
 
-    const meta = parseFrontmatter(content);
-    books.push({
-      created: (meta.created as string) || "",
-      dir,
-      locale: (meta.locale as string) || "en-US",
-      slug: (meta.slug as string) || dir,
-      status:
-        meta.status === "beta" || meta.status === "published"
-          ? meta.status
-          : "draft",
-      tags: (meta.tags as string[]) || [],
-      title: (meta.title as string) || dir,
-      updated: (meta.updated as string) || "",
-    });
+    let meta: BookMetaFile;
+    try {
+      meta = JSON.parse(content) as BookMetaFile;
+    } catch {
+      continue;
+    }
+
+    for (const [locale, localeMeta] of Object.entries(meta.locales ?? {})) {
+      books.push({
+        created: localeMeta.created ?? "",
+        dir,
+        locale,
+        slug: meta.slug || dir,
+        status:
+          meta.status === "beta" || meta.status === "published"
+            ? meta.status
+            : "draft",
+        tags: meta.tags ?? [],
+        title: localeMeta.title ?? dir,
+        updated: localeMeta.updated ?? localeMeta.created ?? "",
+      });
+    }
   }
 
   return books.toSorted(

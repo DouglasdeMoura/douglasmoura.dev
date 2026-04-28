@@ -1,0 +1,26 @@
+{
+  "slug": "mastering-typescript",
+  "status": "draft",
+  "edition": "1st",
+  "version": "0.1.0",
+  "tags": [
+    "typescript",
+    "architecture",
+    "web-development"
+  ],
+  "cover": "./cover.png",
+  "locales": {
+    "en-US": {
+      "title": "Building APIs with TypeScript",
+      "description": "A practical guide for engineers who want to design, scale, and maintain robust TypeScript applications in production.",
+      "created": "2026-04-28 16:30:00.000Z",
+      "updated": "2026-04-28 16:30:00.000Z"
+    },
+    "pt-BR": {
+      "title": "Construindo APIs com TypeScript",
+      "description": "Um guia prático para engenheiros que desejam projetar, escalar e manter aplicações robustas em produção com TypeScript",
+      "created": "2026-04-28 16:30:00.000Z",
+      "updated": "2026-04-28 16:30:00.000Z"
+    }
+  }
+}

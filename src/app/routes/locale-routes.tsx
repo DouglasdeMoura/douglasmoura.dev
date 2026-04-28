@@ -85,8 +85,8 @@ export const createLocaleRoutes = ({
       />
     )),
     route(`${pathPrefix}/books/:slug`, ({ params, response }) => {
-      const book = getBookBySlug(params.slug);
-      if (!book || book.locale !== locale) {
+      const book = getBookBySlug(params.slug, locale);
+      if (!book) {
         response.status = 404;
         return <NotFound />;
       }
@@ -103,8 +103,8 @@ export const createLocaleRoutes = ({
     route(
       `${pathPrefix}/books/:bookSlug/:chapterSlug`,
       async ({ params, response }) => {
-        const book = getBookBySlug(params.bookSlug);
-        if (!book || book.locale !== locale) {
+        const book = getBookBySlug(params.bookSlug, locale);
+        if (!book) {
           response.status = 404;
           return <NotFound />;
         }
@@ -136,8 +136,8 @@ export const createLocaleRoutes = ({
     route(
       `${pathPrefix}/books/:bookSlug/changelog`,
       async ({ params, response }) => {
-        const book = getBookBySlug(params.bookSlug);
-        if (!book || book.locale !== locale) {
+        const book = getBookBySlug(params.bookSlug, locale);
+        if (!book) {
           response.status = 404;
           return <NotFound />;
         }

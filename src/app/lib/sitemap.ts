@@ -10,7 +10,11 @@ import {
   getTagsByLocale,
   slugifyTag,
 } from "#app/lib/posts.js";
-import type { PostAlternate } from "#app/lib/posts.js";
+
+interface Alternate {
+  locale: string;
+  slug: string;
+}
 
 const escapeXml = (str: string): string =>
   str
@@ -24,7 +28,7 @@ const alternateLinks = (
   siteUrl: string,
   slug: string,
   locale: string,
-  alternates: PostAlternate[]
+  alternates: Alternate[]
 ): string => {
   const self = `    <xhtml:link rel="alternate" hreflang="${locale}" href="${siteUrl}/${escapeXml(slug)}" />`;
   const alts = alternates.map(
@@ -41,12 +45,12 @@ const alternateLinks = (
 
 const singleLocaleLinks = (
   siteUrl: string,
-  locale: "en-US" | "pt-BR",
+  locale: string,
   path: string
 ): string =>
-  locale === "en-US"
-    ? `    <xhtml:link rel="alternate" hreflang="en-US" href="${siteUrl}${path}" />\n    <xhtml:link rel="alternate" hreflang="x-default" href="${siteUrl}${path}" />`
-    : `    <xhtml:link rel="alternate" hreflang="pt-BR" href="${siteUrl}${path}" />`;
+  locale === "pt-BR"
+    ? `    <xhtml:link rel="alternate" hreflang="pt-BR" href="${siteUrl}${path}" />`
+    : `    <xhtml:link rel="alternate" hreflang="en-US" href="${siteUrl}${path}" />\n    <xhtml:link rel="alternate" hreflang="x-default" href="${siteUrl}${path}" />`;
 
 /** Build hreflang links for a pair of EN/PT-BR static page URLs. */
 const staticAlternateLinks = (
@@ -224,7 +228,7 @@ ${hreflangs}
 
   const books = getAllBooks();
   const bookEntries = books.map((book) => {
-    const alternates = getBookAlternates(book.slug);
+    const alternates = getBookAlternates(book.slug, book.locale);
     const path =
       book.locale === "pt-BR"
         ? `/pt-BR/books/${book.slug}`
