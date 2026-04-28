@@ -14,28 +14,26 @@ const buildMeta = (opts: {
   tags: string[];
   date: string;
   status: "draft" | "beta" | "published";
-}): string => {
-  const lines = [
-    "---",
-    `title: "${opts.title}"`,
-    `slug: ${opts.slug}`,
-    `locale: ${opts.locale}`,
-    `created: ${opts.date}`,
-    `updated: ${opts.date}`,
-    `status: ${opts.status}`,
-  ];
-
-  if (opts.tags.length > 0) {
-    lines.push("tags:");
-    for (const tag of opts.tags) {
-      lines.push(`  - ${tag}`);
-    }
-  }
-
-  lines.push("---", "", "Write your book description here.");
-
-  return lines.join("\n");
-};
+}): string =>
+  JSON.stringify(
+    {
+      edition: "1st",
+      locales: {
+        [opts.locale]: {
+          created: opts.date,
+          description: "Write your book description here.",
+          title: opts.title,
+          updated: opts.date,
+        },
+      },
+      slug: opts.slug,
+      status: opts.status,
+      tags: opts.tags,
+      version: "0.1.0",
+    },
+    null,
+    2
+  );
 
 const parseTags = (input: string): string[] =>
   input
@@ -102,8 +100,8 @@ export default defineCommand({
 
     const booksDir = resolvePath(args.dir);
     const bookDir = join(booksDir, slug);
-    const metaPath = join(bookDir, "meta.md");
-    const chapterLocale = args.locale === "pt-BR" ? "pt-BR" : "en-US";
+    const metaPath = join(bookDir, "meta.json");
+    const chapterLocale = args.locale || "en-US";
     const chapterPath = join(
       bookDir,
       "chapters",
@@ -116,8 +114,7 @@ export default defineCommand({
       return;
     }
 
-    await mkdir(join(bookDir, "chapters", "en-US"), { recursive: true });
-    await mkdir(join(bookDir, "chapters", "pt-BR"), { recursive: true });
+    await mkdir(join(bookDir, "chapters", chapterLocale), { recursive: true });
 
     await writeFile(
       metaPath,

@@ -18,7 +18,7 @@ export const BookPage = ({
   basePath,
 }: BookPageProps) => {
   const url = `${siteUrl}${basePath}/books/${book.slug}`;
-  const alternates = getBookAlternates(book.slug);
+  const alternates = getBookAlternates(book.slug, book.locale);
   const enSlug =
     book.locale === "en-US"
       ? book.slug
