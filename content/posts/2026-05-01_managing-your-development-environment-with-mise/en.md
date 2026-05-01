@@ -3,7 +3,8 @@ title: "Managing your development environment with Mise (and understanding shims
 slug: managing-your-development-environment-with-mise
 locale: en-US
 created: 2026-05-01 12:13:37.281Z
-updated: 2026-05-01 18:59:36.000Z
+updated: 2026-05-01 19:12:04.000Z
+cover: ./cover.png
 tags:
   - Development Tools
   - Environment

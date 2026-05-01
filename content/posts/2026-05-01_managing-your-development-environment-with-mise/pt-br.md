@@ -3,7 +3,8 @@ title: "Gerenciando seu ambiente de desenvolvimento com Mise (e entendendo shims
 slug: gerenciando-seu-ambiente-de-desenvolvimento-com-mise
 locale: pt-BR
 created: 2026-05-01 12:13:37.281Z
-updated: 2026-05-01 18:59:33.000Z
+updated: 2026-05-01 19:12:04.000Z
+cover: ./cover.png
 tags:
   - Ferramentas de Desenvolvimento
   - Ambiente
