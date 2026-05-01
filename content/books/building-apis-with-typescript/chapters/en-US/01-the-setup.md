@@ -38,7 +38,7 @@ Restart PowerShell again and install the latest LTS version of Node.js:
 mise use --global node@lts
 ```
 
-Finally, verify the Node.js and npm installations:
+Finally, verify the Node.js and NPM installations:
 
 ```pwsh
 node --version
@@ -100,3 +100,34 @@ Type ".help" for more information.
 ```
 
 For example, type `Object.keys(global)` and hit <kbd>Enter</kbd> to see all the functions available globally on your environment. Don't forget to check the official [documentation](https://nodejs.org/learn/command-line/how-to-use-the-nodejs-repl) to learn more.
+
+## Managing modules
+
+Most modern languages have their own package manager to handle external modules. Node.js comes with NPM (Node Package Manager), but there are some other alternatives out there, like [Yarn](https://yarnpkg.com/) and [PNPM](https://pnpm.io/). Despite NPM being Node.js' default package manager, PNPM is faster, saves disk space and have some security configurations that are useful for any production-grade project. I'll get on more details about this on later chapters. The package manager serves to manage dependencies from the registry. The default registry is [NPM](https://www.npmjs.com/)(yes, it has the same name), but you there are others, like [JSR](https://jsr.io/), from the Deno folks and you can even setup a custom registry, if needed. So, let's install PNPM on our system:
+
+```bash
+npm install -g pnpm
+```
+
+Yes, we are using NPM to install PNPM globally on our system. There are other [ways](https://pnpm.io/installation) to install PNPM, but this is the most straightforward.
+
+Here are the basic commands you need to know:
+
+```
+pnpm init # Start a new project on the current directory
+pnpm add <package> # Install a module from the package registry (default from https://www.npmjs.com/)
+pnpm remove <package> # Remove module from the current project
+pnpm update <package> # Updates package to the latest version
+```
+
+When you init a new project or install any package, a `package.json` file will be created on the project's directory. Its purpose is to list project information, dependencies, tasks, license, and a few other things. Here is the [complete](https://docs.npmjs.com/cli/v11/configuring-npm/package-json) documentation, for reference.
+
+Also, it's important to know that you can use NPM/PNPM/Yarn to publish your project to the world on the NPM registry. So, if you don't intend to publish your project to a public registry accidentally, add setup the `private` argument to `true` on your `package.json`:
+
+```jsonc
+{
+  "private": "true"
+}
+```
+
+Now, that you are grounded on the initial setup and has some idea on how to use Node.js package management tooling, let's start to prepare the initial setup of our project.
