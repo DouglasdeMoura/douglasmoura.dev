@@ -3,11 +3,7 @@
   "status": "draft",
   "edition": "1st",
   "version": "0.1.0",
-  "tags": [
-    "typescript",
-    "architecture",
-    "web-development"
-  ],
+  "tags": ["typescript", "architecture", "web-development"],
   "cover": "./cover.png",
   "locales": {
     "en-US": {
