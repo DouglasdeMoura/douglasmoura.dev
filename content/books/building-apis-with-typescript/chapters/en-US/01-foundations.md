@@ -7,7 +7,7 @@ created: 2026-04-28 16:30:00.000Z
 updated: 2026-04-28 16:30:00.000Z
 ---
 
-There are multiple ways to install Node.js on any operating system you like. In this book, I'll use [Mise](https://mise.jdx.dev/getting-started.html) because I think it is the best tool for developers. Mise enables you to manage multiple programming languages, environment variables, and tasks per project. This allows you to have multiple versions of the same programming language installed on your computer at the same time and choose the right version for each project.
+There are multiple ways to install Node.js on whatever operating system you like. On this book, I'll use the [Mise](https://mise.jdx.dev/getting-started.html), as I think is the best tool for developers (and, it works on Linux, macOS and Windows). Mise enables you to manage multiple programming languages, environment variables, and tasks per project. This allows you to have multiple versions of the same programming language installed on your computer at the same time and choose the right version for each project.
 
 Mise can do a lot more than manage Node.js versions, so it is worth spending some time learning its capabilities in the [documentation](https://mise.jdx.dev/getting-started.html).
 
