@@ -1,6 +1,6 @@
 ---
-title: Installing Node.js
-slug: installing-node-js
+title: The setup
+slug: the-setup
 locale: en-US
 order: 1
 created: 2026-04-28 16:30:00.000Z
@@ -86,3 +86,17 @@ Finally, run the following command to install the latest LTS version of Node.js:
 ```bash
 mise use --global node@lts
 ```
+
+## The Node REPL
+
+REPL stands for Read Evaluate Print Loop. It's an environment where you can input any expression valid for the programming language and see its results on the console after the execution. This enables you to quickly test simple code.
+
+To start the <abbr title="Read Evaluate Print Loop">REPL</abbr>, open your terminal and type `node`. You will see this:
+
+```
+Welcome to Node.js v24.14.0.
+Type ".help" for more information.
+>
+```
+
+For example, type `Object.keys(global)` and hit <kbd>Enter</kbd> to see all the functions available globally on your environment. Don't forget to check the official [documentation](https://nodejs.org/learn/command-line/how-to-use-the-nodejs-repl) to learn more.
