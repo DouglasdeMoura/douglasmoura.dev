@@ -3,7 +3,8 @@ title: "Protecting your Node.js project against supply-chain attacks"
 slug: protecting-your-node-js-project-against-supply-chain-attacks
 locale: en-US
 created: 2026-05-16 18:08:25.866Z
-updated: 2026-05-16 20:29:13.000Z
+updated: 2026-05-16 22:43:56.000Z
+cover: ./cover.png
 tags:
   - Node.js
   - npm
