@@ -224,26 +224,27 @@
     {
       "name": "Frontend",
       "keywords": [
-        "TypeScript",
-        "React",
-        "Next.js",
-        "Tailwind CSS",
-        "Design Systems",
-        "Storybook",
         "CSS Modules",
-        "Styled Components"
+        "Design Systems",
+        "Next.js",
+        "React",
+        "Storybook",
+        "Styled Components",
+        "Tailwind CSS",
+        "TypeScript"
       ]
     },
     {
       "name": "Backend",
       "keywords": [
-        "Node.js",
-        "Fastify",
-        "Nest.js",
         "Cloudflare Workers",
-        "Python",
+        "Express",
         "FastAPI",
-        "GraphQL"
+        "Fastify",
+        "GraphQL",
+        "Nest.js",
+        "Node.js",
+        "Python"
       ]
     },
     {
@@ -251,22 +252,37 @@
       "keywords": [
         "Amazon Bedrock",
         "CrewAI",
-        "RAG",
         "DeepEval",
-        "LLM Integration"
+        "LLM Integration",
+        "RAG"
       ]
     },
     {
       "name": "Cloud & Infrastructure",
-      "keywords": ["AWS", "Terraform", "GitHub Actions", "Docker"]
+      "keywords": [
+        "AWS",
+        "Cloudflare",
+        "Docker",
+        "Fly.io",
+        "GitHub Actions",
+        "Hetzner",
+        "Terraform"
+      ]
     },
     {
       "name": "Testing",
-      "keywords": ["Vitest", "Jest", "Playwright", "Cypress", "TDD"]
+      "keywords": ["Cypress", "Jest", "Playwright", "TDD", "Vitest"]
     },
     {
       "name": "Data",
-      "keywords": ["Snowflake", "Metabase", "RabbitMQ"]
+      "keywords": [
+        "Metabase",
+        "MongoDB",
+        "Postgres",
+        "RabbitMQ",
+        "Redis",
+        "Snowflake"
+      ]
     }
   ],
   "languages": [
@@ -305,7 +321,10 @@
       "type": "talk",
       "entity": "NodeBR + ThePayGroup",
       "startDate": "2024-07-31",
-      "location": { "name": "São Paulo - SP", "country": "Brazil" },
+      "location": {
+        "name": "São Paulo - SP",
+        "country": "Brazil"
+      },
       "slides": "https://processamento-paralelo-go-nodejs.netlify.app/1",
       "url": "https://www.youtube.com/watch?v=0jpi_JmQOTA"
     },
@@ -314,7 +333,10 @@
       "type": "talk",
       "entity": "TDC Connections",
       "startDate": "2023-03-23",
-      "location": { "name": "Belo Horizonte - MG", "country": "Brazil" },
+      "location": {
+        "name": "Belo Horizonte - MG",
+        "country": "Brazil"
+      },
       "url": "https://thedevconf.com/tdc/2023/connections/trilha-javascript-e-node-js"
     },
     {
@@ -322,7 +344,10 @@
       "type": "talk",
       "entity": "Live - NodeBR #61 - Node.js como você nunca viu",
       "startDate": "2023-03-01",
-      "location": { "name": "São Paulo - SP", "country": "Brazil" },
+      "location": {
+        "name": "São Paulo - SP",
+        "country": "Brazil"
+      },
       "recording": "https://www.youtube.com/watch?v=tVMmVDELuLE"
     },
     {
@@ -330,7 +355,10 @@
       "type": "talk",
       "entity": "Conferência CSS Brasil 2023",
       "startDate": "2023-01-20",
-      "location": { "name": "São Paulo - SP", "country": "Brazil" },
+      "location": {
+        "name": "São Paulo - SP",
+        "country": "Brazil"
+      },
       "slides": "https://design-system-com-tailwind-css.vercel.app/",
       "url": "https://web.archive.org/web/2023/https://conferenciacssbrasil.com.br/"
     }
