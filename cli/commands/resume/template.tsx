@@ -74,6 +74,7 @@ const styles = StyleSheet.create({
     paddingTop: 6,
     position: "absolute",
     right: 48,
+    textAlign: "center",
   },
   footerLink: {
     color: "#555555",
