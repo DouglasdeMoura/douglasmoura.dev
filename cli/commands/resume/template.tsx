@@ -44,9 +44,12 @@ const styles = StyleSheet.create({
     marginBottom: 2,
   },
   contact: {
+    marginTop: 6,
+  },
+  contactRow: {
     color: "#444444",
     fontSize: 9,
-    marginTop: 6,
+    lineHeight: 1.5,
   },
   entry: {
     marginBottom: 7,
@@ -168,7 +171,24 @@ const Section = ({
   </View>
 );
 
+const ContactRow = ({
+  parts,
+}: {
+  parts: { key: string; node: ReactNode }[];
+}) => (
+  <Text style={styles.contactRow}>
+    {parts.map((part, index) => (
+      <Text key={part.key}>
+        {index > 0 && "  ·  "}
+        {part.node}
+      </Text>
+    ))}
+  </Text>
+);
+
 const Header = ({ basics }: { basics: ResumeBasics }) => {
+  // Two deliberate contact lines: basics first, profiles second —
+  // a single line wraps unpredictably and leaves dangling separators.
   const contactParts: { key: string; node: ReactNode }[] = [];
   const location = formatLocation(basics);
   if (location) {
@@ -192,29 +212,24 @@ const Header = ({ basics }: { basics: ResumeBasics }) => {
       ),
     }
   );
-  for (const profile of basics.profiles ?? []) {
-    contactParts.push({
-      key: profile.network,
-      node: (
-        <Link href={profile.url} style={styles.link}>
-          {stripProtocol(profile.url)}
-        </Link>
-      ),
-    });
-  }
+
+  const profileParts = (basics.profiles ?? []).map((profile) => ({
+    key: profile.network,
+    node: (
+      <Link href={profile.url} style={styles.link}>
+        {stripProtocol(profile.url)}
+      </Link>
+    ),
+  }));
 
   return (
     <View style={styles.header}>
       <Text style={styles.name}>{basics.name}</Text>
       <Text style={styles.label}>{basics.label}</Text>
-      <Text style={styles.contact}>
-        {contactParts.map((part, index) => (
-          <Text key={part.key}>
-            {index > 0 && "  ·  "}
-            {part.node}
-          </Text>
-        ))}
-      </Text>
+      <View style={styles.contact}>
+        <ContactRow parts={contactParts} />
+        {profileParts.length > 0 && <ContactRow parts={profileParts} />}
+      </View>
     </View>
   );
 };
