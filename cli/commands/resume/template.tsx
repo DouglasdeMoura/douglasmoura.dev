@@ -12,10 +12,12 @@ import type {
   Resume,
   ResumeBasics,
   ResumeEducationEntry,
-  ResumeProjectEntry,
-  ResumeVolunteerEntry,
   ResumeWorkEntry,
 } from "./types.js";
+
+/** Roles rendered with a summary; the rest become one-liners. */
+const DETAILED_ROLE_COUNT = 4;
+const RESUME_JSON_URL = "https://douglasmoura.dev/resume.json";
 
 const MONTH_NAMES = [
   "Jan",
@@ -35,15 +37,11 @@ const MONTH_NAMES = [
 const regionNames = new Intl.DisplayNames(["en"], { type: "region" });
 
 const styles = StyleSheet.create({
-  bullet: {
+  compactEntry: {
+    alignItems: "baseline",
     flexDirection: "row",
+    justifyContent: "space-between",
     marginBottom: 2,
-  },
-  bulletMarker: {
-    width: 10,
-  },
-  bulletText: {
-    flex: 1,
   },
   contact: {
     color: "#444444",
@@ -61,14 +59,24 @@ const styles = StyleSheet.create({
   entryMeta: {
     color: "#555555",
     fontSize: 9,
-    marginBottom: 3,
-  },
-  entrySummary: {
-    marginBottom: 3,
   },
   entryTitle: {
     fontFamily: "Helvetica-Bold",
     fontSize: 10.5,
+  },
+  footer: {
+    borderTopColor: "#999999",
+    borderTopWidth: 0.75,
+    bottom: 36,
+    color: "#555555",
+    fontSize: 8.5,
+    left: 48,
+    paddingTop: 6,
+    position: "absolute",
+    right: 48,
+  },
+  footerLink: {
+    color: "#555555",
   },
   header: {
     marginBottom: 14,
@@ -93,11 +101,12 @@ const styles = StyleSheet.create({
     fontFamily: "Helvetica",
     fontSize: 9.5,
     lineHeight: 1.4,
+    paddingBottom: 64,
     paddingHorizontal: 48,
-    paddingVertical: 42,
+    paddingTop: 42,
   },
   section: {
-    marginBottom: 9,
+    marginBottom: 10,
   },
   sectionTitle: {
     borderBottomColor: "#999999",
@@ -145,30 +154,16 @@ const formatLocation = (basics: ResumeBasics): string | undefined => {
   return country ? `${location.city}, ${country}` : location.city;
 };
 
-/**
- * Sections are atomic by default (`wrap={false}`) so a title is never
- * stranded at a page bottom. Sections taller than a page (Experience)
- * must opt into wrapping.
- */
 const Section = ({
   title,
   children,
-  wrap = false,
 }: {
   title: string;
   children: ReactNode;
-  wrap?: boolean;
 }) => (
-  <View style={styles.section} wrap={wrap}>
+  <View style={styles.section}>
     <Text style={styles.sectionTitle}>{title}</Text>
     {children}
-  </View>
-);
-
-const Bullet = ({ children }: { children: ReactNode }) => (
-  <View style={styles.bullet}>
-    <Text style={styles.bulletMarker}>•</Text>
-    <Text style={styles.bulletText}>{children}</Text>
   </View>
 );
 
@@ -223,28 +218,11 @@ const Header = ({ basics }: { basics: ResumeBasics }) => {
   );
 };
 
-const WorkItem = ({ entry }: { entry: ResumeWorkEntry }) => (
-  <View style={styles.entry} wrap={false}>
+const DetailedWorkItem = ({ entry }: { entry: ResumeWorkEntry }) => (
+  <View style={styles.entry}>
     <View style={styles.entryHeader}>
       <Text style={styles.entryTitle}>
         {entry.position} · {entry.name}
-      </Text>
-      <Text style={styles.entryMeta}>
-        {formatRange(entry.startDate, entry.endDate)}
-      </Text>
-    </View>
-    {entry.summary && <Text style={styles.entrySummary}>{entry.summary}</Text>}
-    {entry.highlights?.map((highlight) => (
-      <Bullet key={highlight}>{highlight}</Bullet>
-    ))}
-  </View>
-);
-
-const VolunteerItem = ({ entry }: { entry: ResumeVolunteerEntry }) => (
-  <View style={styles.entry} wrap={false}>
-    <View style={styles.entryHeader}>
-      <Text style={styles.entryTitle}>
-        {entry.position} · {entry.organization}
       </Text>
       <Text style={styles.entryMeta}>
         {formatRange(entry.startDate, entry.endDate)}
@@ -254,50 +232,50 @@ const VolunteerItem = ({ entry }: { entry: ResumeVolunteerEntry }) => (
   </View>
 );
 
+const CompactWorkItem = ({ entry }: { entry: ResumeWorkEntry }) => (
+  <View style={styles.compactEntry}>
+    <Text>
+      <Text style={styles.skillName}>{entry.position}</Text> · {entry.name}
+    </Text>
+    <Text style={styles.entryMeta}>
+      {formatRange(entry.startDate, entry.endDate)}
+    </Text>
+  </View>
+);
+
 const EducationItem = ({ entry }: { entry: ResumeEducationEntry }) => (
-  <View style={styles.entry} wrap={false}>
-    <View style={styles.entryHeader}>
-      <Text style={styles.entryTitle}>
+  <View style={styles.compactEntry}>
+    <Text>
+      <Text style={styles.skillName}>
         {entry.studyType} in {entry.area}
       </Text>
-      <Text style={styles.entryMeta}>
-        {formatRange(entry.startDate, entry.endDate)}
-      </Text>
-    </View>
-    <Text>{entry.institution}</Text>
-  </View>
-);
-
-const ProjectItem = ({ entry }: { entry: ResumeProjectEntry }) => (
-  <View style={styles.entry} wrap={false}>
-    <Text>
-      <Text style={styles.entryTitle}>{entry.name}</Text>
-      {entry.description && ` — ${entry.description}`}
+      {" · "}
+      {entry.institution}
     </Text>
-    {entry.url && (
-      <Link href={entry.url} style={styles.link}>
-        {stripProtocol(entry.url)}
-      </Link>
-    )}
+    <Text style={styles.entryMeta}>
+      {formatRange(entry.startDate, entry.endDate)}
+    </Text>
   </View>
 );
 
-const TalkItem = ({ entry }: { entry: ResumeProjectEntry }) => {
-  const meta = [entry.entity, entry.location?.name, formatDate(entry.startDate)]
-    .filter(Boolean)
-    .join(" · ");
-
-  return (
-    <View style={styles.entry} wrap={false}>
-      <Text style={styles.entryTitle}>{entry.name}</Text>
-      <Text style={styles.entryMeta}>{meta}</Text>
-    </View>
-  );
-};
+const Footer = () => (
+  <View fixed style={styles.footer}>
+    <Text>
+      This résumé is intentionally one page. The complete, machine-readable
+      record — every role, highlight, talk, and open-source project — lives at{" "}
+      <Link href={RESUME_JSON_URL} style={styles.footerLink}>
+        {stripProtocol(RESUME_JSON_URL)}
+      </Link>
+      . Feed it to your favorite LLM and ask away.
+    </Text>
+  </View>
+);
 
 export const ResumeDocument = ({ resume }: { resume: Resume }) => {
-  const talks = resume.projects?.filter((p) => p.type === "talk") ?? [];
-  const projects = resume.projects?.filter((p) => p.type !== "talk") ?? [];
+  const detailedRoles = resume.work.slice(0, DETAILED_ROLE_COUNT);
+  const earlierRoles = resume.work
+    .slice(DETAILED_ROLE_COUNT)
+    .toSorted((a, b) => b.startDate.localeCompare(a.startDate));
 
   return (
     <Document
@@ -312,9 +290,18 @@ export const ResumeDocument = ({ resume }: { resume: Resume }) => {
           <Text>{resume.basics.summary}</Text>
         </Section>
 
-        <Section title="Experience" wrap>
-          {resume.work.map((entry) => (
-            <WorkItem entry={entry} key={`${entry.name}-${entry.startDate}`} />
+        <Section title="Experience">
+          {detailedRoles.map((entry) => (
+            <DetailedWorkItem
+              entry={entry}
+              key={`${entry.name}-${entry.startDate}`}
+            />
+          ))}
+          {earlierRoles.map((entry) => (
+            <CompactWorkItem
+              entry={entry}
+              key={`${entry.name}-${entry.startDate}`}
+            />
           ))}
         </Section>
 
@@ -326,6 +313,14 @@ export const ResumeDocument = ({ resume }: { resume: Resume }) => {
                 {skill.keywords.join(", ")}
               </Text>
             ))}
+            {resume.languages && resume.languages.length > 0 && (
+              <Text style={styles.skillRow}>
+                <Text style={styles.skillName}>Languages: </Text>
+                {resume.languages
+                  .map((lang) => `${lang.language} (${lang.fluency})`)
+                  .join(", ")}
+              </Text>
+            )}
           </Section>
         )}
 
@@ -340,45 +335,7 @@ export const ResumeDocument = ({ resume }: { resume: Resume }) => {
           </Section>
         )}
 
-        {resume.languages && resume.languages.length > 0 && (
-          <Section title="Languages">
-            <Text>
-              {resume.languages
-                .map((lang) => `${lang.language} (${lang.fluency})`)
-                .join("  ·  ")}
-            </Text>
-          </Section>
-        )}
-
-        {projects.length > 0 && (
-          <Section title="Open Source">
-            {projects.map((entry) => (
-              <ProjectItem entry={entry} key={entry.name} />
-            ))}
-          </Section>
-        )}
-
-        {talks.length > 0 && (
-          <Section title="Talks">
-            {talks.map((entry) => (
-              <TalkItem
-                entry={entry}
-                key={`${entry.name}-${entry.startDate}`}
-              />
-            ))}
-          </Section>
-        )}
-
-        {resume.volunteer && resume.volunteer.length > 0 && (
-          <Section title="Volunteering">
-            {resume.volunteer.map((entry) => (
-              <VolunteerItem
-                entry={entry}
-                key={`${entry.organization}-${entry.startDate}`}
-              />
-            ))}
-          </Section>
-        )}
+        <Footer />
       </Page>
     </Document>
   );
