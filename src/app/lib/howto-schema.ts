@@ -7,7 +7,7 @@ interface HowToStep {
   text: string;
 }
 
-const HEADING_REGEX = /^## (.+)$/gm;
+const HEADING_REGEX = /^## (.+)$/gmu;
 
 export const isHowToPost = (post: Pick<Post, "tags">): boolean =>
   post.tags.some((tag) => tag.toLowerCase() === "tutorial");

@@ -1,7 +1,7 @@
 import { t } from "#app/lib/i18n.js";
 
-const definitionPattern = /<p>\[\^(\w+)\]:\s*([\s\S]*?)<\/p>/g;
-const referencePattern = /\[\^(\w+)\]/g;
+const definitionPattern = /<p>\[\^(\w+)\]:\s*([\s\S]*?)<\/p>/gu;
+const referencePattern = /\[\^(\w+)\]/gu;
 
 export const renderFootnotes = (html: string): string => {
   const definitions = new Map<string, string>();

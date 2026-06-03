@@ -20,7 +20,7 @@ const LOCALE_NAMES: Record<string, string> = {
   "pt-BR": "Português",
 };
 
-const TWEET_PLACEHOLDER_RE = /<div data-tweet-id="(\d+)"><\/div>/g;
+const TWEET_PLACEHOLDER_RE = /<div data-tweet-id="(\d+)"><\/div>/gu;
 
 const PostBody = ({
   html,

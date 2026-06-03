@@ -20,7 +20,7 @@ export interface PostGroup {
 }
 
 export const parseFrontmatter = (content: string): Record<string, unknown> => {
-  const match = content.match(/^---\n([\s\S]*?)\n---/);
+  const match = content.match(/^---\n([\s\S]*?)\n---/u);
   if (!match) {
     return {};
   }
@@ -31,18 +31,18 @@ export const parseFrontmatter = (content: string): Record<string, unknown> => {
   let currentKey = "";
 
   for (const line of lines) {
-    const arrayItem = line.match(/^\s+-\s+(.+)/);
+    const arrayItem = line.match(/^\s+-\s+(.+)/u);
     if (arrayItem && currentArray) {
-      currentArray.push(arrayItem[1].replaceAll(/^["']|["']$/g, ""));
+      currentArray.push(arrayItem[1].replaceAll(/^["']|["']$/gu, ""));
       continue;
     }
 
     currentArray = null;
-    const kv = line.match(/^(\w+):\s*(.*)/);
+    const kv = line.match(/^(\w+):\s*(.*)/u);
     if (kv) {
       const [, key, value] = kv;
       if (value.trim()) {
-        meta[key] = value.replaceAll(/^["']|["']$/g, "");
+        meta[key] = value.replaceAll(/^["']|["']$/gu, "");
       } else {
         currentArray = [];
         currentKey = key;
@@ -55,7 +55,7 @@ export const parseFrontmatter = (content: string): Record<string, unknown> => {
 };
 
 export const stripFrontmatter = (content: string): string =>
-  content.replace(/^---\n[\s\S]*?\n---\n*/, "");
+  content.replace(/^---\n[\s\S]*?\n---\n*/u, "");
 
 export const loadPosts = async (postsDir: string): Promise<PostGroup[]> => {
   const allDirs = await readdir(postsDir);
@@ -67,7 +67,7 @@ export const loadPosts = async (postsDir: string): Promise<PostGroup[]> => {
     const files = await readdir(dirPath);
     const mdFiles = files.filter((f) => f.endsWith(".md"));
 
-    const dateMatch = dir.match(/^(\d{4}-\d{2}-\d{2})_(.+)$/);
+    const dateMatch = dir.match(/^(\d{4}-\d{2}-\d{2})_(.+)$/u);
     const date = dateMatch ? dateMatch[1] : "";
     const slug = dateMatch ? dateMatch[2] : dir;
     const hasCover = files.some((f) => f.startsWith("cover."));
@@ -75,7 +75,7 @@ export const loadPosts = async (postsDir: string): Promise<PostGroup[]> => {
     const locales: PostMeta[] = [];
 
     for (const mdFile of mdFiles) {
-      const content = await readFile(join(dirPath, mdFile), "utf8");
+      const content = await readFile(join(dirPath, mdFile), "utf-8");
       const meta = parseFrontmatter(content);
 
       locales.push({

@@ -19,7 +19,7 @@ const loadGoogleFont = async (
   const cssResponse = await fetch(url);
   const css = await cssResponse.text();
   const fontUrlMatch = css.match(
-    /src:\s*url\(([^)]+)\)\s*format\('(?:woff2|truetype)'\)/
+    /src:\s*url\(([^)]+)\)\s*format\('(?:woff2|truetype)'\)/u
   );
   if (!fontUrlMatch?.[1]) {
     throw new Error(`Failed to load font: ${family} ${weight}`);

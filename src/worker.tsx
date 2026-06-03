@@ -42,7 +42,7 @@ interface ResolvedTheme {
 
 const resolveTheme = (request: Request): ResolvedTheme => {
   const cookie = request.headers.get("Cookie") ?? "";
-  const match = cookie.match(/theme=(light|dark|system)/);
+  const match = cookie.match(/theme=(light|dark|system)/u);
   if (match) {
     return { explicit: true, theme: match[1] as Theme };
   }
@@ -147,7 +147,7 @@ export default defineApp([
         ? "pt-BR"
         : "en-US";
 
-    const slug = pathname.replace(/^\//, "");
+    const slug = pathname.replace(/^\//u, "");
     const post = slug ? getPostBySlug(slug) : undefined;
     if (post) {
       appCtx.locale = post.locale;

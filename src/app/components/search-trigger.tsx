@@ -23,12 +23,14 @@ interface SearchTriggerProps {
   navItems?: NavItem[];
 }
 
+const EMPTY_NAV_ITEMS: NavItem[] = [];
+
 export const SearchTrigger = ({
   locale,
   label,
   placeholder,
   emptyText,
-  navItems = [],
+  navItems = EMPTY_NAV_ITEMS,
 }: SearchTriggerProps) => {
   const [open, setOpen] = useState(false);
 

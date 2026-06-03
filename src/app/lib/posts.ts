@@ -33,17 +33,17 @@ export interface Post {
 
 const stripMarkdown = (md: string): string =>
   md
-    .replaceAll(/!\[[^\]]*\]\([^)]*\)/g, "")
-    .replaceAll(/\[[^\]]*\]\([^)]*\)/g, (match) =>
-      match.replaceAll(/\[([^\]]*)\]\([^)]*\)/g, "$1")
+    .replaceAll(/!\[[^\]]*\]\([^)]*\)/gu, "")
+    .replaceAll(/\[[^\]]*\]\([^)]*\)/gu, (match) =>
+      match.replaceAll(/\[([^\]]*)\]\([^)]*\)/gu, "$1")
     )
-    .replaceAll(/^#{1,6}\s+/gm, "")
-    .replaceAll(/(\*{1,3}|_{1,3})(.*?)\1/g, "$2")
-    .replaceAll(/`{1,3}[^`]*`{1,3}/g, "")
-    .replaceAll(/```[\s\S]*?```/g, "")
-    .replaceAll(/<[^>]+>/g, "")
-    .replaceAll(/\n+/g, " ")
-    .replaceAll(/\s+/g, " ")
+    .replaceAll(/^#{1,6}\s+/gmu, "")
+    .replaceAll(/(\*{1,3}|_{1,3})(.*?)\1/gu, "$2")
+    .replaceAll(/`{1,3}[^`]*`{1,3}/gu, "")
+    .replaceAll(/```[\s\S]*?```/gu, "")
+    .replaceAll(/<[^>]+>/gu, "")
+    .replaceAll(/\n+/gu, " ")
+    .replaceAll(/\s+/gu, " ")
     .trim();
 
 const makeExcerpt = (text: string, maxLength = 155): string => {
@@ -257,7 +257,7 @@ export const resolvePostImages = (
   if (Object.keys(images).length === 0) {
     return html;
   }
-  return html.replaceAll(/(?:src|href)="(\.\/img\/[^"]+)"/g, (match, rel) =>
+  return html.replaceAll(/(?:src|href)="(\.\/img\/[^"]+)"/gu, (match, rel) =>
     images[rel] ? match.replace(rel, images[rel]) : match
   );
 };
@@ -267,7 +267,7 @@ const WORDS_PER_MINUTE = 200;
 /** Estimate reading time in minutes from raw markdown body. */
 export const getReadingTime = (body: string): number => {
   const text = stripMarkdown(body);
-  const words = text.split(/\s+/).filter(Boolean).length;
+  const words = text.split(/\s+/u).filter(Boolean).length;
   return Math.max(1, Math.round(words / WORDS_PER_MINUTE));
 };
 

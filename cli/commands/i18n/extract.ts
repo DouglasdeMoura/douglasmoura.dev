@@ -5,12 +5,13 @@ import { defineCommand } from "citty";
 import { consola } from "consola";
 
 const T_IMPORT_PATTERN =
-  /import\s*\{[^}]*\bt\b[^}]*\}\s*from\s*["']#app\/lib\/i18n(?:\.js)?["']/;
-const I18N_MESSAGES_MODULE = /from\s*["']#app\/lib\/i18n-messages(?:\.js)?["']/;
-const KEY_PATTERN = /\bt\(\s*["']([^"']+)["']\s*\)/g;
+  /import\s*\{[^}]*\bt\b[^}]*\}\s*from\s*["']#app\/lib\/i18n(?:\.js)?["']/u;
+const I18N_MESSAGES_MODULE =
+  /from\s*["']#app\/lib\/i18n-messages(?:\.js)?["']/u;
+const KEY_PATTERN = /\bt\(\s*["']([^"']+)["']\s*\)/gu;
 /** Matches `translate(locale, "key")` in i18n-messages (avoid renaming without updating the extractor). */
-const TRANSLATE_PATTERN = /\btranslate\s*\(\s*[^,]+,\s*["']([^"']+)["']\s*\)/g;
-const DYNAMIC_PATTERN = /\bt\(\s*[^"']/g;
+const TRANSLATE_PATTERN = /\btranslate\s*\(\s*[^,]+,\s*["']([^"']+)["']\s*\)/gu;
+const DYNAMIC_PATTERN = /\bt\(\s*[^"']/gu;
 
 const START_MARKER = "const translations = {";
 const END_MARKER =
@@ -36,7 +37,7 @@ const scanFile = async (
   keys: Set<string>,
   warnings: string[]
 ): Promise<void> => {
-  const content = await readFile(filePath, "utf8");
+  const content = await readFile(filePath, "utf-8");
   const normalizedPath = filePath.replaceAll("\\", "/");
   const hasTImport = T_IMPORT_PATTERN.test(content);
   const hasMessagesModule =
@@ -55,7 +56,7 @@ const scanFile = async (
     const dynamicMatches = content.match(DYNAMIC_PATTERN);
     if (dynamicMatches) {
       for (const match of dynamicMatches) {
-        if (/\bt\(\s*["']/.test(match)) {
+        if (/\bt\(\s*["']/u.test(match)) {
           continue;
         }
         warnings.push(`${filePath}: dynamic t() call found: ${match.trim()}`);
@@ -79,7 +80,7 @@ const scanForTKeys = async (
 
   if (files && files.length > 0) {
     for (const file of files) {
-      if (!/\.[jt]sx?$/.test(file)) {
+      if (!/\.[jt]sx?$/u.test(file)) {
         continue;
       }
       await scanFile(file, keys, warnings);
@@ -87,7 +88,7 @@ const scanForTKeys = async (
   } else {
     const entries = await readdir(srcDir, { recursive: true });
     for (const entry of entries) {
-      if (!/\.[jt]sx?$/.test(entry)) {
+      if (!/\.[jt]sx?$/u.test(entry)) {
         continue;
       }
       await scanFile(join(srcDir, entry), keys, warnings);
@@ -100,7 +101,7 @@ const scanForTKeys = async (
 const parseTranslationsFile = async (
   filePath: string
 ): Promise<ParseResult> => {
-  const content = await readFile(filePath, "utf8");
+  const content = await readFile(filePath, "utf-8");
   const startIdx = content.indexOf(START_MARKER);
   const endIdx = content.indexOf(END_MARKER);
 
@@ -119,7 +120,7 @@ const parseTranslationsFile = async (
   let pendingKey = "";
 
   for (const line of block.split("\n")) {
-    const localeMatch = line.match(/^\s*"([^"]+)":\s*\{/);
+    const localeMatch = line.match(/^\s*"([^"]+)":\s*\{/u);
     if (localeMatch) {
       [, currentLocale] = localeMatch;
       locales[currentLocale] = {};
@@ -129,7 +130,7 @@ const parseTranslationsFile = async (
     if (currentLocale) {
       // Handle value on a continuation line (key was on the previous line)
       if (pendingKey) {
-        const valueMatch = line.match(/^\s*"([^"]*)",?/);
+        const valueMatch = line.match(/^\s*"([^"]*)",?/u);
         if (valueMatch) {
           const [, value] = valueMatch;
           locales[currentLocale][pendingKey] = value;
@@ -139,7 +140,7 @@ const parseTranslationsFile = async (
         pendingKey = "";
       }
 
-      const kvMatch = line.match(/^\s*(?:"([^"]+)"|(\w+)):\s*"([^"]*)",?/);
+      const kvMatch = line.match(/^\s*(?:"([^"]+)"|(\w+)):\s*"([^"]*)",?/u);
       if (kvMatch) {
         const [, quotedKey, unquotedKey, kvValue] = kvMatch;
         locales[currentLocale][quotedKey ?? unquotedKey] = kvValue;
@@ -147,13 +148,13 @@ const parseTranslationsFile = async (
       }
 
       // Key on this line, value on the next (linter-wrapped long lines)
-      const keyOnlyMatch = line.match(/^\s*(?:"([^"]+)"|(\w+)):\s*$/);
+      const keyOnlyMatch = line.match(/^\s*(?:"([^"]+)"|(\w+)):\s*$/u);
       if (keyOnlyMatch) {
         pendingKey = keyOnlyMatch[1] ?? keyOnlyMatch[2];
         continue;
       }
 
-      if (/^\s*\},?/.test(line)) {
+      if (/^\s*\},?/u.test(line)) {
         currentLocale = "";
       }
     }
@@ -284,7 +285,7 @@ export default defineCommand({
 
     const rawFiles = args.files as unknown as string | undefined;
     const fileList = rawFiles
-      ? rawFiles.split(/\s+/).filter(Boolean)
+      ? rawFiles.split(/\s+/u).filter(Boolean)
       : undefined;
     const isPartialScan = fileList && fileList.length > 0;
 
@@ -337,7 +338,7 @@ export default defineCommand({
     }
 
     const block = buildTranslationsBlock(merged);
-    await writeFile(i18nMessagesPath, `${before}${block}${after}`, "utf8");
+    await writeFile(i18nMessagesPath, `${before}${block}${after}`, "utf-8");
 
     consola.success("Updated translations in src/app/lib/i18n-messages.ts");
   },

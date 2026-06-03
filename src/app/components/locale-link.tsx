@@ -26,7 +26,7 @@ export const getLocaleHref = (
       return `${localePathPrefix("pt-BR")}${pathname === "/" ? "" : pathname}`;
     }
     // PT-BR → EN: strip /pt-BR prefix
-    const stripped = pathname.replace(/^\/pt-BR\/?/, "/");
+    const stripped = pathname.replace(/^\/pt-BR\/?/u, "/");
     return stripped || "/";
   }
 

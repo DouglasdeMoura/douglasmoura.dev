@@ -1,8 +1,8 @@
 import { renderToString } from "katex";
 
 const X_EQUATION_RE =
-  /<x-equation(?: type="display")?>([\s\S]*?)<\/x-equation>/g;
-const DISPLAY_RE = /type="display"/;
+  /<x-equation(?: type="display")?>([\s\S]*?)<\/x-equation>/gu;
+const DISPLAY_RE = /type="display"/u;
 
 export const renderMathInHtml = (
   html: string

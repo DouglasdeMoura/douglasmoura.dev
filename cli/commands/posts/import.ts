@@ -86,7 +86,7 @@ const escapeYaml = (str: string): string => {
   if (!str) {
     return '""';
   }
-  if (/[:'"#\n]/.test(str)) {
+  if (/[:'"#\n]/u.test(str)) {
     return `"${str.replaceAll("\\", "\\\\").replaceAll('"', '\\"')}"`;
   }
   return str;
@@ -257,7 +257,7 @@ const importPosts = async (apiBase: string, outDir: string): Promise<void> => {
 
       const markdown = buildMarkdown(post, resolvedTags, coverFilename);
       const filePath = join(postDir, `${localeName}.md`);
-      await writeFile(filePath, markdown, "utf8");
+      await writeFile(filePath, markdown, "utf-8");
       await utimes(filePath, new Date(post.created), new Date(post.updated));
     }
   }
@@ -314,7 +314,7 @@ export default defineCommand({
           })
         : "content/posts");
 
-    const apiBase = `${url.replace(/\/+$/, "")}/api`;
+    const apiBase = `${url.replace(/\/+$/u, "")}/api`;
     const outDir = resolve(out);
 
     if (!args.yes && isTTY) {

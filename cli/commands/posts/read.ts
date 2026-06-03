@@ -94,7 +94,7 @@ const ESC = "\u001B";
 const BEL = "\u0007";
 const ANSI_RE = new RegExp(
   `${ESC}\\[[0-9;]*m|${ESC}\\]8;;[^${ESC}]*${ESC}\\\\|${ESC}\\]8;;[^${BEL}]*${BEL}`,
-  "g"
+  "gu"
 );
 
 const stripAnsi = (str: string): string => str.replaceAll(ANSI_RE, "");
@@ -107,7 +107,7 @@ const wrapAnsi = (text: string, width: number): string =>
         return [line];
       }
 
-      const words = line.split(/( +)/);
+      const words = line.split(/( +)/u);
       const wrapped: string[] = [];
       let current = "";
       let visible = 0;
@@ -137,7 +137,7 @@ const readPost = async (
 ): Promise<string> => {
   const file = resolveLocaleFile(locale);
   const filePath = join(postsDir, group.dir, file);
-  const raw = await readFile(filePath, "utf8");
+  const raw = await readFile(filePath, "utf-8");
   const meta = parseFrontmatter(raw);
   const body = stripFrontmatter(raw);
 

@@ -5,7 +5,7 @@ export type { Tweet };
 const SYNDICATION_URL = "https://cdn.syndication.twimg.com/tweet-result";
 
 const getToken = (id: string): string =>
-  ((Number(id) / 1e15) * Math.PI).toString(36).replaceAll(/(0+|\.)/g, "");
+  ((Number(id) / 1e15) * Math.PI).toString(36).replaceAll(/(0+|\.)/gu, "");
 
 export const fetchTweetData = async (
   id: string

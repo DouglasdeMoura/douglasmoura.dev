@@ -28,7 +28,7 @@ const getEditor = (): string =>
 
 const editInEditor = async (initial: string): Promise<string> => {
   const tmpFile = join(tmpdir(), `blog-post-${Date.now()}.md`);
-  await writeFile(tmpFile, initial, "utf8");
+  await writeFile(tmpFile, initial, "utf-8");
 
   const editor = getEditor();
   const result = spawnSync(editor, [tmpFile], { stdio: "inherit" });
@@ -39,7 +39,7 @@ const editInEditor = async (initial: string): Promise<string> => {
     );
   }
 
-  return readFile(tmpFile, "utf8");
+  return readFile(tmpFile, "utf-8");
 };
 
 const buildFrontmatter = (opts: {
@@ -299,7 +299,7 @@ export default defineCommand({
     }
 
     await mkdir(postDir, { recursive: true });
-    await writeFile(filePath, markdown, "utf8");
+    await writeFile(filePath, markdown, "utf-8");
 
     consola.success(`Created ${bold(filePath)}`);
 

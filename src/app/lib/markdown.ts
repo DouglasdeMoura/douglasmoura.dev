@@ -110,7 +110,7 @@ const getHighlighter = () => {
 };
 
 const TWEET_BLOCK_RE =
-  /<blockquote class="twitter-tweet"[\s\S]*?<a href="https?:\/\/(?:twitter\.com|x\.com)\/\w+\/status\/(\d+)"[\s\S]*?<\/blockquote>\s*(?:<script[^>]*platform\.twitter\.com\/widgets\.js[^>]*><\/script>)?/g;
+  /<blockquote class="twitter-tweet"[\s\S]*?<a href="https?:\/\/(?:twitter\.com|x\.com)\/\w+\/status\/(\d+)"[\s\S]*?<\/blockquote>\s*(?:<script[^>]*platform\.twitter\.com\/widgets\.js[^>]*><\/script>)?/gu;
 
 const extractTweets = (
   markup: string
@@ -123,7 +123,7 @@ const extractTweets = (
   return { html: replaced, tweetIds };
 };
 
-const EXTERNAL_LINK_RE = /<a\s+href="(https?:\/\/[^"]+)"/g;
+const EXTERNAL_LINK_RE = /<a\s+href="(https?:\/\/[^"]+)"/gu;
 
 const addExternalLinkAttrs = (markup: string): string =>
   markup.replaceAll(EXTERNAL_LINK_RE, (match, href: string) => {

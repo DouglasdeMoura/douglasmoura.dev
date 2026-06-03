@@ -234,13 +234,15 @@ interface CommandMenuProps {
   navItems?: NavItem[];
 }
 
+const EMPTY_NAV_ITEMS: NavItem[] = [];
+
 export const CommandMenu = ({
   open,
   onOpenChange,
   locale,
   placeholder,
   emptyText,
-  navItems = [],
+  navItems = EMPTY_NAV_ITEMS,
 }: CommandMenuProps) => {
   const [query, setQuery] = useState("");
   const trimmed = query.trim();

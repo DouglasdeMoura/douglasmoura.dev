@@ -60,6 +60,7 @@ export const SearchPage = ({
           )}
           <form method="GET" action={`${localePrefix}/search`} className="mt-4">
             <input
+              aria-label={t("Search")}
               name="q"
               type="search"
               defaultValue={query}
