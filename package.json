@@ -18,7 +18,7 @@
     "preview": "vite preview",
     "worker:run": "rw-scripts worker-run",
     "clean": "rm -rf ./node_modules/.vite",
-    "release": "rw-scripts ensure-deploy-env && pnpm cli resume pdf && pnpm run clean && pnpm run build && pnpm exec wrangler deploy",
+    "release": "rw-scripts ensure-deploy-env && pnpm run clean && pnpm run build && pnpm exec wrangler deploy",
     "generate": "rw-scripts ensure-env && wrangler types --include-runtime false",
     "check": "ultracite check",
     "types": "tsc",
