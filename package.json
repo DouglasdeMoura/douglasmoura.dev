@@ -18,7 +18,7 @@
     "preview": "vite preview",
     "worker:run": "rw-scripts worker-run",
     "clean": "rm -rf ./node_modules/.vite",
-    "release": "rw-scripts ensure-deploy-env && pnpm run clean && pnpm run build && pnpm exec wrangler deploy",
+    "release": "rw-scripts ensure-deploy-env && pnpm cli resume pdf && pnpm run clean && pnpm run build && pnpm exec wrangler deploy",
     "generate": "rw-scripts ensure-env && wrangler types --include-runtime false",
     "check": "ultracite check",
     "types": "tsc",
@@ -56,6 +56,7 @@
   "devDependencies": {
     "@cloudflare/vite-plugin": "1.39.0",
     "@cloudflare/workers-types": "4.20260527.1",
+    "@react-pdf/renderer": "^4.5.1",
     "@sindresorhus/slugify": "^3.0.0",
     "@types/katex": "^0.16.8",
     "@types/node": "~25.9.1",

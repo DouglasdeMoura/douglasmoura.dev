@@ -15,6 +15,10 @@ const main = defineCommand({
       const m = await import("./commands/posts/index.js");
       return m.default;
     },
+    resume: async () => {
+      const m = await import("./commands/resume/index.js");
+      return m.default;
+    },
   },
 });
 
