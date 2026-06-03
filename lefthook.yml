@@ -15,6 +15,11 @@ pre-commit:
         done
       stage_fixed: true
 
+    - name: generate resume pdf
+      glob: "{src/app/lib/resume.json,cli/commands/resume/*}"
+      # stage_fixed only re-stages glob-matched files, so add the PDF explicitly
+      run: pnpm cli resume pdf && git add public/resume.pdf
+
     - name: update humans.txt
       run: |
         sed -i "s/^Last update:.*$/Last update: $(date -u +%Y-%m-%d)/" public/humans.txt
