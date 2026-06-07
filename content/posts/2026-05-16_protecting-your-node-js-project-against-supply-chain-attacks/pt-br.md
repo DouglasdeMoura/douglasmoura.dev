@@ -3,7 +3,7 @@ title: "Protegendo seu projeto Node.js contra ataques de supply chain"
 slug: protegendo-seu-projeto-node-js-contra-ataques-de-supply-chain
 locale: pt-BR
 created: 2026-05-16 18:08:25.866Z
-updated: 2026-05-16 22:43:56.000Z
+updated: 2026-06-07 02:19:14.000Z
 cover: ./cover.png
 tags:
   - Node.js
@@ -80,3 +80,7 @@ O Renovate também ignora `minimumReleaseAge` para atualizações de segurança.
 ## Uma palavra de cautela
 
 Continue *commitando* o seu lockfile e use instalações determinísticas no CI, como `npm ci`, `pnpm install --frozen-lockfile` ou `yarn install --immutable`. Um bloqueio por idade mínima de release reduz a chance de puxar uma versão maliciosa recém-publicada, mas ele não limpa um lockfile comprometido nem torna segura uma versão ruim já instalada.
+
+## Indo além com o Aube
+
+O [Aube](https://aube.en.dev/) é um novo gerenciador de pacotes que traz várias dessas proteções ativadas por padrão: idade mínima de release de 24 horas, scripts de ciclo de vida bloqueados por padrão, detecção de typosquat e builds isoladas opcionais para dependências aprovadas. Eu escrevi sobre ele [neste artigo](/aube-uma-nova-aurora-para-instalacoes-node).

@@ -3,7 +3,7 @@ title: "Aube: Uma Nova Aurora para Instalações Node"
 slug: aube-uma-nova-aurora-para-instalacoes-node
 locale: pt-BR
 created: 2026-06-07 01:14:58.192Z
-updated: 2026-06-07 02:02:46.000Z
+updated: 2026-06-07 02:19:14.000Z
 cover: ./cover.webp
 tags:
   - Node.js
@@ -12,7 +12,7 @@ tags:
   - TypeScript
 ---
 
-[Aube](https://aube.en.dev/) (pronuncia-se "ohb", do francês para aurora) é um novo gerenciador de pacotes Node.js escrito em Rust por [en.dev](https://github.com/endevco), o mesmo desenvolvedor por trás do [Mise](https://douglasmoura.dev/managing-your-development-environment-with-mise). Ele lê e escreve seu lockfile existente (`pnpm-lock.yaml`, `package-lock.json`, `npm-shrinkwrap.json`, `yarn.lock` ou `bun.lock`) no mesmo local, então você pode experimentá-lo em um projeto sem obrigar seu time a trocar de gerenciador de pacotes. Comecei a usá-lo esta semana e quero compartilhar minhas impressões sobre a ferramenta.
+No meu [post anterior](/protegendo-seu-projeto-node-js-contra-ataques-de-supply-chain), escrevi sobre como proteger seu projeto Node.js contra ataques de supply-chain. Agora, vou além com uma ferramenta que descobri recentemente: [Aube](https://aube.en.dev/) (pronuncia-se "ohb", do francês para aurora) é um novo gerenciador de pacotes Node.js escrito em Rust por [en.dev](https://github.com/endevco), o mesmo desenvolvedor por trás do [Mise](https://douglasmoura.dev/gerenciando-seu-ambiente-de-desenvolvimento-com-mise). Ele lê e escreve seu lockfile existente (`pnpm-lock.yaml`, `package-lock.json`, `npm-shrinkwrap.json`, `yarn.lock` ou `bun.lock`) no mesmo local, então você pode experimentá-lo em um projeto sem obrigar seu time a trocar de gerenciador de pacotes. Comecei a usá-lo esta semana e quero compartilhar minhas impressões sobre a ferramenta.
 
 ## Velocidade
 

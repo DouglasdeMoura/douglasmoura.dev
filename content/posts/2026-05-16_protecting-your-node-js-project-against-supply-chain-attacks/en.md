@@ -3,7 +3,7 @@ title: "Protecting your Node.js project against supply-chain attacks"
 slug: protecting-your-node-js-project-against-supply-chain-attacks
 locale: en-US
 created: 2026-05-16 18:08:25.866Z
-updated: 2026-05-16 22:43:56.000Z
+updated: 2026-06-07 02:19:14.000Z
 cover: ./cover.png
 tags:
   - Node.js
@@ -80,3 +80,7 @@ Renovate also bypasses `minimumReleaseAge` for security updates.
 ## A word of caution
 
 Keep committing your lockfile and use deterministic installs in CI, such as `npm ci`, `pnpm install --frozen-lockfile`, or `yarn install --immutable`. A release-age gate reduces the chance of pulling a brand-new malicious version, but it will not clean up a compromised lockfile or make an already-installed bad version safe.
+
+## Going further with Aube
+
+[Aube](https://aube.en.dev/) is a new package manager that ships with several of these protections turned on by default: a 24-hour minimum release age, default-deny lifecycle scripts, typosquat detection, and optional jailed builds for approved dependencies. I wrote about it in [Aube: A New Dawn for Node Installs](/aube-a-new-dawn-for-node-installs).

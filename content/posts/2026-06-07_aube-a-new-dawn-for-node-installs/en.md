@@ -3,7 +3,7 @@ title: "Aube: A New Dawn for Node Installs"
 slug: aube-a-new-dawn-for-node-installs
 locale: en-US
 created: 2026-06-07 01:14:58.192Z
-updated: 2026-06-07 02:02:46.000Z
+updated: 2026-06-07 02:19:14.000Z
 cover: ./cover.webp
 tags:
   - Node.js
@@ -11,8 +11,7 @@ tags:
   - Package Manager
   - TypeScript
 ---
-
-[Aube](https://aube.en.dev/) (pronounced "ohb", from the French word for dawn) is a new Node.js package manager written in Rust by [en.dev](https://github.com/endevco), the same developer behind [Mise](https://douglasmoura.dev/managing-your-development-environment-with-mise). It reads and writes your existing lockfile (`pnpm-lock.yaml`, `package-lock.json`, `npm-shrinkwrap.json`, `yarn.lock`, or `bun.lock`) in place, so you can try it in a project without forcing your team to switch package managers. I started using it this week, and I want to share my thoughts on the tool.
+In my [previous post](/protecting-your-node-js-project-against-supply-chain-attacks), I wrote about how to protect your Node.js project against supply-chain attacks. Now, I'm going further with a tool I discored recently: [Aube](https://aube.en.dev/) (pronounced "ohb", from the French word for dawn) is a new Node.js package manager written in Rust by [en.dev](https://github.com/endevco), the same developer behind [Mise](https://douglasmoura.dev/managing-your-development-environment-with-mise). It reads and writes your existing lockfile (`pnpm-lock.yaml`, `package-lock.json`, `npm-shrinkwrap.json`, `yarn.lock`, or `bun.lock`) in place, so you can try it in a project without forcing your team to switch package managers. I started using it this week, and I want to share my thoughts on the tool.
 
 ## Speed
 
@@ -84,6 +83,7 @@ allowBuilds:
 ```
 
 This forces jailed builds, no-downgrade trust policy, strict release-age gating, strict store integrity, strict dependency-build review, and mandatory advisory checks.
+
 
 ## Getting started
 
