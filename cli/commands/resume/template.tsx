@@ -35,6 +35,10 @@ const MONTH_NAMES = [
 ] as const;
 
 const regionNames = new Intl.DisplayNames(["en"], { type: "region" });
+const listFormatter = new Intl.ListFormat("en", {
+  style: "long",
+  type: "conjunction",
+});
 
 const styles = StyleSheet.create({
   compactEntry: {
@@ -278,7 +282,8 @@ const Footer = () => (
   <View fixed style={styles.footer}>
     <Text>
       This résumé is intentionally one page. The complete, machine-readable
-      record — every role, highlight, talk, and open-source project — lives at{" "}
+      record (containing every role, highlight, talk, and open-source projects)
+      lives at{" "}
       <Link href={RESUME_JSON_URL} style={styles.footerLink}>
         {stripProtocol(RESUME_JSON_URL)}
       </Link>
@@ -326,15 +331,18 @@ export const ResumeDocument = ({ resume }: { resume: Resume }) => {
             {resume.skills.map((skill) => (
               <Text key={skill.name} style={styles.skillRow}>
                 <Text style={styles.skillName}>{skill.name}: </Text>
-                {skill.keywords.join(", ")}
+                {listFormatter.format(skill.keywords)}.
               </Text>
             ))}
             {resume.languages && resume.languages.length > 0 && (
               <Text style={styles.skillRow}>
                 <Text style={styles.skillName}>Languages: </Text>
-                {resume.languages
-                  .map((lang) => `${lang.language} (${lang.fluency})`)
-                  .join(", ")}
+                {listFormatter.format(
+                  resume.languages.map(
+                    (lang) => `${lang.language} (${lang.fluency})`
+                  )
+                )}
+                .
               </Text>
             )}
           </Section>
