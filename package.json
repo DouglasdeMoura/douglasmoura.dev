@@ -55,7 +55,7 @@
   },
   "devDependencies": {
     "@cloudflare/vite-plugin": "1.48.0",
-    "@cloudflare/workers-types": "4.20260701.1",
+    "@cloudflare/workers-types": "5.20260801.1",
     "@react-pdf/renderer": "^4.5.1",
     "@sindresorhus/slugify": "^3.0.0",
     "@types/katex": "^0.16.8",
