@@ -75,6 +75,9 @@
     "wrangler": "4.123.0"
   },
   "pnpm": {
+    "overrides": {
+      "@vitejs/plugin-react": "~5.1.4"
+    },
     "onlyBuiltDependencies": [
       "esbuild",
       "lefthook",
