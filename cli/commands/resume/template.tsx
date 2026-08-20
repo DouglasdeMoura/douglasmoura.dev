@@ -109,9 +109,9 @@ const styles = StyleSheet.create({
     fontFamily: "Helvetica",
     fontSize: 9.5,
     lineHeight: 1.4,
-    paddingBottom: 64,
-    paddingHorizontal: 48,
-    paddingTop: 42,
+    paddingBottom: 52,
+    paddingHorizontal: 42,
+    paddingTop: 36,
   },
   section: {
     marginBottom: 10,
