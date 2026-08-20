@@ -29,8 +29,16 @@
       "name": "Jaya Tech",
       "position": "Software Engineer",
       "startDate": "2025-04",
-      "summary": "Development of healthcare solutions.",
-      "highlights": ["Building software for the healthcare market"]
+      "summary": "Full-stack development of a HIPAA-compliant registry platform for FamilyWell Health, a US based startup focused on mental healthcare for women.",
+      "highlights": [
+        "Built the full-stack application with Postgres, Fastify, and Next.js",
+        "Implemented asynchronous job processing with a Postgres-backed queue using pgboss",
+        "Built a data lake on Snowflake for analytics and reporting",
+        "Integrated APIs from multiple providers to handle EHR, telehealth, and insurance eligibility data",
+        "Engineered HIPAA-compliant safeguards for protected health information (PHI)",
+        "Implemented role-based access control, audit logging, and least-privilege access to sensitive patient data",
+        "Ensured third-party integrations (Healthie, Spruce, pVerify) operate under BAAs with compliant PHI handling end to end"
+      ]
     },
     {
       "name": "Caylent",
@@ -271,7 +279,13 @@
     },
     {
       "name": "Testing",
-      "keywords": ["Cypress", "Jest", "Playwright", "TDD", "Vitest"]
+      "keywords": [
+        "Cypress",
+        "Jest",
+        "Playwright",
+        "TDD",
+        "Vitest"
+      ]
     },
     {
       "name": "Data",
