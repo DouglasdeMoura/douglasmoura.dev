@@ -38,7 +38,7 @@
     "@tailwindcss/typography": "^0.5.20",
     "@tailwindcss/vite": "^4.3.3",
     "cmdk": "^1.1.1",
-    "feed": "^5.2.1",
+    "feed": "^6.0.0",
     "gray-matter": "^4.0.3",
     "katex": "^0.18.4",
     "md4x": "^0.0.29",
