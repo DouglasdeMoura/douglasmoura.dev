@@ -3,7 +3,7 @@ title: Rebuilding the blog (Vite, React, and Cloudflare Workers)
 slug: rebuilding-the-blog-vite-react-cloudflare-workers
 locale: en-US
 created: 2026-03-21 12:00:00.000Z
-updated: 2026-03-21 18:08:35.000Z
+updated: 2026-10-23 18:56:11.000Z
 tags:
   - webdev
   - programming
@@ -25,7 +25,7 @@ The site is a React 19 app built with Vite and deployed as a Cloudflare Worker. 
 
 Posts live under `content/posts/` as Markdown with frontmatter, same idea as before, but now everything is bundled at build time. Vite’s `import.meta.glob` loads the files, gray-matter parses the metadata, and each locale is just another file in the same folder (English and Portuguese). I18n stays simple: URLs under `/pt-BR/…` for Brazilian Portuguese, default routes for English.
 
-For rendering, I use [md4x](https://github.com/unjs/md4x) (WASM) for the Markdown itself, [Shiki](https://shiki.style/) for syntax highlighting, KaTeX for math, and a small footnotes pass. Enough to write technical posts without dragging half the internet into the runtime.
+For rendering, I use [md4x](https://github.com/unjs/md4x) (WASM) for the Markdown itself, [Highlights](https://diffs.com/highlights) for syntax highlighting, KaTeX for math, and a small footnotes pass. Enough to write technical posts without dragging half the internet into the runtime.
 
 ## Search (finally)
 

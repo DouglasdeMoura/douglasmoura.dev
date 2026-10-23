@@ -8,7 +8,7 @@ export default defineConfig({
     ssr: {},
     worker: {
       optimizeDeps: {
-        exclude: ["md4x"],
+        exclude: ["@pierre/highlights", "md4x"],
       },
       resolve: {
         conditions: ["unwasm"],

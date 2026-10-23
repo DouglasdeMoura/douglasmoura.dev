@@ -3,7 +3,7 @@ title: Reconstruindo o blog (Vite, React e Cloudflare Workers)
 slug: reconstruindo-o-blog-vite-react-e-cloudflare-workers
 locale: pt-BR
 created: 2026-03-21 12:00:00.000Z
-updated: 2026-03-21 18:08:35.000Z
+updated: 2026-10-23 18:56:11.000Z
 tags:
   - webdev
   - programming
@@ -25,7 +25,7 @@ O site é um app React 19 feito com Vite e deployado como um Cloudflare Worker. 
 
 Os posts ficam em `content/posts/` como Markdown com frontmatter, mesma ideia de antes, mas agora tudo é empacotado no build. O `import.meta.glob` do Vite carrega os arquivos, o gray-matter prcessa os metadados e cada idioma é apenas outro arquivo na mesma pasta (inglês e português). A internacionalização fica simples: URLs sob `/pt-BR/…` para português brasileiro, rotas padrão para inglês.
 
-Para a renderização, uso [md4x](https://github.com/unjs/md4x) (WASM) para o Markdown em si, [Shiki](https://shiki.style/) para syntax highlighting, KaTeX para matemática e um pequeno Regex para adicionar notas de rodapé. O suficiente pra escrever posts técnicos sem arrastar metade da internet pro runtime.
+Para a renderização, uso [md4x](https://github.com/unjs/md4x) (WASM) para o Markdown em si, [Highlights](https://diffs.com/highlights) para syntax highlighting, KaTeX para matemática e um pequeno Regex para adicionar notas de rodapé. O suficiente pra escrever posts técnicos sem arrastar metade da internet pro runtime.
 
 ## Busca (finalmente)
 
