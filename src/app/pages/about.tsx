@@ -67,13 +67,13 @@ export const About = ({ basePath = "" }: AboutProps) => {
         alternates={alternates}
       />
 
-      <section className="prose mx-auto py-10 px-4">
+      <section className="prose mx-auto px-4 py-10">
         <div className="not-prose">
-          <h1 className="text-4xl font-bold tracking-tight text-text-strong">
+          <h1 className="text-text-strong text-4xl font-bold tracking-tight">
             {t("About")}
           </h1>
 
-          <div className="mt-8 space-y-4 text-text leading-relaxed">
+          <div className="text-text mt-8 space-y-4 leading-relaxed">
             {bio[locale].map((paragraph) => (
               <p key={paragraph.slice(0, 32)}>{paragraph}</p>
             ))}
@@ -84,7 +84,7 @@ export const About = ({ basePath = "" }: AboutProps) => {
               href="https://github.com/douglasdemoura"
               target="_blank"
               rel="me noopener noreferrer"
-              className="inline-flex items-center gap-1.5 text-sm text-text-muted no-underline hover:text-text-strong motion-safe:transition-colors motion-safe:duration-150"
+              className="text-text-muted hover:text-text-strong inline-flex items-center gap-1.5 text-sm no-underline motion-safe:transition-colors motion-safe:duration-150"
             >
               <GithubIcon size={18} />
               GitHub
@@ -93,7 +93,7 @@ export const About = ({ basePath = "" }: AboutProps) => {
               href="https://linkedin.com/in/dougmoura"
               target="_blank"
               rel="me noopener noreferrer"
-              className="inline-flex items-center gap-1.5 text-sm text-text-muted no-underline hover:text-text-strong motion-safe:transition-colors motion-safe:duration-150"
+              className="text-text-muted hover:text-text-strong inline-flex items-center gap-1.5 text-sm no-underline motion-safe:transition-colors motion-safe:duration-150"
             >
               <LinkedinIcon size={18} />
               LinkedIn
@@ -102,7 +102,7 @@ export const About = ({ basePath = "" }: AboutProps) => {
               href="https://x.com/douglasdemoura"
               target="_blank"
               rel="me noopener noreferrer"
-              className="inline-flex items-center gap-1.5 text-sm text-text-muted no-underline hover:text-text-strong motion-safe:transition-colors motion-safe:duration-150"
+              className="text-text-muted hover:text-text-strong inline-flex items-center gap-1.5 text-sm no-underline motion-safe:transition-colors motion-safe:duration-150"
             >
               <XIcon size={18} />
               @douglasdemoura

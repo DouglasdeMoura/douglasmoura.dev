@@ -14,7 +14,7 @@ export const Breadcrumbs = ({
 }) => (
   <nav
     aria-label={t("Breadcrumbs")}
-    className={`sr-only not-prose mb-4 text-sm text-text-muted${className ? ` ${className}` : ""}`}
+    className={`not-prose sr-only mb-4 text-sm text-text-muted${className ? ` ${className}` : ""}`}
   >
     <ol className="flex items-center gap-1.5">
       {items.map((item, i) => (

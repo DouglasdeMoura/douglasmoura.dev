@@ -41,7 +41,7 @@ export const Kbd = ({ keys, className }: KbdProps) => {
       {keys.map((key) => (
         <kbd
           key={key}
-          className="inline-flex items-center justify-center min-w-5 rounded border border-border bg-surface-0 px-1 py-0.5 text-[10px] leading-none text-text-muted"
+          className="border-border bg-surface-0 text-text-muted inline-flex min-w-5 items-center justify-center rounded border px-1 py-0.5 text-[10px] leading-none"
         >
           {symbols[key] ?? key}
         </kbd>

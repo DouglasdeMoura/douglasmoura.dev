@@ -96,29 +96,29 @@ export const TagPage = ({
           className="px-4"
         />
         <header className="not-prose mb-8 px-4">
-          <h1 className="text-2xl font-bold tracking-tight text-text-strong">
+          <h1 className="text-text-strong text-2xl font-bold tracking-tight">
             {t("Posts tagged")} &ldquo;{tag}&rdquo;
           </h1>
         </header>
 
-        <div className="not-prose divide-y divide-border">
+        <div className="not-prose divide-border divide-y">
           {posts.map((post) => (
-            <article key={post.slug} className="py-5 px-4 first:pt-0">
+            <article key={post.slug} className="px-4 py-5 first:pt-0">
               <h2 className="mt-0 text-xl">
                 <PrefetchLink
                   href={`/${post.slug}`}
-                  className="text-text-strong font-semibold -tracking-[0.01em] no-underline hover:text-accent motion-safe:transition-colors motion-safe:duration-150"
+                  className="text-text-strong hover:text-accent font-semibold -tracking-[0.01em] no-underline motion-safe:transition-colors motion-safe:duration-150"
                 >
                   {post.title}
                 </PrefetchLink>
               </h2>
               <time
                 dateTime={post.created}
-                className="mt-1 block text-sm text-text-muted tracking-wide"
+                className="text-text-muted mt-1 block text-sm tracking-wide"
               >
                 {formatDate(post.created)}
               </time>
-              <p className="mt-2 mb-0 text-text-muted leading-relaxed">
+              <p className="text-text-muted mt-2 mb-0 leading-relaxed">
                 {post.description}
               </p>
               {post.tags.length > 0 && (
@@ -135,13 +135,13 @@ export const TagPage = ({
         {totalPages > 1 && (
           <nav
             aria-label={t("Pagination")}
-            className="not-prose flex items-center justify-center gap-1 px-4 pt-8 mt-4"
+            className="not-prose mt-4 flex items-center justify-center gap-1 px-4 pt-8"
           >
             {page > 1 && (
               <PrefetchLink
                 href={page === 2 ? basePath : `${basePath}/page/${page - 1}`}
                 rel="prev"
-                className="inline-flex items-center justify-center min-w-11 h-11 px-2 text-sm rounded-md text-text-muted hover:text-text-strong hover:bg-surface-1 motion-safe:transition-colors motion-safe:duration-150"
+                className="text-text-muted hover:text-text-strong hover:bg-surface-1 inline-flex h-11 min-w-11 items-center justify-center rounded-md px-2 text-sm motion-safe:transition-colors motion-safe:duration-150"
               >
                 {t("Previous")}
               </PrefetchLink>
@@ -150,7 +150,7 @@ export const TagPage = ({
               <PrefetchLink
                 href={`${basePath}/page/${page + 1}`}
                 rel="next"
-                className="inline-flex items-center justify-center min-w-11 h-11 px-2 text-sm rounded-md text-text-muted hover:text-text-strong hover:bg-surface-1 motion-safe:transition-colors motion-safe:duration-150"
+                className="text-text-muted hover:text-text-strong hover:bg-surface-1 inline-flex h-11 min-w-11 items-center justify-center rounded-md px-2 text-sm motion-safe:transition-colors motion-safe:duration-150"
               >
                 {t("Next")}
               </PrefetchLink>

@@ -29,22 +29,22 @@ export const SiteLayout = ({
     <>
       <a
         href="#main-content"
-        className="fixed top-0 left-0 z-50 -translate-y-full focus:translate-y-0 border-b-2 border-r-2 border-accent bg-surface-0 px-5 py-2.5 text-xs font-medium tracking-widest uppercase text-text-strong no-underline shadow-md motion-safe:transition-transform motion-safe:duration-150 motion-safe:ease-[cubic-bezier(0.23,1,0.32,1)] rounded-br-md outline-none not-focus:invisible"
+        className="border-accent bg-surface-0 text-text-strong fixed top-0 left-0 z-50 -translate-y-full rounded-br-md border-r-2 border-b-2 px-5 py-2.5 text-xs font-medium tracking-widest uppercase no-underline shadow-md outline-none not-focus:invisible focus:translate-y-0 motion-safe:transition-transform motion-safe:duration-150 motion-safe:ease-[cubic-bezier(0.23,1,0.32,1)]"
       >
         {t("Skip to content")}
       </a>
       <Header locale={locale} alternates={alternates} pathname={pathname} />
       <main id="main-content">{children}</main>
-      <footer className="mt-8 border-t border-border">
-        <div className="max-w-prose mx-auto px-4 py-8">
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-6">
+      <footer className="border-border mt-8 border-t">
+        <div className="mx-auto max-w-prose px-4 py-8">
+          <div className="flex flex-col items-center justify-between gap-6 sm:flex-row">
             <nav className="flex items-center gap-1">
               <a
                 href="https://github.com/douglasdemoura"
                 target="_blank"
                 rel="me noopener noreferrer"
                 aria-label="GitHub"
-                className="inline-flex items-center justify-center size-8 rounded-full text-text-muted hover:text-text-strong hover:bg-surface-2 motion-safe:transition-[background-color,color] motion-safe:duration-150"
+                className="text-text-muted hover:text-text-strong hover:bg-surface-2 inline-flex size-8 items-center justify-center rounded-full motion-safe:transition-[background-color,color] motion-safe:duration-150"
               >
                 <GithubIcon size={18} />
               </a>
@@ -53,7 +53,7 @@ export const SiteLayout = ({
                 target="_blank"
                 rel="me noopener noreferrer"
                 aria-label="LinkedIn"
-                className="inline-flex items-center justify-center size-8 rounded-full text-text-muted hover:text-text-strong hover:bg-surface-2 motion-safe:transition-[background-color,color] motion-safe:duration-150"
+                className="text-text-muted hover:text-text-strong hover:bg-surface-2 inline-flex size-8 items-center justify-center rounded-full motion-safe:transition-[background-color,color] motion-safe:duration-150"
               >
                 <LinkedinIcon size={18} />
               </a>
@@ -62,21 +62,21 @@ export const SiteLayout = ({
                 target="_blank"
                 rel="me noopener noreferrer"
                 aria-label="X"
-                className="inline-flex items-center justify-center size-8 rounded-full text-text-muted hover:text-text-strong hover:bg-surface-2 motion-safe:transition-[background-color,color] motion-safe:duration-150"
+                className="text-text-muted hover:text-text-strong hover:bg-surface-2 inline-flex size-8 items-center justify-center rounded-full motion-safe:transition-[background-color,color] motion-safe:duration-150"
               >
                 <XIcon size={18} />
               </a>
               <a
                 href={`${localePathPrefix(locale)}/bookmarks`}
                 aria-label={t("Bookmarks")}
-                className="inline-flex items-center justify-center size-8 rounded-full text-text-muted hover:text-text-strong hover:bg-surface-2 motion-safe:transition-[background-color,color] motion-safe:duration-150"
+                className="text-text-muted hover:text-text-strong hover:bg-surface-2 inline-flex size-8 items-center justify-center rounded-full motion-safe:transition-[background-color,color] motion-safe:duration-150"
               >
                 <BookmarksIcon size={18} />
               </a>
               <a
                 href={`/${locale}/feed.xml`}
                 aria-label="RSS"
-                className="inline-flex items-center justify-center size-8 rounded-full text-text-muted hover:text-text-strong hover:bg-surface-2 motion-safe:transition-[background-color,color] motion-safe:duration-150"
+                className="text-text-muted hover:text-text-strong hover:bg-surface-2 inline-flex size-8 items-center justify-center rounded-full motion-safe:transition-[background-color,color] motion-safe:duration-150"
               >
                 <RssIcon size={18} />
               </a>

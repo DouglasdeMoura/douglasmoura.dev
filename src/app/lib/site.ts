@@ -8,5 +8,6 @@ export const SITE_URL =
  */
 export type LocalePathPrefix = "" | "/pt-BR";
 
-export const localePathPrefix = (locale: "en-US" | "pt-BR"): LocalePathPrefix =>
-  locale === "pt-BR" ? "/pt-BR" : "";
+export const localePathPrefix = (
+  locale: "en-US" | "pt-BR"
+): LocalePathPrefix => (locale === "pt-BR" ? "/pt-BR" : "");

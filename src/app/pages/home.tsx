@@ -132,13 +132,13 @@ export const Home = ({ data, siteUrl, basePath = "" }: HomeProps) => {
         <link rel="next" href={`${baseUrl}/page/${page + 1}`} />
       )}
 
-      <section className="prose mx-auto py-10 px-4">
+      <section className="prose mx-auto px-4 py-10">
         {page === 1 ? (
-          <h1 className="not-prose text-lg font-normal text-text -tracking-[0.01em] mt-0 mb-8 leading-relaxed">
+          <h1 className="not-prose text-text mt-0 mb-8 text-lg leading-relaxed font-normal -tracking-[0.01em]">
             {about[locale]}
           </h1>
         ) : (
-          <h1 className="not-prose text-lg font-normal text-text -tracking-[0.01em] mt-0 mb-8 leading-relaxed">
+          <h1 className="not-prose text-text mt-0 mb-8 text-lg leading-relaxed font-normal -tracking-[0.01em]">
             {t("Web Development Articles")} — {t("Page")} {page}
           </h1>
         )}
@@ -147,19 +147,19 @@ export const Home = ({ data, siteUrl, basePath = "" }: HomeProps) => {
           {posts.map((post) => (
             <article
               key={post.slug}
-              className="py-2.5 border-b border-border last:border-b-0"
+              className="border-border border-b py-2.5 last:border-b-0"
             >
               <h2 className="m-0 text-base font-medium">
                 <PrefetchLink
                   href={`/${post.slug}`}
-                  className="text-text-strong -tracking-[0.01em] no-underline hover:text-accent motion-safe:transition-colors motion-safe:duration-150"
+                  className="text-text-strong hover:text-accent -tracking-[0.01em] no-underline motion-safe:transition-colors motion-safe:duration-150"
                 >
                   {post.title}
                 </PrefetchLink>
               </h2>
               <time
                 dateTime={post.created}
-                className="block mt-0.5 text-xs text-text-muted tabular-nums"
+                className="text-text-muted mt-0.5 block text-xs tabular-nums"
               >
                 {formatDateShort(post.created)}
               </time>
@@ -170,7 +170,7 @@ export const Home = ({ data, siteUrl, basePath = "" }: HomeProps) => {
         {totalPages > 1 && (
           <nav
             aria-label={t("Pagination")}
-            className="not-prose flex items-center justify-between sm:justify-center gap-4 pt-6 text-sm"
+            className="not-prose flex items-center justify-between gap-4 pt-6 text-sm sm:justify-center"
           >
             {page > 1 && (
               <PrefetchLink
@@ -179,7 +179,7 @@ export const Home = ({ data, siteUrl, basePath = "" }: HomeProps) => {
                 }
                 rel="prev"
                 aria-label={t("Previous")}
-                className="inline-flex items-center justify-center size-11 sm:size-auto -ml-3 sm:ml-0 text-text-muted hover:text-accent motion-safe:transition-colors motion-safe:duration-150"
+                className="text-text-muted hover:text-accent -ml-3 inline-flex size-11 items-center justify-center motion-safe:transition-colors motion-safe:duration-150 sm:ml-0 sm:size-auto"
               >
                 <span aria-hidden="true">&#8592;</span>
               </PrefetchLink>
@@ -189,7 +189,7 @@ export const Home = ({ data, siteUrl, basePath = "" }: HomeProps) => {
                 return (
                   <span
                     key={item.key}
-                    className="hidden sm:inline text-text-muted"
+                    className="text-text-muted hidden sm:inline"
                   >
                     ...
                   </span>
@@ -200,7 +200,7 @@ export const Home = ({ data, siteUrl, basePath = "" }: HomeProps) => {
                   <span
                     key={item.key}
                     aria-current="page"
-                    className="hidden sm:inline text-text-strong font-medium"
+                    className="text-text-strong hidden font-medium sm:inline"
                   >
                     {item.page}
                   </span>
@@ -214,7 +214,7 @@ export const Home = ({ data, siteUrl, basePath = "" }: HomeProps) => {
                       ? navBase || "/"
                       : `${navBase}/page/${item.page}`
                   }
-                  className="hidden sm:inline text-text-muted hover:text-accent motion-safe:transition-colors motion-safe:duration-150"
+                  className="text-text-muted hover:text-accent hidden motion-safe:transition-colors motion-safe:duration-150 sm:inline"
                 >
                   {item.page}
                 </PrefetchLink>
@@ -225,7 +225,7 @@ export const Home = ({ data, siteUrl, basePath = "" }: HomeProps) => {
                 href={`${navBase}/page/${page + 1}`}
                 rel="next"
                 aria-label={t("Next")}
-                className="inline-flex items-center justify-center size-11 sm:size-auto ml-auto sm:ml-0 -mr-3 sm:mr-0 text-text-muted hover:text-accent motion-safe:transition-colors motion-safe:duration-150"
+                className="text-text-muted hover:text-accent -mr-3 ml-auto inline-flex size-11 items-center justify-center motion-safe:transition-colors motion-safe:duration-150 sm:mr-0 sm:ml-0 sm:size-auto"
               >
                 <span aria-hidden="true">&#8594;</span>
               </PrefetchLink>

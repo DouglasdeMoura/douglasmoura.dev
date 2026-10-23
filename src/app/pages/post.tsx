@@ -20,7 +20,7 @@ const LOCALE_NAMES: Record<string, string> = {
   "pt-BR": "Português",
 };
 
-const TWEET_PLACEHOLDER_RE = /<div data-tweet-id="(\d+)"><\/div>/gu;
+const TWEET_PLACEHOLDER_RE = /<div data-tweet-id="(?<id>\d+)"><\/div>/gu;
 
 const PostBody = ({
   html,
@@ -31,33 +31,33 @@ const PostBody = ({
 }) => {
   if (tweets.length === 0) {
     return (
-      /* oxlint-disable-next-line eslint-plugin-react(no-danger) -- safe: rendering our own markdown, not user input */
+      /* oxlint-disable-next-line react/no-danger -- safe: rendering our own markdown, not user input */
       <div dangerouslySetInnerHTML={{ __html: html }} />
     );
   }
 
   const segments = html.split(TWEET_PLACEHOLDER_RE);
-  let tweetIndex = 0;
 
   return (
     <>
       {segments.map((segment, i) => {
         if (i % 2 === 1) {
-          const idx = tweetIndex;
-          tweetIndex += 1;
-          return <TweetEmbed key={`tweet-${segment}`} tweet={tweets[idx]} />;
+          const tweetIndex = (i - 1) / 2;
+          return (
+            <TweetEmbed key={`tweet-${segment}`} tweet={tweets[tweetIndex]} />
+          );
         }
         if (!segment) {
           return null;
         }
-        /* oxlint-disable eslint-plugin-react(no-danger) -- safe: rendering our own markdown, not user input */
+        /* oxlint-disable react/no-danger -- safe: rendering our own markdown, not user input */
         return (
           <div
             key={`segment-${segment.slice(0, 32)}`}
             dangerouslySetInnerHTML={{ __html: segment }}
           />
         );
-        /* oxlint-enable eslint-plugin-react(no-danger) */
+        /* oxlint-enable react/no-danger */
       })}
     </>
   );
@@ -99,10 +99,10 @@ export const Post = ({
           items={[{ href: "/", label: t("Home") }, { label: post.title }]}
         />
         <header className="not-prose mb-10">
-          <h1 className="text-4xl font-bold tracking-tight text-text-strong leading-[1.15]">
+          <h1 className="text-text-strong text-4xl leading-[1.15] font-bold tracking-tight">
             <BalancedText>{post.title}</BalancedText>
           </h1>
-          <p className="mt-3 text-sm text-text-muted tracking-wide">
+          <p className="text-text-muted mt-3 text-sm tracking-wide">
             <time dateTime={post.created} itemProp="datePublished">
               {t("Published on")} {formatDate(post.created)}
             </time>
@@ -114,7 +114,7 @@ export const Post = ({
               <time
                 dateTime={post.updated}
                 itemProp="dateModified"
-                className="mt-1 block text-sm text-text-muted tracking-wide"
+                className="text-text-muted mt-1 block text-sm tracking-wide"
               >
                 {t("Last updated on")} {formatDate(post.updated)}
               </time>
@@ -124,11 +124,11 @@ export const Post = ({
               href={`/${alternate.slug}`}
               lang={alternate.locale}
               hrefLang={alternate.locale}
-              className="mt-4 inline-flex items-center gap-1.5 text-sm text-text no-underline hover:text-text-strong motion-safe:transition-colors motion-safe:duration-150"
+              className="text-text hover:text-text-strong mt-4 inline-flex items-center gap-1.5 text-sm no-underline motion-safe:transition-colors motion-safe:duration-150"
             >
               <TranslateIcon size={16} />
               {t("Also available in")}{" "}
-              <span className="underline underline-offset-2 decoration-border hover:decoration-text-strong">
+              <span className="decoration-border hover:decoration-text-strong underline underline-offset-2">
                 {LOCALE_NAMES[alternate.locale]}
               </span>
             </a>
@@ -140,7 +140,7 @@ export const Post = ({
             alt={post.title}
             width={900}
             height={600}
-            className="not-prose mb-10 w-full aspect-3/2 rounded-xl border border-border bg-surface-1 object-cover"
+            className="not-prose border-border bg-surface-1 mb-10 aspect-3/2 w-full rounded-xl border object-cover"
           />
         )}
         <CodeCopy />
@@ -155,21 +155,21 @@ export const Post = ({
         {(adjacent.prev || adjacent.next) && (
           <nav
             aria-label={t("Pagination")}
-            className="not-prose border-t border-border pt-8 grid grid-cols-2 gap-4"
+            className="not-prose border-border grid grid-cols-2 gap-4 border-t pt-8"
           >
             {adjacent.prev ? (
               <PrefetchLink
                 href={`/${adjacent.prev.slug}`}
                 className="group flex flex-col gap-1 no-underline"
               >
-                <span className="flex items-center gap-1 text-xs tracking-wide text-text-muted uppercase">
+                <span className="text-text-muted flex items-center gap-1 text-xs tracking-wide uppercase">
                   <ArrowLeftIcon
                     size={14}
-                    className="motion-safe:transition-transform motion-safe:duration-150 group-hover:-translate-x-0.5"
+                    className="group-hover:-translate-x-0.5 motion-safe:transition-transform motion-safe:duration-150"
                   />
                   {t("Previous")}
                 </span>
-                <span className="text-sm font-medium text-text-muted group-hover:text-text-strong motion-safe:transition-colors motion-safe:duration-150">
+                <span className="text-text-muted group-hover:text-text-strong text-sm font-medium motion-safe:transition-colors motion-safe:duration-150">
                   {adjacent.prev.title}
                 </span>
               </PrefetchLink>
@@ -181,14 +181,14 @@ export const Post = ({
                 href={`/${adjacent.next.slug}`}
                 className="group flex flex-col items-end gap-1 text-right no-underline"
               >
-                <span className="flex items-center gap-1 text-xs tracking-wide text-text-muted uppercase">
+                <span className="text-text-muted flex items-center gap-1 text-xs tracking-wide uppercase">
                   {t("Next")}
                   <ArrowRightIcon
                     size={14}
-                    className="motion-safe:transition-transform motion-safe:duration-150 group-hover:translate-x-0.5"
+                    className="group-hover:translate-x-0.5 motion-safe:transition-transform motion-safe:duration-150"
                   />
                 </span>
-                <span className="text-sm font-medium text-text-muted group-hover:text-text-strong motion-safe:transition-colors motion-safe:duration-150">
+                <span className="text-text-muted group-hover:text-text-strong text-sm font-medium motion-safe:transition-colors motion-safe:duration-150">
                   {adjacent.next.title}
                 </span>
               </PrefetchLink>

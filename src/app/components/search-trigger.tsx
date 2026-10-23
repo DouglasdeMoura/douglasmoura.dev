@@ -59,7 +59,7 @@ export const SearchTrigger = ({
         type="button"
         onClick={handleOpen}
         aria-label={label}
-        className="group relative inline-flex items-center justify-center size-8 text-text-muted hover:text-text-strong active:scale-[0.97] motion-safe:transition-[color,transform] motion-safe:duration-150"
+        className="group text-text-muted hover:text-text-strong relative inline-flex size-8 items-center justify-center active:scale-[0.97] motion-safe:transition-[color,transform] motion-safe:duration-150"
       >
         <MagnifyingGlassIcon size={18} weight="bold" />
         <ShortcutHint label={label} keys={["CmdOrCtrl", "K"]} />

@@ -67,33 +67,33 @@ export const Privacy = ({ basePath = "" }: PrivacyProps) => {
         alternates={alternates}
       />
 
-      <section className="prose mx-auto py-10 px-4">
+      <section className="prose mx-auto px-4 py-10">
         <div className="not-prose">
-          <h1 className="text-4xl font-bold tracking-tight text-text-strong">
+          <h1 className="text-text-strong text-4xl font-bold tracking-tight">
             {t("Privacy Policy")}
           </h1>
 
-          <p className="mt-6 text-text leading-relaxed">{c.intro}</p>
+          <p className="text-text mt-6 leading-relaxed">{c.intro}</p>
 
-          <h2 className="mt-8 text-xl font-semibold text-text-strong">
+          <h2 className="text-text-strong mt-8 text-xl font-semibold">
             {c.analyticsTitle}
           </h2>
-          <p className="mt-3 text-text leading-relaxed">{c.analyticsBody}</p>
+          <p className="text-text mt-3 leading-relaxed">{c.analyticsBody}</p>
 
-          <h2 className="mt-8 text-xl font-semibold text-text-strong">
+          <h2 className="text-text-strong mt-8 text-xl font-semibold">
             {c.cookiesTitle}
           </h2>
-          <p className="mt-3 text-text leading-relaxed">{c.cookiesBody}</p>
+          <p className="text-text mt-3 leading-relaxed">{c.cookiesBody}</p>
 
-          <h2 className="mt-8 text-xl font-semibold text-text-strong">
+          <h2 className="text-text-strong mt-8 text-xl font-semibold">
             {c.thirdPartyTitle}
           </h2>
-          <p className="mt-3 text-text leading-relaxed">{c.thirdPartyBody}</p>
+          <p className="text-text mt-3 leading-relaxed">{c.thirdPartyBody}</p>
 
-          <h2 className="mt-8 text-xl font-semibold text-text-strong">
+          <h2 className="text-text-strong mt-8 text-xl font-semibold">
             {c.contactTitle}
           </h2>
-          <p className="mt-3 text-text leading-relaxed">
+          <p className="text-text mt-3 leading-relaxed">
             {c.contactBody}{" "}
             <a
               href="mailto:douglas.ademoura@gmail.com"

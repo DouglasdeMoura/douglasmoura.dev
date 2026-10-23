@@ -89,12 +89,12 @@ const SearchResults = ({
         key={result.slug}
         value={`/${result.slug}`}
         onSelect={onSelect}
-        className="group relative flex cursor-default flex-col gap-0.5 rounded-lg px-3 py-2.5 text-sm outline-none select-none data-[selected=true]:bg-surface-2"
+        className="group data-[selected=true]:bg-surface-2 relative flex cursor-default flex-col gap-0.5 rounded-lg px-3 py-2.5 text-sm outline-none select-none"
       >
-        <span className="font-medium text-text-strong group-data-[selected=true]:text-accent">
+        <span className="text-text-strong group-data-[selected=true]:text-accent font-medium">
           {result.title}
         </span>
-        <span className="text-xs text-text-muted line-clamp-1">
+        <span className="text-text-muted line-clamp-1 text-xs">
           {formatDateShortLocale(locale, result.created)}
           {result.tags.length > 0 && <> &middot; {result.tags.join(", ")}</>}
         </span>
@@ -107,8 +107,8 @@ const SearchResultsSkeleton = () => (
   <div className="p-1">
     {Array.from({ length: 4 }, (_, i) => (
       <div key={i} className="flex flex-col gap-1.5 rounded-lg px-3 py-2.5">
-        <div className="h-3.5 w-3/4 animate-pulse rounded-md bg-surface-2" />
-        <div className="h-2.5 w-1/2 animate-pulse rounded-md bg-surface-2" />
+        <div className="bg-surface-2 h-3.5 w-3/4 animate-pulse rounded-md" />
+        <div className="bg-surface-2 h-2.5 w-1/2 animate-pulse rounded-md" />
       </div>
     ))}
   </div>
@@ -208,7 +208,7 @@ const CommandListContent = ({
       {isPending && results.length === 0 && <SearchResultsSkeleton />}
 
       {debouncedQuery && !isPending && results.length === 0 && (
-        <Command.Empty className="py-6 text-center text-sm text-text-muted">
+        <Command.Empty className="text-text-muted py-6 text-center text-sm">
           {emptyText}
         </Command.Empty>
       )}
@@ -245,6 +245,13 @@ export const CommandMenu = ({
   navItems = EMPTY_NAV_ITEMS,
 }: CommandMenuProps) => {
   const [query, setQuery] = useState("");
+  const [trackedOpen, setTrackedOpen] = useState(open);
+  if (open !== trackedOpen) {
+    setTrackedOpen(open);
+    if (!open) {
+      setQuery("");
+    }
+  }
   const trimmed = query.trim();
   const debouncedQuery = useDebouncedValue(trimmed, 200);
 
@@ -263,12 +270,6 @@ export const CommandMenu = ({
   const results = data?.results ?? [];
   const isDebouncing = trimmed !== debouncedQuery;
   const isPending = !!trimmed && (isDebouncing || isLoading);
-
-  useEffect(() => {
-    if (!open) {
-      setQuery("");
-    }
-  }, [open]);
 
   const handleNavigate = useCallback(
     (href: string) => {
@@ -307,23 +308,23 @@ export const CommandMenu = ({
         role="presentation"
       />
 
-      <div className="fixed inset-0 top-[20%] flex justify-center px-4 pointer-events-none">
-        <div className="cmdk-dialog w-full max-w-lg pointer-events-auto">
+      <div className="pointer-events-none fixed inset-0 top-[20%] flex justify-center px-4">
+        <div className="cmdk-dialog pointer-events-auto w-full max-w-lg">
           <Command
             label="Command palette"
             shouldFilter={false}
-            className="rounded-xl border border-border bg-surface-0 shadow-2xl ring-1 ring-black/5 overflow-hidden"
+            className="border-border bg-surface-0 overflow-hidden rounded-xl border shadow-2xl ring-1 ring-black/5"
           >
-            <div className="flex items-center border-b border-border px-3">
+            <div className="border-border flex items-center border-b px-3">
               {showSpinner ? (
                 <Spinner
                   size={16}
-                  className="mr-2 shrink-0 text-text-muted animate-spin"
+                  className="text-text-muted mr-2 shrink-0 animate-spin"
                 />
               ) : (
                 <MagnifyingGlassIcon
                   size={16}
-                  className="mr-2 shrink-0 text-text-muted"
+                  className="text-text-muted mr-2 shrink-0"
                 />
               )}
               <Command.Input
@@ -331,18 +332,18 @@ export const CommandMenu = ({
                 value={query}
                 onValueChange={setQuery}
                 placeholder={placeholder}
-                className="flex h-12 w-full bg-transparent py-3 text-sm text-text outline-none ring-0 border-none shadow-none placeholder:text-text-muted"
+                className="text-text placeholder:text-text-muted flex h-12 w-full border-none bg-transparent py-3 text-sm shadow-none ring-0 outline-none"
               />
               <button
                 type="button"
                 onClick={handleClose}
-                className="ml-2 hidden sm:inline-flex text-xs text-text-muted hover:text-text-strong active:scale-[0.97] motion-safe:transition-[color,transform] motion-safe:duration-150"
+                className="text-text-muted hover:text-text-strong ml-2 hidden text-xs active:scale-[0.97] motion-safe:transition-[color,transform] motion-safe:duration-150 sm:inline-flex"
               >
                 <Kbd keys={["Esc"]} />
               </button>
             </div>
 
-            <Command.List className="max-h-96 overflow-y-auto overflow-x-hidden p-1">
+            <Command.List className="max-h-96 overflow-x-hidden overflow-y-auto p-1">
               <CommandListContent
                 trimmed={trimmed}
                 debouncedQuery={debouncedQuery}
@@ -357,7 +358,7 @@ export const CommandMenu = ({
               />
             </Command.List>
 
-            <div className="hidden sm:flex items-center gap-3 border-t border-border px-3 py-2 text-[11px] text-text-muted">
+            <div className="border-border text-text-muted hidden items-center gap-3 border-t px-3 py-2 text-[11px] sm:flex">
               <span className="inline-flex items-center gap-1">
                 <Kbd keys={["↑↓"]} /> {commandMenuLabels.navigate}
               </span>

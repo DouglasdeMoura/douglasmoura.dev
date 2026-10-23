@@ -79,7 +79,7 @@ export const LocaleSwitch = ({
         aria-expanded={open}
         aria-haspopup="true"
         aria-label={label}
-        className="inline-flex items-center justify-center size-8 rounded-full text-text-muted hover:text-text-strong hover:bg-surface-2 motion-safe:transition-[background-color,color] motion-safe:duration-150"
+        className="text-text-muted hover:text-text-strong hover:bg-surface-2 inline-flex size-8 items-center justify-center rounded-full motion-safe:transition-[background-color,color] motion-safe:duration-150"
       >
         <TranslateIcon size={18} />
       </button>
@@ -87,7 +87,7 @@ export const LocaleSwitch = ({
       {open && (
         <div
           role="menu"
-          className="absolute bottom-full mb-2 left-0 sm:left-auto sm:right-0 min-w-max rounded-lg border border-border bg-surface-0 py-1 shadow-lg"
+          className="border-border bg-surface-0 absolute bottom-full left-0 mb-2 min-w-max rounded-lg border py-1 shadow-lg sm:right-0 sm:left-auto"
         >
           {locales.map((loc) => {
             const isActive = loc === currentLocale;
@@ -111,7 +111,7 @@ export const LocaleSwitch = ({
               </a>
             );
           })}
-          <div className="border-t border-border mt-1 pt-1 px-3 py-1 flex items-center justify-between gap-4 text-xs text-text-muted/60 whitespace-nowrap">
+          <div className="border-border text-text-muted/60 mt-1 flex items-center justify-between gap-4 border-t px-3 py-1 pt-1 text-xs whitespace-nowrap">
             <span>{label}</span>
             <Kbd keys={["Alt", "L"]} className="hidden md:inline-flex" />
           </div>

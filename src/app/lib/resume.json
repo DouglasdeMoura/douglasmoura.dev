@@ -279,13 +279,7 @@
     },
     {
       "name": "Testing",
-      "keywords": [
-        "Cypress",
-        "Jest",
-        "Playwright",
-        "TDD",
-        "Vitest"
-      ]
+      "keywords": ["Cypress", "Jest", "Playwright", "TDD", "Vitest"]
     },
     {
       "name": "Data",

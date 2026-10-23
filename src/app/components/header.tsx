@@ -20,11 +20,11 @@ export const Header = ({ locale, alternates, pathname }: HeaderProps) => {
   const prefix = localePathPrefix(locale);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-border bg-surface-0/80 backdrop-blur-lg">
-      <div className="flex items-center justify-between px-4 py-3 max-w-prose mx-auto">
+    <header className="border-border bg-surface-0/80 sticky top-0 z-40 border-b backdrop-blur-lg">
+      <div className="mx-auto flex max-w-prose items-center justify-between px-4 py-3">
         <a
           href={prefix || "/"}
-          className="flex items-center gap-1 text-text-strong no-underline motion-safe:transition-colors motion-safe:duration-150"
+          className="text-text-strong flex items-center gap-1 no-underline motion-safe:transition-colors motion-safe:duration-150"
         >
           <span className="text-base font-semibold tracking-tight">
             Douglas
@@ -36,13 +36,13 @@ export const Header = ({ locale, alternates, pathname }: HeaderProps) => {
         <nav className="flex items-center gap-1 sm:gap-2">
           <a
             href={`${prefix}/about`}
-            className="hidden sm:inline-flex items-center justify-center h-8 px-3 rounded-md text-sm text-text-muted hover:text-text-strong hover:bg-surface-2 active:scale-[0.97] motion-safe:transition-[color,background-color,transform] motion-safe:duration-150"
+            className="text-text-muted hover:text-text-strong hover:bg-surface-2 hidden h-8 items-center justify-center rounded-md px-3 text-sm active:scale-[0.97] motion-safe:transition-[color,background-color,transform] motion-safe:duration-150 sm:inline-flex"
           >
             {t("About")}
           </a>
           <a
             href={`${prefix}/talks`}
-            className="hidden sm:inline-flex items-center justify-center h-8 px-3 rounded-md text-sm text-text-muted hover:text-text-strong hover:bg-surface-2 active:scale-[0.97] motion-safe:transition-[color,background-color,transform] motion-safe:duration-150"
+            className="text-text-muted hover:text-text-strong hover:bg-surface-2 hidden h-8 items-center justify-center rounded-md px-3 text-sm active:scale-[0.97] motion-safe:transition-[color,background-color,transform] motion-safe:duration-150 sm:inline-flex"
           >
             {t("Talks")}
           </a>

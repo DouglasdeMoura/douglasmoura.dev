@@ -13,7 +13,7 @@ export const TagLink = ({ tag }: TagLinkProps) => {
   return (
     <a
       href={`${prefix}/tag/${slugifyTag(tag)}`}
-      className="inline-block lowercase text-xs tracking-[0.04em] text-text-muted bg-surface-1 py-1 px-2.5 rounded-md no-underline hover:bg-surface-2 hover:text-text-strong active:scale-[0.97] motion-safe:transition-[color,background-color,transform] motion-safe:duration-150"
+      className="text-text-muted bg-surface-1 hover:bg-surface-2 hover:text-text-strong inline-block rounded-md px-2.5 py-1 text-xs tracking-[0.04em] lowercase no-underline active:scale-[0.97] motion-safe:transition-[color,background-color,transform] motion-safe:duration-150"
     >
       {tag}
     </a>

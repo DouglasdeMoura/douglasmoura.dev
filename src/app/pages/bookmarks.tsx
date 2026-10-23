@@ -30,12 +30,12 @@ export const Bookmarks = ({ basePath = "" }: BookmarksProps) => {
         alternates={alternates}
       />
 
-      <section className="prose mx-auto py-10 px-4">
+      <section className="prose mx-auto px-4 py-10">
         <div className="not-prose">
-          <h1 className="text-4xl font-bold tracking-tight text-text-strong">
+          <h1 className="text-text-strong text-4xl font-bold tracking-tight">
             {t("Bookmarks")}
           </h1>
-          <p className="mt-4 text-text-muted">{t("Coming soon.")}</p>
+          <p className="text-text-muted mt-4">{t("Coming soon.")}</p>
         </div>
       </section>
     </>

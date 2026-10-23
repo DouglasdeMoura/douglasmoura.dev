@@ -5,7 +5,7 @@ import { Moon as MoonIcon } from "@phosphor-icons/react/dist/csr/Moon";
 import { Sun as SunIcon } from "@phosphor-icons/react/dist/csr/Sun";
 import { useCallback, useEffect, useState } from "react";
 
-import { setTheme } from "#app/lib/theme-action.js";
+import { setTheme as persistTheme } from "#app/lib/theme-action.js";
 
 type Theme = "light" | "dark" | "system";
 
@@ -58,11 +58,12 @@ const ThemeButton = ({
 }) => (
   <button
     type="button"
+    /* oxlint-disable-next-line jsx-a11y/prefer-tag-over-role -- icon buttons in a radiogroup, not a form control */
     role="radio"
     aria-checked={isActive}
     aria-label={THEME_LABELS[theme]}
     onClick={onClick}
-    className={`inline-flex items-center justify-center size-8 rounded-full motion-safe:transition-[background-color,color] motion-safe:duration-150 ${
+    className={`inline-flex size-8 items-center justify-center rounded-full motion-safe:transition-[background-color,color] motion-safe:duration-150 ${
       isActive
         ? "bg-surface-2 text-text-strong"
         : "text-text-muted hover:text-text-strong hover:bg-surface-2"
@@ -78,7 +79,7 @@ interface ThemeToggleProps {
 }
 
 export const ThemeToggle = ({ initialTheme, label }: ThemeToggleProps) => {
-  const [theme, setThemeState] = useState<Theme>(initialTheme);
+  const [theme, setTheme] = useState<Theme>(initialTheme);
 
   useEffect(() => {
     applyTheme(theme);
@@ -94,8 +95,8 @@ export const ThemeToggle = ({ initialTheme, label }: ThemeToggleProps) => {
   }, [theme]);
 
   const selectTheme = useCallback((next: Theme) => {
-    setThemeState(next);
     setTheme(next);
+    persistTheme(next);
   }, []);
 
   const cycle = useCallback(() => {
@@ -151,7 +152,7 @@ export const ThemeToggle = ({ initialTheme, label }: ThemeToggleProps) => {
     <div
       role="radiogroup"
       aria-label={label}
-      className="inline-flex items-center gap-1 rounded-full border border-border bg-surface-1 p-1"
+      className="border-border bg-surface-1 inline-flex items-center gap-1 rounded-full border p-1"
     >
       {CYCLE_ORDER.map((t) => (
         <ThemeButton

@@ -104,38 +104,38 @@ export const Talks = ({ basePath = "" }: TalksProps) => {
       />
       <script
         type="application/ld+json"
-        /* oxlint-disable-next-line eslint-plugin-react(no-danger) -- safe: serializing our own structured data */
+        /* oxlint-disable-next-line react/no-danger -- safe: serializing our own structured data */
         dangerouslySetInnerHTML={{ __html: JSON.stringify(eventJsonLd) }}
       />
 
-      <section className="prose mx-auto py-10 px-4">
+      <section className="prose mx-auto px-4 py-10">
         <div className="not-prose">
-          <h1 className="text-4xl font-bold tracking-tight text-text-strong">
+          <h1 className="text-text-strong text-4xl font-bold tracking-tight">
             {t("Talks")}
           </h1>
 
           {years.map((year) => (
             <div key={year} className="mt-10 first:mt-8">
-              <h2 className="text-xl font-semibold text-text-strong">{year}</h2>
+              <h2 className="text-text-strong text-xl font-semibold">{year}</h2>
 
-              <div className="relative mt-4 ml-3 border-l-2 border-border pl-6">
+              <div className="border-border relative mt-4 ml-3 border-l-2 pl-6">
                 {grouped.get(year)?.map((talk, i, arr) => (
                   <div
                     key={`${talk.startDate}-${talk.entity}`}
                     className={`relative ${i < arr.length - 1 ? "pb-8" : ""}`}
                   >
                     {/* Timeline dot — offset accounts for pl-6 + border-l-2/2 + dot/2 */}
-                    <div className="absolute -left-[calc(1.5rem+6px)] top-[5px] size-2.5 rounded-full bg-accent ring-[3px] ring-surface-0" />
+                    <div className="bg-accent ring-surface-0 absolute top-[5px] -left-[calc(1.5rem+6px)] size-2.5 rounded-full ring-[3px]" />
 
-                    <h3 className="text-base font-medium text-text-strong leading-snug">
+                    <h3 className="text-text-strong text-base leading-snug font-medium">
                       {talk.name}
                     </h3>
-                    <p className="mt-1 text-sm text-text-muted">
+                    <p className="text-text-muted mt-1 text-sm">
                       {talk.entity}
                     </p>
                     <time
                       dateTime={talk.startDate}
-                      className="mt-0.5 block text-sm text-text-muted tracking-wide"
+                      className="text-text-muted mt-0.5 block text-sm tracking-wide"
                     >
                       {formatDate(talk.startDate)}
                     </time>
@@ -147,7 +147,7 @@ export const Talks = ({ basePath = "" }: TalksProps) => {
                             href={talk.slides}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="inline-flex items-center gap-1.5 text-xs tracking-[0.04em] text-text-muted bg-surface-1 py-1 px-2.5 rounded-full no-underline hover:bg-surface-2 hover:text-text-strong active:scale-[0.97] motion-safe:transition-[color,background-color,transform] motion-safe:duration-150"
+                            className="text-text-muted bg-surface-1 hover:bg-surface-2 hover:text-text-strong inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs tracking-[0.04em] no-underline active:scale-[0.97] motion-safe:transition-[color,background-color,transform] motion-safe:duration-150"
                           >
                             <SlidesIcon size={13} />
                             {t("Slides")}
@@ -158,7 +158,7 @@ export const Talks = ({ basePath = "" }: TalksProps) => {
                             href={talk.recording}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="inline-flex items-center gap-1.5 text-xs tracking-[0.04em] text-text-muted bg-surface-1 py-1 px-2.5 rounded-full no-underline hover:bg-surface-2 hover:text-text-strong active:scale-[0.97] motion-safe:transition-[color,background-color,transform] motion-safe:duration-150"
+                            className="text-text-muted bg-surface-1 hover:bg-surface-2 hover:text-text-strong inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs tracking-[0.04em] no-underline active:scale-[0.97] motion-safe:transition-[color,background-color,transform] motion-safe:duration-150"
                           >
                             <VideoIcon size={13} />
                             {t("Recording")}
@@ -169,7 +169,7 @@ export const Talks = ({ basePath = "" }: TalksProps) => {
                             href={talk.url}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="inline-flex items-center gap-1.5 text-xs tracking-[0.04em] text-text-muted bg-surface-1 py-1 px-2.5 rounded-full no-underline hover:bg-surface-2 hover:text-text-strong active:scale-[0.97] motion-safe:transition-[color,background-color,transform] motion-safe:duration-150"
+                            className="text-text-muted bg-surface-1 hover:bg-surface-2 hover:text-text-strong inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs tracking-[0.04em] no-underline active:scale-[0.97] motion-safe:transition-[color,background-color,transform] motion-safe:duration-150"
                           >
                             <LinkIcon size={13} />
                             {t("Event")}

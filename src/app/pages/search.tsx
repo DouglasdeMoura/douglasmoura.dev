@@ -46,15 +46,15 @@ export const SearchPage = ({
         <header className="not-prose mb-8 px-4">
           {query ? (
             <>
-              <h1 className="text-2xl font-bold tracking-tight text-text-strong">
+              <h1 className="text-text-strong text-2xl font-bold tracking-tight">
                 {t("Search results for")} &ldquo;{query}&rdquo;
               </h1>
-              <p className="mt-2 text-sm text-text-muted">
+              <p className="text-text-muted mt-2 text-sm">
                 {count} {count === 1 ? t("result") : t("results")}
               </p>
             </>
           ) : (
-            <h1 className="text-2xl font-bold tracking-tight text-text-strong">
+            <h1 className="text-text-strong text-2xl font-bold tracking-tight">
               {t("Search")}
             </h1>
           )}
@@ -65,34 +65,34 @@ export const SearchPage = ({
               type="search"
               defaultValue={query}
               placeholder={t("Enter a search term")}
-              className="w-full rounded-lg border border-border bg-surface-0 px-4 py-2 text-sm text-text outline-none ring-0 placeholder:text-text-muted focus:border-accent"
+              className="border-border bg-surface-0 text-text placeholder:text-text-muted focus:border-accent w-full rounded-lg border px-4 py-2 text-sm ring-0 outline-none"
             />
           </form>
         </header>
 
         {query && results.length === 0 && (
-          <p className="px-4 text-text-muted">{t("No results found")}</p>
+          <p className="text-text-muted px-4">{t("No results found")}</p>
         )}
 
         {results.length > 0 && (
-          <div className="not-prose divide-y divide-border">
+          <div className="not-prose divide-border divide-y">
             {results.map((post) => (
-              <article key={post.slug} className="py-5 px-4 first:pt-0">
+              <article key={post.slug} className="px-4 py-5 first:pt-0">
                 <h2 className="mt-0 text-xl">
                   <PrefetchLink
                     href={`/${post.slug}`}
-                    className="text-text-strong font-semibold -tracking-[0.01em] no-underline hover:text-accent motion-safe:transition-colors motion-safe:duration-150"
+                    className="text-text-strong hover:text-accent font-semibold -tracking-[0.01em] no-underline motion-safe:transition-colors motion-safe:duration-150"
                   >
                     {post.title}
                   </PrefetchLink>
                 </h2>
                 <time
                   dateTime={post.created}
-                  className="mt-1 block text-sm text-text-muted tracking-wide"
+                  className="text-text-muted mt-1 block text-sm tracking-wide"
                 >
                   {formatDate(post.created)}
                 </time>
-                <p className="mt-2 mb-0 text-text-muted leading-relaxed">
+                <p className="text-text-muted mt-2 mb-0 leading-relaxed">
                   {post.description}
                 </p>
                 {post.tags.length > 0 && (
@@ -108,7 +108,7 @@ export const SearchPage = ({
         )}
 
         {!query && (
-          <p className="px-4 text-text-muted">{t("Enter a search term")}</p>
+          <p className="text-text-muted px-4">{t("Enter a search term")}</p>
         )}
       </section>
     </>
