@@ -1,26 +1,11 @@
-import { createHighlighterCore } from "@shikijs/core";
-import { createJavaScriptRegexEngine } from "@shikijs/engine-javascript";
-import bash from "@shikijs/langs/bash";
-import css from "@shikijs/langs/css";
-import diff from "@shikijs/langs/diff";
-import dockerfile from "@shikijs/langs/dockerfile";
-import go from "@shikijs/langs/go";
-import graphql from "@shikijs/langs/graphql";
-import html from "@shikijs/langs/html";
-import javascript from "@shikijs/langs/javascript";
-import json from "@shikijs/langs/json";
-import jsx from "@shikijs/langs/jsx";
-import markdown from "@shikijs/langs/markdown";
-import powershell from "@shikijs/langs/powershell";
-import python from "@shikijs/langs/python";
-import rust from "@shikijs/langs/rust";
-import sql from "@shikijs/langs/sql";
-import toml from "@shikijs/langs/toml";
-import tsx from "@shikijs/langs/tsx";
-import typescript from "@shikijs/langs/typescript";
-import yaml from "@shikijs/langs/yaml";
-import vitesseDark from "@shikijs/themes/vitesse-dark";
-import vitesseLight from "@shikijs/themes/vitesse-light";
+import {
+  codeToHtml,
+  codeToTokens,
+  isSupportedLanguage,
+} from "@pierre/highlights";
+import type { Lang } from "@pierre/highlights";
+import vitesseDark from "@pierre/highlights/themes/vitesse-dark";
+import vitesseLight from "@pierre/highlights/themes/vitesse-light";
 import { init, renderToHtml } from "md4x/wasm";
 
 import { renderFootnotes } from "#app/lib/footnotes.js";
@@ -76,41 +61,84 @@ const ensureInit = (): Promise<void> => {
   return ready;
 };
 
-let highlighterPromise: ReturnType<typeof createHighlighterCore> | undefined;
+const textDecoder = new TextDecoder();
 
-const getHighlighter = () => {
-  if (!highlighterPromise) {
-    highlighterPromise = createHighlighterCore({
-      engine: createJavaScriptRegexEngine(),
-      langs: [
-        bash,
-        css,
-        diff,
-        dockerfile,
-        go,
-        graphql,
-        html,
-        javascript,
-        json,
-        jsx,
-        markdown,
-        python,
-        rust,
-        sql,
-        toml,
-        tsx,
-        typescript,
-        yaml,
-        powershell,
-      ],
-      themes: [vitesseLight, vitesseDark],
-    });
+const HIGHLIGHT_THEMES = {
+  dark: vitesseDark,
+  light: vitesseLight,
+};
+
+const escapeHtml = (value: string): string =>
+  value
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;");
+
+const tokenStyle = (htmlStyle: Record<string, string> | undefined): string => {
+  if (!htmlStyle) {
+    return "";
   }
-  return highlighterPromise;
+
+  const declarations = Object.entries(htmlStyle)
+    .map(([property, color]) => `${property}:${color}`)
+    .join(";");
+
+  return declarations ? ` style="${declarations}"` : "";
+};
+
+const languageFor = (lang: string): Lang =>
+  isSupportedLanguage(lang) ? lang : "plain";
+
+const highlightLines = (
+  code: string,
+  lang: Lang,
+  highlights: readonly number[]
+): string => {
+  const { rootStyle, tokens } = codeToTokens(code, {
+    defaultColor: false,
+    lang,
+    themes: HIGHLIGHT_THEMES,
+  });
+  const highlighted = new Set(highlights);
+  const lines = tokens.map((line, index) => {
+    const className = highlighted.has(index + 1)
+      ? "line highlighted-line"
+      : "line";
+    const content = line
+      .map(
+        (token) =>
+          `<span${tokenStyle(token.htmlStyle)}>${escapeHtml(token.content)}</span>`
+      )
+      .join("");
+    return `<span class="${className}">${content}</span>`;
+  });
+  const style = rootStyle ? ` style="${rootStyle}"` : "";
+  return `<pre class="highlights"${style}><code>${lines.join("\n")}</code></pre>`;
+};
+
+const highlightCode = (
+  code: string,
+  lang: string,
+  highlights: readonly number[] | undefined
+): string => {
+  const resolved = languageFor(lang);
+
+  if (highlights?.length) {
+    return highlightLines(code, resolved, highlights);
+  }
+
+  // Decode before the next highlight call. The bytes can share Wasm memory.
+  return textDecoder.decode(
+    codeToHtml(code, {
+      defaultColor: false,
+      lang: resolved,
+      themes: HIGHLIGHT_THEMES,
+    })
+  );
 };
 
 const TWEET_BLOCK_RE =
-  /<blockquote class="twitter-tweet"[\s\S]*?<a href="https?:\/\/(?:twitter\.com|x\.com)\/\w+\/status\/(\d+)"[\s\S]*?<\/blockquote>\s*(?:<script[^>]*platform\.twitter\.com\/widgets\.js[^>]*><\/script>)?/gu;
+  /<blockquote class="twitter-tweet"[\s\S]*?<a href="https?:\/\/(?:twitter\.com|x\.com)\/\w+\/status\/(?<id>\d+)"[\s\S]*?<\/blockquote>\s*(?:<script[^>]*platform\.twitter\.com\/widgets\.js[^>]*><\/script>)?/gu;
 
 const extractTweets = (
   markup: string
@@ -123,7 +151,7 @@ const extractTweets = (
   return { html: replaced, tweetIds };
 };
 
-const EXTERNAL_LINK_RE = /<a\s+href="(https?:\/\/[^"]+)"/gu;
+const EXTERNAL_LINK_RE = /<a\s+href="(?<href>https?:\/\/[^"]+)"/gu;
 
 const addExternalLinkAttrs = (markup: string): string =>
   markup.replaceAll(EXTERNAL_LINK_RE, (match, href: string) => {
@@ -136,7 +164,7 @@ const addExternalLinkAttrs = (markup: string): string =>
 export const renderMarkdown = async (
   md: string
 ): Promise<{ hasMath: boolean; html: string; tweetIds: string[] }> => {
-  const [, shiki] = await Promise.all([ensureInit(), getHighlighter()]);
+  await ensureInit();
 
   const raw = renderToHtml(md, {
     highlighter: (code, block) => {
@@ -144,27 +172,7 @@ export const renderMarkdown = async (
         return;
       }
 
-      const lines = code.split("\n");
-      const decorations =
-        block.highlights?.map((lineNum) => {
-          const lineIndex = lineNum - 1;
-          const lineLength = lines[lineIndex]?.length ?? 0;
-          return {
-            end: { character: lineLength, line: lineIndex },
-            properties: { class: "highlighted-line" },
-            start: { character: 0, line: lineIndex },
-          };
-        }) ?? [];
-
-      let highlighted = shiki.codeToHtml(code, {
-        decorations,
-        defaultColor: false,
-        lang: block.lang,
-        themes: {
-          dark: "vitesse-dark",
-          light: "vitesse-light",
-        },
-      });
+      let highlighted = highlightCode(code, block.lang, block.highlights);
 
       if (block.filename) {
         const icon = fileIcon(block.lang);
