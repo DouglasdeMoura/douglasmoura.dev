@@ -31,7 +31,7 @@
     "@orama/orama": "^3.1.18",
     "@orama/stemmers": "^3.1.18",
     "@phosphor-icons/react": "^2.1.10",
-    "@pierre/highlights": "^0.5.1",
+    "@pierre/highlights": "^0.5.2",
     "@tailwindcss/typography": "^0.5.20",
     "@tailwindcss/vite": "^4.3.5",
     "cmdk": "^1.1.1",
@@ -51,8 +51,8 @@
     "workers-og": "^0.0.27"
   },
   "devDependencies": {
-    "@cloudflare/vite-plugin": "1.69.1",
-    "@cloudflare/workers-types": "5.20261115.1",
+    "@cloudflare/vite-plugin": "1.70.1",
+    "@cloudflare/workers-types": "5.20261121.1",
     "@react-pdf/renderer": "^4.9.0",
     "@sindresorhus/slugify": "^3.0.1",
     "@types/katex": "^0.16.8",
@@ -63,13 +63,13 @@
     "colorette": "^2.0.20",
     "consola": "^3.4.2",
     "lefthook": "^2.2.2",
-    "oxfmt": "^0.78.0",
-    "oxlint": "^1.93.0",
+    "oxfmt": "^0.79.0",
+    "oxlint": "^1.94.0",
     "tsx": "^4.23.15",
     "typescript": "5.9.3",
-    "ultracite": "8.2.1",
+    "ultracite": "8.3.1",
     "vite": "8.3.8",
-    "wrangler": "4.162.0"
+    "wrangler": "4.166.0"
   },
   "pnpm": {
     "overrides": {
